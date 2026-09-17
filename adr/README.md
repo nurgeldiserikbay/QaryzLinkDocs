@@ -17,3 +17,4 @@ ADR маңызды және кейін өзгеруі қымбат шешімд�
 - [ADR-0001: Multi-repository architecture](ADR-0001-multi-repository.md)
 - [ADR-0002: Modular monolith backend](ADR-0002-modular-monolith.md)
 - [ADR-0003: Signing and funding are separate](ADR-0003-signing-vs-funding.md)
+- [ADR-0004: Kazakhstan private MVP defaults](ADR-0004-kz-private-mvp-defaults.md)
