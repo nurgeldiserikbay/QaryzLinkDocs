@@ -1,0 +1,19 @@
+# Architecture Decision Records
+
+ADR маңызды және кейін өзгеруі қымбат шешімдерді тіркейді.
+
+## Формат
+
+- Context;
+- Decision;
+- Alternatives;
+- Consequences;
+- Status;
+- Date;
+- Owners.
+
+## Index
+
+- [ADR-0001: Multi-repository architecture](ADR-0001-multi-repository.md)
+- [ADR-0002: Modular monolith backend](ADR-0002-modular-monolith.md)
+- [ADR-0003: Signing and funding are separate](ADR-0003-signing-vs-funding.md)
