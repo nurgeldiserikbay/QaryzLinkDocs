@@ -2,86 +2,46 @@
 
 ## 1. Мақсат
 
-Бұл құжат schedule, interest, balance, early repayment және overdue есептерінің canonical моделін анықтайды. Қазақстанға арналған нақты шектер CountryPack және заңгерлік review арқылы бекітіледі.
+Бұл құжат schedule, interest, balance, early repayment және overdue есептерінің canonical моделін анықтайды. MVP defaults [ADR-0004](../../adr/ADR-0004-kz-private-mvp-defaults.md) арқылы бекітілді; заңдық шектер CountryPack арқылы кейін нұсқаланады.
 
 ## 2. Money
 
 - amount integer minor unit түрінде;
 - KZT үшін 1 теңге = 100 тиын;
 - floating point қолданылмайды;
-- әр операция currency-мен бірге;
-- rounding mode policy version-да сақталады;
-- UI rounded total мен detailed calculation-ды көрсетеді.
+- rounding mode: `HALF_UP`;
+- әр операция currency және calculation policy version-мен бірге сақталады;
+- соңғы installment жинақталған rounding difference-ті жабады.
 
-## 3. CalculationPolicy
+## 3. MVP CalculationPolicy
 
-~~~mermaid
-flowchart TD
-    P["Principal"] --> C["Calculation Policy"]
-    R["Rate"] --> C
-    T["Dates / term"] --> C
-    S["Schedule type"] --> C
-    D["Day-count basis"] --> C
-    C --> I["Installments"]
-    C --> B["Balance projection"]
-    C --> X["Explanation breakdown"]
-~~~
+| Параметр | MVP мәні |
+|---|---|
+| Methods | `INTEREST_FREE`, `SIMPLE` |
+| Day count | `ACT_365_FIXED` |
+| Accrual start | `FundingConfirmed.effectiveAt` |
+| Funding | Бір tranche |
+| Due-date adjustment | `NONE` |
+| Rounding | `HALF_UP` |
+| Late charge | `DISABLED` / 0 |
+| Early repayment | `REDUCE_TERM` default |
+| Allocation | allowed charge → interest → principal → credit |
 
-Policy параметрлері:
-
-- method: INTEREST_FREE / SIMPLE / ANNUITY / EQUAL_PRINCIPAL / CUSTOM;
-- annual rate;
-- day-count convention;
-- accrual start;
-- payment frequency;
-- due-date adjustment;
-- rounding mode;
-- payment allocation order;
-- early repayment behavior;
-- grace period;
-- late charge rule;
-- country rule version.
+Annuity, equal-principal, custom schedule және multi-tranche модельдері schema/domain extension ретінде сақталады, бірақ MVP production flow-ына кірмейді.
 
 ## 4. Interest-free
 
-әр installment principal бөлігін ғана қамтиды:
+`total interest = 0`
 
-total interest = 0  
-outstanding principal = confirmed funded principal − confirmed principal allocations
+`outstanding principal = confirmed funded principal − confirmed principal allocations`
 
 ## 5. Simple interest
 
-Базалық формула:
+`interest = outstanding principal × annual rate × actual accrual days / 365`
 
-interest = outstanding principal × annual rate × accrual days / day-count basis
+Annual rate basis points түрінде сақталады. Есеп аралық мәндерде жеткілікті precision қолданып, ақшаға айналдырғанда `HALF_UP` қолданылады.
 
-Day-count basis 365/366/360 мәндерінің бірі болуы мүмкін, бірақ contract және rule нақты мәнді бекітуі тиіс.
-
-## 6. Annuity
-
-Periodic rate r, installment count n және principal P үшін:
-
-payment = P × r × (1 + r)^n / ((1 + r)^n − 1)
-
-Соңғы installment rounding difference-ті жабады. Rate conversion және compounding frequency policy-де explicit болуы керек.
-
-## 7. Equal principal
-
-principal part = original principal / installment count
-
-Әр кезеңнің interest бөлігі сол кезең басындағы outstanding principal бойынша есептеледі.
-
-## 8. Custom schedule
-
-Custom schedule-де әр item principal/interest бөліктері алдын ала көрсетіледі. Validator:
-
-- total principal allocation = funded principal;
-- negative amount жоқ;
-- due dates monotonic;
-- interest/fee country rule-ға сай;
-- final projected balance = 0.
-
-## 9. Accrual start
+## 6. Accrual start
 
 ~~~mermaid
 flowchart LR
@@ -90,53 +50,46 @@ flowchart LR
     F --> A["Interest accrual starts"]
 ~~~
 
-Default қағида: accrual FundingConfirmed effective date-тан басталады. Contract қол қойылған күн автоматты accrual date емес.
+Contract қол қойылған күн accrual date емес. Funding екі тараппен расталмайынша balance өспейді.
 
-## 10. Payment allocation
+## 7. Payment allocation
 
-Allocation order hardcode жасалмайды. Policy мысалы:
-
-1. allowed overdue charges;
+1. заңмен рұқсат етілген және шартта көрсетілген charge;
 2. accrued interest;
 3. principal;
-4. future amount/credit balance.
+4. credit balance.
 
-Нақты тәртіп legal review және contract арқылы versioned болады.
+MVP-де penalty disabled, сондықтан қалыпты allocation: interest → principal → credit. Policy version contract version-мен бірге бекітіледі.
 
-## 11. Partial payment
+## 8. Partial payment
 
-- received amount confirmed болғанша balance-қа әсер етпейді;
+- payment екі тараппен расталғанша balance-қа әсер етпейді;
 - confirmed amount allocation policy бойынша бөлінеді;
-- schedule item PARTIALLY_PAID болуы мүмкін;
+- schedule item `PARTIALLY_PAID` болуы мүмкін;
 - қалған due amount сақталады;
-- overpayment credit balance немесе principal prepayment ретінде policy бойынша өңделеді.
+- overpayment credit balance немесе early repayment ретінде өңделеді.
 
-## 12. Early repayment
-
-Екі режим:
-
-- REDUCE_TERM — installment шамасы сақталып, мерзім қысқарады;
-- REDUCE_PAYMENT — мерзім сақталып, төлем азаяды.
+## 9. Early repayment
 
 ~~~mermaid
 flowchart TD
-    A["Early repayment amount"] --> B["Confirm payment"]
-    B --> C{"Policy"}
-    C -->|Reduce term| D["New shorter schedule"]
-    C -->|Reduce payment| E["New lower installments"]
-    D --> F["ScheduleVersion +1"]
-    E --> F
+    A["Early repayment submitted"] --> B["Other party confirms"]
+    B --> C["Allocate principal"]
+    C --> D["Recalculate with REDUCE_TERM"]
+    D --> E["ScheduleVersion +1"]
 ~~~
 
-Ескі schedule өшірілмейді.
+Екі тарап басқа режимді amendment арқылы таңдамаған болса, installment мөлшері сақталып, мерзім қысқарады. Ескі schedule өшірілмейді.
 
-## 13. Overdue
+## 10. Due dates және overdue
 
-overdue amount = due confirmed obligation − confirmed allocations
+Contract-тағы due date пайдаланушы timezone-ындағы calendar date ретінде сақталады және демалыс/мереке себебінен автоматты жылжымайды.
 
-Overdue days timezone және due-date adjustment rule арқылы есептеледі. Penalty/late charge legal rule жоқ кезде 0 немесе warning/manual review болады.
+`overdue amount = due confirmed obligation − confirmed allocations`
 
-## 14. Reversal
+Late charge MVP-де 0. UI overdue status пен күн санын көрсетеді, бірақ заңдық қорытындысыз айыппұл қоспайды.
+
+## 11. Reversal
 
 Confirmed payment қате болса:
 
@@ -146,45 +99,28 @@ Confirmed payment қате болса:
 - balance қайта құрылады;
 - audit reason міндетті.
 
-## 15. Schedule determinism
+## 12. Determinism
 
-Бірдей:
+Бірдей contract version, funding events, calculation policy version, payment events және effective date inputs бірдей schedule/balance беруі тиіс. Input hash `schedule_versions` кестесінде сақталады.
 
-- contract version;
-- confirmed funding events;
-- calculation policy version;
-- payment events;
-- effective date inputs
+## 13. Міндетті тесттер
 
-бірдей schedule және balance беруі керек. Input hash schedule_versions кестесінде сақталады.
-
-## 16. Тестілеу
-
-- zero rate;
-- one installment;
-- leap year;
-- month-end dates;
-- partial funding;
-- multiple funding tranches;
-- partial payment;
+- interest-free және simple interest;
+- leap year under ACT/365 fixed;
+- one installment және month-end;
+- partial payment және overpayment;
 - early repayment;
-- overpayment;
-- reversal;
-- amendment;
-- overdue + grace;
+- reversal және amendment;
+- overdue without penalty;
 - rounding accumulation;
-- very large safe integer boundary;
+- safe integer boundary;
 - idempotent replay.
 
-## 17. Ашық шешімдер
+## 14. Legal gate арқылы ғана ашылатын мүмкіндіктер
 
-Implementation алдында бекітіледі:
-
-- Қазақстан MVP day-count basis;
-- rounding HALF_UP/HALF_EVEN;
-- due date демалысқа түскендегі ереже;
-- payment allocation legal order;
-- multi-tranche accrual;
-- late charge formula;
+- penalty/late charge;
+- production rate/term limits;
+- public marketplace calculation display;
 - tax disclosure;
-- maximum supported term/rate.
+- legal payment allocation overrides;
+- multi-tranche interest.
