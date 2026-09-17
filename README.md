@@ -24,6 +24,7 @@ QaryzLink — Қазақстандағы жеке тұлғалар арасын�
 | [Database model](docs/02-architecture/DATA_MODEL.md) | Негізгі кестелер және ERD |
 | [Privacy & security](docs/03-security/PRIVACY_SECURITY.md) | Privacy, consent, access және audit |
 | [Roadmap](docs/04-delivery/ROADMAP.md) | Этаптар, deliverable және exit criteria |
+| [Implementation status](docs/04-delivery/IMPLEMENTATION_STATUS.md) | Кодтың specification-ға қатысты ағымдағы күйі |
 | [Open questions](docs/05-governance/OPEN_QUESTIONS.md) | Шешілмеген сұрақтар мен legal gates |
 | [ADRs](adr/README.md) | Архитектуралық шешімдер журналы |
 
