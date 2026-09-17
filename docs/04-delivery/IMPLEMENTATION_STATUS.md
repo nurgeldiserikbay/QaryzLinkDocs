@@ -10,7 +10,7 @@
 |---|---|---|
 | Product және business specification | Дайын | MVP шекарасы, state machine, privacy және calculation rules бекітілді |
 | Backend foundation | Дайын | NestJS/Fastify modular monolith, Prisma/PostgreSQL, Docker, CI |
-| IAM | Базалық нұсқа дайын | Register, login, refresh token rotation |
+| IAM | Базалық нұсқа дайын | Register, login, refresh token rotation, current-session logout |
 | Profile және privacy settings | Базалық нұсқа дайын | Өз профилін оқу және privacy баптауларын өзгерту |
 | Database migration | Дайын | Бастапқы schema versioned SQL migration ретінде бекітілді |
 | Discovery | Келесі этап | Loan request, offer, invite және proposal |
@@ -62,7 +62,7 @@ flowchart LR
     S --> UI["Front vertical slice"]
 ~~~
 
-1. Logout/session revoke, email verification және auth rate limiting.
+1. Email verification, auth rate limiting және refresh rotation concurrency тексеруі.
 2. Invite-only loan request/offer/proposal use cases.
 3. Бір ұсынысты қабылдағанда қалған proposal-дарды атомарлы жабу.
 4. Contract version және екі тараптың қол қою workflow-ы.
@@ -73,3 +73,12 @@ flowchart LR
 ## Production-ға жіберілмейтін мүмкіндіктер
 
 Қазақстан бойынша құқықтық қорытынды жасалғанша public marketplace, penalty/late fee, automated enforcement, platform custody және amount-based commission өшірулі қалады.
+
+## Session logout
+
+`POST /api/v1/auth/logout` Bearer token арқылы ағымдағы сессияны тоқтатады (204).
+Әр қорғалған сұраныста session owner, revokedAt, expiresAt және User.status тексеріледі.
+Тоқтатылған session-мен қайталанған HTTP сұраныс 401 қайтарады. Revoke дерекқор операциясы идемпотентті.
+Жаңа тесттер CI-де тексеріледі; базалық 25 тест көрсеткіші алдыңғы аяқталған кезеңге қатысты.
+
+Қосымша архитектуралық талдау: [Graphify қолдану тәртібі](GRAPHIFY.md).
