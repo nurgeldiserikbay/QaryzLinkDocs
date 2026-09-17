@@ -49,7 +49,7 @@ flowchart TD
 6. unit test пен coverage threshold-тарды тексереді;
 7. production build жасайды.
 
-2026-09-17 baseline: 25 test өтті; таңдалған domain/application code coverage — lines 99.34%, branches 96.34%, functions 100%.
+2026-09-17: 34 test өтті, оның 4-еуі нақты PostgreSQL integration тесті. Coverage конфигурациясына кірген код: lines 99.37%, branches 96.47%, functions 100%. Бұл бүкіл backend немесе HTTP e2e coverage көрсеткіші емес.
 
 ## Келесі орындалу реті
 
@@ -79,6 +79,6 @@ flowchart LR
 `POST /api/v1/auth/logout` Bearer token арқылы ағымдағы сессияны тоқтатады (204).
 Әр қорғалған сұраныста session owner, revokedAt, expiresAt және User.status тексеріледі.
 Тоқтатылған session-мен қайталанған HTTP сұраныс 401 қайтарады. Revoke дерекқор операциясы идемпотентті.
-Жаңа тесттер CI-де тексеріледі; базалық 25 тест көрсеткіші алдыңғы аяқталған кезеңге қатысты.
+[CI run 35220576826](https://github.com/nurgeldiserikbay/QaryzLinkBack/actions/runs/35220576826): migration, typecheck, lint, 34 test және build сәтті өтті.
 
 Қосымша архитектуралық талдау: [Graphify қолдану тәртібі](GRAPHIFY.md).
