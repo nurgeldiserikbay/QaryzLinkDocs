@@ -49,7 +49,7 @@ flowchart TD
 6. unit test пен coverage threshold-тарды тексереді;
 7. production build жасайды.
 
-2026-09-17: 34 test өтті, оның 4-еуі нақты PostgreSQL integration тесті. Coverage конфигурациясына кірген код: lines 99.37%, branches 96.47%, functions 100%. Бұл бүкіл backend немесе HTTP e2e coverage көрсеткіші емес.
+2026-09-17: 47 test өтті, оның 10-ы нақты PostgreSQL integration тесті. Coverage конфигурациясына кірген код: lines 99.38%, branches 96.55%, functions 100%. Бұл бүкіл backend немесе HTTP e2e coverage көрсеткіші емес.
 
 ## Келесі орындалу реті
 
@@ -62,7 +62,7 @@ flowchart LR
     S --> UI["Front vertical slice"]
 ~~~
 
-1. Email verification, auth rate limiting және refresh rotation concurrency тексеруі.
+1. Email verification және email жеткізу интеграциясы.
 2. Invite-only loan request/offer/proposal use cases.
 3. Бір ұсынысты қабылдағанда қалған proposal-дарды атомарлы жабу.
 4. Contract version және екі тараптың қол қою workflow-ы.
@@ -82,3 +82,9 @@ flowchart LR
 [CI run 35220576826](https://github.com/nurgeldiserikbay/QaryzLinkBack/actions/runs/35220576826): migration, typecheck, lint, 34 test және build сәтті өтті.
 
 Қосымша архитектуралық талдау: [Graphify қолдану тәртібі](GRAPHIFY.md).
+
+## Auth hardening аяқталды
+
+Shared PostgreSQL rate limit, atomic refresh rotation және forged forwarded header қорғанысы қосылды. Толық шешім: [ADR-0005](../../adr/ADR-0005-auth-concurrency-and-rate-limits.md).
+
+[CI run 35244669259](https://github.com/nurgeldiserikbay/QaryzLinkBack/actions/runs/35244669259): Prisma format/validate, migration, typecheck, lint, 47 test және build өтті. Email verification бұл кезеңге кірмейді және әлі жасалмаған.
