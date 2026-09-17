@@ -15,8 +15,10 @@ QaryzLink — Қазақстандағы жеке тұлғалар арасын�
 |---|---|
 | [Master specification](docs/MASTER_SPEC.md) | Толық техникалық тапсырма |
 | [Product overview](docs/00-product/PRODUCT_OVERVIEW.md) | Өнім мақсаты, шекарасы және рөлдер |
+| [Glossary](docs/00-product/GLOSSARY.md) | Domain терминдерінің canonical анықтамасы |
 | [Business logic](docs/01-business/BUSINESS_LOGIC.md) | Ұсыныс, matching, шарт, қаржыландыру және өтеу |
 | [State machines](docs/01-business/STATE_MACHINES.md) | Негізгі объектілердің күйлері |
+| [Calculation model](docs/01-business/CALCULATION_MODEL.md) | Пайыз, кесте, төлем және баланс есебі |
 | [System architecture](docs/02-architecture/SYSTEM_ARCHITECTURE.md) | Репозиторийлер мен модульдердің байланысы |
 | [Domain model](docs/02-architecture/DOMAIN_MODEL.md) | Bounded context және агрегаттар |
 | [Database model](docs/02-architecture/DATA_MODEL.md) | Негізгі кестелер және ERD |
@@ -24,6 +26,17 @@ QaryzLink — Қазақстандағы жеке тұлғалар арасын�
 | [Roadmap](docs/04-delivery/ROADMAP.md) | Этаптар, deliverable және exit criteria |
 | [Open questions](docs/05-governance/OPEN_QUESTIONS.md) | Шешілмеген сұрақтар мен legal gates |
 | [ADRs](adr/README.md) | Архитектуралық шешімдер журналы |
+
+## Оқу реті
+
+~~~mermaid
+flowchart LR
+    P["Product"] --> B["Business Logic"]
+    B --> S["State Machines"]
+    S --> D["Domain Model"]
+    D --> DB["Database Model"]
+    DB --> R["Roadmap"]
+~~~
 
 ## Негізгі қағидалар
 
@@ -45,4 +58,4 @@ QaryzLink — Қазақстандағы жеке тұлғалар арасын�
 
 ## Күйі
 
-Құжаттама foundation кезеңінде. Алғашқы мақсат — бизнес логиканы, деректер моделін және MVP шекарасын код басталғанға дейін бекіту.
+Foundation documentation v1 дайын. Ашық сұрақтар мен legal gates шешілген сайын құжаттар versioned түрде жаңартылады.
