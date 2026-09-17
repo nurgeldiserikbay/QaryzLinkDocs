@@ -1,30 +1,29 @@
 # Open Questions and Gates
 
-## 1. Blocking business decisions
+## 1. Қабылданған MVP бизнес шешімдері
 
-| ID | Сұрақ | Әсері | Күйі |
-|---|---|---|---|
-| B-001 | Funding receipt-ті borrower қанша уақытта растауы керек? | Funding state | Open |
-| B-002 | Timeout кезінде автоматты dispute ашыла ма? | Workflow | Open |
-| B-003 | Funding deadline өткен signed contract қалай жабылады? | Contract state | Open |
-| B-004 | Бір lender-дің active offer/application лимиті | Abuse/capacity | Open |
-| B-005 | Borrower бірнеше proposal-ды қатар қабылдай ала ма? | Double funding risk | Open |
-| B-006 | Match ranking қандай факторларды қолданады? | Fairness/privacy | Open |
-| B-007 | Closed-network matching MVP-ге кіре ме? | Scope | Open |
+2026-09-17 күні B-001—B-007 және C-001—C-007 бойынша MVP defaults қабылданды. Толық негіздеме: [ADR-0004](../../adr/ADR-0004-kz-private-mvp-defaults.md).
 
-## 2. Calculation decisions
-
-| ID | Сұрақ | Күйі |
+| ID | Шешім | Күйі |
 |---|---|---|
-| C-001 | Day-count basis | Legal/product review |
-| C-002 | Rounding mode | Engineering review |
-| C-003 | Payment allocation order | Legal review |
-| C-004 | Weekend/holiday due-date shift | Product/legal review |
-| C-005 | Multi-tranche accrual | Product decision |
-| C-006 | Overdue/penalty formula | Legal gate |
-| C-007 | Early repayment confirmation | Legal/product review |
+| B-001 | Borrower funding evidence-ті 72 сағат ішінде confirm/dispute етеді | Accepted |
+| B-002 | Timeout автоматты dispute емес; `CONFIRMATION_OVERDUE` + reminder | Accepted |
+| B-003 | Funding deadline өтсе `EXPIRED_UNFUNDED`; ұзарту amendment арқылы | Accepted |
+| B-004 | 3 active public offer, 10 outgoing proposal/day; config арқылы өзгереді | Accepted |
+| B-005 | Бір BorrowerRequest — бір accepted Proposal; қалғандары атомарлы жабылады | Accepted |
+| B-006 | Currency, amount, term, rate, verification, recency; sensitive score жоқ | Accepted |
+| B-007 | Closed-network/invite-only matching MVP-ге кіреді | Accepted |
+| C-001 | `ACT_365_FIXED` | Accepted for MVP |
+| C-002 | Minor units + `HALF_UP` | Accepted for MVP |
+| C-003 | Allowed charge → interest → principal → credit; penalty disabled | Accepted for MVP |
+| C-004 | Due date автоматты жылжымайды | Accepted for MVP |
+| C-005 | Бір funding tranche | Accepted for MVP |
+| C-006 | Penalty/late charge = 0 | Accepted until legal gate |
+| C-007 | Dual-confirmed early repayment, default `REDUCE_TERM` | Accepted for MVP |
 
-## 3. Kazakhstan legal gates
+## 2. Қазақстан бойынша legal gates
+
+Бұл сұрақтар өнімдік болжаммен жабылмайды және маманданған заңгердің жазбаша қорытындысын қажет етеді:
 
 - Жеке тұлғаның жүйелі пайыздық қарызы қай кезде кәсіпкерлік/лицензиялық қызметке айналады?
 - Ашық LenderOffer/BorrowerRequest matching платформаның мәртебесіне қалай әсер етеді?
@@ -37,20 +36,21 @@
 - ЖСН және identity documents Қазақстанда қайда сақталуы тиіс?
 - Шетел азаматы қатысқан шарттың governing law тәртібі қандай?
 
-## 4. Provider decisions
+Legal gate жабылғанша public marketplace, penalty, automated enforcement және amount-based commission production-да өшірулі болады.
 
-- authentication provider;
+## 3. Кейін таңдалатын providers
+
+Provider интерфейстері қазір жасалады, нақты vendor интеграция алдында таңдалады:
+
+- authentication және OTP;
 - SMS/email/push;
-- KYC/liveness;
-- Kazakhstan Digital ID feasibility;
+- KYC/liveness және Kazakhstan Digital ID feasibility;
 - signature/ЭЦҚ;
-- object storage region;
-- malware scanner;
-- PDF renderer;
-- trusted timestamp;
+- object storage region және malware scanner;
+- PDF renderer және trusted timestamp;
 - future bank/escrow partner.
 
-## 5. Product gates
+## 4. Product gate
 
 ~~~mermaid
 flowchart TD
@@ -63,9 +63,9 @@ flowchart TD
     FF --> P["Production enable"]
 ~~~
 
-## 6. Decision lifecycle
+## 5. Decision lifecycle
 
-Open сұрақ шешілгенде:
+Жаңа ашық сұрақ шешілгенде:
 
 1. шешім ADR-ға жазылады;
 2. business logic/state machine жаңартылады;
