@@ -22,6 +22,7 @@ QaryzLink — Қазақстандағы жеке тұлғалар арасын�
 | [Funding evidence](docs/01-business/FUNDING_EVIDENCE.md) | Төлем дәлелі және borrower confirmation |
 | [Repayment schedule](docs/01-business/REPAYMENT_SCHEDULE.md) | Детерминистік өтеу кестесі және есептеу саясаты |
 | [Payment ledger](docs/01-business/PAYMENT_LEDGER.md) | Төлем дәлелі, растау, allocation және ledger |
+| [Overdue worker](docs/01-business/OVERDUE_WORKER.md) | Due/overdue күйін materialize ететін worker |
 | [State machines](docs/01-business/STATE_MACHINES.md) | Негізгі объектілердің күйлері |
 | [Calculation model](docs/01-business/CALCULATION_MODEL.md) | Пайыз, кесте, төлем және баланс есебі |
 | [System architecture](docs/02-architecture/SYSTEM_ARCHITECTURE.md) | Репозиторийлер мен модульдердің байланысы |
