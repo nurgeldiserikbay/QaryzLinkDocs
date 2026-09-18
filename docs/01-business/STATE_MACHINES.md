@@ -168,14 +168,19 @@ stateDiagram-v2
 
 ## Repayment schedule implementation mapping
 
-QaryzLinkBack-та Contract ACTIVE және Funding CONFIRMED болғанда ғана ScheduleVersion жасалады. ACT_365_FIXED_HALF_UP_V1 саясаты бір AT_MATURITY item есептейді; inputHash қайталанса операция idempotent view қайтарады. Payment ledger және overdue worker кейінгі кезең.
+QaryzLinkBack-та Contract ACTIVE және Funding CONFIRMED болғанда ғана ScheduleVersion жасалады. ACT_365_FIXED_HALF_UP_V1 саясаты бір AT_MATURITY item есептейді; inputHash қайталанса операция idempotent view қайтарады. Payment ledger, overdue worker және reversal implementation mapping төменде сипатталған.
 
 
 ## Payment implementation mapping
 
-QaryzLinkBack-та borrower Payment evidence бергенде Payment AWAITING_CONFIRMATION күйіне өтеді. Lender CONFIRM жасаса ғана Payment CONFIRMED болып, charge → interest → principal allocation, ScheduleItem paidMinor/status update және екі ledger entry бір транзакцияда сақталады. DISPUTE schedule balance-ына әсер етпейді. Overdue worker және reversal кейінгі slice.
+QaryzLinkBack-та borrower Payment evidence бергенде Payment AWAITING_CONFIRMATION күйіне өтеді. Lender CONFIRM жасаса ғана Payment CONFIRMED болып, charge → interest → principal allocation, ScheduleItem paidMinor/status update және екі ledger entry бір транзакцияда сақталады. DISPUTE schedule balance-ына әсер етпейді. Overdue worker және reversal backend slice аяқталды; notifications пен scheduler кейінгі slice.
 
 
 ## Due/overdue implementation mapping
 
 QaryzLinkBack OverdueWorker database UTC күнімен unpaid schedule item-дерді тек ACTIVE + CONFIRMED шарттардан өңдейді. Бүгінгі dueDate DUE, өткен dueDate OVERDUE болады; PAID және CANCELLED күйлері қайта ашылмайды. Worker бір idempotent SQL transaction ретінде орындалады.
+
+
+## Payment reversal implementation mapping
+
+QaryzLinkBack-та lender CONFIRMED repayment үшін ғана POST /api/v1/payments/:paymentId/reverse шақыра алады. Backend original Payment-ті сақтап, status REVERSED етеді және reversalOfId арқылы жаңа REVERSED Payment жасайды. Allocation-дар теріс мәнмен ScheduleItem paidMinor балансын қайтарады; ledger-ге бастапқы бағыттарға қарама-қарсы append-only жазбалар қосылады. Барлық операция бір транзакцияда орындалады.
