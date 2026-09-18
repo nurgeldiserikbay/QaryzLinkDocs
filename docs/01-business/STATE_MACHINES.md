@@ -174,3 +174,8 @@ QaryzLinkBack-та Contract ACTIVE және Funding CONFIRMED болғанда �
 ## Payment implementation mapping
 
 QaryzLinkBack-та borrower Payment evidence бергенде Payment AWAITING_CONFIRMATION күйіне өтеді. Lender CONFIRM жасаса ғана Payment CONFIRMED болып, charge → interest → principal allocation, ScheduleItem paidMinor/status update және екі ledger entry бір транзакцияда сақталады. DISPUTE schedule balance-ына әсер етпейді. Overdue worker және reversal кейінгі slice.
+
+
+## Due/overdue implementation mapping
+
+QaryzLinkBack OverdueWorker database UTC күнімен unpaid schedule item-дерді тек ACTIVE + CONFIRMED шарттардан өңдейді. Бүгінгі dueDate DUE, өткен dueDate OVERDUE болады; PAID және CANCELLED күйлері қайта ашылмайды. Worker бір idempotent SQL transaction ретінде орындалады.
