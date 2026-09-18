@@ -169,3 +169,8 @@ stateDiagram-v2
 ## Repayment schedule implementation mapping
 
 QaryzLinkBack-та Contract ACTIVE және Funding CONFIRMED болғанда ғана ScheduleVersion жасалады. ACT_365_FIXED_HALF_UP_V1 саясаты бір AT_MATURITY item есептейді; inputHash қайталанса операция idempotent view қайтарады. Payment ledger және overdue worker кейінгі кезең.
+
+
+## Payment implementation mapping
+
+QaryzLinkBack-та borrower Payment evidence бергенде Payment AWAITING_CONFIRMATION күйіне өтеді. Lender CONFIRM жасаса ғана Payment CONFIRMED болып, charge → interest → principal allocation, ScheduleItem paidMinor/status update және екі ledger entry бір транзакцияда сақталады. DISPUTE schedule balance-ына әсер етпейді. Overdue worker және reversal кейінгі slice.

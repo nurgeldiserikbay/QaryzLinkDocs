@@ -21,7 +21,8 @@
 - [x] Contract draft және dual acknowledgement backend slice.
 - [x] Funding evidence және borrower confirmation backend slice.
 - [x] Schedule generation backend slice.
-- [ ] Payment ledger, overdue worker және payment confirmation.
+- [x] Payment evidence, confirmation және ledger backend slice.
+- [ ] Overdue worker, notifications және reversal flow.
 - [ ] Front/Admin UI және HTTP e2e tests.
 - [ ] Privacy/consent enforcement, PII encryption және retention.
 - [ ] Reproducible lockfile, container build және runtime smoke test.
