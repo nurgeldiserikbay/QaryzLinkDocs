@@ -11,6 +11,7 @@
 - [ ] Register/login/refresh/logout smoke test.
 - [ ] MAIL_ENABLED=false немесе толық бапталған SMTP + Front verification page.
 - [ ] Backup және restore rehearsal.
+- [ ] Private object storage, signed URLs, malware scan және retention policy.
 - [ ] Логтарда password, token, email, SMTP response және құжат деректері жоқ.
 
 ## Public pilot алдында инженерлік жұмыстар
@@ -18,7 +19,8 @@
 - [x] Private request/invite/proposal backend және atomic acceptance тесттері.
 - [ ] Invite revoke/block-list, notifications, pagination және business audit.
 - [x] Contract draft және dual acknowledgement backend slice.
-- [ ] Funding, schedule/payment vertical slices.
+- [x] Funding evidence және borrower confirmation backend slice.
+- [ ] Schedule/payment vertical slices.
 - [ ] Front/Admin UI және HTTP e2e tests.
 - [ ] Privacy/consent enforcement, PII encryption және retention.
 - [ ] Reproducible lockfile, container build және runtime smoke test.
