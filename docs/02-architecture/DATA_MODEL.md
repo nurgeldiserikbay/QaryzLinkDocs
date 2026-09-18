@@ -504,3 +504,16 @@ Prisma model EmailVerification → SQL email_verifications. userId primary key �
 Email snapshot ағымдағы users.email-мен салыстырылады. Token plaintext сақталмайды; tokenHash unique.
 Expiry жеткенде confirm өтпейді, бірақ жол автоматты жойылмайды. Resend жолды алмастырады; user deletion cascade қолданады.
 Current email storage application-level encryption-сыз; Identity Vault пен retention public launch gate-інде тұр.
+
+
+## Private discovery implementation tables
+
+~~~mermaid
+erDiagram
+    USERS ||--o{ DISCOVERY_COMMANDS : retries
+    LOAN_REQUESTS ||--o{ REQUEST_INVITATIONS : shares
+    PARTIES ||--o{ REQUEST_INVITATIONS : receives
+    LOAN_REQUESTS ||--o{ PROPOSALS : receives
+~~~
+
+`request_invitations(requestId,lenderPartyId)` unique; `discovery_commands(userId,key)` composite primary key; `proposals(requestId)` partial unique accepted index. Receipt және mutation бір transaction-да орындалады.

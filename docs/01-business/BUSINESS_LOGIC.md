@@ -302,3 +302,8 @@ Dispute түрлері:
 - Revoked consent бұрын заңды түрде жасалған contract snapshot-ын жоймайды.
 - Admin audit history-ді өшірмейді.
 - Әр қаржылық есеп policy version және rounding rule сақтайды.
+
+
+## Private discovery implementation
+
+[Request → invitation → proposal → acceptance](PRIVATE_DISCOVERY.md) іске асқан restricted slice-ты сипаттайды. Бір accepted proposal request-ті MATCHED етеді; contract, signature және funding бөлек кезеңдерде орындалады.

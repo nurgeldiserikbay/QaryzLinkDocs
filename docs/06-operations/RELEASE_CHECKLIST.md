@@ -15,7 +15,9 @@
 
 ## Public pilot алдында инженерлік жұмыстар
 
-- [ ] Invite/proposal, contract, funding, schedule/payment vertical slices.
+- [x] Private request/invite/proposal backend және atomic acceptance тесттері.
+- [ ] Invite revoke/block-list, notifications, pagination және business audit.
+- [ ] Contract, funding, schedule/payment vertical slices.
 - [ ] Front/Admin UI және HTTP e2e tests.
 - [ ] Privacy/consent enforcement, PII encryption және retention.
 - [ ] Reproducible lockfile, container build және runtime smoke test.

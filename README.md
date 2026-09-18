@@ -17,6 +17,7 @@ QaryzLink — Қазақстандағы жеке тұлғалар арасын�
 | [Product overview](docs/00-product/PRODUCT_OVERVIEW.md) | Өнім мақсаты, шекарасы және рөлдер |
 | [Glossary](docs/00-product/GLOSSARY.md) | Domain терминдерінің canonical анықтамасы |
 | [Business logic](docs/01-business/BUSINESS_LOGIC.md) | Ұсыныс, matching, шарт, қаржыландыру және өтеу |
+| [Private discovery](docs/01-business/PRIVATE_DISCOVERY.md) | Іске асқан шақыру және proposal сценарийі |
 | [State machines](docs/01-business/STATE_MACHINES.md) | Негізгі объектілердің күйлері |
 | [Calculation model](docs/01-business/CALCULATION_MODEL.md) | Пайыз, кесте, төлем және баланс есебі |
 | [System architecture](docs/02-architecture/SYSTEM_ARCHITECTURE.md) | Репозиторийлер мен модульдердің байланысы |

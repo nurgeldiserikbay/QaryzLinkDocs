@@ -13,7 +13,7 @@
 | IAM | Базалық нұсқа дайын | Register, login, refresh token rotation, current-session logout, email verification |
 | Profile және privacy settings | Базалық нұсқа дайын | Өз профилін оқу және privacy баптауларын өзгерту |
 | Database migration | Дайын | Бастапқы schema versioned SQL migration ретінде бекітілді |
-| Discovery | Келесі этап | Loan request, offer, invite және proposal |
+| Discovery | Restricted slice дайын | Private request, exact invitation, proposal, atomic acceptance |
 | Contract/Funding/Schedule | Жоспарда | Қол қою, ақша берілгенін растау және кесте |
 | Front/Admin UI | Жоспарда | Backend contract тұрақтанған сайын вертикаль slice бойынша жасалады |
 
@@ -99,3 +99,10 @@ Coverage конфигурациясына кірген код: lines/statements 
 Нақты SMTP жеткізу және Front verification беті әлі тексерілмеген; MAIL_ENABLED=false әдепкі күйде.
 Шешім мен workflow: [ADR-0006](../../adr/ADR-0006-email-verification.md).
 Орнату: [Deployment](../06-operations/DEPLOYMENT.md), [иесінен қажет мәліметтер](../06-operations/OWNER_CHECKLIST.md), [release checklist](../06-operations/RELEASE_CHECKLIST.md).
+
+
+## Private discovery
+
+Backend branch `gpt/private-discovery`-де request/invitation/proposal workflow, idempotency receipts, PostgreSQL locks, privacy checks және HTTP validation бар. 97 test өткен baseline-ға discovery тесттері қосылды. Public marketplace, negotiation, contract және funding әлі production-ready емес.
+
+ADR: [ADR-0007](../../adr/ADR-0007-private-discovery.md). API guide: [PRIVATE_DISCOVERY](../01-business/PRIVATE_DISCOVERY.md).

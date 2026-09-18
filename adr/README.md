@@ -22,3 +22,4 @@ ADR маңызды және кейін өзгеруі қымбат шешімд�
 - [ADR-0005: Auth concurrency and rate limits](ADR-0005-auth-concurrency-and-rate-limits.md)
 
 - [ADR-0006: Email verification](ADR-0006-email-verification.md)
+- [ADR-0007: Private discovery](ADR-0007-private-discovery.md)

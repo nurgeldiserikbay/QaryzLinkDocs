@@ -151,3 +151,8 @@ stateDiagram-v2
 | Payment → Confirmed | Counterparty немесе trusted provider растады |
 | Active → Completed | Outstanding confirmed balance = 0 және unresolved dispute жоқ |
 | Consent → Revoked | Future access тоқтайды; legal retention бөлек бағаланады |
+
+
+## Private discovery states
+
+Қазіргі Prisma mapping: Request ACTIVE + INVITE_ONLY; Proposal PENDING → ACCEPTED/REJECTED/WITHDRAWN/SUPERSEDED; ACCEPT request-ті MATCHED етеді. Expiry stored expiresAt арқылы mutation кезінде guard-ланады, scheduler кейін қосылады.
