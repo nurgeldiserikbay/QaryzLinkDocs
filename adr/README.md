@@ -27,3 +27,5 @@ ADR маңызды және кейін өзгеруі қымбат шешімд�
 - [ADR-0008: Immutable contract draft and dual acknowledgement](ADR-0008-contract-draft-and-dual-acknowledgement.md)
 
 - [ADR-0009: Manual funding evidence and two-sided confirmation](ADR-0009-funding-evidence-and-confirmation.md)
+
+- [ADR-0010: Deterministic repayment schedule generation](ADR-0010-deterministic-repayment-schedule.md)
