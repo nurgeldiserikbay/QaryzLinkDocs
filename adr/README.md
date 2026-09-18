@@ -20,3 +20,5 @@ ADR маңызды және кейін өзгеруі қымбат шешімд�
 - [ADR-0004: Kazakhstan private MVP defaults](ADR-0004-kz-private-mvp-defaults.md)
 
 - [ADR-0005: Auth concurrency and rate limits](ADR-0005-auth-concurrency-and-rate-limits.md)
+
+- [ADR-0006: Email verification](ADR-0006-email-verification.md)

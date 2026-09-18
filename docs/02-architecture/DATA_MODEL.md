@@ -476,3 +476,31 @@ Backend басталғанда осы conceptual model негізінде:
 - OpenAPI schemas
 
 жасалады. Conceptual doc пен implementation schema арасындағы айырмашылық ADR арқылы түсіндіріледі.
+
+
+## 13. Қазіргі email verification schema
+
+Бұл бөлім 2026-09-18 implementation-ына сәйкес; жоғарыдағы conceptual model толық іске асырылды дегенді білдірмейді.
+[ADR-0006](../../adr/ADR-0006-email-verification.md) challenge lifecycle-ін бекітеді.
+
+~~~mermaid
+erDiagram
+    USERS ||--o| EMAIL_VERIFICATIONS : requests
+    USERS {
+        uuid id PK
+        string email
+        datetime emailVerifiedAt
+    }
+    EMAIL_VERIFICATIONS {
+        uuid userId PK,FK
+        string email
+        string tokenHash UK
+        datetime expiresAt
+        datetime consumedAt
+    }
+~~~
+
+Prisma model EmailVerification → SQL email_verifications. userId primary key бір user-ге бір challenge сақтайды.
+Email snapshot ағымдағы users.email-мен салыстырылады. Token plaintext сақталмайды; tokenHash unique.
+Expiry жеткенде confirm өтпейді, бірақ жол автоматты жойылмайды. Resend жолды алмастырады; user deletion cascade қолданады.
+Current email storage application-level encryption-сыз; Identity Vault пен retention public launch gate-інде тұр.

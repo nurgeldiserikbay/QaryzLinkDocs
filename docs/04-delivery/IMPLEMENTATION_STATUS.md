@@ -1,6 +1,6 @@
 # Implementation status
 
-Жаңартылған күні: 2026-09-17
+Жаңартылған күні: 2026-09-18
 
 Бұл құжат specification мен нақты код арасындағы қысқа бақылау нүктесі. Толық талаптар өзгермейді; мұнда тек орындалу күйі көрсетіледі.
 
@@ -10,7 +10,7 @@
 |---|---|---|
 | Product және business specification | Дайын | MVP шекарасы, state machine, privacy және calculation rules бекітілді |
 | Backend foundation | Дайын | NestJS/Fastify modular monolith, Prisma/PostgreSQL, Docker, CI |
-| IAM | Базалық нұсқа дайын | Register, login, refresh token rotation, current-session logout |
+| IAM | Базалық нұсқа дайын | Register, login, refresh token rotation, current-session logout, email verification |
 | Profile және privacy settings | Базалық нұсқа дайын | Өз профилін оқу және privacy баптауларын өзгерту |
 | Database migration | Дайын | Бастапқы schema versioned SQL migration ретінде бекітілді |
 | Discovery | Келесі этап | Loan request, offer, invite және proposal |
@@ -62,7 +62,7 @@ flowchart LR
     S --> UI["Front vertical slice"]
 ~~~
 
-1. Email verification және email жеткізу интеграциясы.
+1. Email verification backend аяқталды; Front verification беті және нақты SMTP staging тексеруі қалды.
 2. Invite-only loan request/offer/proposal use cases.
 3. Бір ұсынысты қабылдағанда қалған proposal-дарды атомарлы жабу.
 4. Contract version және екі тараптың қол қою workflow-ы.
@@ -87,4 +87,15 @@ flowchart LR
 
 Shared PostgreSQL rate limit, atomic refresh rotation және forged forwarded header қорғанысы қосылды. Толық шешім: [ADR-0005](../../adr/ADR-0005-auth-concurrency-and-rate-limits.md).
 
-[CI run 35244669259](https://github.com/nurgeldiserikbay/QaryzLinkBack/actions/runs/35244669259): Prisma format/validate, migration, typecheck, lint, 47 test және build өтті. Email verification бұл кезеңге кірмейді және әлі жасалмаған.
+[CI run 35244669259](https://github.com/nurgeldiserikbay/QaryzLinkBack/actions/runs/35244669259): Prisma format/validate, migration, typecheck, lint, 47 test және build өтті. Бұл тарихи auth кезеңінің нәтижесі; email verification келесі кезеңде қосылды.
+
+## Email verification аяқталды
+
+[CI run 35305836411](https://github.com/nurgeldiserikbay/QaryzLinkBack/actions/runs/35305836411), commit 8483592cb17c7c736cd48593bb0425c82edd3b83:
+Prisma format/generate/validate, үш migration, TypeScript, ESLint, 18 файлдағы 73 test және production build өтті.
+Coverage конфигурациясына кірген код: lines/statements 99.47%, branches 97.19%, functions 100%; бұл толық HTTP e2e coverage емес.
+
+Бір реттік 15 минуттық token, атомарлы confirm, resend лимиті және SMTP adapter қосылды.
+Нақты SMTP жеткізу және Front verification беті әлі тексерілмеген; MAIL_ENABLED=false әдепкі күйде.
+Шешім мен workflow: [ADR-0006](../../adr/ADR-0006-email-verification.md).
+Орнату: [Deployment](../06-operations/DEPLOYMENT.md), [иесінен қажет мәліметтер](../06-operations/OWNER_CHECKLIST.md), [release checklist](../06-operations/RELEASE_CHECKLIST.md).

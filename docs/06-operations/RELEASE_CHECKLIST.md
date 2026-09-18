@@ -1,0 +1,35 @@
+# Release checklist
+
+2026-09-18: толық өнім public launch-қа дайын емес.
+
+## Backend staging
+
+- [ ] Нақты deploy commit-тің CI-ы жасыл.
+- [ ] Жеке staging database және credentials.
+- [ ] Migration сәтті; production дерегіне test орындалмайды.
+- [ ] HTTPS және restricted ingress.
+- [ ] Register/login/refresh/logout smoke test.
+- [ ] MAIL_ENABLED=false немесе толық бапталған SMTP + Front verification page.
+- [ ] Backup және restore rehearsal.
+- [ ] Логтарда password, token, email, SMTP response және құжат деректері жоқ.
+
+## Public pilot алдында инженерлік жұмыстар
+
+- [ ] Invite/proposal, contract, funding, schedule/payment vertical slices.
+- [ ] Front/Admin UI және HTTP e2e tests.
+- [ ] Privacy/consent enforcement, PII encryption және retention.
+- [ ] Reproducible lockfile, container build және runtime smoke test.
+- [ ] Production migration job және rollback rehearsal.
+- [ ] Trusted proxy, CORS allowlist, health/readiness, monitoring.
+- [ ] Нақты SMTP delivery және пайдаланушының email растау flow-ы.
+- [ ] Dependency/security checks және operational review.
+
+## Өнім мен құқықтық gate
+
+- [ ] Жеке тұлғаларға арналған Қазақстан pilot scope-ы бекітілген.
+- [ ] Terms, privacy notice және сақтау мерзімдері тексерілген.
+- [ ] Public marketplace, penalty және amount-based commission false.
+- [ ] Support, incident және dispute procedures.
+- [ ] Жоба иесі staging acceptance нәтижесін көрген.
+
+Email verification жеке басты немесе қол қоюдың заңдық күшін растамайды.

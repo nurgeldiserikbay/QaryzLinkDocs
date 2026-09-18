@@ -1,0 +1,19 @@
+# Жоба иесінен қажет мәліметтер
+
+Құпия мәндерді чатқа жіберудің қажеті жоқ. Оларды таңдалған платформаның secret settings-іне енгізу жеткілікті.
+
+| Не қажет | Қашан | Қайда қолданылады |
+|---|---|---|
+| Staging және production hosting таңдауы | Deploy алдында | Node platform, VPS немесе k3s |
+| Домен және DNS басқару мүмкіндігі | HTTPS/email алдында | API, Front, Admin және sender |
+| Қазақстан аудиториясы үшін дерек сақтау аймағы | Public launch алдында | Database, backup, files және logs |
+| SMTP провайдер және расталған sender | Email қосқанда | SMTP secrets және DNS |
+| Test mailbox | Staging verification кезінде | Өзіңіз бақылайтын қабылдаушы |
+| Backup retention және restore мақсаттары | Production алдында | Операциялық регламент |
+| Support және incident жауаптысы | Pilot алдында | Қате, шағым және қолжетімділік |
+| Заңгердің scope/privacy/retention қорытындысы | Public launch алдында | Legal gates және terms |
+| Алғашқы pilot қатысушылары | Негізгі workflow дайын болғанда | Invite-only сынақ |
+
+Алғашқы backend staging үшін hosting, PostgreSQL және secret configuration жеткілікті; email уақытша өшірулі бола алады.
+KYC, банк немесе ЭЦҚ провайдерін дәл қазір қосу міндетті емес: бөлек интеграция кезеңінде таңдалады.
+Қолданыстағы жүйені өшіретін migration, production деректерін ауыстыру және шығын әкелетін сервиске жазылу бөлек нақты жоспармен орындалады.

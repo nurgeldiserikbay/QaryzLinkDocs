@@ -26,6 +26,9 @@ QaryzLink — Қазақстандағы жеке тұлғалар арасын�
 | [Roadmap](docs/04-delivery/ROADMAP.md) | Этаптар, deliverable және exit criteria |
 | [Implementation status](docs/04-delivery/IMPLEMENTATION_STATUS.md) | Кодтың specification-ға қатысты ағымдағы күйі |
 | [Open questions](docs/05-governance/OPEN_QUESTIONS.md) | Шешілмеген сұрақтар мен legal gates |
+| [Deployment](docs/06-operations/DEPLOYMENT.md) | Backend staging орнату нұсқаулығы |
+| [Owner checklist](docs/06-operations/OWNER_CHECKLIST.md) | Жоба иесінен қажет баптаулар |
+| [Release checklist](docs/06-operations/RELEASE_CHECKLIST.md) | Staging және public launch шарттары |
 | [ADRs](adr/README.md) | Архитектуралық шешімдер журналы |
 
 ## Оқу реті
