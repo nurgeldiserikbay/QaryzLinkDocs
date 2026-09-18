@@ -164,3 +164,8 @@ stateDiagram-v2
 ## Private discovery states
 
 Қазіргі Prisma mapping: Request ACTIVE + INVITE_ONLY; Proposal PENDING → ACCEPTED/REJECTED/WITHDRAWN/SUPERSEDED; ACCEPT request-ті MATCHED етеді. Expiry stored expiresAt арқылы mutation кезінде guard-ланады, scheduler кейін қосылады.
+
+
+## Repayment schedule implementation mapping
+
+QaryzLinkBack-та Contract ACTIVE және Funding CONFIRMED болғанда ғана ScheduleVersion жасалады. ACT_365_FIXED_HALF_UP_V1 саясаты бір AT_MATURITY item есептейді; inputHash қайталанса операция idempotent view қайтарады. Payment ledger және overdue worker кейінгі кезең.
