@@ -23,7 +23,8 @@
 - [x] Schedule generation backend slice.
 - [x] Payment evidence, confirmation және ledger backend slice.
 - [x] Overdue status worker backend slice.
-- [ ] Kubernetes CronJob/queue scheduler, notifications және reversal flow.
+- [x] Payment reversal backend slice.
+- [ ] Kubernetes CronJob/queue scheduler және notifications.
 - [ ] Front/Admin UI және HTTP e2e tests.
 - [ ] Privacy/consent enforcement, PII encryption және retention.
 - [ ] Reproducible lockfile, container build және runtime smoke test.
