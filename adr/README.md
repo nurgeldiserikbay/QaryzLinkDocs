@@ -33,3 +33,4 @@ ADR маңызды және кейін өзгеруі қымбат шешімд�
 - [ADR-0011: Repayment evidence, confirmation and ledger allocation](ADR-0011-repayment-evidence-confirmation-and-ledger.md)
 
 - [ADR-0012: Idempotent overdue status materialization](ADR-0012-idempotent-overdue-status-materialization.md)
+- [ADR-0013: Immutable payment reversal](ADR-0013-immutable-payment-reversal.md)

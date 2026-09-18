@@ -19,7 +19,8 @@
 | Schedule generation | Дайын | ACTIVE + CONFIRMED guard, ACT/365 Fixed + HALF_UP, versioned inputHash |
 | Payment evidence/confirmation/ledger | Дайын | Borrower evidence, lender decision, allocation және append-only ledger |
 | Overdue status worker | Дайын | UTC due/overdue materialization, ACTIVE + CONFIRMED guard, idempotent transaction |
-| Notifications/reversal/scheduler | Жоспарда | Outbox, reversal event және deployment scheduler adapter |
+| Payment reversal | Дайын | Lender-authorized immutable reversal, signed allocation restore және opposite ledger entries |
+| Notifications/scheduler | Жоспарда | Outbox және deployment scheduler adapter |
 | Front/Admin UI | Жоспарда | Backend contract тұрақтанған сайын вертикаль slice бойынша жасалады |
 
 ## Қазіргі backend slice
@@ -72,8 +73,9 @@ flowchart LR
 3. Бір ұсынысты қабылдағанда қалған proposal-дарды атомарлы жабу.
 4. Contract version және екі тараптың қол қою workflow-ы — орындалды: [contract signing](../01-business/CONTRACT_SIGNING.md).
 5. Funding evidence және 72 сағаттық borrower confirmation.
-6. Deterministic repayment schedule және payment confirmation.
-7. Осы API-ларға сәйкес Front, кейін Admin интерфейстері.
+6. Deterministic repayment schedule, payment confirmation және reversal — орындалды.
+7. Notifications/outbox және deployment scheduler adapter.
+8. Осы API-ларға сәйкес Front, кейін Admin интерфейстері.
 
 ## Production-ға жіберілмейтін мүмкіндіктер
 
@@ -144,3 +146,12 @@ API guide: [PAYMENT_LEDGER](../01-business/PAYMENT_LEDGER.md). ADR: [ADR-0011](.
 QaryzLinkBack PR #6 merged: OverdueWorker database UTC date арқылы unpaid schedule items-ті DUE немесе OVERDUE күйіне ауыстырады. PAID және CANCELLED қайта ашылмайды. Worker injectable service ретінде берілген; multi-replica API ішіндегі cron әдейі қосылмаған.
 
 API guide: [OVERDUE_WORKER](../01-business/OVERDUE_WORKER.md). ADR: [ADR-0012](../../adr/ADR-0012-idempotent-overdue-status-materialization.md).
+
+
+## Payment reversal
+
+QaryzLinkBack PR #7 merged: lender тек CONFIRMED төлемді міндетті себеппен кері жаза алады. Original payment жойылмайды; REVERSED event reversalOfId арқылы байланысады. Signed allocation кесте балансын қалпына келтіреді, ал ledger-ге қарама-қарсы жазбалар бір транзакцияда қосылады. Бұл операция ақша аудару/қайтару емес.
+
+API guide: [PAYMENT_REVERSAL](../01-business/PAYMENT_REVERSAL.md). ADR: [ADR-0013](../../adr/ADR-0013-immutable-payment-reversal.md).
+
+[CI run 35368226481](https://github.com/nurgeldiserikbay/QaryzLinkBack/actions/runs/35368226481): Prisma migration, typecheck, lint, coverage, build және smoke test сәтті өтті.
