@@ -14,7 +14,8 @@
 | Profile және privacy settings | Базалық нұсқа дайын | Өз профилін оқу және privacy баптауларын өзгерту |
 | Database migration | Дайын | Бастапқы schema versioned SQL migration ретінде бекітілді |
 | Discovery | Restricted slice дайын | Private request, exact invitation, proposal, atomic acceptance |
-| Contract/Funding/Schedule | Жоспарда | Қол қою, ақша берілгенін растау және кесте |
+| Contract draft/signing | Дайын | Accepted proposal-дан immutable ContractVersion v1, privacy-safe read, dual hash acknowledgement |
+| Funding/Schedule | Жоспарда | Ақша берілгенін растау және кесте |
 | Front/Admin UI | Жоспарда | Backend contract тұрақтанған сайын вертикаль slice бойынша жасалады |
 
 ## Қазіргі backend slice
@@ -65,7 +66,7 @@ flowchart LR
 1. Email verification backend аяқталды; Front verification беті және нақты SMTP staging тексеруі қалды.
 2. Invite-only loan request/offer/proposal use cases.
 3. Бір ұсынысты қабылдағанда қалған proposal-дарды атомарлы жабу.
-4. Contract version және екі тараптың қол қою workflow-ы.
+4. Contract version және екі тараптың қол қою workflow-ы — орындалды: [contract signing](../01-business/CONTRACT_SIGNING.md).
 5. Funding evidence және 72 сағаттық borrower confirmation.
 6. Deterministic repayment schedule және payment confirmation.
 7. Осы API-ларға сәйкес Front, кейін Admin интерфейстері.
@@ -100,6 +101,12 @@ Coverage конфигурациясына кірген код: lines/statements 
 Шешім мен workflow: [ADR-0006](../../adr/ADR-0006-email-verification.md).
 Орнату: [Deployment](../06-operations/DEPLOYMENT.md), [иесінен қажет мәліметтер](../06-operations/OWNER_CHECKLIST.md), [release checklist](../06-operations/RELEASE_CHECKLIST.md).
 
+
+## Contract draft және dual acknowledgement
+
+QaryzLinkBack PR #2 merged: accepted proposal-дан immutable ContractVersion v1 жасалады, тараптар дәл сол SHA-256 hash-ті acknowledgement ретінде растайды, екінші растауда ғана Contract.SIGNED болады. Бұл заңды qualified e-signature емес және ақша аударымын растамайды.
+
+API guide: [CONTRACT_SIGNING](../01-business/CONTRACT_SIGNING.md). ADR: [ADR-0008](../../adr/ADR-0008-contract-draft-and-dual-acknowledgement.md).
 
 ## Private discovery
 

@@ -17,7 +17,8 @@
 
 - [x] Private request/invite/proposal backend және atomic acceptance тесттері.
 - [ ] Invite revoke/block-list, notifications, pagination және business audit.
-- [ ] Contract, funding, schedule/payment vertical slices.
+- [x] Contract draft және dual acknowledgement backend slice.
+- [ ] Funding, schedule/payment vertical slices.
 - [ ] Front/Admin UI және HTTP e2e tests.
 - [ ] Privacy/consent enforcement, PII encryption және retention.
 - [ ] Reproducible lockfile, container build және runtime smoke test.
@@ -34,4 +35,4 @@
 - [ ] Support, incident және dispute procedures.
 - [ ] Жоба иесі staging acceptance нәтижесін көрген.
 
-Email verification жеке басты немесе қол қоюдың заңдық күшін растамайды.
+Platform acknowledgement qualified electronic signature болып табылмайды және жеке басты толық құқықтық растау емес. Email verification да қол қоюдың заңдық күшін растамайды.

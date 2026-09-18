@@ -76,6 +76,10 @@ stateDiagram-v2
     COMPLETED --> ARCHIVED
 ~~~
 
+## Contract implementation mapping
+
+QaryzLinkBack-тағы нақты MVP mapping: Contract.PENDING_SIGNATURES + ContractVersion.SIGNING → бірінші растау → сол күй → екінші distinct party растауы → Contract.SIGNED + ContractVersion.SIGNED. Бұл transition documentHash дәл келгенде ғана орындалады. SIGNED → ACTIVE тек Funding CONFIRMED болғанда мүмкін.
+
 ## 5. Funding
 
 ~~~mermaid
