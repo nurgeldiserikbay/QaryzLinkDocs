@@ -15,7 +15,8 @@
 | Database migration | Дайын | Бастапқы schema versioned SQL migration ретінде бекітілді |
 | Discovery | Restricted slice дайын | Private request, exact invitation, proposal, atomic acceptance |
 | Contract draft/signing | Дайын | Accepted proposal-дан immutable ContractVersion v1, privacy-safe read, dual hash acknowledgement |
-| Funding/Schedule | Жоспарда | Ақша берілгенін растау және кесте |
+| Funding evidence/confirmation | Дайын | Lender metadata, SHA-256, borrower confirmation/dispute, deadline guard |
+| Schedule/Payment | Жоспарда | Детерминистік кесте және төлем ledger-і |
 | Front/Admin UI | Жоспарда | Backend contract тұрақтанған сайын вертикаль slice бойынша жасалады |
 
 ## Қазіргі backend slice
@@ -101,6 +102,12 @@ Coverage конфигурациясына кірген код: lines/statements 
 Шешім мен workflow: [ADR-0006](../../adr/ADR-0006-email-verification.md).
 Орнату: [Deployment](../06-operations/DEPLOYMENT.md), [иесінен қажет мәліметтер](../06-operations/OWNER_CHECKLIST.md), [release checklist](../06-operations/RELEASE_CHECKLIST.md).
 
+
+## Funding evidence және borrower confirmation
+
+QaryzLinkBack PR #3 merged: signed contract енді Funding EVIDENCE_REQUIRED жасайды. Lender private object key + SHA-256 metadata береді, borrower CONFIRM/DISPUTE шешімін сақтайды. CONFIRMED болғанда ғана Contract ACTIVE болады.
+
+API guide: [FUNDING_EVIDENCE](../01-business/FUNDING_EVIDENCE.md). ADR: [ADR-0009](../../adr/ADR-0009-funding-evidence-and-confirmation.md).
 
 ## Contract draft және dual acknowledgement
 

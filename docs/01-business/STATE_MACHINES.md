@@ -95,6 +95,10 @@ stateDiagram-v2
 
 Timeout автоматты CONFIRMED жасамайды.
 
+## Funding implementation mapping
+
+QaryzLinkBack-та lender evidence metadata бергенде Funding EVIDENCE_REQUIRED → AWAITING_CONFIRMATION өтеді. Borrower CONFIRM жасаса Funding CONFIRMED және Contract ACTIVE; DISPUTE жасаса Funding DISPUTED және Contract DISPUTED. Deadline mutation кезінде guard-ланады, scheduler кейін қосылады.
+
 ## 6. Payment
 
 ~~~mermaid
