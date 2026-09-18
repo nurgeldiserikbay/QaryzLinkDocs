@@ -29,3 +29,5 @@ ADR маңызды және кейін өзгеруі қымбат шешімд�
 - [ADR-0009: Manual funding evidence and two-sided confirmation](ADR-0009-funding-evidence-and-confirmation.md)
 
 - [ADR-0010: Deterministic repayment schedule generation](ADR-0010-deterministic-repayment-schedule.md)
+
+- [ADR-0011: Repayment evidence, confirmation and ledger allocation](ADR-0011-repayment-evidence-confirmation-and-ledger.md)
