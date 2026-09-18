@@ -20,7 +20,8 @@
 - [ ] Invite revoke/block-list, notifications, pagination және business audit.
 - [x] Contract draft және dual acknowledgement backend slice.
 - [x] Funding evidence және borrower confirmation backend slice.
-- [ ] Schedule/payment vertical slices.
+- [x] Schedule generation backend slice.
+- [ ] Payment ledger, overdue worker және payment confirmation.
 - [ ] Front/Admin UI және HTTP e2e tests.
 - [ ] Privacy/consent enforcement, PII encryption және retention.
 - [ ] Reproducible lockfile, container build және runtime smoke test.
