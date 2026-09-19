@@ -22,7 +22,8 @@
 | Payment reversal | Дайын | Lender-authorized immutable reversal, signed allocation restore және opposite ledger entries |
 | Notifications/outbox | Базалық slice дайын | Payment CONFIRMED/REVERSED оқиғалары, privacy-safe payload және idempotent outbox |
 | Notification claim/retry worker | Базалық slice дайын | SKIP LOCKED claim, 5 минут lease, exponential retry және terminal FAILED |
-| Provider/scheduler | Жоспарда | IN_APP/EMAIL adapter, deployment scheduler және monitoring |
+| Delivery adapter boundary | Базалық slice дайын | Provider-neutral port, dispatch service және safe unavailable default |
+| Provider/scheduler | Жоспарда | SMTP/push adapter, deployment scheduler және monitoring |
 | Front/Admin UI | Жоспарда | Backend contract тұрақтанған сайын вертикаль slice бойынша жасалады |
 
 ## Қазіргі backend slice
@@ -76,7 +77,7 @@ flowchart LR
 4. Contract version және екі тараптың қол қою workflow-ы — орындалды: [contract signing](../01-business/CONTRACT_SIGNING.md).
 5. Funding evidence және 72 сағаттық borrower confirmation.
 6. Deterministic repayment schedule, payment confirmation және reversal — орындалды.
-7. Notification outbox persistence және claim/retry worker — орындалды; provider adapter, deployment scheduler және monitoring.
+7. Notification outbox, claim/retry worker және provider-neutral dispatch boundary — орындалды; нақты provider, deployment scheduler және monitoring.
 8. Осы API-ларға сәйкес Front, кейін Admin интерфейстері.
 
 ## Production-ға жіберілмейтін мүмкіндіктер
@@ -175,3 +176,12 @@ QaryzLinkBack PR #9 merged: NotificationOutboxWorker due rows-ты PostgreSQL FO
 API/backend guide: [NOTIFICATION_WORKER](../01-business/NOTIFICATION_WORKER.md). ADR: [ADR-0015](../../adr/ADR-0015-leased-notification-outbox-worker.md).
 
 [CI run 35439072635](https://github.com/nurgeldiserikbay/QaryzLinkBack/actions/runs/35439072635): migration, typecheck, lint, coverage, build және smoke test сәтті өтті.
+
+
+## Notification delivery boundary
+
+QaryzLinkBack PR #10 merged: NotificationDeliveryPort және dispatch service provider-specific кодты outbox lifecycle-ден бөледі. Сәтті adapter call ғана SENT күйіне жеткізеді; қате retry/FAILED policy-іне өтеді. Әдепкі UnavailableNotificationAdapter сыртқы хабарлама жібермей fail-closed жұмыс істейді.
+
+API/backend guide: [NOTIFICATION_DELIVERY](../01-business/NOTIFICATION_DELIVERY.md). ADR: [ADR-0016](../../adr/ADR-0016-provider-neutral-notification-delivery.md).
+
+[CI run 35442859823](https://github.com/nurgeldiserikbay/QaryzLinkBack/actions/runs/35442859823): migration, typecheck, lint, coverage, build және smoke test сәтті өтті.

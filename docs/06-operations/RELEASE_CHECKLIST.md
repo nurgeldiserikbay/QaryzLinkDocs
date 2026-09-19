@@ -26,7 +26,8 @@
 - [x] Payment reversal backend slice.
 - [x] Transactional notification outbox persistence backend slice.
 - [x] Notification outbox claim/retry worker backend slice.
-- [ ] Notification provider adapter, Kubernetes CronJob/queue scheduler және monitoring.
+- [x] Provider-neutral notification delivery boundary backend slice.
+- [ ] Нақты SMTP/push provider, Kubernetes CronJob/queue scheduler және monitoring.
 - [ ] Front/Admin UI және HTTP e2e tests.
 - [ ] Privacy/consent enforcement, PII encryption және retention.
 - [ ] Reproducible lockfile, container build және runtime smoke test.
