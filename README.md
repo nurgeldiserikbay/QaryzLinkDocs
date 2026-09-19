@@ -25,6 +25,7 @@ QaryzLink — Қазақстандағы жеке тұлғалар арасын�
 | [Overdue worker](docs/01-business/OVERDUE_WORKER.md) | Due/overdue күйін materialize ететін worker |
 | [Payment reversal](docs/01-business/PAYMENT_REVERSAL.md) | Confirmed төлемді immutable түрде кері жазу |
 | [Notification outbox](docs/01-business/NOTIFICATION_OUTBOX.md) | Транзакциялық notification intent және idempotency |
+| [Notification worker](docs/01-business/NOTIFICATION_WORKER.md) | Claim, lease және retry lifecycle |
 | [State machines](docs/01-business/STATE_MACHINES.md) | Негізгі объектілердің күйлері |
 | [Calculation model](docs/01-business/CALCULATION_MODEL.md) | Пайыз, кесте, төлем және баланс есебі |
 | [System architecture](docs/02-architecture/SYSTEM_ARCHITECTURE.md) | Репозиторийлер мен модульдердің байланысы |
