@@ -1,6 +1,6 @@
 # Implementation status
 
-Жаңартылған күні: 2026-09-18
+Жаңартылған күні: 2026-09-19
 
 Бұл құжат specification мен нақты код арасындағы қысқа бақылау нүктесі. Толық талаптар өзгермейді; мұнда тек орындалу күйі көрсетіледі.
 
@@ -20,7 +20,8 @@
 | Payment evidence/confirmation/ledger | Дайын | Borrower evidence, lender decision, allocation және append-only ledger |
 | Overdue status worker | Дайын | UTC due/overdue materialization, ACTIVE + CONFIRMED guard, idempotent transaction |
 | Payment reversal | Дайын | Lender-authorized immutable reversal, signed allocation restore және opposite ledger entries |
-| Notifications/scheduler | Жоспарда | Outbox және deployment scheduler adapter |
+| Notifications/outbox | Базалық slice дайын | Payment CONFIRMED/REVERSED оқиғалары, privacy-safe payload және idempotent outbox |
+| Delivery worker/scheduler | Жоспарда | Claim/retry, provider adapter және deployment scheduler |
 | Front/Admin UI | Жоспарда | Backend contract тұрақтанған сайын вертикаль slice бойынша жасалады |
 
 ## Қазіргі backend slice
@@ -74,7 +75,7 @@ flowchart LR
 4. Contract version және екі тараптың қол қою workflow-ы — орындалды: [contract signing](../01-business/CONTRACT_SIGNING.md).
 5. Funding evidence және 72 сағаттық borrower confirmation.
 6. Deterministic repayment schedule, payment confirmation және reversal — орындалды.
-7. Notifications/outbox және deployment scheduler adapter.
+7. Notification outbox persistence — орындалды; delivery worker, retry және deployment scheduler adapter.
 8. Осы API-ларға сәйкес Front, кейін Admin интерфейстері.
 
 ## Production-ға жіберілмейтін мүмкіндіктер
@@ -155,3 +156,12 @@ QaryzLinkBack PR #7 merged: lender тек CONFIRMED төлемді міндет�
 API guide: [PAYMENT_REVERSAL](../01-business/PAYMENT_REVERSAL.md). ADR: [ADR-0013](../../adr/ADR-0013-immutable-payment-reversal.md).
 
 [CI run 35368226481](https://github.com/nurgeldiserikbay/QaryzLinkBack/actions/runs/35368226481): Prisma migration, typecheck, lint, coverage, build және smoke test сәтті өтті.
+
+
+## Notification outbox
+
+QaryzLinkBack PR #8 merged: payment CONFIRMED және REVERSED операцияларымен бір транзакцияда privacy-safe NotificationOutbox intent жасалады. Бірегей idempotencyKey қайталап орындағанда duplicate event жасалуына жол бермейді. Қазіргі slice хабарлама жібермейді; provider adapter, claim/retry worker және scheduler бөлек кезеңде қосылады.
+
+API/backend guide: [NOTIFICATION_OUTBOX](../01-business/NOTIFICATION_OUTBOX.md). ADR: [ADR-0014](../../adr/ADR-0014-transactional-notification-outbox.md).
+
+[CI run 35426502155](https://github.com/nurgeldiserikbay/QaryzLinkBack/actions/runs/35426502155): migration, typecheck, lint, coverage, build және smoke test сәтті өтті.

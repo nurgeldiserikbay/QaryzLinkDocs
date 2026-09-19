@@ -184,3 +184,8 @@ QaryzLinkBack OverdueWorker database UTC күнімен unpaid schedule item-д�
 ## Payment reversal implementation mapping
 
 QaryzLinkBack-та lender CONFIRMED repayment үшін ғана POST /api/v1/payments/:paymentId/reverse шақыра алады. Backend original Payment-ті сақтап, status REVERSED етеді және reversalOfId арқылы жаңа REVERSED Payment жасайды. Allocation-дар теріс мәнмен ScheduleItem paidMinor балансын қайтарады; ledger-ге бастапқы бағыттарға қарама-қарсы append-only жазбалар қосылады. Барлық операция бір транзакцияда орындалады.
+
+
+## Notification implementation mapping
+
+Payment CONFIRMED немесе REVERSED болғанда QaryzLinkBack сол database transaction ішінде екі тарапқа IN_APP NotificationOutbox intent жазады. Event payload тек payment/contract/reversal идентификаторлары мен status metadata-дан тұрады; email, телефон, құжат немесе банк деректері сақталмайды. Unique idempotencyKey duplicate intent-ті басады. Outbox persistence дайын, ал нақты жеткізу worker/scheduler кезеңінде орындалады.
