@@ -188,4 +188,4 @@ QaryzLinkBack-та lender CONFIRMED repayment үшін ғана POST /api/v1/pay
 
 ## Notification implementation mapping
 
-Payment CONFIRMED немесе REVERSED болғанда QaryzLinkBack сол database transaction ішінде екі тарапқа IN_APP NotificationOutbox intent жазады. Event payload тек payment/contract/reversal идентификаторлары мен status metadata-дан тұрады; email, телефон, құжат немесе банк деректері сақталмайды. Unique idempotencyKey duplicate intent-ті басады. Outbox persistence және claim/retry worker дайын; worker lease/retry lifecycle-ді басқарады, ал нақты provider delivery мен scheduler кейінгі кезеңде орындалады.
+Payment CONFIRMED немесе REVERSED болғанда QaryzLinkBack сол database transaction ішінде екі тарапқа IN_APP NotificationOutbox intent жазады. Event payload тек payment/contract/reversal идентификаторлары мен status metadata-дан тұрады; email, телефон, құжат немесе банк деректері сақталмайды. Unique idempotencyKey duplicate intent-ті басады. Outbox persistence, claim/retry worker және provider-neutral dispatch boundary дайын; default adapter fail-closed, ал нақты provider delivery мен scheduler кейінгі кезеңде орындалады.
