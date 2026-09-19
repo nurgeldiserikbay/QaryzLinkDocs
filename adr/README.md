@@ -34,3 +34,4 @@ ADR маңызды және кейін өзгеруі қымбат шешімд�
 
 - [ADR-0012: Idempotent overdue status materialization](ADR-0012-idempotent-overdue-status-materialization.md)
 - [ADR-0013: Immutable payment reversal](ADR-0013-immutable-payment-reversal.md)
+- [ADR-0014: Transactional notification outbox](ADR-0014-transactional-notification-outbox.md)
