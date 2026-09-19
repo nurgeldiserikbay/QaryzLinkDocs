@@ -25,7 +25,8 @@
 - [x] Overdue status worker backend slice.
 - [x] Payment reversal backend slice.
 - [x] Transactional notification outbox persistence backend slice.
-- [ ] Notification delivery worker, provider adapter және Kubernetes CronJob/queue scheduler.
+- [x] Notification outbox claim/retry worker backend slice.
+- [ ] Notification provider adapter, Kubernetes CronJob/queue scheduler және monitoring.
 - [ ] Front/Admin UI және HTTP e2e tests.
 - [ ] Privacy/consent enforcement, PII encryption және retention.
 - [ ] Reproducible lockfile, container build және runtime smoke test.
