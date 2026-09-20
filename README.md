@@ -27,6 +27,7 @@ QaryzLink — Қазақстандағы жеке тұлғалар арасын�
 | [Notification outbox](docs/01-business/NOTIFICATION_OUTBOX.md) | Транзакциялық notification intent және idempotency |
 | [Notification worker](docs/01-business/NOTIFICATION_WORKER.md) | Claim, lease және retry lifecycle |
 | [Notification delivery](docs/01-business/NOTIFICATION_DELIVERY.md) | Provider-neutral dispatch boundary |
+| [Notification destinations](docs/01-business/NOTIFICATION_DESTINATIONS.md) | Privacy-safe party-to-channel resolution |
 | [Notification scheduler](docs/01-business/NOTIFICATION_SCHEDULER.md) | One-shot outbox orchestration |
 | [Notification runtime config](docs/06-operations/NOTIFICATION_RUNTIME_CONFIG.md) | Deployment batch settings |
 | [State machines](docs/01-business/STATE_MACHINES.md) | Негізгі объектілердің күйлері |
