@@ -40,3 +40,5 @@ ADR маңызды және кейін өзгеруі қымбат шешімд�
 - [ADR-0017: One-shot notification scheduler/orchestrator](ADR-0017-notification-scheduler-orchestrator.md)
 - [ADR-0018: Deployable notification scheduler configuration](ADR-0018-deployable-notification-configuration.md)
 - [ADR-0019: Resolve notification destinations at delivery time](ADR-0019-notification-recipient-destinations.md)
+
+- [ADR-0020: Fail-closed SMTP notification adapter](ADR-0020-fail-closed-smtp-notifications.md)

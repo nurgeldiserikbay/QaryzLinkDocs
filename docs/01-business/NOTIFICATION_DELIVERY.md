@@ -57,4 +57,4 @@ A provider does not receive:
 
 ## Operational boundary
 
-Recipient destination resolution is now a tested persistence adapter. SMTP/push implementation, secret management, templates, notification preferences, organization contact routing, scheduler deployment and monitoring are still required before public pilot.
+Recipient destination resolution and a fail-closed SMTP adapter are now tested backend slices. Actual provider credentials/inbox delivery, notification preferences, organization contact routing, scheduler deployment and monitoring are still required before public pilot.

@@ -26,7 +26,8 @@
 | Notification recipient resolution | Базалық slice дайын | Party ID → in-app ID or active verified email, no PII in outbox |
 | Notification scheduler/orchestrator | Базалық slice дайын | One-shot claim → sequential dispatch → result counters |
 | Notification runtime configuration | Базалық slice дайын | Validated NOTIFICATION_BATCH_SIZE, DI options, deployment guide |
-| Provider/scheduler | Жоспарда | SMTP/push adapter, Kubernetes CronJob/queue және monitoring |
+| Notification SMTP adapter | Базалық slice дайын | MAIL_ENABLED gate, generic PII-safe templates, fail-closed router |
+| Provider/scheduler | Жоспарда | Push adapter, Kubernetes CronJob/queue, notification preferences, organization routing және monitoring |
 | Front/Admin UI | Жоспарда | Backend contract тұрақтанған сайын вертикаль slice бойынша жасалады |
 
 ## Қазіргі backend slice
@@ -215,3 +216,12 @@ QaryzLinkBack PR #13: delivery алдында party ID channel-specific ephemera
 API/backend guide: [NOTIFICATION_DESTINATIONS](../01-business/NOTIFICATION_DESTINATIONS.md), [NOTIFICATION_DELIVERY](../01-business/NOTIFICATION_DELIVERY.md). ADR: [ADR-0019](../../adr/ADR-0019-notification-recipient-destinations.md).
 
 [CI run 35512393331](https://github.com/nurgeldiserikbay/QaryzLinkBack/actions/runs/35512393331): destination resolver, delivery tests, typecheck, lint, coverage және build сәтті өтті.
+
+
+## Notification SMTP adapter
+
+QaryzLinkBack PR #14: EMAIL destination-дар `SmtpNotificationAdapter` арқылы generic PII-free мәтінмен жіберіледі. `MAIL_ENABLED=false` кезінде transport құрылмайды; provider errors sanitized, ал IN_APP channel unavailable adapter арқылы fail-closed қалады.
+
+Operations guide: [NOTIFICATION_SMTP](../06-operations/NOTIFICATION_SMTP.md). ADR: [ADR-0020](../../adr/ADR-0020-fail-closed-smtp-notifications.md).
+
+[CI run 35514028534](https://github.com/nurgeldiserikbay/QaryzLinkBack/actions/runs/35514028534): renderer, SMTP adapter, router, typecheck, lint, coverage және build сәтті өтті.
