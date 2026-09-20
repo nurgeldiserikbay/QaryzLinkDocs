@@ -23,6 +23,7 @@
 | Notifications/outbox | Базалық slice дайын | Payment CONFIRMED/REVERSED оқиғалары, privacy-safe payload және idempotent outbox |
 | Notification claim/retry worker | Базалық slice дайын | SKIP LOCKED claim, 5 минут lease, exponential retry және terminal FAILED |
 | Delivery adapter boundary | Базалық slice дайын | Provider-neutral port, dispatch service және safe unavailable default |
+| Notification recipient resolution | Базалық slice дайын | Party ID → in-app ID or active verified email, no PII in outbox |
 | Notification scheduler/orchestrator | Базалық slice дайын | One-shot claim → sequential dispatch → result counters |
 | Notification runtime configuration | Базалық slice дайын | Validated NOTIFICATION_BATCH_SIZE, DI options, deployment guide |
 | Provider/scheduler | Жоспарда | SMTP/push adapter, Kubernetes CronJob/queue және monitoring |
@@ -205,3 +206,12 @@ QaryzLinkBack PR #12: `NOTIFICATION_BATCH_SIZE` environment variable 1–100 д�
 Operations guide: [NOTIFICATION_RUNTIME_CONFIG](../06-operations/NOTIFICATION_RUNTIME_CONFIG.md). ADR: [ADR-0018](../../adr/ADR-0018-deployable-notification-configuration.md).
 
 [CI run 35510328529](https://github.com/nurgeldiserikbay/QaryzLinkBack/actions/runs/35510328529): typecheck, lint, coverage және build сәтті өтті.
+
+
+## Notification recipient resolution
+
+QaryzLinkBack PR #13: delivery алдында party ID channel-specific ephemeral destination-ға аударылады. IN_APP party ID арқылы, EMAIL тек ACTIVE және verified owner email арқылы шешіледі. Destination жоқ болса provider шақырылмай, claim retry/FAILED policy-іне өтеді.
+
+API/backend guide: [NOTIFICATION_DESTINATIONS](../01-business/NOTIFICATION_DESTINATIONS.md), [NOTIFICATION_DELIVERY](../01-business/NOTIFICATION_DELIVERY.md). ADR: [ADR-0019](../../adr/ADR-0019-notification-recipient-destinations.md).
+
+[CI run 35512393331](https://github.com/nurgeldiserikbay/QaryzLinkBack/actions/runs/35512393331): destination resolver, delivery tests, typecheck, lint, coverage және build сәтті өтті.
