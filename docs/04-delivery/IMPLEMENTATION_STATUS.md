@@ -29,7 +29,8 @@
 | Notification SMTP adapter | Базалық slice дайын | MAIL_ENABLED gate, generic PII-safe templates, fail-closed router |
 | Notification scheduler command | Базалық slice дайын | `pnpm notifications:run`, validated AppModule context, aggregate counters және non-zero failure exit |
 | Notification email preference | Базалық slice дайын | PrivacySettings opt-out, profile API және enqueue-time EMAIL filtering |
-| Provider/scheduler | Жоспарда | Push adapter, Kubernetes CronJob/queue trigger, organization routing және monitoring |
+| Notification delivery metrics | Базалық slice дайын | In-process counters, scheduler duration және internal JSON snapshot endpoint |
+| Provider/scheduler | Жоспарда | Push adapter, Kubernetes CronJob/queue trigger, persistent metrics/alerting және organization routing |
 | Front/Admin UI | Жоспарда | Backend contract тұрақтанған сайын вертикаль slice бойынша жасалады |
 
 ## Қазіргі backend slice
@@ -83,7 +84,7 @@ flowchart LR
 4. Contract version және екі тараптың қол қою workflow-ы — орындалды: [contract signing](../01-business/CONTRACT_SIGNING.md).
 5. Funding evidence және 72 сағаттық borrower confirmation.
 6. Deterministic repayment schedule, payment confirmation және reversal — орындалды.
-7. Notification outbox, claim/retry worker, provider-neutral dispatch boundary және one-shot orchestrator — орындалды; нақты provider, deployment scheduler және monitoring.
+7. Notification outbox, claim/retry worker, provider-neutral dispatch boundary, one-shot orchestrator және privacy-safe metrics snapshot — орындалды; нақты provider, deployment scheduler, persistent monitoring және alerting.
 8. Осы API-ларға сәйкес Front, кейін Admin интерфейстері.
 
 ## Production-ға жіберілмейтін мүмкіндіктер
@@ -245,3 +246,14 @@ QaryzLinkBack PR #16: profile privacy settings-ке `emailNotificationsEnabled` 
 API/business guide: [NOTIFICATION_PREFERENCES](../01-business/NOTIFICATION_PREFERENCES.md), [NOTIFICATION_DESTINATIONS](../01-business/NOTIFICATION_DESTINATIONS.md). ADR: [ADR-0022](../../adr/ADR-0022-optional-email-notification-preference.md).
 
 [CI run 35514976266](https://github.com/nurgeldiserikbay/QaryzLinkBack/actions/runs/35514976266): migration, Prisma validation, typecheck, lint, coverage, build және smoke test сәтті өтті.
+
+
+## Notification delivery metrics
+
+QaryzLinkBack PR #17 merged: NotificationMetricsService scheduler run-дарын in-process counters ретінде жинайды. GET /api/v1/metrics/notifications endpoint тек runs, claimed, sent, pending, failed және timing snapshot қайтарады; recipient, payload, contact және financial identifiers шығарылмайды.
+
+Operations guide: [NOTIFICATION_METRICS](../06-operations/NOTIFICATION_METRICS.md). ADR: [ADR-0023](../../adr/ADR-0023-notification-delivery-metrics.md).
+
+[CI run 35516744602](https://github.com/nurgeldiserikbay/QaryzLinkBack/actions/runs/35516744602): Prisma format/generate/validate, migration, typecheck, lint, coverage, build және smoke test сәтті өтті.
+
+Бұл in-process baseline process restart кезінде reset болады. Prometheus/OpenTelemetry export, persistent history, alerting және internal ingress authentication кейінгі production hardening кезеңіне қалды.
