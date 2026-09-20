@@ -33,12 +33,14 @@
 - [x] Fail-closed SMTP notification adapter backend slice.
 - [x] One-shot notification scheduler executable backend slice.
 - [x] Optional email notification preference backend slice.
-- [ ] Нақты SMTP/push provider, Kubernetes CronJob/queue trigger және monitoring.
+- [x] Privacy-safe notification delivery metrics backend slice.
+- [ ] Нақты SMTP/push provider, Kubernetes CronJob/queue trigger, persistent monitoring және alerting.
 - [ ] Front/Admin UI және HTTP e2e tests.
 - [ ] Privacy/consent enforcement, PII encryption және retention.
 - [ ] Reproducible lockfile, container build және runtime smoke test.
 - [ ] Production migration job және rollback rehearsal.
-- [ ] Trusted proxy, CORS allowlist, health/readiness, monitoring.
+- [ ] Trusted proxy, CORS allowlist, health/readiness, persistent monitoring және alerting.
+- [ ] Metrics endpoint internal ingress/authentication review.
 - [ ] Нақты SMTP delivery және пайдаланушының email растау flow-ы.
 - [ ] Dependency/security checks және operational review.
 
