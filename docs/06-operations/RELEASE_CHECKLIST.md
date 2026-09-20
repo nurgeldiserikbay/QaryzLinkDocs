@@ -32,6 +32,7 @@
 - [x] Notification runtime batch configuration backend slice.
 - [x] Fail-closed SMTP notification adapter backend slice.
 - [x] One-shot notification scheduler executable backend slice.
+- [x] Optional email notification preference backend slice.
 - [ ] Нақты SMTP/push provider, Kubernetes CronJob/queue trigger және monitoring.
 - [ ] Front/Admin UI және HTTP e2e tests.
 - [ ] Privacy/consent enforcement, PII encryption және retention.
