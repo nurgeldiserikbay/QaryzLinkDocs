@@ -20,7 +20,7 @@ flowchart TD
 | Channel | Resolver нәтижесі | Шарт |
 |---|---|---|
 | `IN_APP` | Party ID | Party бар болуы керек |
-| `EMAIL` | Email address | Owner user `ACTIVE`, email бар және `emailVerifiedAt` толтырылған болуы керек |
+| `EMAIL` | Email address | Owner user `ACTIVE`, email бар және `emailVerifiedAt` толтырылған болуы керек; optional preference true болуы керек |
 
 Organization party-де қазіргі schema бойынша `ownerUser` міндетті емес, сондықтан email destination автоматты түрде берілмейді. Заңды тұлғаға арналған contact routing кейін бөлек country/entity profile моделімен қосылады.
 
