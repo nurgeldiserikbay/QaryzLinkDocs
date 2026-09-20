@@ -29,8 +29,9 @@
 | Notification SMTP adapter | Базалық slice дайын | MAIL_ENABLED gate, generic PII-safe templates, fail-closed router |
 | Notification scheduler command | Базалық slice дайын | `pnpm notifications:run`, validated AppModule context, aggregate counters және non-zero failure exit |
 | Notification email preference | Базалық slice дайын | PrivacySettings opt-out, profile API және enqueue-time EMAIL filtering |
-| Notification delivery metrics | Базалық slice дайын | In-process counters, scheduler duration және internal JSON snapshot endpoint |
-| Provider/scheduler | Жоспарда | Push adapter, Kubernetes CronJob/queue trigger, persistent metrics/alerting және organization routing |
+| Notification delivery metrics | Базалық slice дайын | In-process counters, internal JSON snapshot, staging/production token guard |
+| Notification Kubernetes scheduler | Deployment template дайын | CronJob Forbid policy, external Secret, immutable image және non-overlap contract |
+| Provider/scheduler | Жоспарда | Push adapter, queue trigger, persistent metrics/alerting және organization routing |
 | Front/Admin UI | Жоспарда | Backend contract тұрақтанған сайын вертикаль slice бойынша жасалады |
 
 ## Қазіргі backend slice
@@ -84,7 +85,7 @@ flowchart LR
 4. Contract version және екі тараптың қол қою workflow-ы — орындалды: [contract signing](../01-business/CONTRACT_SIGNING.md).
 5. Funding evidence және 72 сағаттық borrower confirmation.
 6. Deterministic repayment schedule, payment confirmation және reversal — орындалды.
-7. Notification outbox, claim/retry worker, provider-neutral dispatch boundary, one-shot orchestrator және privacy-safe metrics snapshot — орындалды; нақты provider, deployment scheduler, persistent monitoring және alerting.
+7. Notification outbox, claim/retry worker, provider-neutral dispatch boundary, one-shot orchestrator, token-protected metrics және Kubernetes CronJob template — орындалды; нақты provider rollout, queue trigger, persistent monitoring және alerting.
 8. Осы API-ларға сәйкес Front, кейін Admin интерфейстері.
 
 ## Production-ға жіберілмейтін мүмкіндіктер
@@ -257,3 +258,18 @@ Operations guide: [NOTIFICATION_METRICS](../06-operations/NOTIFICATION_METRICS.m
 [CI run 35516744602](https://github.com/nurgeldiserikbay/QaryzLinkBack/actions/runs/35516744602): Prisma format/generate/validate, migration, typecheck, lint, coverage, build және smoke test сәтті өтті.
 
 Бұл in-process baseline process restart кезінде reset болады. Prometheus/OpenTelemetry export, persistent history, alerting және internal ingress authentication кейінгі production hardening кезеңіне қалды.
+
+
+## Notification metrics security
+
+QaryzLinkBack PR #18 merged: staging және production environment үшін METRICS_ACCESS_TOKEN міндетті болды. GET /api/v1/metrics/notifications endpoint x-metrics-token header-ін timing-safe салыстыру арқылы тексереді және token жоқ/қате болса fail-closed 401 қайтарады.
+
+[CI run 35517874174](https://github.com/nurgeldiserikbay/QaryzLinkBack/actions/runs/35517874174): typecheck, lint, coverage, build және smoke test сәтті өтті. Metrics endpoint-тің ingress арқылы тек internal қолжетімділігі staging acceptance кезінде бөлек тексеріледі.
+
+## Notification Kubernetes scheduler
+
+QaryzLinkDocs-та notification scheduler-ді әр бес минут сайын іске қосатын Kubernetes CronJob template қосылды. concurrencyPolicy: Forbid, backoffLimit: 0, external Secret және immutable image policy бекітілді.
+
+Operations guide: [NOTIFICATION_CRONJOB](../06-operations/NOTIFICATION_CRONJOB.md). ADR: [ADR-0024](../../adr/ADR-0024-notification-kubernetes-cronjob.md).
+
+Бұл template нақты cluster namespace, registry, image digest немесе secret мәндерін қамтымайды. Staging rollout және job alerting әлі release gate болып қалады.

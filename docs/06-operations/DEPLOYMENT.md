@@ -40,7 +40,7 @@ Outbox хабарламаларын бір рет өңдеу үшін applicatio
 pnpm notifications:run
 ~~~
 
-Бұл command HTTP server ашпайды: `AppModule` application context іске қосылады, `NotificationSchedulerService.runOnce()` бір рет орындалады және context жабылады. API-мен бірдей `DATABASE_URL`, `REDIS_URL`, JWT және notification/SMTP settings керек. Dispatch нәтижесі counters ретінде логталады; bootstrap қатесі non-zero exit code қайтарады. Kubernetes CronJob немесе queue trigger осы command-ті қайталайды, бірақ нақты schedule/overlap/monitoring deployment деңгейінде қалады.
+Бұл command HTTP server ашпайды: `AppModule` application context іске қосылады, `NotificationSchedulerService.runOnce()` бір рет орындалады және context жабылады. API-мен бірдей `DATABASE_URL`, `REDIS_URL`, JWT және notification/SMTP settings керек. Dispatch нәтижесі counters ретінде логталады; bootstrap қатесі non-zero exit code қайтарады. Kubernetes CronJob немесе queue trigger осы command-ті қайталайды. Дайын template: [Notification CronJob](NOTIFICATION_CRONJOB.md). CronJob overlap, Secret және image policy deployment деңгейінде қалады.
 
 ## 3. Конфигурация
 
@@ -53,6 +53,7 @@ pnpm notifications:run
 | JWT_ACCESS_SECRET | Кемінде 32 таңбалық криптографиялық кездейсоқ secret; replica-ларда бірдей |
 | MAIL_ENABLED | Алғашқы іске қосуда false |
 | NOTIFICATION_BATCH_SIZE | 1–100, әдепкісі 50 |
+| METRICS_ACCESS_TOKEN | Staging/production-та кемінде 32 таңба; metrics endpoint header token |
 | PUBLIC_MARKETPLACE_ENABLED | false |
 | PENALTY_ENABLED | false |
 | AMOUNT_BASED_COMMISSION_ENABLED | false |
@@ -85,13 +86,15 @@ API: [backend README](https://github.com/nurgeldiserikbay/QaryzLinkBack#email-р
 - CORS қазір origin:false. Бір origin астындағы reverse proxy қолданыңыз немесе бөлек Front домені үшін нақты allowlist іске асырыңыз.
 - trustProxy:false. Proxy артында барлық клиент бір IP бюджетіне түсуі мүмкін; trusted proxy CIDR және header тазалау баптауы public launch алдында міндетті.
 - DB/Redis порттарын интернетке ашпаңыз; HTTPS-тен басқа ingress тек әкімшілік рұқсатпен.
-- Login, refresh, logout және email workflow-ларын staging-де тексеріңіз.
+- Metrics endpoint тек internal ingress арқылы қолжетімді болсын және x-metrics-token header талап етсін.
+- Login, refresh, logout, metrics authorization және email workflow-ларын staging-де тексеріңіз.
 
 ## 6. Docker және k3s
 
 Репозиторийде Dockerfile бар, бірақ осы email кезеңінің CI-ы контейнер build/start-ты тексермейді. Runtime image қазір Prisma migration файлдарын көшірмейді; оны migration job ретінде пайдалануға болмайды.
 Docker/k3s production release алдында жеке migration image/job, runtime smoke test, secret injection, readiness/liveness және trusted ingress баптауы аяқталсын.
-Әзірге жоғарыдағы Node deployment — бар кодқа сәйкес staging жолы. k3s manifest-тері дайын деп саналмайды.
+Notification CronJob template бар, бірақ нақты namespace, registry digest, Secret және alerting мәндері staging environment-те толтырылып тексерілуі керек.
+Әзірге жоғарыдағы Node deployment — бар кодқа сәйкес staging жолы; толық production k3s release дайын деп саналмайды.
 
 ## 7. Backup және rollback
 
