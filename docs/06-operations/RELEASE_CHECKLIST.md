@@ -34,13 +34,16 @@
 - [x] One-shot notification scheduler executable backend slice.
 - [x] Optional email notification preference backend slice.
 - [x] Privacy-safe notification delivery metrics backend slice.
-- [ ] Нақты SMTP/push provider, Kubernetes CronJob/queue trigger, persistent monitoring және alerting.
+- [x] Metrics endpoint token protection backend slice.
+- [x] Notification scheduler Kubernetes CronJob deployment contract.
+- [ ] Нақты SMTP/push provider, queue trigger, persistent monitoring және alerting.
 - [ ] Front/Admin UI және HTTP e2e tests.
 - [ ] Privacy/consent enforcement, PII encryption және retention.
 - [ ] Reproducible lockfile, container build және runtime smoke test.
 - [ ] Production migration job және rollback rehearsal.
 - [ ] Trusted proxy, CORS allowlist, health/readiness, persistent monitoring және alerting.
-- [ ] Metrics endpoint internal ingress/authentication review.
+- [ ] Kubernetes CronJob staging rollout, immutable image verification және job alerting.
+- [ ] Metrics endpoint internal ingress review және staging acceptance.
 - [ ] Нақты SMTP delivery және пайдаланушының email растау flow-ы.
 - [ ] Dependency/security checks және operational review.
 
