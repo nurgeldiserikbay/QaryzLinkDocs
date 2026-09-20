@@ -52,4 +52,15 @@ flowchart TD
 - `NotificationSchedulerService.runOnce(limit)`
 - `NotificationsModule` осы үшеуін application boundary ретінде экспорттайды.
 
-Қазіргі default `UnavailableNotificationAdapter` fail-closed. Нақты SMTP немесе push adapter және production scheduler кейінгі delivery hardening кезеңіне жатады.
+## Deployment command
+
+Backend production build-тен кейін бір реттік job ретінде іске қосылады:
+
+~~~bash
+pnpm build
+pnpm notifications:run
+~~~
+
+Команда `AppModule`-ды application context ретінде іске қосып, `NOTIFICATION_BATCH_SIZE` арқылы бір batch dispatch етеді. Тек aggregate counters логталады; bootstrap немесе күтпеген scheduler қатесі non-zero exit code береді. Dispatch-level provider қатесі outbox retry/FAILED policy ішінде қалады.
+
+Қазіргі default `UnavailableNotificationAdapter` fail-closed. Нақты SMTP немесе push adapter бөлек provider gate болып қалады; бұл command тек scheduler trigger boundary береді.

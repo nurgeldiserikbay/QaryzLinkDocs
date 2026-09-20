@@ -42,3 +42,4 @@ ADR маңызды және кейін өзгеруі қымбат шешімд�
 - [ADR-0019: Resolve notification destinations at delivery time](ADR-0019-notification-recipient-destinations.md)
 
 - [ADR-0020: Fail-closed SMTP notification adapter](ADR-0020-fail-closed-smtp-notifications.md)
+- [ADR-0021: One-shot notification scheduler command](ADR-0021-one-shot-notification-scheduler-command.md)

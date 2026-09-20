@@ -28,7 +28,7 @@ flowchart TD
 - Staging үшін `NOTIFICATION_BATCH_SIZE=50` жеткілікті.
 - Үлкен мәнді production throughput метрикалары болғанша қоймау керек.
 - Бұл параметр provider credential, email address немесе жеке дерек сақтамайды.
-- Параметр scheduler-ді өзі іске қоспайды; cron/queue trigger бөлек deployment жұмысы.
+- Параметр scheduler-ді өзі іске қоспайды; `pnpm notifications:run` бір batch-ті орындайды, ал қайталанатын cron/queue trigger бөлек deployment жұмысы.
 - Invalid мәнмен application іске қосылмайды, себебі environment validation fail-fast жұмыс істейді.
 
 ## Қауіпсіздік шекарасы
