@@ -24,6 +24,7 @@
 | Notification claim/retry worker | Базалық slice дайын | SKIP LOCKED claim, 5 минут lease, exponential retry және terminal FAILED |
 | Delivery adapter boundary | Базалық slice дайын | Provider-neutral port, dispatch service және safe unavailable default |
 | Notification scheduler/orchestrator | Базалық slice дайын | One-shot claim → sequential dispatch → result counters |
+| Notification runtime configuration | Базалық slice дайын | Validated NOTIFICATION_BATCH_SIZE, DI options, deployment guide |
 | Provider/scheduler | Жоспарда | SMTP/push adapter, Kubernetes CronJob/queue және monitoring |
 | Front/Admin UI | Жоспарда | Backend contract тұрақтанған сайын вертикаль slice бойынша жасалады |
 
@@ -195,3 +196,12 @@ QaryzLinkBack PR #11: `NotificationSchedulerService.runOnce(limit)` worker claim
 API/backend guide: [NOTIFICATION_SCHEDULER](../01-business/NOTIFICATION_SCHEDULER.md). ADR: [ADR-0017](../../adr/ADR-0017-notification-scheduler-orchestrator.md).
 
 [CI run 35497154574](https://github.com/nurgeldiserikbay/QaryzLinkBack/actions/runs/35497154574): scheduler slice үшін typecheck, lint, coverage және build тексеріледі.
+
+
+## Notification runtime configuration
+
+QaryzLinkBack PR #12: `NOTIFICATION_BATCH_SIZE` environment variable 1–100 диапазонында тексеріледі, әдепкісі 50. Scheduler limit берілмесе осы мәнді қолданады; invalid configuration startup кезінде fail-fast тоқтайды.
+
+Operations guide: [NOTIFICATION_RUNTIME_CONFIG](../06-operations/NOTIFICATION_RUNTIME_CONFIG.md). ADR: [ADR-0018](../../adr/ADR-0018-deployable-notification-configuration.md).
+
+[CI run 35510328529](https://github.com/nurgeldiserikbay/QaryzLinkBack/actions/runs/35510328529): typecheck, lint, coverage және build сәтті өтті.
