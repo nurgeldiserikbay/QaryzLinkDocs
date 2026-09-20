@@ -273,3 +273,10 @@ QaryzLinkDocs-та notification scheduler-ді әр бес минут сайын
 Operations guide: [NOTIFICATION_CRONJOB](../06-operations/NOTIFICATION_CRONJOB.md). ADR: [ADR-0024](../../adr/ADR-0024-notification-kubernetes-cronjob.md).
 
 Бұл template нақты cluster namespace, registry, image digest немесе secret мәндерін қамтымайды. Staging rollout және job alerting әлі release gate болып қалады.
+
+
+## Notification staging smoke contract
+
+QaryzLinkBack PR #19 merged: CI compiled smoke test енді health, unauthenticated API, metrics token жоқ жағдайындағы 401 және дұрыс METRICS_ACCESS_TOKEN header-імен 200 жауаптарын тексереді.
+
+[CI run 35520106084](https://github.com/nurgeldiserikbay/QaryzLinkBack/actions/runs/35520106084) толық өтті. Staging үшін дәл осы contract [NOTIFICATION_CRONJOB](../06-operations/NOTIFICATION_CRONJOB.md) нұсқаулығындағы HTTP smoke checks арқылы қайталанады. Нақты Secret мәндері Docs-та сақталмайды.
