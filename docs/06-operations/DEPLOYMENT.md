@@ -1,6 +1,6 @@
 # Серверге орнату
 
-Жаңартылған күні: 2026-09-18.
+Жаңартылған күні: 2026-09-20.
 
 Бұл нұсқаулық қазіргі backend-ті жабық staging ортада іске қосуға арналған. Толық өнім әлі дайын емес: [implementation status](../04-delivery/IMPLEMENTATION_STATUS.md). Front/Admin және қарыз workflow-лары толық аяқталмаған.
 
@@ -42,6 +42,7 @@ Build/test үшін production базасын қолданбаңыз. pnpm check
 | REDIS_URL | Startup schema талап ететін URL |
 | JWT_ACCESS_SECRET | Кемінде 32 таңбалық криптографиялық кездейсоқ secret; replica-ларда бірдей |
 | MAIL_ENABLED | Алғашқы іске қосуда false |
+| NOTIFICATION_BATCH_SIZE | 1–100, әдепкісі 50 |
 | PUBLIC_MARKETPLACE_ENABLED | false |
 | PENALTY_ENABLED | false |
 | AMOUNT_BASED_COMMISSION_ENABLED | false |
