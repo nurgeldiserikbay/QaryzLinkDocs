@@ -1,6 +1,6 @@
 # Implementation status
 
-Жаңартылған күні: 2026-09-19
+Жаңартылған күні: 2026-09-20
 
 Бұл құжат specification мен нақты код арасындағы қысқа бақылау нүктесі. Толық талаптар өзгермейді; мұнда тек орындалу күйі көрсетіледі.
 
@@ -23,7 +23,8 @@
 | Notifications/outbox | Базалық slice дайын | Payment CONFIRMED/REVERSED оқиғалары, privacy-safe payload және idempotent outbox |
 | Notification claim/retry worker | Базалық slice дайын | SKIP LOCKED claim, 5 минут lease, exponential retry және terminal FAILED |
 | Delivery adapter boundary | Базалық slice дайын | Provider-neutral port, dispatch service және safe unavailable default |
-| Provider/scheduler | Жоспарда | SMTP/push adapter, deployment scheduler және monitoring |
+| Notification scheduler/orchestrator | Базалық slice дайын | One-shot claim → sequential dispatch → result counters |
+| Provider/scheduler | Жоспарда | SMTP/push adapter, Kubernetes CronJob/queue және monitoring |
 | Front/Admin UI | Жоспарда | Backend contract тұрақтанған сайын вертикаль slice бойынша жасалады |
 
 ## Қазіргі backend slice
@@ -77,7 +78,7 @@ flowchart LR
 4. Contract version және екі тараптың қол қою workflow-ы — орындалды: [contract signing](../01-business/CONTRACT_SIGNING.md).
 5. Funding evidence және 72 сағаттық borrower confirmation.
 6. Deterministic repayment schedule, payment confirmation және reversal — орындалды.
-7. Notification outbox, claim/retry worker және provider-neutral dispatch boundary — орындалды; нақты provider, deployment scheduler және monitoring.
+7. Notification outbox, claim/retry worker, provider-neutral dispatch boundary және one-shot orchestrator — орындалды; нақты provider, deployment scheduler және monitoring.
 8. Осы API-ларға сәйкес Front, кейін Admin интерфейстері.
 
 ## Production-ға жіберілмейтін мүмкіндіктер
@@ -185,3 +186,12 @@ QaryzLinkBack PR #10 merged: NotificationDeliveryPort және dispatch service 
 API/backend guide: [NOTIFICATION_DELIVERY](../01-business/NOTIFICATION_DELIVERY.md). ADR: [ADR-0016](../../adr/ADR-0016-provider-neutral-notification-delivery.md).
 
 [CI run 35442859823](https://github.com/nurgeldiserikbay/QaryzLinkBack/actions/runs/35442859823): migration, typecheck, lint, coverage, build және smoke test сәтті өтті.
+
+
+## Notification scheduler/orchestrator
+
+QaryzLinkBack PR #11: `NotificationSchedulerService.runOnce(limit)` worker claim-дерін delivery service арқылы ретімен dispatch етеді және `claimed/sent/pending/failed` санауыштарын қайтарады. Сервис cron, queue немесе provider credential қоспайды; оны deployment adapter кейін шақырады.
+
+API/backend guide: [NOTIFICATION_SCHEDULER](../01-business/NOTIFICATION_SCHEDULER.md). ADR: [ADR-0017](../../adr/ADR-0017-notification-scheduler-orchestrator.md).
+
+[CI run 35497154574](https://github.com/nurgeldiserikbay/QaryzLinkBack/actions/runs/35497154574): scheduler slice үшін typecheck, lint, coverage және build тексеріледі.
