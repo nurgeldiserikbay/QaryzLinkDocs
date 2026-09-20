@@ -30,6 +30,7 @@ QaryzLink — Қазақстандағы жеке тұлғалар арасын�
 | [Notification destinations](docs/01-business/NOTIFICATION_DESTINATIONS.md) | Privacy-safe party-to-channel resolution |
 | [Notification scheduler](docs/01-business/NOTIFICATION_SCHEDULER.md) | One-shot outbox orchestration |
 | [Notification runtime config](docs/06-operations/NOTIFICATION_RUNTIME_CONFIG.md) | Deployment batch settings |
+| [Notification SMTP](docs/06-operations/NOTIFICATION_SMTP.md) | Fail-closed email delivery adapter |
 | [State machines](docs/01-business/STATE_MACHINES.md) | Негізгі объектілердің күйлері |
 | [Calculation model](docs/01-business/CALCULATION_MODEL.md) | Пайыз, кесте, төлем және баланс есебі |
 | [System architecture](docs/02-architecture/SYSTEM_ARCHITECTURE.md) | Репозиторийлер мен модульдердің байланысы |
