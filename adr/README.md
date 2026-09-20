@@ -24,7 +24,7 @@ ADR маңызды және кейін өзгеруі қымбат шешімд�
 - [ADR-0006: Email verification](ADR-0006-email-verification.md)
 - [ADR-0007: Private discovery](ADR-0007-private-discovery.md)
 
-- [ADR-0008: Immutable contract draft and dual acknowledgement](ADR-0008-contract-draft-and-dual-acknowledgement.md)
+- [ADR-0008: Immutable contract draft and dual acknowledgement](ADR-0008-immutable-contract-draft-and-dual-acknowledgement.md)
 
 - [ADR-0009: Manual funding evidence and two-sided confirmation](ADR-0009-funding-evidence-and-confirmation.md)
 
@@ -44,3 +44,4 @@ ADR маңызды және кейін өзгеруі қымбат шешімд�
 - [ADR-0020: Fail-closed SMTP notification adapter](ADR-0020-fail-closed-smtp-notifications.md)
 - [ADR-0021: One-shot notification scheduler command](ADR-0021-one-shot-notification-scheduler-command.md)
 - [ADR-0022: Optional email notification preference](ADR-0022-optional-email-notification-preference.md)
+- [ADR-0023: Notification delivery metrics](ADR-0023-notification-delivery-metrics.md)
