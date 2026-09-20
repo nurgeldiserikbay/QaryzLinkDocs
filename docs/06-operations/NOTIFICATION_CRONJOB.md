@@ -67,11 +67,14 @@ METRICS_ACCESS_TOKEN="$(secret-manager read qaryzlink/staging/METRICS_ACCESS_TOK
 
 curl --fail "${BASE_URL}/api/v1/health"
 
-test "$(curl -s -o /dev/null -w '%{http_code}'   "${BASE_URL}/api/v1/discovery/requests")" = "401"
+discovery_status="$(curl -s -o /dev/null -w '%{http_code}' "${BASE_URL}/api/v1/discovery/requests")"
+test "${discovery_status}" = "401"
 
-test "$(curl -s -o /dev/null -w '%{http_code}'   "${BASE_URL}/api/v1/metrics/notifications")" = "401"
+metrics_without_token_status="$(curl -s -o /dev/null -w '%{http_code}' "${BASE_URL}/api/v1/metrics/notifications")"
+test "${metrics_without_token_status}" = "401"
 
-test "$(curl -s -o /dev/null -w '%{http_code}'   -H "x-metrics-token: ${METRICS_ACCESS_TOKEN}"   "${BASE_URL}/api/v1/metrics/notifications")" = "200"
+metrics_with_token_status="$(curl -s -o /dev/null -w '%{http_code}' -H "x-metrics-token: ${METRICS_ACCESS_TOKEN}" "${BASE_URL}/api/v1/metrics/notifications")"
+test "${metrics_with_token_status}" = "200"
 ~~~
 
 example.invalid және secret-manager — тек placeholder. Нақты hostname мен Secret Manager командасын deployment ортасына сәйкес ауыстырыңыз. Token-ді URL query параметріне қоспаңыз және HTTP response body-ді әдепкі shell output-қа шығармаңыз.
@@ -80,4 +83,4 @@ CI compiled smoke test осы authorization contract-ті production-like proces
 
 Бұл manifest public launch рұқсаты емес. Backup/restore, ingress authentication, alerting, push provider және legal pilot gate бөлек орындалады.
 
-Толық шешім: [ADR-0024](../../adr/ADR-0024-notification-kubernetes-cronjob).
+Толық шешім: [ADR-0024](../../adr/ADR-0024-notification-kubernetes-cronjob.md).
