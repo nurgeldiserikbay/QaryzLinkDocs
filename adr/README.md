@@ -37,3 +37,4 @@ ADR маңызды және кейін өзгеруі қымбат шешімд�
 - [ADR-0014: Transactional notification outbox](ADR-0014-transactional-notification-outbox.md)
 - [ADR-0015: Leased notification outbox worker](ADR-0015-leased-notification-outbox-worker.md)
 - [ADR-0016: Provider-neutral notification delivery](ADR-0016-provider-neutral-notification-delivery.md)
+- [ADR-0017: One-shot notification scheduler/orchestrator](ADR-0017-notification-scheduler-orchestrator.md)
