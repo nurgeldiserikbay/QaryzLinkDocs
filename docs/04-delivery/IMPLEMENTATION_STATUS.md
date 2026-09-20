@@ -28,7 +28,8 @@
 | Notification runtime configuration | Базалық slice дайын | Validated NOTIFICATION_BATCH_SIZE, DI options, deployment guide |
 | Notification SMTP adapter | Базалық slice дайын | MAIL_ENABLED gate, generic PII-safe templates, fail-closed router |
 | Notification scheduler command | Базалық slice дайын | `pnpm notifications:run`, validated AppModule context, aggregate counters және non-zero failure exit |
-| Provider/scheduler | Жоспарда | Push adapter, Kubernetes CronJob/queue trigger, notification preferences, organization routing және monitoring |
+| Notification email preference | Базалық slice дайын | PrivacySettings opt-out, profile API және enqueue-time EMAIL filtering |
+| Provider/scheduler | Жоспарда | Push adapter, Kubernetes CronJob/queue trigger, organization routing және monitoring |
 | Front/Admin UI | Жоспарда | Backend contract тұрақтанған сайын вертикаль slice бойынша жасалады |
 
 ## Қазіргі backend slice
@@ -235,3 +236,12 @@ QaryzLinkBack PR #15: production build құрамына бір реттік `pnp
 Operations guide: [NOTIFICATION_SCHEDULER](../01-business/NOTIFICATION_SCHEDULER.md), [DEPLOYMENT](../06-operations/DEPLOYMENT.md). ADR: [ADR-0021](../../adr/ADR-0021-one-shot-notification-scheduler-command.md).
 
 [CI run 35514521800](https://github.com/nurgeldiserikbay/QaryzLinkBack/actions/runs/35514521800): migration, typecheck, lint, coverage, build және smoke test сәтті өтті.
+
+
+## Notification email preference
+
+QaryzLinkBack PR #16: profile privacy settings-ке `emailNotificationsEnabled` қосылды. `false` болса, optional EMAIL intent outbox-қа enqueue кезінде жазылмайды; IN_APP арнасы өзгермейді.
+
+API/business guide: [NOTIFICATION_PREFERENCES](../01-business/NOTIFICATION_PREFERENCES.md), [NOTIFICATION_DESTINATIONS](../01-business/NOTIFICATION_DESTINATIONS.md). ADR: [ADR-0022](../../adr/ADR-0022-optional-email-notification-preference.md).
+
+[CI run 35514976266](https://github.com/nurgeldiserikbay/QaryzLinkBack/actions/runs/35514976266): migration, Prisma validation, typecheck, lint, coverage, build және smoke test сәтті өтті.
