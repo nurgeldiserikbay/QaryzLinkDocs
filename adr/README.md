@@ -39,3 +39,4 @@ ADR маңызды және кейін өзгеруі қымбат шешімд�
 - [ADR-0016: Provider-neutral notification delivery](ADR-0016-provider-neutral-notification-delivery.md)
 - [ADR-0017: One-shot notification scheduler/orchestrator](ADR-0017-notification-scheduler-orchestrator.md)
 - [ADR-0018: Deployable notification scheduler configuration](ADR-0018-deployable-notification-configuration.md)
+- [ADR-0019: Resolve notification destinations at delivery time](ADR-0019-notification-recipient-destinations.md)
