@@ -1,0 +1,55 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: qaryzlink-notification-scheduler
+  labels:
+    app.kubernetes.io/name: qaryzlink-notification-scheduler
+    app.kubernetes.io/component: worker
+spec:
+  schedule: "*/5 * * * *"
+  concurrencyPolicy: Forbid
+  startingDeadlineSeconds: 120
+  successfulJobsHistoryLimit: 3
+  failedJobsHistoryLimit: 3
+  jobTemplate:
+    spec:
+      backoffLimit: 0
+      ttlSecondsAfterFinished: 86400
+      template:
+        metadata:
+          labels:
+            app.kubernetes.io/name: qaryzlink-notification-scheduler
+            app.kubernetes.io/component: worker
+        spec:
+          restartPolicy: Never
+          automountServiceAccountToken: false
+          securityContext:
+            runAsNonRoot: true
+            seccompProfile:
+              type: RuntimeDefault
+          containers:
+            - name: scheduler
+              image: registry.example.invalid/qaryzlink-back:replace-with-immutable-digest
+              imagePullPolicy: IfNotPresent
+              command:
+                - node
+                - dist/src/notification-scheduler.main.js
+              env:
+                - name: NODE_ENV
+                  value: staging
+              envFrom:
+                - secretRef:
+                    name: qaryzlink-back-runtime
+              securityContext:
+                allowPrivilegeEscalation: false
+                readOnlyRootFilesystem: true
+                capabilities:
+                  drop:
+                    - ALL
+              resources:
+                requests:
+                  cpu: 25m
+                  memory: 128Mi
+                limits:
+                  cpu: 250m
+                  memory: 256Mi
