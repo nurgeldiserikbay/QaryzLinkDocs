@@ -8,15 +8,17 @@ The delivery boundary separates durable outbox state from external messaging pro
 sequenceDiagram
     participant W as Outbox worker
     participant D as Dispatch service
+    participant R as Recipient resolver
     participant P as Delivery port
     participant O as Outbox state
     W->>D: claimed event
-    D->>P: deliver metadata envelope
+    D->>R: party ID + channel
+    R-->>D: ephemeral destination or null
+    D->>P: metadata envelope + destination
     alt provider succeeds
         P-->>D: resolved
         D->>O: mark SENT
-    else provider fails
-        P-->>D: error
+    else destination/provider fails
         D->>O: mark PENDING or FAILED
     end
 ~~~
@@ -32,11 +34,13 @@ A provider receives:
 - recipient party ID;
 - channel;
 - metadata-only payload;
-- attempt number.
+- attempt number;
+- an ephemeral destination resolved for the current dispatch.
 
 A provider does not receive:
 
-- email or phone unless a later adapter explicitly resolves consented contact data;
+- contact data from the outbox payload;
+- unverified or inactive email destinations;
 - receipt objects or document contents;
 - bank credentials, access tokens or secrets;
 - permission to change contracts, schedules or ledger balances.
@@ -48,8 +52,9 @@ A provider does not receive:
 | Resolves successfully | SENT |
 | Throws an error before retry limit | PENDING with backoff |
 | Throws after retry limit | FAILED |
+| Missing destination | PENDING/FAILED without provider call |
 | Default unavailable adapter | PENDING/FAILED through the same policy |
 
 ## Operational boundary
 
-This slice provides a tested adapter contract and safe default. SMTP/push implementation, secret management, templates, consent-aware recipient resolution, scheduler deployment and monitoring are still required before public pilot.
+Recipient destination resolution is now a tested persistence adapter. SMTP/push implementation, secret management, templates, notification preferences, organization contact routing, scheduler deployment and monitoring are still required before public pilot.

@@ -27,6 +27,7 @@
 - [x] Transactional notification outbox persistence backend slice.
 - [x] Notification outbox claim/retry worker backend slice.
 - [x] Provider-neutral notification delivery boundary backend slice.
+- [x] Privacy-safe notification recipient resolution backend slice.
 - [x] One-shot notification scheduler/orchestrator backend slice.
 - [x] Notification runtime batch configuration backend slice.
 - [ ] Нақты SMTP/push provider, Kubernetes CronJob/queue scheduler және monitoring.
