@@ -32,6 +32,16 @@ Migration бір release job арқылы, traffic ашылғанға дейін
 Build/test үшін production базасын қолданбаңыз. pnpm check нақты integration тесттерін іске қосады: оған бөлек disposable test DB керек.
 Процесс supervisor/platform restart policy арқылы бақылансын; shutdown үшін SIGTERM жеткізілсін.
 
+### 2.1 Notification scheduler job
+
+Outbox хабарламаларын бір рет өңдеу үшін application build-тен кейін мына command қолданылады:
+
+~~~bash
+pnpm notifications:run
+~~~
+
+Бұл command HTTP server ашпайды: `AppModule` application context іске қосылады, `NotificationSchedulerService.runOnce()` бір рет орындалады және context жабылады. API-мен бірдей `DATABASE_URL`, `REDIS_URL`, JWT және notification/SMTP settings керек. Dispatch нәтижесі counters ретінде логталады; bootstrap қатесі non-zero exit code қайтарады. Kubernetes CronJob немесе queue trigger осы command-ті қайталайды, бірақ нақты schedule/overlap/monitoring deployment деңгейінде қалады.
+
 ## 3. Конфигурация
 
 | Variable | Мақсаты |
