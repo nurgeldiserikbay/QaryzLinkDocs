@@ -57,6 +57,27 @@ Notification CronJob migration job емес. Schema migration traffic ашылғ
 7. Failed/pending counters және job logs ішінде PII жоқ екенін тексеру.
 8. SMTP нақты staging mailbox-қа тек бақылаудағы test account арқылы тексеру.
 
+### HTTP smoke checks
+
+Командаларды internal staging ingress арқылы орындаңыз. METRICS_ACCESS_TOKEN мәнін shell secret manager-ден беріңіз; shell command tracing қосылмаған болсын:
+
+~~~bash
+BASE_URL="https://staging-internal.example.invalid"
+METRICS_ACCESS_TOKEN="$(secret-manager read qaryzlink/staging/METRICS_ACCESS_TOKEN)"
+
+curl --fail "${BASE_URL}/api/v1/health"
+
+test "$(curl -s -o /dev/null -w '%{http_code}'   "${BASE_URL}/api/v1/discovery/requests")" = "401"
+
+test "$(curl -s -o /dev/null -w '%{http_code}'   "${BASE_URL}/api/v1/metrics/notifications")" = "401"
+
+test "$(curl -s -o /dev/null -w '%{http_code}'   -H "x-metrics-token: ${METRICS_ACCESS_TOKEN}"   "${BASE_URL}/api/v1/metrics/notifications")" = "200"
+~~~
+
+example.invalid және secret-manager — тек placeholder. Нақты hostname мен Secret Manager командасын deployment ортасына сәйкес ауыстырыңыз. Token-ді URL query параметріне қоспаңыз және HTTP response body-ді әдепкі shell output-қа шығармаңыз.
+
+CI compiled smoke test осы authorization contract-ті production-like process арқылы да тексереді: [run 35520106084](https://github.com/nurgeldiserikbay/QaryzLinkBack/actions/runs/35520106084).
+
 Бұл manifest public launch рұқсаты емес. Backup/restore, ingress authentication, alerting, push provider және legal pilot gate бөлек орындалады.
 
-Толық шешім: [ADR-0024](../../adr/ADR-0024-notification-kubernetes-cronjob.md).
+Толық шешім: [ADR-0024](../../adr/ADR-0024-notification-kubernetes-cronjob).
