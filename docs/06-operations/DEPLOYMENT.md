@@ -65,6 +65,7 @@ Front verification беті дайын болғанда ғана MAIL_ENABLED=tr
 DNS sender verification, SPF/DKIM/DMARC провайдер бойынша бапталады. Credentials берудің орнына оларды сервердің secret settings-іне енгізіңіз.
 Тестті өзіңіз бақылайтын mailbox арқылы орындаңыз: request → хат → login → confirm → status true.
 CI нақты SMTP delivery немесе inbox placement-ті тексермейді.
+Notification SMTP adapter осы settings-ті тек EMAIL channel үшін қолданады және generic PII-free template жібереді. IN_APP delivery әзірге fail-closed. Толық нұсқа: [Notification SMTP](NOTIFICATION_SMTP.md).
 API: [backend README](https://github.com/nurgeldiserikbay/QaryzLinkBack#email-растау), [ADR-0006](../../adr/ADR-0006-email-verification.md).
 
 ## 5. Ingress және тексеру
