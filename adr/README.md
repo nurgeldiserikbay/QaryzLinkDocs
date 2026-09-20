@@ -24,7 +24,7 @@ ADR маңызды және кейін өзгеруі қымбат шешімд�
 - [ADR-0006: Email verification](ADR-0006-email-verification.md)
 - [ADR-0007: Private discovery](ADR-0007-private-discovery.md)
 
-- [ADR-0008: Immutable contract draft and dual acknowledgement](ADR-0008-immutable-contract-draft-and-dual-acknowledgement.md)
+- [ADR-0008: Immutable contract draft and dual acknowledgement](ADR-0008-contract-draft-and-dual-acknowledgement.md)
 
 - [ADR-0009: Manual funding evidence and two-sided confirmation](ADR-0009-funding-evidence-and-confirmation.md)
 
