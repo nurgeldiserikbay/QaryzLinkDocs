@@ -27,7 +27,8 @@
 | Notification scheduler/orchestrator | Базалық slice дайын | One-shot claim → sequential dispatch → result counters |
 | Notification runtime configuration | Базалық slice дайын | Validated NOTIFICATION_BATCH_SIZE, DI options, deployment guide |
 | Notification SMTP adapter | Базалық slice дайын | MAIL_ENABLED gate, generic PII-safe templates, fail-closed router |
-| Provider/scheduler | Жоспарда | Push adapter, Kubernetes CronJob/queue, notification preferences, organization routing және monitoring |
+| Notification scheduler command | Базалық slice дайын | `pnpm notifications:run`, validated AppModule context, aggregate counters және non-zero failure exit |
+| Provider/scheduler | Жоспарда | Push adapter, Kubernetes CronJob/queue trigger, notification preferences, organization routing және monitoring |
 | Front/Admin UI | Жоспарда | Backend contract тұрақтанған сайын вертикаль slice бойынша жасалады |
 
 ## Қазіргі backend slice
@@ -225,3 +226,12 @@ QaryzLinkBack PR #14: EMAIL destination-дар `SmtpNotificationAdapter` арқ�
 Operations guide: [NOTIFICATION_SMTP](../06-operations/NOTIFICATION_SMTP.md). ADR: [ADR-0020](../../adr/ADR-0020-fail-closed-smtp-notifications.md).
 
 [CI run 35514028534](https://github.com/nurgeldiserikbay/QaryzLinkBack/actions/runs/35514028534): renderer, SMTP adapter, router, typecheck, lint, coverage және build сәтті өтті.
+
+
+## Notification scheduler command
+
+QaryzLinkBack PR #15: production build құрамына бір реттік `pnpm notifications:run` command қосылды. Ол HTTP server іске қоспай, `AppModule` application context арқылы `NotificationSchedulerService.runOnce()` шақырады, aggregate counters логтайды және күтпеген bootstrap/scheduler қатесінде non-zero exit code қайтарады.
+
+Operations guide: [NOTIFICATION_SCHEDULER](../01-business/NOTIFICATION_SCHEDULER.md), [DEPLOYMENT](../06-operations/DEPLOYMENT.md). ADR: [ADR-0021](../../adr/ADR-0021-one-shot-notification-scheduler-command.md).
+
+[CI run 35514521800](https://github.com/nurgeldiserikbay/QaryzLinkBack/actions/runs/35514521800): migration, typecheck, lint, coverage, build және smoke test сәтті өтті.
