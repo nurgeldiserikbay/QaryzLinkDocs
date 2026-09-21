@@ -301,6 +301,8 @@ flowchart TD
 
 Екі тарап та соңғы шарт нұсқасына қол қойған кезде шарт `SIGNED_PENDING_FUNDING` күйіне өтеді. Бұл сәтте шарт бекітілген, бірақ қарыз берілді деп есептелмейді.
 
+**Implementation note (MVP, 2026-09-21):** қазіргі backend contract draft және read-only retrieval flow-ды қолдайды. POST /api/v1/contracts/:id/sign мутациясы CONTRACT_SIGNING_ENABLED=false әдепкі мәнімен өшірулі және CONTRACT_SIGNING_DISABLED conflict қайтарады. Оны қосу legal, security және release review-ден кейін ғана мүмкін; бұл platform acknowledgement-ді qualified electronic signature деп жарияламайды.
+
 Ақша берілгенін растау үшін:
 
 1. қарыз беруші төлем фактісін және қажетті дәлелді енгізеді;
