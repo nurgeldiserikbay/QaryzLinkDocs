@@ -46,3 +46,5 @@ ADR маңызды және кейін өзгеруі қымбат шешімд�
 - [ADR-0022: Optional email notification preference](ADR-0022-optional-email-notification-preference.md)
 - [ADR-0023: Notification delivery metrics](ADR-0023-notification-delivery-metrics.md)
 - [ADR-0024: Notification scheduler Kubernetes CronJob](ADR-0024-notification-kubernetes-cronjob.md)
+
+- [ADR-0025: Contract signing feature gate](ADR-0025-contract-signing-feature-gate.md)
