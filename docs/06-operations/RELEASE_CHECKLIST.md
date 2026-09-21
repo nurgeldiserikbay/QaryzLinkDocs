@@ -42,7 +42,9 @@
 - [ ] Privacy/consent enforcement, PII encryption және retention.
 - [ ] Reproducible lockfile, container build және runtime smoke test.
 - [ ] Production migration job және rollback rehearsal.
-- [ ] Trusted proxy, CORS allowlist, health/readiness, persistent monitoring және alerting.
+- [ ] Trusted proxy, CORS allowlist, persistent monitoring және alerting.
+- [x] Backend privacy-safe liveness/readiness contracts және PostgreSQL readiness check.
+- [ ] Staging ingress/orchestrator readiness probe нақты `/api/v1/health/ready` endpoint-іне қосылғаны тексерілді.
 - [ ] Kubernetes CronJob staging rollout, immutable image verification және job alerting.
 - [ ] Metrics endpoint internal ingress review және staging acceptance.
 - [ ] Нақты SMTP delivery және пайдаланушының email растау flow-ы.
