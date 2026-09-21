@@ -280,3 +280,29 @@ Operations guide: [NOTIFICATION_CRONJOB](../06-operations/NOTIFICATION_CRONJOB.m
 QaryzLinkBack PR #19 merged: CI compiled smoke test енді health, unauthenticated API, metrics token жоқ жағдайындағы 401 және дұрыс METRICS_ACCESS_TOKEN header-імен 200 жауаптарын тексереді.
 
 [CI run 35520106084](https://github.com/nurgeldiserikbay/QaryzLinkBack/actions/runs/35520106084) толық өтті. Staging үшін дәл осы contract [NOTIFICATION_CRONJOB](../06-operations/NOTIFICATION_CRONJOB.md) нұсқаулығындағы HTTP smoke checks арқылы қайталанады. Нақты Secret мәндері Docs-та сақталмайды.
+
+## Foundation hardening update — 2026-09-21
+
+QaryzLinkBack:
+
+- Auth access-token guard бос bearer token, бос user/session identifier, revoked session және session storage failure жағдайларын fail-closed 401 ретінде өңдейді.
+- Public health privacy contract тек status, service, timestamp және uptimeSeconds өрістерін бекітеді.
+- Metrics endpoint token protection және metrics response-тың PII-сыз operational counters шекарасы тестпен бекітілген.
+
+QaryzLinkFront:
+
+- API client URL normalization, explicit Authorization header және typed 401/503 error mapping тесттері қосылды.
+- Client session тек temporary sessionStorage арқылы save/read/clear жасайды; malformed session data discard етіледі.
+- Browser metrics token қолданбайтыны contract test арқылы тексерілді.
+
+QaryzLinkAdmin:
+
+- Public health card тек read-only liveness endpoint-ке қосылады.
+- Audit модулі live feed-ке қосылмаған, PII hidden және mutation жоқ.
+- Health response-та күтпеген identity/secret өрістері болса, Admin fail-closed режиміне өтеді.
+
+QaryzLinkDocs:
+
+- Staging smoke, backup/restore және privacy-safe monitoring runbook-тары қосылды.
+
+Бұл өзгерістер Phase 1 foundation hardening болып саналады. Нақты staging deploy, restore drill және production monitoring execution әлі орындалған жоқ; олар environment owner және адам review талап етеді.
