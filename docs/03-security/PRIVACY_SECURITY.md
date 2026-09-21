@@ -177,3 +177,23 @@ Before payment/bank integration:
 - reconciliation;
 - fraud monitoring;
 - regulatory approval.
+
+
+## 13. Web response security headers
+
+Front және Admin web response baseline-і кодта бекітіледі және staging-та нақты HTTP response арқылы дәлелденеді:
+
+- Content-Security-Policy: `default-src 'self'`, `base-uri 'self'`, `object-src 'none'`, `frame-ancestors 'none'`, `form-action 'self'`, self/data/blob image sources, self/data font sources, self/inline styles, self/inline scripts, self HTTPS және localhost-only development connections, self manifest, self/blob workers;
+- `X-Content-Type-Options: nosniff`;
+- `X-Frame-Options: DENY`;
+- `Referrer-Policy: strict-origin-when-cross-origin`;
+- `Permissions-Policy`: camera, microphone, geolocation және payment disabled;
+- `Cross-Origin-Opener-Policy: same-origin`;
+- `X-DNS-Prefetch-Control: off`;
+- `poweredByHeader` disabled, сондықтан framework identity response header-і жарияланбайды.
+
+CSP-тегі `unsafe-eval` тек development режиміне рұқсат етіледі; production response-та болмауы тиіс. HSTS бұл application code-қа емес, HTTPS staging/production ingress немесе reverse proxy-ге тиесілі. Нақты HTTPS ingress тексерілмей тұрып HSTS белсенді деп саналмайды.
+
+Metrics access token browser bundle-ге, public environment variable-ға, Front/Admin request-ке немесе screenshot/log-қа түспейді. Protected metrics тек internal runner/restricted ingress арқылы тексеріледі.
+
+Staging smoke кезінде әр қолданбаның нақты HTTPS response header-лері `curl -I` немесе эквивалент құралмен тексеріледі. Evidence record-та тек commit SHA, hostname, UTC уақыты, header атаулары және pass/fail сақталады; token, cookie, PII және secret мәндері сақталмайды.
