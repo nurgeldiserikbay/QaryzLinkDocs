@@ -324,3 +324,10 @@ Production dependency audit (`pnpm audit --prod --audit-level=high`) енді Ba
 - QaryzLinkAdmin PR #7 merged at `673662e`; CI run 35621228319 passed.
 
 Бұл CI dependency gate-тері staging/production container image scanning, SBOM, secret scanning немесе runtime monitoring орындалды дегенді білдірмейді.
+
+
+## Supply-chain CI — 2026-09-21
+
+Back, Front және Admin реполарында PR/push және апталық schedule үшін full-history Gitleaks secret scan және CycloneDX SBOM generation қосылды. Барлық алғашқы тексерулер green: Back runs 35622988019/35622987930, Front 35622995911/35622995877, Admin 35623001475/35623001458. Merged commits: Back `779e96b`, Front `b1b0ddc`, Admin `af6c432`.
+
+SBOM artifact upload әдейі өшірулі: retention/access policy әлі бекітілмеген. Container image vulnerability scan және operational security review әлі pending.
