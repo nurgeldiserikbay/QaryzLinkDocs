@@ -19,6 +19,7 @@
 - [x] Private request/invite/proposal backend және atomic acceptance тесттері.
 - [ ] Invite revoke/block-list, notifications, pagination және business audit.
 - [x] Contract draft және dual acknowledgement backend slice.
+- [x] Contract signing mutation default-off gate; legal review required before enablement.
 - [x] Funding evidence және borrower confirmation backend slice.
 - [x] Schedule generation backend slice.
 - [x] Payment evidence, confirmation және ledger backend slice.
