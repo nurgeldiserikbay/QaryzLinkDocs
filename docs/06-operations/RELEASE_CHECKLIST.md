@@ -48,7 +48,8 @@
 - [ ] Kubernetes CronJob staging rollout, immutable image verification және job alerting.
 - [ ] Metrics endpoint internal ingress review және staging acceptance.
 - [ ] Нақты SMTP delivery және пайдаланушының email растау flow-ы.
-- [ ] Dependency/security checks және operational review.
+- [x] Production dependency high/critical audit gate Back/Front/Admin CI ішінде.
+- [ ] Container/image scanning, SBOM, secret scanning және operational security review. және operational review.
 
 ## Өнім мен құқықтық gate
 
