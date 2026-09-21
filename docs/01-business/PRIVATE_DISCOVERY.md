@@ -31,3 +31,29 @@ POST requests require UUID `Idempotency-Key`. `amountMinor` JSON string; KZT min
 Errors: 400 invalid input, 401 session, 403 verification required, 404 inaccessible resource, 409 expired/conflict/idempotency conflict, 429 quota.
 
 Private data: email/phone/legal identity are not exposed; lender rival proposals are hidden.
+
+## Detail response privacy boundary
+
+~~~text
+GET /api/v1/discovery/requests/:id returns:
+
+{
+  "id": "uuid",
+  "viewerRole": "BORROWER | LENDER",
+  "status": "ACTIVE | MATCHED | ...",
+  "currency": "KZT",
+  "amountMinor": "string",
+  "termDays": 30,
+  "expiresAt": "ISO-8601",
+  "proposals": [
+    {
+      "id": "uuid",
+      "status": "PENDING | ACCEPTED | REJECTED | WITHDRAWN | SUPERSEDED",
+      "termsSnapshot": "object",
+      "expiresAt": "ISO-8601"
+    }
+  ]
+}
+~~~
+
+viewerRole is the authenticated viewer's role for this request. Borrowers can see visible proposals for the request; lenders see only their own proposal records. Clients must not expose raw personal data or blindly render the opaque termsSnapshot; render only validated fields required by the UI.
