@@ -135,3 +135,15 @@ Smoke test тек мына жағдайда passed деп белгіленеді
 - staging acceptance-ті жоба иесі көріп, бекіткен.
 
 Staging smoke passed болуы public launch approval емес.
+
+
+## Readiness smoke
+
+Staging deploy кезінде liveness-тен бөлек readiness тексеріледі:
+
+- `GET /api/v1/health/ready` database қолжетімді болса HTTP 200 және тек coarse dependency күйін қайтарады;
+- database unavailable жағдайда endpoint HTTP 503 fail-closed болуы тиіс;
+- response database URL, host, query, exception message немесе credential шығармауы тиіс;
+- ingress/orchestrator readiness probe осы endpoint-ке бағытталғаны deployment config арқылы тексеріледі.
+
+Бұл checklist нақты staging probe орындалмайынша staging readiness acceptance аяқталды дегенді білдірмейді.
