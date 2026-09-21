@@ -306,3 +306,10 @@ QaryzLinkDocs:
 - Staging smoke, backup/restore және privacy-safe monitoring runbook-тары қосылды.
 
 Бұл өзгерістер Phase 1 foundation hardening болып саналады. Нақты staging deploy, restore drill және production monitoring execution әлі орындалған жоқ; олар environment owner және адам review талап етеді.
+
+
+## Backend readiness — 2026-09-21
+
+QaryzLinkBack PR #25 merged at `4c6bae889cc1915afcf99b5ac31da0b2e306631b`: public liveness contract өзгермей, бөлек `GET /api/v1/health/ready` readiness endpoint қосылды. Ол PostgreSQL dependency-ін тексереді, тек coarse `database: up/down` күйін қайтарады және dependency unavailable болса 503 fail-closed response береді. Database error details response-қа шығарылмайды.
+
+[CI run 35596649387](https://github.com/nurgeldiserikbay/QaryzLinkBack/actions/runs/35596649387): Prisma format/generate/validate, migrations, quality checks және compiled smoke test сәтті өтті. Нақты staging readiness probe әлі environment acceptance кезінде тексеріледі.
