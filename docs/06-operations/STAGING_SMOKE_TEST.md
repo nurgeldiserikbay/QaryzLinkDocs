@@ -89,6 +89,29 @@ Staging smoke кезінде мына default-off boundaries тексеріле�
 
 Signing disabled response-ы қате жағдайда silent success болмауын қамтамасыз етуі тиіс.
 
+## 5. Response security headers
+
+Front және Admin staging origin-дерінде application-ның нақты HTTP response header-лері тексеріледі:
+
+```bash
+curl --fail-with-body --silent --show-error --head https://<staging-web>/
+```
+
+Күтілетін baseline:
+
+- `Content-Security-Policy` бар; production-та `unsafe-eval` жоқ;
+- `X-Content-Type-Options: nosniff`;
+- `X-Frame-Options: DENY`;
+- `Referrer-Policy: strict-origin-when-cross-origin`;
+- `Permissions-Policy` camera, microphone, geolocation және payment мүмкіндіктерін өшіреді;
+- `Cross-Origin-Opener-Policy: same-origin`;
+- `X-DNS-Prefetch-Control: off`;
+- framework identity header-і жоқ.
+
+HSTS application-нан емес, HTTPS ingress/reverse proxy-ден беріледі. HTTPS staging ingress нақты расталмайынша `Strict-Transport-Security` бар деп белгіленбейді. Егер ingress дайын болса, HSTS-ті сол қабатта тексеріп, domain/HTTPS redirect және certificate жарамдылығын бірге тіркеңіз.
+
+Тексеру қорытындысына header атаулары, commit SHA, hostname және UTC уақыты ғана жазылады. Cookie, token, PII және secret мәндері evidence-ке көшірілмейді. Metrics token browser request немесе browser bundle ішінде болмауы тиіс.
+
 ## Evidence record
 
 | Field | Example |
