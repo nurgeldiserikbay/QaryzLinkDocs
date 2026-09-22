@@ -331,3 +331,12 @@ Production dependency audit (`pnpm audit --prod --audit-level=high`) енді Ba
 Back, Front және Admin реполарында PR/push және апталық schedule үшін full-history Gitleaks secret scan және CycloneDX SBOM generation қосылды. Барлық алғашқы тексерулер green: Back runs 35622988019/35622987930, Front 35622995911/35622995877, Admin 35623001475/35623001458. Merged commits: Back `779e96b`, Front `b1b0ddc`, Admin `af6c432`.
 
 SBOM artifact upload әдейі өшірулі: retention/access policy әлі бекітілмеген. Container image vulnerability scan және operational security review әлі pending.
+
+
+## Reproducible backend builds — 2026-09-22
+
+- QaryzLinkBack PR #30 merged at `8c51a5b94610281b9f83a0ff56ce2c755dc65eab`.
+- `pnpm-lock.yaml` is committed and pins the pnpm 12.4.2 dependency graph.
+- Backend CI and Docker builds use `pnpm install --frozen-lockfile` and fail if manifests drift from the lockfile.
+- CI run 35685722942 and Supply Chain Security run 35685722920 passed before merge.
+- This does not claim deterministic container bytes across base-image updates; immutable production image digest pinning remains a deployment gate.
