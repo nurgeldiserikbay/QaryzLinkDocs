@@ -40,7 +40,7 @@
 - [ ] Нақты SMTP/push provider, queue trigger, persistent monitoring және alerting.
 - [ ] Front/Admin UI және HTTP e2e tests.
 - [ ] Privacy/consent enforcement, PII encryption және retention.
-- [ ] Reproducible lockfile, container build және runtime smoke test.
+- [x] Reproducible lockfile, container build және runtime smoke test.
 - [ ] Production migration job және rollback rehearsal.
 - [ ] Trusted proxy, CORS allowlist, persistent monitoring және alerting.
 - [x] Backend privacy-safe liveness/readiness contracts және PostgreSQL readiness check.
