@@ -17,7 +17,7 @@
 ## Public pilot алдында инженерлік жұмыстар
 
 - [x] Private request/invite/proposal backend және atomic acceptance тесттері.
-- [ ] Invite revoke/block-list, notifications, pagination және business audit.
+- [x] Invite revoke/block-list, notifications, cursor pagination және business audit.
 - [x] Contract draft және dual acknowledgement backend slice.
 - [x] Contract signing mutation default-off gate; legal review required before enablement.
 - [x] Funding evidence және borrower confirmation backend slice.
@@ -51,7 +51,8 @@
 - [x] Production dependency high/critical audit gate Back/Front/Admin CI ішінде.
 - [x] Full-history secret scanning және CycloneDX SBOM generation Back/Front/Admin CI ішінде.
 - [ ] SBOM artifact retention/access policy.
-- [ ] Container image vulnerability scanning және operational security review. және operational review.
+- [x] Container image HIGH/CRITICAL vulnerability scanning CI gate.
+- [ ] Operational security review және нақты staging/container acceptance.
 
 ## Өнім мен құқықтық gate
 
