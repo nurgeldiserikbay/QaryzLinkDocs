@@ -1,6 +1,6 @@
 # Implementation status
 
-Жаңартылған күні: 2026-09-20
+Жаңартылған күні: 2026-09-24
 
 Бұл құжат specification мен нақты код арасындағы қысқа бақылау нүктесі. Толық талаптар өзгермейді; мұнда тек орындалу күйі көрсетіледі.
 
@@ -31,6 +31,7 @@
 | Notification email preference | Базалық slice дайын | PrivacySettings opt-out, profile API және enqueue-time EMAIL filtering |
 | Notification delivery metrics | Базалық slice дайын | In-process counters, internal JSON snapshot, staging/production token guard |
 | Notification Kubernetes scheduler | Deployment template дайын | CronJob Forbid policy, external Secret, immutable image және non-overlap contract |
+| Deployment hardening | Template/CI дайын | Immutable digest rendering, bounded migration job, safe rollout, PDB, node spread, rollback және restore runbooks |
 | Provider/scheduler | Жоспарда | Push adapter, queue trigger, persistent metrics/alerting және organization routing |
 | Front/Admin UI | Жоспарда | Backend contract тұрақтанған сайын вертикаль slice бойынша жасалады |
 
@@ -340,3 +341,10 @@ SBOM artifact upload әдейі өшірулі: retention/access policy әлі �
 - Backend CI and Docker builds use `pnpm install --frozen-lockfile` and fail if manifests drift from the lockfile.
 - CI run 35685722942 and Supply Chain Security run 35685722920 passed before merge.
 - This does not claim deterministic container bytes across base-image updates; immutable production image digest pinning remains a deployment gate.
+
+
+## Deployment hardening update — 2026-09-24
+
+QaryzLinkBack PR #60–#72 кезеңінде deployment baseline және production-safety contracts күшейтілді: immutable image digest rendering, compiled maintenance runtime, Kubernetes non-root/seccomp/service-account-token hardening, bounded migration Job, zero-unavailable rolling update + startup probe, PodDisruptionBudget, hostname topology spread, API rollback runbook және isolated PostgreSQL restore-drill runbook қосылды. Тиісті CI және Supply Chain checks green болған өзгерістер main-ге merge жасалды.
+
+Бұл код/configuration readiness қана. Нақты staging deploy, backup restore drill, ingress/TLS, SMTP delivery, object-storage security және monitoring/alerting environment owner тарапынан әлі орындалуы керек.
