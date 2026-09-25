@@ -74,7 +74,9 @@ Response-та objectKey қайтарылмайды. Evidence view тек id, SHA
 
 Evidence submission бір реттік `intentId` талап етеді. Intent authenticated user + contract + PAYMENT purpose + objectKey + SHA-256 + media type + expected size-қа байланған; expired, mismatched немесе replay intent қабылданбайды. Intent consume және payment/evidence persistence бір database transaction ішінде жүреді.
 
-Intent issuance endpoint және provider-neutral signed upload authorization boundary орындалды. Нақты private-storage signer, object verification және malware scan adapter бөлек follow-up болып қалады; storage operationally verified болмайынша evidence feature gate жабық қалады.
+Persistence алдында storage object scope prefix, SHA-256, media type, size және malware scan `CLEAN` күйі бойынша қайта тексеріледі. Missing/mismatched/pending/infected/failed-scan object evidence ретінде сақталмайды.
+
+Intent issuance endpoint және provider-neutral signed upload authorization boundary орындалды. Object verification boundary да орындалды; нақты private-storage signer және inspector/scanner adapter бөлек follow-up болып қалады. Storage operationally verified болмайынша evidence feature gate жабық қалады.
 
 ## Allocation саясаты
 

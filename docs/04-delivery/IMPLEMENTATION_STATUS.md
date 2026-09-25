@@ -15,7 +15,7 @@
 | Database migration | Дайын | Бастапқы schema versioned SQL migration ретінде бекітілді |
 | Discovery | Restricted slice дайын | Private request, exact invitation, proposal, atomic acceptance |
 | Contract draft/signing | Дайын | Accepted proposal-дан immutable ContractVersion v1, privacy-safe read, dual hash acknowledgement |
-| Funding evidence/confirmation | Backend flow дайын, storage rollout толық емес | Single-use upload intent issuance/consume, expected-size binding және provider-neutral signed upload authorization boundary бар; concrete signer/object verifier/malware scan қалды |
+| Funding evidence/confirmation | Backend flow дайын, storage rollout толық емес | Upload intent, replay protection, signed-upload boundary және clean-object verification boundary бар; concrete signer/inspector/scanner rollout қалды |
 | Schedule generation | Дайын | ACTIVE + CONFIRMED guard, ACT/365 Fixed + HALF_UP, versioned inputHash |
 | Payment evidence/confirmation/ledger | Backend flow дайын, storage rollout толық емес | Borrower evidence, lender decision, allocation және append-only ledger; single-use upload intent replay protection қосылды |
 | Overdue status worker | Дайын | UTC due/overdue materialization, ACTIVE + CONFIRMED guard, idempotent transaction |
@@ -84,7 +84,7 @@ flowchart LR
 2. Invite-only loan request/offer/proposal use cases.
 3. Бір ұсынысты қабылдағанда қалған proposal-дарды атомарлы жабу.
 4. Contract version және екі тараптың қол қою workflow-ы — орындалды: [contract signing](../01-business/CONTRACT_SIGNING.md).
-5. Funding evidence және 72 сағаттық borrower confirmation — metadata/confirmation flow және signed-upload boundary орындалды; concrete private-storage signer, object verification, malware scan және retention integration қалды.
+5. Funding evidence және 72 сағаттық borrower confirmation — metadata/confirmation, signed-upload және clean-object verification boundary орындалды; concrete private-storage signer/inspector/scanner және retention integration қалды.
 6. Deterministic repayment schedule, payment confirmation және reversal — орындалды.
 7. Notification outbox, claim/retry worker, provider-neutral dispatch boundary, one-shot orchestrator, token-protected metrics және Kubernetes CronJob template — орындалды; нақты provider rollout, queue trigger, persistent monitoring және alerting.
 8. Осы API-ларға сәйкес Front, кейін Admin интерфейстері.
@@ -132,7 +132,9 @@ QaryzLinkBack PR #94 және #97 merged: funding/payment evidence submission е
 
 QaryzLinkBack PR #99 provider-neutral signed upload authorization boundary қосты: intent response storage adapter configured болса қысқа мерзімді PUT URL/headers береді; әдепкі adapter deliberately unavailable және 503 EVIDENCE_STORAGE_UNAVAILABLE арқылы fail-closed қалады.
 
-Бұл private object storage толық дайын дегенді білдірмейді. Concrete signer, object metadata/hash/size verification, malware scan/quarantine, signed download және retention/deletion integration production gate ретінде ашық қалады. EVIDENCE_STORAGE_ENABLED нақты storage operational verification өтпейінше қосылмайды.
+QaryzLinkBack PR #100 storage object verification boundary қосты: evidence persistence алдында authenticated scope prefix, SHA-256, media type, expected size және malware scan `CLEAN` күйі тексеріледі. Missing/mismatched/non-clean object fail-closed қабылданбайды; inspector provider қатесі 503 EVIDENCE_STORAGE_UNAVAILABLE болады.
+
+Бұл private object storage толық дайын дегенді білдірмейді. Concrete signer/inspector/scanner provider, quarantine workflow, signed download және retention/deletion integration production gate ретінде ашық қалады. EVIDENCE_STORAGE_ENABLED нақты storage operational verification өтпейінше қосылмайды.
 
 ## Contract draft және dual acknowledgement
 

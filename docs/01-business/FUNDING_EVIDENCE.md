@@ -77,6 +77,7 @@ Decision body:
 - Файлдың байты API арқылы қабылданбайды; object key ішкі storage-ке ғана сілтейді.
 - Evidence metadata бір реттік `intentId`-пен байланысады. Intent дәл сол user + contract + FUNDING purpose + objectKey + SHA-256 + media type + expected size үшін шығарылған, мерзімі өтпеген және бұрын қолданылмаған болуы тиіс.
 - Intent consume және funding evidence persistence бір database transaction ішінде орындалады; persistence rollback болса intent те consumed болып қалмайды.
+- Metadata persistence алдында storage object authenticated user/contract/FUNDING prefix-іне жатуы, SHA-256/media type/size дәл сәйкесуі және malware scan күйі `CLEAN` болуы тиіс. Missing, mismatched немесе non-clean object `EVIDENCE_OBJECT_NOT_VERIFIED` арқылы қабылданбайды.
 - Object key, email, телефон, ЖСН және құжат деректері response-та шығарылмайды.
 - SHA-256, media type және expected file size validation бар; жаңа intent configured upload limit-тен үлкен файлға берілмейді. қабылданатын форматтар PDF, JPEG, PNG.
 - Лендор ғана evidence жібереді; borrower ғана confirmation береді.
@@ -85,7 +86,7 @@ Decision body:
 
 ## Upload intent rollout күйі
 
-Backend persisted single-use intent-ті шығарады және consume етеді. Provider-neutral signed upload authorization boundary бар, бірақ нақты private-storage signer әлі configured емес; әдепкі adapter fail-closed жұмыс істеп `EVIDENCE_STORAGE_UNAVAILABLE` қайтарады. Сондықтан `EVIDENCE_STORAGE_ENABLED` нақты storage signer, object verification және malware scan operationally тексерілмей production-да қосылмайды.
+Backend persisted single-use intent-ті шығарады және consume етеді. Provider-neutral signed upload authorization boundary бар, бірақ нақты private-storage signer әлі configured емес; әдепкі adapter fail-closed жұмыс істеп `EVIDENCE_STORAGE_UNAVAILABLE` қайтарады. QaryzLinkBack PR #100 provider-neutral object inspection/verifier boundary қосты. Әдепкі inspector unavailable болғандықтан нақты storage metadata/hash/size inspection және malware scan provider integration әлі operational gate болып қалады. Сондықтан `EVIDENCE_STORAGE_ENABLED` concrete signer + inspector/scanner staging-та дәлелденбей production-да қосылмайды.
 
 ## Acceptance criteria
 
