@@ -1,6 +1,6 @@
 # Implementation status
 
-Жаңартылған күні: 2026-09-24
+Жаңартылған күні: 2026-09-25
 
 Бұл құжат specification мен нақты код арасындағы қысқа бақылау нүктесі. Толық талаптар өзгермейді; мұнда тек орындалу күйі көрсетіледі.
 
@@ -15,9 +15,9 @@
 | Database migration | Дайын | Бастапқы schema versioned SQL migration ретінде бекітілді |
 | Discovery | Restricted slice дайын | Private request, exact invitation, proposal, atomic acceptance |
 | Contract draft/signing | Дайын | Accepted proposal-дан immutable ContractVersion v1, privacy-safe read, dual hash acknowledgement |
-| Funding evidence/confirmation | Дайын | Lender metadata, SHA-256, borrower confirmation/dispute, deadline guard |
+| Funding evidence/confirmation | Backend flow дайын, storage rollout толық емес | Lender metadata, SHA-256, borrower confirmation/dispute, deadline guard; single-use upload intent consume қосылды, issuance endpoint/storage adapter қалды |
 | Schedule generation | Дайын | ACTIVE + CONFIRMED guard, ACT/365 Fixed + HALF_UP, versioned inputHash |
-| Payment evidence/confirmation/ledger | Дайын | Borrower evidence, lender decision, allocation және append-only ledger |
+| Payment evidence/confirmation/ledger | Backend flow дайын, storage rollout толық емес | Borrower evidence, lender decision, allocation және append-only ledger; single-use upload intent replay protection қосылды |
 | Overdue status worker | Дайын | UTC due/overdue materialization, ACTIVE + CONFIRMED guard, idempotent transaction |
 | Payment reversal | Дайын | Lender-authorized immutable reversal, signed allocation restore және opposite ledger entries |
 | Notifications/outbox | Базалық slice дайын | Payment CONFIRMED/REVERSED оқиғалары, privacy-safe payload және idempotent outbox |
@@ -84,7 +84,7 @@ flowchart LR
 2. Invite-only loan request/offer/proposal use cases.
 3. Бір ұсынысты қабылдағанда қалған proposal-дарды атомарлы жабу.
 4. Contract version және екі тараптың қол қою workflow-ы — орындалды: [contract signing](../01-business/CONTRACT_SIGNING.md).
-5. Funding evidence және 72 сағаттық borrower confirmation.
+5. Funding evidence және 72 сағаттық borrower confirmation — metadata/confirmation flow орындалды; private-storage upload intent issuance endpoint, signed upload adapter, malware scan және retention integration қалды.
 6. Deterministic repayment schedule, payment confirmation және reversal — орындалды.
 7. Notification outbox, claim/retry worker, provider-neutral dispatch boundary, one-shot orchestrator, token-protected metrics және Kubernetes CronJob template — орындалды; нақты provider rollout, queue trigger, persistent monitoring және alerting.
 8. Осы API-ларға сәйкес Front, кейін Admin интерфейстері.
@@ -125,6 +125,12 @@ Coverage конфигурациясына кірген код: lines/statements 
 QaryzLinkBack PR #3 merged: signed contract енді Funding EVIDENCE_REQUIRED жасайды. Lender private object key + SHA-256 metadata береді, borrower CONFIRM/DISPUTE шешімін сақтайды. CONFIRMED болғанда ғана Contract ACTIVE болады.
 
 API guide: [FUNDING_EVIDENCE](../01-business/FUNDING_EVIDENCE.md). ADR: [ADR-0009](../../adr/ADR-0009-funding-evidence-and-confirmation.md).
+
+## Evidence upload intent hardening
+
+QaryzLinkBack PR #94 merged: funding/payment evidence submission енді міндетті single-use upload intent UUID қабылдайды. Intent authenticated user, contract, purpose, objectKey, SHA-256 және media type-ке байланған; expired, mismatched немесе replay intent conditional update арқылы қабылданбайды. Intent consume және evidence persistence бір database transaction ішінде орындалады.
+
+Бұл private object storage толық дайын дегенді білдірмейді. Client-facing intent issuance endpoint, signed upload/download adapter, malware scan/quarantine және retention/deletion integration production gate ретінде ашық қалады. EVIDENCE_STORAGE_ENABLED нақты storage operational verification өтпейінше қосылмайды.
 
 ## Contract draft және dual acknowledgement
 
