@@ -45,6 +45,7 @@ Upload intent body:
   "contractId": "contract-uuid",
   "purpose": "FUNDING",
   "sha256": "64 hexadecimal characters",
+  "sizeBytes": 4096,
   "mediaType": "application/pdf"
 }
 ~~~
@@ -74,10 +75,10 @@ Decision body:
 ## Қауіпсіздік
 
 - Файлдың байты API арқылы қабылданбайды; object key ішкі storage-ке ғана сілтейді.
-- Evidence metadata бір реттік `intentId`-пен байланысады. Intent дәл сол user + contract + FUNDING purpose + objectKey + SHA-256 + media type үшін шығарылған, мерзімі өтпеген және бұрын қолданылмаған болуы тиіс.
+- Evidence metadata бір реттік `intentId`-пен байланысады. Intent дәл сол user + contract + FUNDING purpose + objectKey + SHA-256 + media type + expected size үшін шығарылған, мерзімі өтпеген және бұрын қолданылмаған болуы тиіс.
 - Intent consume және funding evidence persistence бір database transaction ішінде орындалады; persistence rollback болса intent те consumed болып қалмайды.
 - Object key, email, телефон, ЖСН және құжат деректері response-та шығарылмайды.
-- SHA-256 және media type validation бар; қабылданатын форматтар PDF, JPEG, PNG.
+- SHA-256, media type және expected file size validation бар; жаңа intent configured upload limit-тен үлкен файлға берілмейді. қабылданатын форматтар PDF, JPEG, PNG.
 - Лендор ғана evidence жібереді; borrower ғана confirmation береді.
 - Funding deadline өткенде автоматты CONFIRMED болмайды.
 - Бірдей evidence hash қайталанса, операция idempotent view қайтарады.
