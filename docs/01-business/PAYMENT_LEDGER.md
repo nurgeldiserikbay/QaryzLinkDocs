@@ -32,6 +32,7 @@ stateDiagram-v2
 | Upload intent | POST /api/v1/evidence/upload-intents | Borrower | Single-use intent + server-generated objectKey |
 | Payment evidence | POST /api/v1/payments/contracts/{contractId}/evidence | Borrower | AWAITING_CONFIRMATION |
 | Payment list | GET /api/v1/payments/contracts/{contractId} | Екі тарап | Privacy-safe payment views |
+| Evidence download | POST /api/v1/evidence/{evidenceId}/download | Екі тарап | Short-lived signed GET authorization |
 | Confirmation | POST /api/v1/payments/{paymentId}/decision | Lender | CONFIRMED немесе DISPUTED |
 
 Upload intent body:
@@ -70,7 +71,7 @@ Decision body:
 }
 ~~~
 
-Response-та objectKey қайтарылмайды. Evidence view тек id, SHA-256, media type және createdAt береді.
+Response-та objectKey қайтарылмайды. Evidence view тек id, SHA-256, media type және createdAt береді. Binary download тек owning contract borrower/lender үшін `POST /api/v1/evidence/{evidenceId}/download` арқылы short-lived signed GET authorization ретінде беріледі; cross-contract lookup privacy-safe `EVIDENCE_NOT_FOUND` қайтарады.
 
 Evidence submission бір реттік `intentId` талап етеді. Intent authenticated user + contract + PAYMENT purpose + objectKey + SHA-256 + media type + expected size-қа байланған; expired, mismatched немесе replay intent қабылданбайды. Intent consume және payment/evidence persistence бір database transaction ішінде жүреді.
 

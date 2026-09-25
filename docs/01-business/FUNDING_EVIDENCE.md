@@ -36,6 +36,7 @@ flowchart LR
 | Upload intent | POST /api/v1/evidence/upload-intents | Lender | Single-use intent + server-generated objectKey |
 | Evidence metadata | POST /api/v1/funding/contracts/{contractId}/evidence | Lender | AWAITING_CONFIRMATION |
 | Funding view | GET /api/v1/funding/contracts/{contractId} | Екі тарап | Evidence/status view |
+| Evidence download | POST /api/v1/evidence/{evidenceId}/download | Екі тарап | Short-lived signed GET authorization |
 | Confirmation | POST /api/v1/funding/{fundingId}/decision | Borrower | CONFIRMED немесе DISPUTED |
 
 Upload intent body:
@@ -78,7 +79,7 @@ Decision body:
 - Evidence metadata бір реттік `intentId`-пен байланысады. Intent дәл сол user + contract + FUNDING purpose + objectKey + SHA-256 + media type + expected size үшін шығарылған, мерзімі өтпеген және бұрын қолданылмаған болуы тиіс.
 - Intent consume және funding evidence persistence бір database transaction ішінде орындалады; persistence rollback болса intent те consumed болып қалмайды.
 - Metadata persistence алдында storage object authenticated user/contract/FUNDING prefix-іне жатуы, SHA-256/media type/size дәл сәйкесуі және malware scan күйі `CLEAN` болуы тиіс. Missing, mismatched немесе non-clean object `EVIDENCE_OBJECT_NOT_VERIFIED` арқылы қабылданбайды.
-- Object key, email, телефон, ЖСН және құжат деректері response-та шығарылмайды.
+- Object key, email, телефон, ЖСН және құжат деректері list/view response-та шығарылмайды. Evidence binary-ге қолжетімділік тек contract borrower/lender үшін қысқа мерзімді signed GET authorization арқылы беріледі; outsider және unknown evidence бірдей `EVIDENCE_NOT_FOUND` береді.
 - SHA-256, media type және expected file size validation бар; жаңа intent configured upload limit-тен үлкен файлға берілмейді. қабылданатын форматтар PDF, JPEG, PNG.
 - Лендор ғана evidence жібереді; borrower ғана confirmation береді.
 - Funding deadline өткенде автоматты CONFIRMED болмайды.
