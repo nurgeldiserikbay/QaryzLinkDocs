@@ -29,9 +29,23 @@ stateDiagram-v2
 
 | Әрекет | Endpoint | Рөл | Нәтиже |
 |---|---|---|---|
+| Upload intent | POST /api/v1/evidence/upload-intents | Borrower | Single-use intent + server-generated objectKey |
 | Payment evidence | POST /api/v1/payments/contracts/{contractId}/evidence | Borrower | AWAITING_CONFIRMATION |
 | Payment list | GET /api/v1/payments/contracts/{contractId} | Екі тарап | Privacy-safe payment views |
 | Confirmation | POST /api/v1/payments/{paymentId}/decision | Lender | CONFIRMED немесе DISPUTED |
+
+Upload intent body:
+
+~~~json
+{
+  "contractId": "contract-uuid",
+  "purpose": "PAYMENT",
+  "sha256": "64 hexadecimal characters",
+  "mediaType": "application/pdf"
+}
+~~~
+
+Server objectKey-ді өзі жасайды; endpoint тек ACTIVE + CONFIRMED funding contract-тағы verified borrower үшін intent шығарады.
 
 Evidence body:
 
@@ -59,7 +73,7 @@ Response-та objectKey қайтарылмайды. Evidence view тек id, SHA
 
 Evidence submission бір реттік `intentId` талап етеді. Intent authenticated user + contract + PAYMENT purpose + objectKey + SHA-256 + media type-ке байланған; expired, mismatched немесе replay intent қабылданбайды. Intent consume және payment/evidence persistence бір database transaction ішінде жүреді.
 
-Client-facing intent issuance endpoint және нақты private-storage signed upload adapter бөлек follow-up болып қалады; storage operationally verified болмайынша evidence feature gate жабық қалады.
+Intent issuance endpoint орындалды; нақты private-storage signed upload adapter бөлек follow-up болып қалады; storage operationally verified болмайынша evidence feature gate жабық қалады.
 
 ## Allocation саясаты
 

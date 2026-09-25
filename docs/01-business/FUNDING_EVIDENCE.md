@@ -33,9 +33,23 @@ flowchart LR
 
 | Әрекет | Endpoint | Рөл | Нәтиже |
 |---|---|---|---|
+| Upload intent | POST /api/v1/evidence/upload-intents | Lender | Single-use intent + server-generated objectKey |
 | Evidence metadata | POST /api/v1/funding/contracts/{contractId}/evidence | Lender | AWAITING_CONFIRMATION |
 | Funding view | GET /api/v1/funding/contracts/{contractId} | Екі тарап | Evidence/status view |
 | Confirmation | POST /api/v1/funding/{fundingId}/decision | Borrower | CONFIRMED немесе DISPUTED |
+
+Upload intent body:
+
+~~~json
+{
+  "contractId": "contract-uuid",
+  "purpose": "FUNDING",
+  "sha256": "64 hexadecimal characters",
+  "mediaType": "application/pdf"
+}
+~~~
+
+Server objectKey-ді өзі жасайды; client arbitrary key таңдамайды. Endpoint тек verified lender және funding қабылдайтын contract state үшін intent шығарады.
 
 Evidence body:
 
@@ -70,7 +84,7 @@ Decision body:
 
 ## Upload intent rollout күйі
 
-Backend persisted single-use intent-ті consume етеді, бірақ client-facing issuance endpoint және нақты private-storage signed upload adapter әлі аяқталмаған. Сондықтан `EVIDENCE_STORAGE_ENABLED` operational storage тексерілмей production-да қосылмайды.
+Backend persisted single-use intent-ті шығарады және consume етеді, бірақ нақты private-storage signed upload adapter әлі аяқталмаған. Сондықтан `EVIDENCE_STORAGE_ENABLED` operational storage тексерілмей production-да қосылмайды.
 
 ## Acceptance criteria
 
