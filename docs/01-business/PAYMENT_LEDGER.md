@@ -46,7 +46,7 @@ Upload intent body:
 }
 ~~~
 
-Server objectKey-ді өзі жасайды; endpoint тек ACTIVE + CONFIRMED funding contract-тағы verified borrower үшін intent шығарады.
+Server objectKey-ді өзі жасайды; endpoint тек ACTIVE + CONFIRMED funding contract-тағы verified borrower үшін intent шығарады. Storage signer configured болса response құрамында қысқа мерзімді `PUT` upload authorization беріледі.
 
 Evidence body:
 
@@ -74,7 +74,7 @@ Response-та objectKey қайтарылмайды. Evidence view тек id, SHA
 
 Evidence submission бір реттік `intentId` талап етеді. Intent authenticated user + contract + PAYMENT purpose + objectKey + SHA-256 + media type + expected size-қа байланған; expired, mismatched немесе replay intent қабылданбайды. Intent consume және payment/evidence persistence бір database transaction ішінде жүреді.
 
-Intent issuance endpoint орындалды; нақты private-storage signed upload adapter бөлек follow-up болып қалады; storage operationally verified болмайынша evidence feature gate жабық қалады.
+Intent issuance endpoint және provider-neutral signed upload authorization boundary орындалды. Нақты private-storage signer, object verification және malware scan adapter бөлек follow-up болып қалады; storage operationally verified болмайынша evidence feature gate жабық қалады.
 
 ## Allocation саясаты
 

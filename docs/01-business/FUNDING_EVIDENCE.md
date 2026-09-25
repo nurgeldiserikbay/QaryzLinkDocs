@@ -50,7 +50,7 @@ Upload intent body:
 }
 ~~~
 
-Server objectKey-ді өзі жасайды; client arbitrary key таңдамайды. Endpoint тек verified lender және funding қабылдайтын contract state үшін intent шығарады.
+Server objectKey-ді өзі жасайды; client arbitrary key таңдамайды. Endpoint тек verified lender және funding қабылдайтын contract state үшін intent шығарады. Storage signer configured болса response құрамында қысқа мерзімді `upload` authorization (`PUT`, URL, required headers, expiresAt) болады.
 
 Evidence body:
 
@@ -85,7 +85,7 @@ Decision body:
 
 ## Upload intent rollout күйі
 
-Backend persisted single-use intent-ті шығарады және consume етеді, бірақ нақты private-storage signed upload adapter әлі аяқталмаған. Сондықтан `EVIDENCE_STORAGE_ENABLED` operational storage тексерілмей production-да қосылмайды.
+Backend persisted single-use intent-ті шығарады және consume етеді. Provider-neutral signed upload authorization boundary бар, бірақ нақты private-storage signer әлі configured емес; әдепкі adapter fail-closed жұмыс істеп `EVIDENCE_STORAGE_UNAVAILABLE` қайтарады. Сондықтан `EVIDENCE_STORAGE_ENABLED` нақты storage signer, object verification және malware scan operationally тексерілмей production-да қосылмайды.
 
 ## Acceptance criteria
 
