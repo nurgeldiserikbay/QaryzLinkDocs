@@ -41,6 +41,7 @@ Evidence body:
 
 ~~~json
 {
+  "intentId": "11111111-1111-4111-8111-111111111111",
   "objectKey": "funding/receipt-uuid",
   "sha256": "64 hexadecimal characters",
   "mediaType": "application/pdf"
@@ -59,11 +60,17 @@ Decision body:
 ## Қауіпсіздік
 
 - Файлдың байты API арқылы қабылданбайды; object key ішкі storage-ке ғана сілтейді.
+- Evidence metadata бір реттік `intentId`-пен байланысады. Intent дәл сол user + contract + FUNDING purpose + objectKey + SHA-256 + media type үшін шығарылған, мерзімі өтпеген және бұрын қолданылмаған болуы тиіс.
+- Intent consume және funding evidence persistence бір database transaction ішінде орындалады; persistence rollback болса intent те consumed болып қалмайды.
 - Object key, email, телефон, ЖСН және құжат деректері response-та шығарылмайды.
 - SHA-256 және media type validation бар; қабылданатын форматтар PDF, JPEG, PNG.
 - Лендор ғана evidence жібереді; borrower ғана confirmation береді.
 - Funding deadline өткенде автоматты CONFIRMED болмайды.
 - Бірдей evidence hash қайталанса, операция idempotent view қайтарады.
+
+## Upload intent rollout күйі
+
+Backend persisted single-use intent-ті consume етеді, бірақ client-facing issuance endpoint және нақты private-storage signed upload adapter әлі аяқталмаған. Сондықтан `EVIDENCE_STORAGE_ENABLED` operational storage тексерілмей production-да қосылмайды.
 
 ## Acceptance criteria
 
