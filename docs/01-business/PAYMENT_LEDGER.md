@@ -41,6 +41,7 @@ Upload intent body:
   "contractId": "contract-uuid",
   "purpose": "PAYMENT",
   "sha256": "64 hexadecimal characters",
+  "sizeBytes": 4096,
   "mediaType": "application/pdf"
 }
 ~~~
@@ -71,7 +72,7 @@ Decision body:
 
 Response-та objectKey қайтарылмайды. Evidence view тек id, SHA-256, media type және createdAt береді.
 
-Evidence submission бір реттік `intentId` талап етеді. Intent authenticated user + contract + PAYMENT purpose + objectKey + SHA-256 + media type-ке байланған; expired, mismatched немесе replay intent қабылданбайды. Intent consume және payment/evidence persistence бір database transaction ішінде жүреді.
+Evidence submission бір реттік `intentId` талап етеді. Intent authenticated user + contract + PAYMENT purpose + objectKey + SHA-256 + media type + expected size-қа байланған; expired, mismatched немесе replay intent қабылданбайды. Intent consume және payment/evidence persistence бір database transaction ішінде жүреді.
 
 Intent issuance endpoint орындалды; нақты private-storage signed upload adapter бөлек follow-up болып қалады; storage operationally verified болмайынша evidence feature gate жабық қалады.
 
