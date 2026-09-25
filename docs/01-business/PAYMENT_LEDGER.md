@@ -37,6 +37,7 @@ Evidence body:
 
 ~~~json
 {
+  "intentId": "11111111-1111-4111-8111-111111111111",
   "amountMinor": "150000",
   "paidAt": "2026-09-18T12:00:00.000Z",
   "objectKey": "payments/receipt-uuid",
@@ -55,6 +56,10 @@ Decision body:
 ~~~
 
 Response-та objectKey қайтарылмайды. Evidence view тек id, SHA-256, media type және createdAt береді.
+
+Evidence submission бір реттік `intentId` талап етеді. Intent authenticated user + contract + PAYMENT purpose + objectKey + SHA-256 + media type-ке байланған; expired, mismatched немесе replay intent қабылданбайды. Intent consume және payment/evidence persistence бір database transaction ішінде жүреді.
+
+Client-facing intent issuance endpoint және нақты private-storage signed upload adapter бөлек follow-up болып қалады; storage operationally verified болмайынша evidence feature gate жабық қалады.
 
 ## Allocation саясаты
 
