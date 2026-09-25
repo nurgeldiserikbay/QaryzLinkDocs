@@ -15,7 +15,7 @@
 | Database migration | Дайын | Бастапқы schema versioned SQL migration ретінде бекітілді |
 | Discovery | Restricted slice дайын | Private request, exact invitation, proposal, atomic acceptance |
 | Contract draft/signing | Дайын | Accepted proposal-дан immutable ContractVersion v1, privacy-safe read, dual hash acknowledgement |
-| Funding evidence/confirmation | Backend flow дайын, storage rollout толық емес | Lender metadata, SHA-256, borrower confirmation/dispute, deadline guard; single-use upload intent issuance + consume қосылды, storage adapter қалды |
+| Funding evidence/confirmation | Backend flow дайын, storage rollout толық емес | Lender metadata, SHA-256, borrower confirmation/dispute, deadline guard; single-use upload intent issuance + consume және expected-size binding қосылды, storage adapter қалды |
 | Schedule generation | Дайын | ACTIVE + CONFIRMED guard, ACT/365 Fixed + HALF_UP, versioned inputHash |
 | Payment evidence/confirmation/ledger | Backend flow дайын, storage rollout толық емес | Borrower evidence, lender decision, allocation және append-only ledger; single-use upload intent replay protection қосылды |
 | Overdue status worker | Дайын | UTC due/overdue materialization, ACTIVE + CONFIRMED guard, idempotent transaction |
@@ -128,7 +128,7 @@ API guide: [FUNDING_EVIDENCE](../01-business/FUNDING_EVIDENCE.md). ADR: [ADR-000
 
 ## Evidence upload intent hardening
 
-QaryzLinkBack PR #94 merged: funding/payment evidence submission енді міндетті single-use upload intent UUID қабылдайды. Intent authenticated user, contract, purpose, objectKey, SHA-256 және media type-ке байланған; expired, mismatched немесе replay intent conditional update арқылы қабылданбайды. Intent consume және evidence persistence бір database transaction ішінде орындалады.
+QaryzLinkBack PR #94 және #97 merged: funding/payment evidence submission енді міндетті single-use upload intent UUID қабылдайды. Intent authenticated user, contract, purpose, objectKey, SHA-256, media type және expected size-қа байланған; expired, mismatched немесе replay intent conditional update арқылы қабылданбайды. Intent consume және evidence persistence бір database transaction ішінде орындалады.
 
 Бұл private object storage толық дайын дегенді білдірмейді. Client-facing intent issuance endpoint орындалды. Signed upload/download adapter, malware scan/quarantine және retention/deletion integration production gate ретінде ашық қалады. EVIDENCE_STORAGE_ENABLED нақты storage operational verification өтпейінше қосылмайды.
 
