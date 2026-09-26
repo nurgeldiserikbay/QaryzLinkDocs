@@ -107,7 +107,7 @@ API: [backend README](https://github.com/nurgeldiserikbay/QaryzLinkBack#email-р
 
 - /api/v1/health арқылы HTTP қолжетімділігін тексеріңіз; бұл жалғыз тексеру бүкіл жүйенің дайындығын дәлелдемейді.
 - /docs staging-де API келісімшартын көрсетеді.
-- CORS қазір origin:false. Бір origin астындағы reverse proxy қолданыңыз немесе бөлек Front домені үшін нақты allowlist іске асырыңыз.
+- CORS әдепкіде fail-closed: `CORS_ALLOWED_ORIGINS` бос болса cross-origin browser access өшірулі. Бөлек Front/Admin origin қажет болса тек exact HTTP(S) origin-дерді comma-separated allowlist ретінде беріңіз; wildcard, path, query және credential бар origin қабылданбайды.
 - trustProxy:false. Proxy артында барлық клиент бір IP бюджетіне түсуі мүмкін; trusted proxy CIDR және header тазалау баптауы public launch алдында міндетті.
 - DB/Redis порттарын интернетке ашпаңыз; HTTPS-тен басқа ingress тек әкімшілік рұқсатпен.
 - Metrics endpoint тек internal ingress арқылы қолжетімді болсын және x-metrics-token header талап етсін.
