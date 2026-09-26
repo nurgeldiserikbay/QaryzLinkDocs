@@ -132,3 +132,13 @@ Backup retention, restore уақыты және инцидент жауапты�
 ## 8. Public launch gate
 
 [Release checklist](RELEASE_CHECKLIST.md) аяқталмайынша бұл нұсқаулық public launch рұқсаты болып саналмайды.
+
+## Ephemeral auth retention cleanup
+
+Expired/consumed email-verification records және expired auth rate-limit buckets үшін one-shot command:
+
+~~~bash
+pnpm auth:retention:run
+~~~
+
+Kubernetes template: `ops/kubernetes/auth-retention-cronjob.yaml`. Engineering default күн сайын 03:41. Job session, contract, payment, ledger немесе persisted evidence rows-ты жоймайды. Command aggregate deleted counters ғана stdout-қа шығарады және unexpected failure кезінде non-zero exit береді.
