@@ -37,6 +37,8 @@
 - [x] Privacy-safe notification delivery metrics backend slice.
 - [x] Metrics endpoint token protection backend slice.
 - [x] Notification scheduler Kubernetes CronJob deployment contract.
+- [x] Durable IN_APP delivery + authenticated latest-50 inbox backend.
+- [x] Front read-only private notifications inbox.
 - [ ] Нақты SMTP/push provider, queue trigger, persistent monitoring және alerting.
 - [x] Backend compiled HTTP auth/security lifecycle smoke: register/login/refresh rotation/logout, authorization, rate-limit, metrics және CORS contracts.
 - [x] Runtime/provider error persistence және maintenance CLI stderr PII-safe generic boundary.
