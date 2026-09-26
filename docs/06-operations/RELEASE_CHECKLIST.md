@@ -42,7 +42,9 @@
 - [x] Front/Admin production server HTTP security-header/CSP runtime smoke.
 - [ ] Front/Admin browser E2E tests және толық UI acceptance.
 - [x] Privacy/consent defaults және ephemeral auth/evidence retention baseline.
-- [ ] PII database encryption, key rotation және blind lookup migration.
+- [ ] PII encrypted-mode staging acceptance және plaintext retirement.
+- [x] PII encryption additive/dual-write/backfill/readers/cutover guard және bounded key-rotation tooling.
+- [x] PII key rotation operational runbook (`PII_KEY_ROTATION.md`).
 - [ ] Contract/payment/ledger/evidence/audit/session legal retention periods owner/legal review арқылы бекітілген.
 - [x] Backend reproducible lockfile, container build және runtime smoke test.
 - [ ] Front/Admin committed pnpm lockfile және `--frozen-lockfile` install.

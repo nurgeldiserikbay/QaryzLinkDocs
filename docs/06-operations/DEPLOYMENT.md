@@ -142,3 +142,19 @@ pnpm auth:retention:run
 ~~~
 
 Kubernetes template: `ops/kubernetes/auth-retention-cronjob.yaml`. Engineering default күн сайын 03:41. Job session, contract, payment, ledger немесе persisted evidence rows-ты жоймайды. Command aggregate deleted counters ғана stdout-қа шығарады және unexpected failure кезінде non-zero exit береді.
+
+## PII contact migration and key rotation commands
+
+PII dual-mode backfill:
+
+~~~bash
+pnpm pii:contacts:backfill
+~~~
+
+Controlled encryption-key re-encryption:
+
+~~~bash
+pnpm pii:contacts:reencrypt
+~~~
+
+Бұл екі command автоматты CronJob ретінде орнатылмайды. Backfill migration window кезінде, re-encryption тек controlled key rotation кезінде қолмен орындалады. Key rotation sequence және old-key retirement шарттары `PII_KEY_ROTATION.md` ішінде.
