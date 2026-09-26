@@ -1,6 +1,6 @@
 # Серверге орнату
 
-Жаңартылған күні: 2026-09-20.
+Жаңартылған күні: 2026-09-26.
 
 Бұл нұсқаулық қазіргі backend-ті жабық staging ортада іске қосуға арналған. Толық өнім әлі дайын емес: [implementation status](../04-delivery/IMPLEMENTATION_STATUS.md). Front/Admin және қарыз workflow-лары толық аяқталмаған.
 
@@ -42,6 +42,18 @@ pnpm notifications:run
 
 Бұл command HTTP server ашпайды: `AppModule` application context іске қосылады, `NotificationSchedulerService.runOnce()` бір рет орындалады және context жабылады. API-мен бірдей `DATABASE_URL`, `REDIS_URL`, JWT және notification/SMTP settings керек. Dispatch нәтижесі counters ретінде логталады; bootstrap қатесі non-zero exit code қайтарады. Kubernetes CronJob немесе queue trigger осы command-ті қайталайды. Дайын template: [Notification CronJob](NOTIFICATION_CRONJOB.md). CronJob overlap, Secret және image policy deployment деңгейінде қалады.
 
+### 2.2 Evidence cleanup job
+
+Expired және ешқашан consume болмаған evidence upload object-терін бір рет тазалау:
+
+~~~bash
+pnpm evidence:cleanup:run
+~~~
+
+Command evidence storage disabled болса fail етеді, `selected/purged/failed` counters логтайды және partial cleanup error болса non-zero exit code қайтарады. Kubernetes template: `ops/kubernetes/evidence-cleanup-cronjob.yaml`; engineering cadence — сағатына бір рет, `concurrencyPolicy: Forbid`.
+
+Private evidence storage конфигурациясы, S3-compatible signer, malware callback және staging acceptance толық [Evidence storage operations](EVIDENCE_STORAGE.md) нұсқаулығында берілген.
+
 ## 3. Конфигурация
 
 | Variable | Мақсаты |
@@ -54,6 +66,7 @@ pnpm notifications:run
 | MAIL_ENABLED | Алғашқы іске қосуда false |
 | NOTIFICATION_BATCH_SIZE | 1–100, әдепкісі 50 |
 | METRICS_ACCESS_TOKEN | Staging/production-та кемінде 32 таңба; metrics endpoint header token |
+| EVIDENCE_STORAGE_ENABLED | Private evidence storage feature gate; staging/production ғана, [runbook](EVIDENCE_STORAGE.md) талаптарынсыз қоспау |
 | PUBLIC_MARKETPLACE_ENABLED | false |
 | PENALTY_ENABLED | false |
 | AMOUNT_BASED_COMMISSION_ENABLED | false |
@@ -93,7 +106,7 @@ API: [backend README](https://github.com/nurgeldiserikbay/QaryzLinkBack#email-р
 
 Репозиторийде Dockerfile бар, бірақ осы email кезеңінің CI-ы контейнер build/start-ты тексермейді. Runtime image қазір Prisma migration файлдарын көшірмейді; оны migration job ретінде пайдалануға болмайды.
 Docker/k3s production release алдында жеке migration image/job, runtime smoke test, secret injection, readiness/liveness және trusted ingress баптауы аяқталсын.
-Notification CronJob template бар, бірақ нақты namespace, registry digest, Secret және alerting мәндері staging environment-те толтырылып тексерілуі керек.
+Notification және evidence-cleanup CronJob template-тері бар, бірақ нақты namespace, registry digest, Secret және alerting мәндері staging environment-те толтырылып тексерілуі керек.
 Әзірге жоғарыдағы Node deployment — бар кодқа сәйкес staging жолы; толық production k3s release дайын деп саналмайды.
 
 ## 7. Backup және rollback
