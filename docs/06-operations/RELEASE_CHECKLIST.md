@@ -45,7 +45,7 @@
 - [x] Reproducible lockfile, container build және runtime smoke test.
 - [ ] Production migration job және rollback rehearsal.
 - [x] Trusted proxy default-off bounded configuration және exact CORS allowlist code/CI contracts.
-- [ ] Staging ingress proxy-hop/header sanitization acceptance, persistent monitoring және alerting.
+- [ ] Staging ingress proxy-hop/header sanitization acceptance, persistent monitoring және alerting — `STAGING_ACCEPTANCE.md` бойынша.
 - [x] Backend privacy-safe liveness/readiness contracts және PostgreSQL readiness check.
 - [ ] Staging ingress/orchestrator readiness probe нақты `/api/v1/health/ready` endpoint-іне қосылғаны тексерілді.
 - [ ] Kubernetes CronJob staging rollout, immutable image verification және job alerting.
@@ -55,7 +55,7 @@
 - [x] Full-history secret scanning және CycloneDX SBOM generation Back/Front/Admin CI ішінде.
 - [ ] SBOM artifact retention/access policy.
 - [x] Container image HIGH/CRITICAL vulnerability scanning CI gate.
-- [ ] Operational security review және нақты staging/container acceptance.
+- [ ] Operational security review және нақты staging/container acceptance — `SECURITY_REVIEW.md` + `STAGING_ACCEPTANCE.md` бойынша орындалады.
 
 ## Өнім мен құқықтық gate
 
