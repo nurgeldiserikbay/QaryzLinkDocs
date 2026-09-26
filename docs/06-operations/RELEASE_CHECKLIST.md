@@ -62,7 +62,7 @@
 - [ ] Жеке тұлғаларға арналған Қазақстан pilot scope-ы бекітілген.
 - [ ] Terms, privacy notice және сақтау мерзімдері тексерілген.
 - [ ] Public marketplace, penalty және amount-based commission false.
-- [ ] Support, incident және dispute procedures.
+- [x] Support, incident және dispute procedures құжатталған; нақты owner/channel pilot алдында бекітіледі.
 - [ ] Жоба иесі staging acceptance нәтижесін көрген.
 
 Platform acknowledgement qualified electronic signature болып табылмайды және жеке басты толық құқықтық растау емес. Email verification да қол қоюдың заңдық күшін растамайды.
