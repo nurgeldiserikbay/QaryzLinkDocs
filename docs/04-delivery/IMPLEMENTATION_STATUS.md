@@ -451,3 +451,9 @@ QaryzLinkBack PR #126 merged at `7887425`: quota қайта ашылғанда c
 QaryzLinkAdmin PR #23 merged at `8d84c60`: Admin README current retention operations visibility-мен синхрондалды.
 
 Бұл slice GitHub Actions account free-quota/billing gate салдарынан automated run орындалмай тұрған кезде merge жасалды; verification pending.
+
+## PII encryption groundwork — 2026-09-26
+
+QaryzLinkBack PR #127 merged at `39a9da2`: ADR-0026 implementation-ының isolated crypto primitive-і қосылды. Utility AES-256-GCM random nonce, record/field-bound AAD, versioned key ID және бөлек HMAC-SHA-256 blind lookup hash береді.
+
+Бұл primitive әзірге Prisma schema, register/login, email verification немесе profile path-қа қосылмаған. Сондықтан production data behavior өзгермейді. Automated CI GitHub Actions free-quota/billing gate салдарынан pending; келесі кезең additive schema + dual-write migration болады және verification қайта ашылғанша big-bang cutover жасалмайды.
