@@ -70,6 +70,9 @@ Command HTTP server ашпайды. Алдымен grace/retention hold қайт
 |---|---|
 | NODE_ENV | staging немесе production |
 | HOST / PORT | 0.0.0.0 / 3000 |
+| TRUST_PROXY_HOPS | Әдепкі 0; ingress topology/header sanitization verified болғаннан кейін ғана 1–3 |
+| CORS_ALLOWED_ORIGINS | Exact comma-separated browser origins; бос болса cross-origin access off |
+| EXPOSE_API_DOCS | Staging-де explicit true болуы мүмкін; production-та true startup validation арқылы тыйым салынған |
 | DATABASE_URL | Құпия PostgreSQL connection string |
 | REDIS_URL | Startup schema талап ететін URL |
 | JWT_ACCESS_SECRET | Кемінде 32 таңбалық криптографиялық кездейсоқ secret; replica-ларда бірдей |
@@ -106,9 +109,9 @@ API: [backend README](https://github.com/nurgeldiserikbay/QaryzLinkBack#email-р
 ## 5. Ingress және тексеру
 
 - /api/v1/health арқылы HTTP қолжетімділігін тексеріңіз; бұл жалғыз тексеру бүкіл жүйенің дайындығын дәлелдемейді.
-- /docs staging-де API келісімшартын көрсетеді.
+- `/docs` тек `EXPOSE_API_DOCS=true` болған non-production ортада ашылады; production configuration бұл мәнді true қабылдамайды.
 - CORS әдепкіде fail-closed: `CORS_ALLOWED_ORIGINS` бос болса cross-origin browser access өшірулі. Бөлек Front/Admin origin қажет болса тек exact HTTP(S) origin-дерді comma-separated allowlist ретінде беріңіз; wildcard, path, query және credential бар origin қабылданбайды.
-- trustProxy:false. Proxy артында барлық клиент бір IP бюджетіне түсуі мүмкін; trusted proxy CIDR және header тазалау баптауы public launch алдында міндетті.
+- `TRUST_PROXY_HOPS=0` әдепкіде forwarded client identity-ді толық елемейді. Ingress proxy chain және header sanitization staging-та тексерілгеннен кейін ғана нақты hop санын 1–3 етіп қойыңыз. Hop саны topology-мен дәл сәйкес келуі тиіс; direct API ingress restricted болуы керек.
 - DB/Redis порттарын интернетке ашпаңыз; HTTPS-тен басқа ingress тек әкімшілік рұқсатпен.
 - Metrics endpoint тек internal ingress арқылы қолжетімді болсын және x-metrics-token header талап етсін.
 - Login, refresh, logout, metrics authorization және email workflow-ларын staging-де тексеріңіз.
