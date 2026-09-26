@@ -28,6 +28,8 @@ Backend мыналарды орындайды:
 - storage object-ке HEAD request арқылы content type, content length және upload-bound metadata тексеріледі;
 - evidence тек malware verdict `CLEAN` болса ғана қабылданады;
 - malware verdict objectKey + SHA-256 бойынша PostgreSQL-де сақталады және severity downgrade-қа жол берілмейді;
+- signed download берілер алдында latest trusted verdict қайта тексеріледі; `CLEAN` емес evidence fail-closed блокталады;
+- `INFECTED` verdict сақталғаннан кейін private object дереу delete етіледі; delete уақытша сәтсіз болса callback retryable 503 алады және `INFECTED` verdict download/persistence-ті бәрібір блоктайды;
 - expired және ешқашан consume болмаған upload object-тер бөлек cleanup job арқылы жойылады;
 - consumed/persisted evidence orphan cleanup-қа кірмейді.
 
@@ -80,9 +82,10 @@ Production enablement алдында:
 
 1. scanner uploaded object-ті автоматты қабылдайтыны дәлелденсін;
 2. CLEAN verdict үшін end-to-end latency өлшенсін;
-3. INFECTED файл application evidence ретінде қабылданбайтыны тексерілсін;
-4. scanner outage кезінде evidence fail-closed қалатыны тексерілсін;
-5. callback сыртқы интернетке ашық болса ingress allowlist/WAF/provider authentication бөлек қарастырылсын.
+3. INFECTED файл application evidence ретінде қабылданбайтыны және storage object дереу purge болатыны тексерілсін;
+4. бұрын CLEAN болған persisted evidence кейін INFECTED болып upgrade етілсе жаңа signed GET берілмейтіні тексерілсін;
+5. scanner outage кезінде evidence fail-closed қалатыны тексерілсін;
+6. callback сыртқы интернетке ашық болса ingress allowlist/WAF/provider authentication бөлек қарастырылсын.
 
 ## 5. Expired upload cleanup
 
@@ -117,7 +120,9 @@ Engineering cadence — сағатына бір рет. `concurrencyPolicy: Forb
 9. participant-only signed GET жұмыс істейді;
 10. outsider download request privacy-safe not-found қайтарады;
 11. expired unconsumed upload cleanup object пен stale scan verdict-ті жояды;
-12. cleanup storage error болса row retry үшін қалады.
+12. cleanup storage error болса row retry үшін қалады;
+13. persisted evidence verdict-і CLEAN → INFECTED болып upgrade етілсе download fail-closed блокталады;
+14. INFECTED callback object-ті жояды, delete provider error болса 503 арқылы scanner retry жасай алады.
 
 Evidence ретінде secret, signed URL, token, raw PII немесе document content сақталмайды. Тек commit SHA, environment, UTC timestamp, scenario және pass/fail сақталады.
 
