@@ -42,7 +42,8 @@
 - [x] Front/Admin production server HTTP security-header/CSP runtime smoke.
 - [ ] Front/Admin browser E2E tests және толық UI acceptance.
 - [ ] Privacy/consent enforcement, PII encryption және retention.
-- [x] Reproducible lockfile, container build және runtime smoke test.
+- [x] Backend reproducible lockfile, container build және runtime smoke test.
+- [ ] Front/Admin committed pnpm lockfile және `--frozen-lockfile` install.
 - [ ] Production migration job және rollback rehearsal.
 - [x] Trusted proxy default-off bounded configuration және exact CORS allowlist code/CI contracts.
 - [ ] Staging ingress proxy-hop/header sanitization acceptance, persistent monitoring және alerting — `STAGING_ACCEPTANCE.md` бойынша.
@@ -53,7 +54,7 @@
 - [ ] Нақты SMTP delivery және пайдаланушының email растау flow-ы.
 - [x] Production dependency high/critical audit gate Back/Front/Admin CI ішінде.
 - [x] Full-history secret scanning және CycloneDX SBOM generation Back/Front/Admin CI ішінде.
-- [ ] SBOM artifact retention/access policy documented in `SBOM_POLICY.md`; Back/Front/Admin artifact-retention CI PR-лары green + merged болғанда gate жабылады.
+- [ ] SBOM artifact retention/access policy documented in `SBOM_POLICY.md`; Back/Front/Admin retention workflow-тары main-ге merged, бірақ billing/quota gate шешілгеннен кейін бір successful run-мен acceptance жабылады.
 - [x] Container image HIGH/CRITICAL vulnerability scanning CI gate.
 - [ ] Operational security review және нақты staging/container acceptance — `SECURITY_REVIEW.md` + `STAGING_ACCEPTANCE.md` бойынша орындалады.
 
