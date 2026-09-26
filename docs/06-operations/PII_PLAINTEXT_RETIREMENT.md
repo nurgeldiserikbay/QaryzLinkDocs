@@ -33,8 +33,8 @@ Contact values, key IDs, ciphertext немесе user IDs response-қа кірм
 `readyToScrub=true` тек:
 
 - runtime mode `encrypted`;
-- plaintext бар барлық user contact rows үшін ciphertext + blind lookup hash толық;
-- active verification plaintext rows үшін ciphertext толық
+- plaintext бар барлық user contact rows, соның ішінде deleted rows үшін ciphertext + blind lookup hash толық;
+- кез келген verification plaintext row үшін ciphertext толық
 
 болғанда ғана мүмкін.
 
@@ -64,7 +64,19 @@ Contact values, key IDs, ciphertext немесе user IDs response-қа кірм
 - partial failure кезінде retryable;
 - бір release window бойы schema columns орнында қалады.
 
-Қазіргі кодта бұл destructive scrub command әдейі әлі қосылмаған.
+Bounded manual command енді бар:
+
+~~~bash
+pnpm pii:contacts:scrub-plaintext
+~~~
+
+Ол тек `PII_CONTACT_STORAGE_MODE=encrypted` және `PII_PLAINTEXT_SCRUB_ENABLED=true` болғанда іске қосылады. Әдепкіде scrub gate `false`.
+
+`PII_PLAINTEXT_SCRUB_BATCH_SIZE` 1–500 аралығында, engineering default 50.
+
+User email немесе phone plaintext тек дәл сол field үшін ciphertext және blind lookup hash екеуі де бар кезде ғана NULL болады. Incomplete encrypted copy бар field өзгермейді және `remainingUsers` backlog ішінде қалады. Verification plaintext тек encrypted copy бар кезде ғана тазартылады.
+
+Command schema column-дарын DROP етпейді және CronJob ретінде орнатылмайды. Actual execution тек green CI + encrypted-mode staging acceptance + explicit owner/security approval кейін.
 
 ## 5. Phase 2 — compatibility removal
 
@@ -85,6 +97,6 @@ Schema columns бар кезде scrub rollback backup/restore немесе encr
 
 ## 7. Verification status
 
-Backend PR #140 aggregate plaintext-retirement readiness endpoint-ті қосты. Admin PR #26 осы readiness-ті read-only түрде көрсетеді.
+Backend PR #140 aggregate plaintext-retirement readiness endpoint-ті қосты. Admin PR #26 осы readiness-ті read-only түрде көрсетеді. Backend PR #141 bounded, explicit-gate plaintext scrub command-ты қосты және readiness-ті deleted/stale plaintext rows-ты да есептейтіндей қатаңдатты.
 
-GitHub Actions account free-quota/billing gate салдарынан automated verification pending. Destructive scrub/drop осы gate шешілмей орындалмайды.
+GitHub Actions account free-quota/billing gate салдарынан automated verification pending. Scrub tooling implementation дайын, бірақ actual scrub execution және legacy column drop осы gate + staging acceptance шешілмей орындалмайды.
