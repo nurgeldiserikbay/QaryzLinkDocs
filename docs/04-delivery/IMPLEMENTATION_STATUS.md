@@ -475,3 +475,11 @@ QaryzLinkBack PR #138 merged at `ead3504`: protected aggregate key-rotation back
 QaryzLinkAdmin PR #25 merged at `62c1120`: old-key user/verification backlog read-only card ретінде көрінеді; contact/key/ciphertext fields client schema-да қабылданбайды.
 
 Operational sequence `PII_KEY_ROTATION.md` runbook-ында бекітілді. Automated CI GitHub Actions quota/billing gate салдарынан pending; encrypted-mode staging acceptance және plaintext retirement әлі release gate болып қалады.
+
+## PII plaintext retirement readiness — 2026-09-26
+
+QaryzLinkBack PR #140 merged at `2d15c6e`: protected aggregate retirement readiness endpoint current storage mode, plaintext user/verification row counts және missing encrypted-copy counts береді. `readyToScrub=true` тек encrypted mode және zero missing encrypted copies кезінде болады.
+
+QaryzLinkAdmin PR #26 merged at `3052470`: retirement readiness read-only card ретінде көрсетіледі; contact/identity fields exact schema contract арқылы reject болады.
+
+`PII_PLAINTEXT_RETIREMENT.md` destructive phase-ты екіге бөледі: алдымен bounded plaintext value scrub, кейін бөлек legacy compatibility/schema column removal. Automated CI/staging acceptance орындалмайынша destructive command/migration әдейі енгізілмейді.
