@@ -48,3 +48,5 @@ ADR маңызды және кейін өзгеруі қымбат шешімд�
 - [ADR-0024: Notification scheduler Kubernetes CronJob](ADR-0024-notification-kubernetes-cronjob.md)
 
 - [ADR-0025: Contract signing feature gate](ADR-0025-contract-signing-feature-gate.md)
+
+- [ADR-0026: PII contact encryption and blind indexes](ADR-0026-pii-contact-encryption.md)
