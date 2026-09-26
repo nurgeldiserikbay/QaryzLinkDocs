@@ -162,6 +162,17 @@ QaryzLinkBack PR #117 merged at `d89699b`: compiled `accounts:deletion:run` comm
 Admin mutations, identity-level audit feed, contract/funding/payment management әрекеттері әлі өшірулі. Бұл кезең operational visibility ғана.
 
 
+## HTTP/browser hardening — 2026-09-26
+
+QaryzLinkBack PR #118 merged at `7147af8`: reverse-proxy client IP trust енді explicit `TRUST_PROXY_HOPS` арқылы 0–3 hop диапазонында басқарылады. Әдепкі 0 кезінде Fastify `trustProxy=false` болып қалады; forged `X-Forwarded-For`/Forwarded header auth rate-limit identity-ін өзгерте алмайды. Compiled HTTP smoke әр login attempt-та forged IP-ді ауыстырып, соған қарамастан transport-IP budget sixth attempt-те 429 беретіні тексерілді. Non-zero hop тек staging ingress topology/header sanitization acceptance-тен кейін қойылады.
+
+QaryzLinkBack PR #119 merged at `4d100d1`: compiled application smoke synthetic exact CORS allowlist-пен іске қосылып, тек configured origin үшін `Access-Control-Allow-Origin`/credentials header барын және бөтен origin үшін allow-origin жоқ екенін тексереді.
+
+QaryzLinkBack PR #121 merged at `6d352d5`: `EXPOSE_API_DOCS` validated configuration-ға кірді және production-та true болса startup fail-fast тоқтайды. Staging explicit opt-in жасай алады; production Swagger exposure environment flag арқылы кездейсоқ қосылмайды.
+
+QaryzLinkFront PR #17 merged at `c3c89e7` және QaryzLinkAdmin PR #16 merged at `bf4b4e9`: browser CSP `connect-src` generic `https:` рұқсатынан exact public API origin allowlist-ке тарылды. Production-та `'self'` + `NEXT_PUBLIC_API_BASE_URL` origin ғана; Admin server-only `QARYZLINK_API_BASE_URL` және `METRICS_ACCESS_TOKEN` browser CSP-ге кірмейді.
+
+
 ## Funding evidence және borrower confirmation
 
 QaryzLinkBack PR #3 merged: signed contract енді Funding EVIDENCE_REQUIRED жасайды. Lender private object key + SHA-256 metadata береді, borrower CONFIRM/DISPUTE шешімін сақтайды. CONFIRMED болғанда ғана Contract ACTIVE болады.
