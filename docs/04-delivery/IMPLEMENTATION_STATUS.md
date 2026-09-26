@@ -423,3 +423,13 @@ SBOM artifact upload әдейі өшірулі: retention/access policy әлі �
 QaryzLinkBack PR #60–#72 кезеңінде deployment baseline және production-safety contracts күшейтілді: immutable image digest rendering, compiled maintenance runtime, Kubernetes non-root/seccomp/service-account-token hardening, bounded migration Job, zero-unavailable rolling update + startup probe, PodDisruptionBudget, hostname topology spread, API rollback runbook және isolated PostgreSQL restore-drill runbook қосылды. Тиісті CI және Supply Chain checks green болған өзгерістер main-ге merge жасалды.
 
 Бұл код/configuration readiness қана. Нақты staging deploy, backup restore drill, ingress/TLS, SMTP delivery, object-storage security және monitoring/alerting environment owner тарапынан әлі орындалуы керек.
+
+## GitHub Actions quota optimization — 2026-09-26
+
+QaryzLinkBack PR #123 merged at `9e4cd2a`, QaryzLinkFront PR #21 merged at `5ca2b84`, QaryzLinkAdmin PR #20 merged at `390fa94`.
+
+PR quality checks енді docs-only өзгерістерде skip болады және жаңа commit келгенде superseded run cancel етіледі. Supply-chain secret/SBOM workflow әр PR-да емес, main push + weekly/manual режимінде жүреді. Backend Docker+Trivy image scan weekly/manual ғана. Front/Admin security smoke `pnpm check` жасаған configured production build-ті қайта қолданады, екінші Next build жойылды.
+
+CycloneDX SBOM 14 күндік Actions artifact ретінде сақталады. Осы өзгерістер merge кезінде GitHub Actions runner account billing/free-usage gate салдарынан job-тарды бастамады; quota қайта ашылғанда бір successful main/manual run acceptance evidence ретінде қажет.
+
+Front/Admin initial pnpm lockfile әлі жоқ; олардағы frozen install бөлек pending reproducibility gate болып қалды.
