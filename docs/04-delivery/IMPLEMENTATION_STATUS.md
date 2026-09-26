@@ -439,3 +439,15 @@ Front/Admin initial pnpm lockfile әлі жоқ; олардағы frozen install
 QaryzLinkBack PR #124 merged at `73dea46`: daily one-shot cleanup expired/consumed email-verification records және expired auth rate-limit buckets-ты ғана жояды. Session, contract, payment, ledger және persisted evidence history өзгермейді. Kubernetes CronJob template пен aggregate-only command output қосылды.
 
 Бұл өзгеріс GitHub Actions free-quota/billing gate job-тарды бастатпай тұрған кезде merge жасалды; automated verification pending. Retention boundaries `DATA_RETENTION.md` ішінде бекітілді. Full PII database encryption және legal retention periods әлі ашық release gate.
+
+## Auth retention operations visibility — 2026-09-26
+
+QaryzLinkBack PR #125 merged at `f7b2443`: protected `/api/v1/metrics/auth-retention` endpoint expired email-verification және expired auth rate-limit backlog counts-ты aggregate түрде береді. Identity, email, token немесе request details response-қа кірмейді; endpoint `METRICS_ACCESS_TOKEN` арқылы қорғалған.
+
+QaryzLinkAdmin PR #22 merged at `1301fe0`: auth-retention backlog server-rendered read-only card ретінде қосылды. Client exact aggregate schema-ны ғана қабылдайды және identity/contact field пайда болса fail-closed reject етеді.
+
+QaryzLinkBack PR #126 merged at `7887425`: quota қайта ашылғанда compiled metrics smoke жаңа auth-retention endpoint-ті де authorization/privacy contract-пен тексереді.
+
+QaryzLinkAdmin PR #23 merged at `8d84c60`: Admin README current retention operations visibility-мен синхрондалды.
+
+Бұл slice GitHub Actions account free-quota/billing gate салдарынан automated run орындалмай тұрған кезде merge жасалды; verification pending.
