@@ -38,11 +38,13 @@
 - [x] Metrics endpoint token protection backend slice.
 - [x] Notification scheduler Kubernetes CronJob deployment contract.
 - [ ] Нақты SMTP/push provider, queue trigger, persistent monitoring және alerting.
-- [ ] Front/Admin UI және HTTP e2e tests.
+- [x] Backend compiled HTTP auth/security lifecycle smoke: register/login/refresh rotation/logout, authorization, rate-limit, metrics және CORS contracts.
+- [ ] Front/Admin browser E2E tests және толық UI acceptance.
 - [ ] Privacy/consent enforcement, PII encryption және retention.
 - [x] Reproducible lockfile, container build және runtime smoke test.
 - [ ] Production migration job және rollback rehearsal.
-- [ ] Trusted proxy, CORS allowlist, persistent monitoring және alerting.
+- [x] Trusted proxy default-off bounded configuration және exact CORS allowlist code/CI contracts.
+- [ ] Staging ingress proxy-hop/header sanitization acceptance, persistent monitoring және alerting.
 - [x] Backend privacy-safe liveness/readiness contracts және PostgreSQL readiness check.
 - [ ] Staging ingress/orchestrator readiness probe нақты `/api/v1/health/ready` endpoint-іне қосылғаны тексерілді.
 - [ ] Kubernetes CronJob staging rollout, immutable image verification және job alerting.
