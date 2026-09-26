@@ -29,11 +29,11 @@
 | Notification SMTP adapter | Базалық slice дайын | MAIL_ENABLED gate, generic PII-safe templates, fail-closed router |
 | Notification scheduler command | Базалық slice дайын | `pnpm notifications:run`, validated AppModule context, aggregate counters және non-zero failure exit |
 | Notification email preference | Базалық slice дайын | PrivacySettings opt-out, profile API және enqueue-time EMAIL filtering |
-| Notification delivery metrics | Базалық slice дайын | In-process counters, internal JSON snapshot, staging/production token guard |
+| Notification delivery metrics | Persistent aggregate slice дайын | PostgreSQL singleton counters, cross-process scheduler/API snapshot және staging/production token guard |
 | Notification Kubernetes scheduler | Deployment template дайын | CronJob Forbid policy, external Secret, immutable image және non-overlap contract |
 | Deployment hardening | Template/CI дайын | Immutable digest rendering, bounded migration job, safe rollout, PDB, node spread, rollback және restore runbooks |
-| Provider/scheduler | Жоспарда | Push adapter, queue trigger, persistent metrics/alerting және organization routing |
-| Front/Admin UI | Front vertical slice жүріп жатыр | Auth/register, email verification, private discovery, role-aware proposals, read-only contract draft, funding/schedule/payment lifecycle summary және profile/privacy settings бар; Admin бөлек foundation күйінде |
+| Provider/scheduler | Жоспарда | Push adapter, queue trigger, external metrics collector/alerting және organization routing |
+| Front/Admin UI | Front + Admin vertical slices жүріп жатыр | Front-та auth/discovery/contract/lifecycle/settings; Admin-та liveness, evidence-storage және notification-delivery aggregate operations cards бар, audit feed әлі disconnected |
 
 ## Қазіргі backend slice
 
@@ -86,8 +86,8 @@ flowchart LR
 4. Contract version және екі тараптың қол қою workflow-ы — орындалды: [contract signing](../01-business/CONTRACT_SIGNING.md).
 5. Funding evidence және 72 сағаттық borrower confirmation — metadata/confirmation, S3-compatible signed upload/download, HEAD verification, trusted scan verdict registry және orphan cleanup орындалды; external scanner integration, staging acceptance және consumed-evidence retention policy қалды.
 6. Deterministic repayment schedule, payment confirmation және reversal — орындалды.
-7. Notification outbox, claim/retry worker, provider-neutral dispatch boundary, one-shot orchestrator, token-protected metrics және Kubernetes CronJob template — орындалды; нақты provider rollout, queue trigger, persistent monitoring және alerting.
-8. Front vertical slice басталды: auth → email verification → private discovery/proposal → read-only contract draft → read-only funding/schedule/payment lifecycle → profile/privacy settings; келесі mutation UI backend legal/operations gate-теріне сәйкес жалғасады, Admin бөлек кезең.
+7. Notification outbox, claim/retry worker, provider-neutral dispatch boundary, one-shot orchestrator, PostgreSQL-backed token-protected aggregate metrics және Kubernetes CronJob template — орындалды; нақты provider rollout, queue trigger, external collector және alerting қалды.
+8. Front vertical slice: auth → email verification → private discovery/proposal → read-only contract draft → read-only funding/schedule/payment lifecycle → profile/privacy settings. Admin vertical slice те басталды: public liveness + server-rendered evidence/notification aggregate operations visibility; mutations және identity-level audit feed өшірулі.
 
 ## Production-ға жіберілмейтін мүмкіндіктер
 
@@ -127,6 +127,18 @@ QaryzLinkFront PR #13 merged at `e96dba3`: email verification journey Backend `/
 QaryzLinkFront PR #14 merged at `ba3221a`: authenticated `/dashboard/settings` page Backend `GET/PATCH /api/v1/profile/me` contract-ын қолданады. User display name/timezone, publicId/contact search visibility, public profile opt-in, analytics consent және optional email notification preference-ін өзі басқарады. Account deletion бұл slice-ке әдейі кірмейді.
 
 Front-та бұған дейін auth/register, private discovery list/create/detail, exact invitation, role-aware proposal/decision және read-only contract draft бар. QaryzLinkFront PR #15 contract detail бетіне funding күйі, келесі unpaid schedule item және confirmed payment total үшін read-only lifecycle summary қосты. Public marketplace, contract signing mutation, funding/payment mutation және production evidence upload UI legal/operations gate өтпейінше Front-та қосылмайды.
+
+
+## Admin operations visibility — 2026-09-26
+
+QaryzLinkAdmin PR #9 merged at `8757850`: protected `GET /api/v1/metrics/evidence` counters server-side ғана оқылады. `METRICS_ACCESS_TOKEN` browser code-қа шықпайды; Admin тек active/expired/consumed upload intent, malware verdict totals және orphan age сияқты aggregate көрсеткіштерді қабылдайды. Unexpected user/object/hash fields strict response validation арқылы reject болады.
+
+QaryzLinkBack PR #111 merged at `87ce73a`: notification delivery metrics process-local memory-ден PostgreSQL singleton aggregate snapshot-қа көшті. One-shot `pnpm notifications:run` процесі мен API процесі енді бір counters state-ті бөліседі; migration, PostgreSQL integration test, compiled smoke және container security scan green болды (CI 36237408886, Supply Chain 36237408938).
+
+QaryzLinkAdmin PR #10 merged at `a596ddd`: notification scheduler runs/claimed/sent/pending/failed және last-run timing server-rendered operations card ретінде қосылды. Бұл card Backend #111-ге тәуелді; recipient, payload және contact data Admin contract-ына кірмейді.
+
+Admin mutations, identity-level audit feed, contract/funding/payment management әрекеттері әлі өшірулі. Бұл кезең operational visibility ғана.
+
 
 ## Funding evidence және borrower confirmation
 
@@ -274,13 +286,13 @@ API/business guide: [NOTIFICATION_PREFERENCES](../01-business/NOTIFICATION_PREFE
 
 ## Notification delivery metrics
 
-QaryzLinkBack PR #17 merged: NotificationMetricsService scheduler run-дарын in-process counters ретінде жинайды. GET /api/v1/metrics/notifications endpoint тек runs, claimed, sent, pending, failed және timing snapshot қайтарады; recipient, payload, contact және financial identifiers шығарылмайды.
+QaryzLinkBack PR #17 бастапқы privacy-safe metrics contract-ын қосты. QaryzLinkBack PR #111 оны PostgreSQL-backed singleton aggregate snapshot-қа ауыстырды: one-shot scheduler процесі жазған runs, claimed, sent, pending, failed және timing counters API процесінен restart-тан кейін де оқылады. Recipient, payload, contact және financial identifiers сақталмайды және endpoint арқылы шығарылмайды.
 
 Operations guide: [NOTIFICATION_METRICS](../06-operations/NOTIFICATION_METRICS.md). ADR: [ADR-0023](../../adr/ADR-0023-notification-delivery-metrics.md).
 
 [CI run 35516744602](https://github.com/nurgeldiserikbay/QaryzLinkBack/actions/runs/35516744602): Prisma format/generate/validate, migration, typecheck, lint, coverage, build және smoke test сәтті өтті.
 
-Бұл in-process baseline process restart кезінде reset болады. Prometheus/OpenTelemetry export, persistent history, alerting және internal ingress authentication кейінгі production hardening кезеңіне қалды.
+Aggregate snapshot process restart кезінде жоғалмайды және scheduler/API арасында ортақ PostgreSQL арқылы көрінеді. Per-run historical telemetry әдейі сақталмайды; Prometheus/OpenTelemetry export, external collector/alerting және internal ingress acceptance кейінгі production hardening кезеңіне қалады.
 
 
 ## Notification metrics security
@@ -321,6 +333,8 @@ QaryzLinkFront:
 QaryzLinkAdmin:
 
 - Public health card тек read-only liveness endpoint-ке қосылады.
+- Evidence-storage және notification-delivery metrics server component арқылы ғана оқылады; `METRICS_ACCESS_TOKEN` browser bundle-ға шықпайды.
+- Metrics clients exact aggregate schema-ны ғана қабылдайды; күтпеген identity/object/payload өрістері fail-closed reject болады.
 - Audit модулі live feed-ке қосылмаған, PII hidden және mutation жоқ.
 - Health response-та күтпеген identity/secret өрістері болса, Admin fail-closed режиміне өтеді.
 
