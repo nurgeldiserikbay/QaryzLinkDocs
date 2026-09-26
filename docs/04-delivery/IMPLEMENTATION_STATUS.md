@@ -153,6 +153,10 @@ QaryzLinkAdmin PR #14 merged at `2ebda23`: account deletion retention queue serv
 
 QaryzLinkBack PR #114 merged at `1eaf8e5`: account anonymization кезінде deleted `publicId` және password placeholder енді internal userId-ден deterministic SHA-256 арқылы туындамайды. Оның орнына cryptographically random opaque token қолданылады, сондықтан retained internal user identifier мен anonymized external placeholder арасында қажетсіз корреляция қалмайды.
 
+QaryzLinkBack PR #115 merged at `ff50158`: compiled application smoke test notifications, evidence, audit және account-deletion metrics endpoint-терін толық қамтиды. Әр endpoint token-сыз 401, valid `METRICS_ACCESS_TOKEN`-мен 200 беруі тиіс; authorized JSON ішінде email, phone, userId, objectKey, sha256, entityId, requestId немесе payload field-тері болмауы CI gate арқылы тексеріледі.
+
+QaryzLinkBack PR #116 merged at `9e0a57c`: `accounts:deletion:run` one-shot maintenance command notification/evidence command-тарымен бір failure contract-қа келтірілді. Command aggregate readiness/anonymization result-ін structured түрде логтайды, application context-ті жабады және bootstrap/processor қатесінде sanitized error + non-zero exit code береді.
+
 Admin mutations, identity-level audit feed, contract/funding/payment management әрекеттері әлі өшірулі. Бұл кезең operational visibility ғана.
 
 
