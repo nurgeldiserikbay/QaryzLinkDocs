@@ -105,7 +105,30 @@ Engineering cadence — сағатына бір рет. `concurrencyPolicy: Forb
 
 Бұл cleanup **consumed/persisted evidence-ті жоймайды**. Legal retention evidence үшін бөлек policy қажет.
 
-## 6. Staging acceptance
+## 6. Monitoring және alerting baseline
+
+Backend aggregate-only metrics endpoint береді:
+
+`GET /api/v1/metrics/evidence`
+
+Request `x-metrics-token` header арқылы `METRICS_ACCESS_TOKEN` secret-пен қорғалады. Response objectKey, SHA-256, userId, contractId, document content немесе басқа PII қайтармайды.
+
+Қазіргі snapshot:
+
+- `activeUnconsumedUploads`;
+- `expiredUnconsumedUploads`;
+- `consumedUploads`;
+- `cleanVerdicts`;
+- `infectedVerdicts`;
+- `failedVerdicts`;
+- `oldestExpiredUploadAgeSeconds`;
+- `capturedAt`.
+
+Staging мониторинг кемінде мыналарды alert source ретінде қолдануы тиіс: expired orphan backlog нөлден ұзақ уақыт жоғары қалуы, oldest expired age cleanup cadence-тен бірнеше есе асуы, FAILED verdict санының өсуі және INFECTED verdict оқиғалары. Нақты threshold пен pager owner environment/SLO-ға байланысты бекітіледі.
+
+Metrics token browser bundle-ге немесе public telemetry-ге берілмейді. Endpoint restricted ingress/internal collector арқылы ғана оқылады.
+
+## 7. Staging acceptance
 
 `EVIDENCE_STORAGE_ENABLED=true` жасау алдында және жасағаннан кейін кемінде мына сценарийлер тексеріледі:
 
@@ -126,14 +149,14 @@ Engineering cadence — сағатына бір рет. `concurrencyPolicy: Forb
 
 Evidence ретінде secret, signed URL, token, raw PII немесе document content сақталмайды. Тек commit SHA, environment, UTC timestamp, scenario және pass/fail сақталады.
 
-## 7. Production gate
+## 8. Production gate
 
 Мыналар аяқталмайынша evidence storage production-ready деп саналмайды:
 
 - нақты private bucket және least-privilege credentials;
 - external malware scanner/event integration;
 - staging end-to-end acceptance;
-- alerting және scanner/storage outage ownership;
+- metrics baseline бар; нақты alert thresholds, collector integration және scanner/storage outage ownership staging-та бекітілуі керек;
 - consumed evidence retention/deletion policy бойынша заңгерлік шешім;
 - backup/restore және incident procedure;
 - data residency талабының орындалуы.
