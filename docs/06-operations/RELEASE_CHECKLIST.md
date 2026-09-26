@@ -53,7 +53,7 @@
 - [ ] Нақты SMTP delivery және пайдаланушының email растау flow-ы.
 - [x] Production dependency high/critical audit gate Back/Front/Admin CI ішінде.
 - [x] Full-history secret scanning және CycloneDX SBOM generation Back/Front/Admin CI ішінде.
-- [ ] SBOM artifact retention/access policy.
+- [ ] SBOM artifact retention/access policy documented in `SBOM_POLICY.md`; Back/Front/Admin artifact-retention CI PR-лары green + merged болғанда gate жабылады.
 - [x] Container image HIGH/CRITICAL vulnerability scanning CI gate.
 - [ ] Operational security review және нақты staging/container acceptance — `SECURITY_REVIEW.md` + `STAGING_ACCEPTANCE.md` бойынша орындалады.
 
