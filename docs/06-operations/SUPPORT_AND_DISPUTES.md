@@ -26,13 +26,16 @@ Ticket ішінде әдепкіде user-provided support reference, UTC timest
 
 ## 3. Dispute intake
 
-1. Тарап dispute бар екенін белгілейді.
-2. Affected obligation/contract reference көрсетіледі.
-3. Қысқа description беріледі.
-4. Existing platform evidence-ке сілтеме беріледі; duplicate raw evidence support ticket-ке қайта жүктелмейді.
-5. Support case ID беріледі.
+Қазіргі participant-facing MVP flow:
 
-Dispute ашылғаны payment/contract record-ты автоматты түрде өзгертпейді.
+1. authenticated user өзі қатысатын contract-ті ашады;
+2. contract бойынша dispute жоқ болса 5–1000 таңбалық қысқа description береді;
+3. backend contract participant scope-ты тексереді;
+4. бір contract-қа бір neutral dispute case жасалады;
+5. қарсы тарап та сол case-ті read-only көре алады;
+6. audit event тек case id сақтайды, description audit payload-қа көшірілмейді.
+
+Dispute response opener party identity-сін шығармайды. Dispute ашылғаны payment/contract/ledger record-ты автоматты түрде өзгертпейді. Raw evidence dispute form арқылы қайта жүктелмейді.
 
 ## 4. Neutral handling
 
@@ -62,7 +65,7 @@ Immediate safety risk туралы support құқық қорғау/жедел қ
 
 ## 7. Resolution states
 
-Support case OPEN, WAITING_USER, WAITING_INTERNAL, RESOLVED немесе CLOSED күйінде болады.
+Dispute case OPEN, WAITING_USER, WAITING_INTERNAL, RESOLVED немесе CLOSED күйінде болады. Қазіргі public participant API case ашу және оқу операцияларын ғана береді; status transition support/admin workflow-ы әдейі қосылмаған.
 
 Dispute resolution business record-ты өзгертуі керек болса, ол dedicated audited workflow арқылы ғана орындалады; support ticket state-і өзі financial truth source емес.
 
