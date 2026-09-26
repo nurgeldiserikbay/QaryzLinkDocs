@@ -158,3 +158,13 @@ pnpm pii:contacts:reencrypt
 ~~~
 
 Бұл екі command автоматты CronJob ретінде орнатылмайды. Backfill migration window кезінде, re-encryption тек controlled key rotation кезінде қолмен орындалады. Key rotation sequence және old-key retirement шарттары `PII_KEY_ROTATION.md` ішінде.
+
+## PII plaintext retirement command
+
+Legacy plaintext values-ты bounded түрде тазалау үшін:
+
+~~~bash
+pnpm pii:contacts:scrub-plaintext
+~~~
+
+Бұл command default-off: `PII_CONTACT_STORAGE_MODE=encrypted` және `PII_PLAINTEXT_SCRUB_ENABLED=true` қажет. Batch size `PII_PLAINTEXT_SCRUB_BATCH_SIZE` арқылы 1–500 аралығында шектеледі. Command schema column-дарын жоймайды және CronJob ретінде орнатылмайды. Толық preconditions: `PII_PLAINTEXT_RETIREMENT.md`.
