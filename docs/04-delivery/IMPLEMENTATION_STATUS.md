@@ -491,3 +491,11 @@ QaryzLinkFront PR #23 merged at `5f8e4b3`: Playwright Chromium manual-only suite
 QaryzLinkAdmin PR #27 merged at `f3d6505`: manual-only Chromium suite read-only operations heading, disabled admin mutations, fail-closed/not-configured rendering және mobile overflow smoke тексереді.
 
 Екі репода да browser workflow тек `workflow_dispatch` арқылы іске қосылады; PR/push кезінде автоматты түрде Actions минуттарын жұмсамайды. `@playwright/test` version 1.63.0 pin етілді. Actual browser execution GitHub Actions free-quota/billing gate ашылғаннан кейін орындалады.
+
+## PII gated plaintext scrub — 2026-09-26
+
+QaryzLinkBack PR #141 merged at `ebb87d2`: encrypted-mode final migration phase үшін explicit default-off bounded scrub command қосылды. `PII_PLAINTEXT_SCRUB_ENABLED=true` болмаса command fail-closed; batch 1–500.
+
+User email/phone plaintext тек сол field-тің ciphertext + blind lookup hash екеуі де болғанда ғана null болады. Incomplete field сақталады және remaining backlog-та көрінеді. Retirement readiness енді deleted user және stale verification plaintext rows-ты да есептейді, сондықтан schema-drop алдында жалған zero болмайды.
+
+Tooling implementation дайын, бірақ actual destructive scrub execution, plaintext column removal және automated verification әлі staging/CI gate болып қалады.

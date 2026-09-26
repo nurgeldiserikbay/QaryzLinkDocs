@@ -45,7 +45,8 @@
 - [x] Privacy/consent defaults және ephemeral auth/evidence retention baseline.
 - [ ] PII encrypted-mode staging acceptance.
 - [x] PII plaintext-retirement aggregate readiness gate (`PII_PLAINTEXT_RETIREMENT.md`).
-- [ ] Destructive plaintext scrub және кейінгі legacy column removal — тек green CI + staging acceptance кейін.
+- [x] Gated bounded plaintext scrub tooling implementation.
+- [ ] Actual plaintext scrub execution және кейінгі legacy column removal — тек green CI + staging acceptance кейін.
 - [x] PII encryption additive/dual-write/backfill/readers/cutover guard және bounded key-rotation tooling.
 - [x] PII key rotation operational runbook (`PII_KEY_ROTATION.md`).
 - [ ] Contract/payment/ledger/evidence/audit/session legal retention periods owner/legal review арқылы бекітілген.
