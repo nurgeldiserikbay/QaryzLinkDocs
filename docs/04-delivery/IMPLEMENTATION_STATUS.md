@@ -151,6 +151,8 @@ QaryzLinkBack PR #113 merged at `e46cb55`: protected `GET /api/v1/metrics/accoun
 
 QaryzLinkAdmin PR #14 merged at `2ebda23`: account deletion retention queue server-rendered operations card ретінде қосылды. Admin identity-level deletion review немесе mutation жасамайды; exact aggregate schema-дан артық identity/request fields fail-closed reject болады.
 
+QaryzLinkBack PR #114 merged at `1eaf8e5`: account anonymization кезінде deleted `publicId` және password placeholder енді internal userId-ден deterministic SHA-256 арқылы туындамайды. Оның орнына cryptographically random opaque token қолданылады, сондықтан retained internal user identifier мен anonymized external placeholder арасында қажетсіз корреляция қалмайды.
+
 Admin mutations, identity-level audit feed, contract/funding/payment management әрекеттері әлі өшірулі. Бұл кезең operational visibility ғана.
 
 
