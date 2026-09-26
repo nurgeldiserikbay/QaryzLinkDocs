@@ -28,6 +28,7 @@ Backend мыналарды орындайды:
 - storage object-ке HEAD request арқылы content type, content length және upload-bound metadata тексеріледі;
 - evidence тек malware verdict `CLEAN` болса ғана қабылданады;
 - malware verdict objectKey + SHA-256 бойынша PostgreSQL-де сақталады және severity downgrade-қа жол берілмейді;
+- scanner callback тек QaryzLink шығарған дәл сол objectKey + SHA-256 intent-ке байланған verdict-ті қабылдайды; expired unconsumed немесе never-issued object fail-closed rejected, ал consumed evidence later re-scan үшін жарамды болып қалады;
 - signed download берілер алдында latest trusted verdict қайта тексеріледі; `CLEAN` емес evidence fail-closed блокталады;
 - `INFECTED` verdict сақталғаннан кейін private object дереу delete етіледі; delete уақытша сәтсіз болса callback retryable 503 алады және `INFECTED` verdict download/persistence-ті бәрібір блоктайды;
 - expired және ешқашан consume болмаған upload object-тер бөлек cleanup job арқылы жойылады;
@@ -76,7 +77,7 @@ Backend scanner engine іске қоспайды. External trusted scanner не�
 - `INFECTED`;
 - `FAILED`.
 
-Callback token тұрақты уақытпен салыстырылады. Verdict objectKey + SHA-256-ға байланады. Кейін келген төмен severity verdict бұрынғы жоғары severity result-ті downgrade етпейді.
+Callback token тұрақты уақытпен салыстырылады. Verdict objectKey + SHA-256-ға байланады және database-та matching upload intent бар кезде ғана жазылады. Unconsumed intent әлі live болуы тиіс; consumed evidence кейінгі re-scan/quarantine үшін verdict қабылдай береді. Кейін келген төмен severity verdict бұрынғы жоғары severity result-ті downgrade етпейді.
 
 Production enablement алдында:
 
@@ -146,6 +147,7 @@ Metrics token browser bundle-ге немесе public telemetry-ге беріл�
 12. cleanup storage error болса row retry үшін қалады;
 13. persisted evidence verdict-і CLEAN → INFECTED болып upgrade етілсе download fail-closed блокталады;
 14. INFECTED callback object-ті жояды, delete provider error болса 503 арқылы scanner retry жасай алады.
+15. never-issued немесе expired-unconsumed object үшін scanner verdict rejected болады; consumed evidence үшін later re-scan verdict қабылданады.
 
 Evidence ретінде secret, signed URL, token, raw PII немесе document content сақталмайды. Тек commit SHA, environment, UTC timestamp, scenario және pass/fail сақталады.
 
