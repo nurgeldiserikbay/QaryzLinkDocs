@@ -11,7 +11,7 @@
 | Product және business specification | Дайын | MVP шекарасы, state machine, privacy және calculation rules бекітілді |
 | Backend foundation | Дайын | NestJS/Fastify modular monolith, Prisma/PostgreSQL, Docker, CI |
 | IAM | Базалық нұсқа дайын | Register, login, refresh token rotation, current-session logout, email verification |
-| Profile және privacy settings | Базалық нұсқа дайын | Өз профилін оқу және privacy баптауларын өзгерту |
+| Profile, privacy және deletion request | Базалық нұсқа дайын | Өз профилін/ privacy баптауларын басқару және retention-aware account deletion request жіберу |
 | Database migration | Дайын | Бастапқы schema versioned SQL migration ретінде бекітілді |
 | Discovery | Restricted slice дайын | Private request, exact invitation, proposal, atomic acceptance |
 | Contract draft/signing | Дайын | Accepted proposal-дан immutable ContractVersion v1, privacy-safe read, dual hash acknowledgement |
@@ -33,7 +33,7 @@
 | Notification Kubernetes scheduler | Deployment template дайын | CronJob Forbid policy, external Secret, immutable image және non-overlap contract |
 | Deployment hardening | Template/CI дайын | Immutable digest rendering, bounded migration job, safe rollout, PDB, node spread, rollback және restore runbooks |
 | Provider/scheduler | Жоспарда | Push adapter, queue trigger, external metrics collector/alerting және organization routing |
-| Front/Admin UI | Front + Admin vertical slices жүріп жатыр | Front-та auth/discovery/contract/lifecycle/settings; Admin-та liveness, database readiness, evidence-storage және notification-delivery aggregate operations cards бар, audit feed әлі disconnected |
+| Front/Admin UI | Front + Admin vertical slices жүріп жатыр | Front-та auth/discovery/contract/lifecycle/settings/account-deletion request; Admin-та liveness, database readiness, evidence-storage және notification-delivery aggregate operations cards бар, audit feed әлі disconnected |
 
 ## Қазіргі backend slice
 
@@ -87,7 +87,7 @@ flowchart LR
 5. Funding evidence және 72 сағаттық borrower confirmation — metadata/confirmation, S3-compatible signed upload/download, HEAD verification, trusted scan verdict registry және orphan cleanup орындалды; external scanner integration, staging acceptance және consumed-evidence retention policy қалды.
 6. Deterministic repayment schedule, payment confirmation және reversal — орындалды.
 7. Notification outbox, claim/retry worker, provider-neutral dispatch boundary, one-shot orchestrator, PostgreSQL-backed token-protected aggregate metrics және Kubernetes CronJob template — орындалды; нақты provider rollout, queue trigger, external collector және alerting қалды.
-8. Front vertical slice: auth → email verification → private discovery/proposal → read-only contract draft → read-only funding/schedule/payment lifecycle → profile/privacy settings. Admin vertical slice те басталды: public liveness + server-rendered database readiness + evidence/notification aggregate operations visibility; mutations және identity-level audit feed өшірулі.
+8. Front vertical slice: auth → email verification → private discovery/proposal → read-only contract draft → read-only funding/schedule/payment lifecycle → profile/privacy settings → guarded account-deletion request. Admin vertical slice те басталды: public liveness + server-rendered database readiness + evidence/notification aggregate operations visibility; mutations және identity-level audit feed өшірулі.
 
 ## Production-ға жіберілмейтін мүмкіндіктер
 
@@ -124,9 +124,13 @@ QaryzLinkFront PR #13 email verification page, fragment token parsing, resend/st
 
 QaryzLinkFront PR #13 merged at `e96dba3`: email verification journey Backend `/api/v1/auth/email/*` contract-ына қосылды. Token URL fragment-тен ғана оқылады, confirm explicit user action арқылы орындалады, 401/400/429/503 күйлері privacy-safe UI state-терге mapped.
 
-QaryzLinkFront PR #14 merged at `ba3221a`: authenticated `/dashboard/settings` page Backend `GET/PATCH /api/v1/profile/me` contract-ын қолданады. User display name/timezone, publicId/contact search visibility, public profile opt-in, analytics consent және optional email notification preference-ін өзі басқарады. Account deletion бұл slice-ке әдейі кірмейді.
+QaryzLinkFront PR #14 merged at `ba3221a`: authenticated `/dashboard/settings` page Backend `GET/PATCH /api/v1/profile/me` contract-ын қолданады. User display name/timezone, publicId/contact search visibility, public profile opt-in, analytics consent және optional email notification preference-ін өзі басқарады.
 
-Front-та бұған дейін auth/register, private discovery list/create/detail, exact invitation, role-aware proposal/decision және read-only contract draft бар. QaryzLinkFront PR #15 contract detail бетіне funding күйі, келесі unpaid schedule item және confirmed payment total үшін read-only lifecycle summary қосты. Public marketplace, contract signing mutation, funding/payment mutation және production evidence upload UI legal/operations gate өтпейінше Front-та қосылмайды.
+Front-та бұған дейін auth/register, private discovery list/create/detail, exact invitation, role-aware proposal/decision және read-only contract draft бар. QaryzLinkFront PR #15 contract detail бетіне funding күйі, келесі unpaid schedule item және confirmed payment total үшін read-only lifecycle summary қосты.
+
+QaryzLinkFront PR #16 merged at `39213e4`: settings ішіне account deletion request flow қосылды. Destructive action profile save form-нан бөлек, user `ЖОЮ` деп explicit confirmation енгізеді, содан кейін `POST /api/v1/profile/me/deletion-request` шақырылады. Backend request-ті қабылдағанда барлық active session revoke етеді; Front local sessionStorage-ды да дереу тазалап, instant hard-delete емес, grace/retention-aware processing екенін көрсететін accepted state-ке өтеді. UI fixed deletion date уәде етпейді және retained contract/payment/ledger/evidence records туралы ескертеді.
+
+Public marketplace, contract signing mutation, funding/payment mutation және production evidence upload UI legal/operations gate өтпейінше Front-та қосылмайды.
 
 
 ## Admin operations visibility — 2026-09-26
