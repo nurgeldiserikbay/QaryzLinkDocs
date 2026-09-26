@@ -465,3 +465,13 @@ QaryzLinkBack PR #128 merged at `dda0797`: ADR-0026 Phase A additive schema ен
 `PII_CONTACT_STORAGE_MODE` әдепкіде `plaintext`. `dual` немесе `encrypted` режимін таңдағанда active key id, versioned keyring және бөлек 32-byte blind-lookup key міндетті түрде validated; key material толық емес болса startup fail-closed.
 
 Account anonymization болашақ encrypted/hash contact columns-ды да тазалайды. Automated CI GitHub Actions quota/billing gate салдарынан pending; additive migration + plaintext default арқасында бұл кезең behavior-preserving болып қалады.
+
+## PII key rotation operations — 2026-09-26
+
+QaryzLinkBack PR #137 merged at `22fff98`: bounded manual re-encryption command old-key user email/phone және active verification ciphertext-терін current active encryption key-ге ауыстырады. Lookup hash өзгермейді; result aggregate-only, partial failure retryable.
+
+QaryzLinkBack PR #138 merged at `ead3504`: protected aggregate key-rotation backlog endpoint қосылды. PR #139 merged at `76e2d0b`: plaintext compatibility mode explicit `enabled=false` күйін қайтарады, сондықтан zero backlog retirement-ready деп қате оқылмайды.
+
+QaryzLinkAdmin PR #25 merged at `62c1120`: old-key user/verification backlog read-only card ретінде көрінеді; contact/key/ciphertext fields client schema-да қабылданбайды.
+
+Operational sequence `PII_KEY_ROTATION.md` runbook-ында бекітілді. Automated CI GitHub Actions quota/billing gate салдарынан pending; encrypted-mode staging acceptance және plaintext retirement әлі release gate болып қалады.
