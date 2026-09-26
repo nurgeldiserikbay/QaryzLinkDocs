@@ -457,3 +457,11 @@ QaryzLinkAdmin PR #23 merged at `8d84c60`: Admin README current retention operat
 QaryzLinkBack PR #127 merged at `39a9da2`: ADR-0026 implementation-ының isolated crypto primitive-і қосылды. Utility AES-256-GCM random nonce, record/field-bound AAD, versioned key ID және бөлек HMAC-SHA-256 blind lookup hash береді.
 
 Бұл primitive әзірге Prisma schema, register/login, email verification немесе profile path-қа қосылмаған. Сондықтан production data behavior өзгермейді. Automated CI GitHub Actions free-quota/billing gate салдарынан pending; келесі кезең additive schema + dual-write migration болады және verification қайта ашылғанша big-bang cutover жасалмайды.
+
+## PII additive storage phase — 2026-09-26
+
+QaryzLinkBack PR #128 merged at `dda0797`: ADR-0026 Phase A additive schema енгізілді. `users` table-ға nullable `emailCiphertext`, `emailLookupHash`, `phoneCiphertext`, `phoneLookupHash`, ал email verification record-қа nullable encrypted email field қосылды. Existing plaintext columns және current auth behavior өзгермейді.
+
+`PII_CONTACT_STORAGE_MODE` әдепкіде `plaintext`. `dual` немесе `encrypted` режимін таңдағанда active key id, versioned keyring және бөлек 32-byte blind-lookup key міндетті түрде validated; key material толық емес болса startup fail-closed.
+
+Account anonymization болашақ encrypted/hash contact columns-ды да тазалайды. Automated CI GitHub Actions quota/billing gate салдарынан pending; additive migration + plaintext default арқасында бұл кезең behavior-preserving болып қалады.
