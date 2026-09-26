@@ -172,6 +172,8 @@ QaryzLinkBack PR #121 merged at `6d352d5`: `EXPOSE_API_DOCS` validated configura
 
 QaryzLinkFront PR #17 merged at `c3c89e7` және QaryzLinkAdmin PR #16 merged at `bf4b4e9`: browser CSP `connect-src` generic `https:` рұқсатынан exact public API origin allowlist-ке тарылды. Production-та `'self'` + `NEXT_PUBLIC_API_BASE_URL` origin ғана; Admin server-only `QARYZLINK_API_BASE_URL` және `METRICS_ACCESS_TOKEN` browser CSP-ге кірмейді.
 
+QaryzLinkFront PR #18 merged at `f60bf6c` және QaryzLinkAdmin PR #17 merged at `a1c6372`: CI production Next server-ді нақты іске қосып, HTTP response-та CSP exact API origin, `X-Content-Type-Options: nosniff`, `X-Frame-Options: DENY` және `X-Powered-By` жоқтығын runtime smoke арқылы тексереді. Synthetic API origin тек екінші production build/smoke қадамына scoped, сондықтан API client unit tests өз deterministic local configuration-мен қалады.
+
 
 ## Funding evidence және borrower confirmation
 
