@@ -12,7 +12,7 @@
 | SMTP провайдер және расталған sender | Email қосқанда | SMTP secrets және DNS |
 | Test mailbox | Staging verification кезінде | Өзіңіз бақылайтын қабылдаушы |
 | Backup retention және restore мақсаттары | Production алдында | Операциялық регламент |
-| Support және incident жауаптысы | Pilot алдында | Қате, шағым және қолжетімділік |
+| Support және incident жауаптысы | Pilot алдында | Incident response және support/dispute runbook-тары, қате, шағым және қолжетімділік |
 | Заңгердің scope/privacy/retention қорытындысы | Public launch алдында | Legal gates және terms |
 | Алғашқы pilot қатысушылары | Негізгі workflow дайын болғанда | Invite-only сынақ |
 
