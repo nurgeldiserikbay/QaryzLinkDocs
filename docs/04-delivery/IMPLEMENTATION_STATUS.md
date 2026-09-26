@@ -159,6 +159,10 @@ QaryzLinkBack PR #116 merged at `9e0a57c`: `accounts:deletion:run` one-shot main
 
 QaryzLinkBack PR #117 merged at `d89699b`: compiled `accounts:deletion:run` command CI smoke gate-ке қосылды. Алғашқы smoke successful result stdout-та observable емес екенін тапты; command machine-readable aggregate JSON stdout contract-ына түзетілді, failure generic stderr + non-zero exit күйінде қалды. Empty migrated CI database-та `evaluated=0` және `completed=0` runtime smoke арқылы бекітілді.
 
+QaryzLinkBack PR #122 merged at `e7a2866`: compiled HTTP security smoke fresh account privacy defaults-тың closed күйін, account deletion request-тің 202 REQUESTED contract-ын және deletion request-тен кейін сол active bearer session-ның дереу 401 болуын end-to-end тексереді.
+
+Support/incident/dispute operational baseline Docs-та `INCIDENT_RESPONSE.md` және `SUPPORT_AND_DISPUTES.md` runbook-тарымен толықтырылды. Нақты support owner/channel, legal escalation contact және response target public pilot алдында owner тарапынан бекітіледі.
+
 Admin mutations, identity-level audit feed, contract/funding/payment management әрекеттері әлі өшірулі. Бұл кезең operational visibility ғана.
 
 
