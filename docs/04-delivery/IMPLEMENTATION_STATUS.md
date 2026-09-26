@@ -33,7 +33,7 @@
 | Notification Kubernetes scheduler | Deployment template дайын | CronJob Forbid policy, external Secret, immutable image және non-overlap contract |
 | Deployment hardening | Template/CI дайын | Immutable digest rendering, bounded migration job, safe rollout, PDB, node spread, rollback және restore runbooks |
 | Provider/scheduler | Жоспарда | Push adapter, queue trigger, external metrics collector/alerting және organization routing |
-| Front/Admin UI | Front + Admin vertical slices жүріп жатыр | Front-та auth/discovery/contract/lifecycle/settings/account-deletion request; Admin-та liveness, database readiness, evidence-storage, notification-delivery және audit aggregate operations cards бар; identity-level audit feed әлі өшірулі |
+| Front/Admin UI | Front + Admin vertical slices жүріп жатыр | Front-та auth/discovery/contract/lifecycle/settings/account-deletion request; Admin-та liveness, database readiness, evidence-storage, notification-delivery, audit және account-deletion aggregate operations cards бар; identity-level feeds әлі өшірулі |
 
 ## Қазіргі backend slice
 
@@ -146,6 +146,12 @@ QaryzLinkAdmin PR #11 merged at `18d7310`: public `GET /api/v1/health/ready` con
 QaryzLinkBack PR #112 merged at `53c158a`: protected `GET /api/v1/metrics/audit` aggregate-only audit snapshot қосты. Response тек total event count, соңғы 24 сағат/7 күн counts, соңғы 7 күндегі actorless event count және capture time қайтарады; actorUserId, entityId, requestId, action және payload endpoint contract-ына кірмейді.
 
 QaryzLinkAdmin PR #12 merged at `d7b14bf`: audit placeholder server-rendered aggregate operations card-пен ауыстырылды. Client exact aggregate schema-ны ғана қабылдайды және identity/entity/payload өрістері пайда болса fail-closed reject етеді. METRICS_ACCESS_TOKEN browser bundle-ға шықпайды.
+
+QaryzLinkBack PR #113 merged at `e46cb55`: protected `GET /api/v1/metrics/account-deletions` deletion lifecycle backlog-ты aggregate түрде шығарады. Response REQUESTED, RETENTION_HOLD, READY, COMPLETED counts, oldest pending age және capture time ғана береді; userId, requestId, email/phone және request detail өрістері contract-қа кірмейді.
+
+QaryzLinkAdmin PR #14 merged at `2ebda23`: account deletion retention queue server-rendered operations card ретінде қосылды. Admin identity-level deletion review немесе mutation жасамайды; exact aggregate schema-дан артық identity/request fields fail-closed reject болады.
+
+QaryzLinkBack PR #114 merged at `1eaf8e5`: account anonymization кезінде deleted `publicId` және password placeholder енді internal userId-ден deterministic SHA-256 арқылы туындамайды. Оның орнына cryptographically random opaque token қолданылады, сондықтан retained internal user identifier мен anonymized external placeholder арасында қажетсіз корреляция қалмайды.
 
 Admin mutations, identity-level audit feed, contract/funding/payment management әрекеттері әлі өшірулі. Бұл кезең operational visibility ғана.
 
