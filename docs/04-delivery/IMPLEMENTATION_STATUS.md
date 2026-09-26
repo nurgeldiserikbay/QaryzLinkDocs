@@ -483,3 +483,11 @@ QaryzLinkBack PR #140 merged at `2d15c6e`: protected aggregate retirement readin
 QaryzLinkAdmin PR #26 merged at `3052470`: retirement readiness read-only card ретінде көрсетіледі; contact/identity fields exact schema contract арқылы reject болады.
 
 `PII_PLAINTEXT_RETIREMENT.md` destructive phase-ты екіге бөледі: алдымен bounded plaintext value scrub, кейін бөлек legacy compatibility/schema column removal. Automated CI/staging acceptance орындалмайынша destructive command/migration әдейі енгізілмейді.
+
+## Manual browser E2E harness — 2026-09-26
+
+QaryzLinkFront PR #23 merged at `5f8e4b3`: Playwright Chromium manual-only suite landing privacy/trust copy, login navigation және 390px mobile horizontal-overflow smoke тексереді.
+
+QaryzLinkAdmin PR #27 merged at `f3d6505`: manual-only Chromium suite read-only operations heading, disabled admin mutations, fail-closed/not-configured rendering және mobile overflow smoke тексереді.
+
+Екі репода да browser workflow тек `workflow_dispatch` арқылы іске қосылады; PR/push кезінде автоматты түрде Actions минуттарын жұмсамайды. `@playwright/test` version 1.63.0 pin етілді. Actual browser execution GitHub Actions free-quota/billing gate ашылғаннан кейін орындалады.
