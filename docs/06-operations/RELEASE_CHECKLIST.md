@@ -39,6 +39,7 @@
 - [x] Notification scheduler Kubernetes CronJob deployment contract.
 - [ ] Нақты SMTP/push provider, queue trigger, persistent monitoring және alerting.
 - [x] Backend compiled HTTP auth/security lifecycle smoke: register/login/refresh rotation/logout, authorization, rate-limit, metrics және CORS contracts.
+- [x] Front/Admin production server HTTP security-header/CSP runtime smoke.
 - [ ] Front/Admin browser E2E tests және толық UI acceptance.
 - [ ] Privacy/consent enforcement, PII encryption және retention.
 - [x] Reproducible lockfile, container build және runtime smoke test.
