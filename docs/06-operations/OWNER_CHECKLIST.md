@@ -7,6 +7,8 @@
 | Staging және production hosting таңдауы | Deploy алдында | Node platform, VPS немесе k3s |
 | Домен және DNS басқару мүмкіндігі | HTTPS/email алдында | API, Front, Admin және sender |
 | Қазақстан аудиториясы үшін дерек сақтау аймағы | Public launch алдында | Database, backup, files және logs |
+| Private object storage bucket/endpoint және least-privilege credential | Evidence staging алдында | Signed upload/download, HEAD verification және orphan cleanup |
+| Malware scanner/event integration және callback secret | Evidence staging алдында | CLEAN/INFECTED/FAILED verdict flow |
 | SMTP провайдер және расталған sender | Email қосқанда | SMTP secrets және DNS |
 | Test mailbox | Staging verification кезінде | Өзіңіз бақылайтын қабылдаушы |
 | Backup retention және restore мақсаттары | Production алдында | Операциялық регламент |
