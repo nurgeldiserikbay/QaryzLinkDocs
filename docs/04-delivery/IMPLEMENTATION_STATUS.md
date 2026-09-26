@@ -33,7 +33,7 @@
 | Notification Kubernetes scheduler | Deployment template дайын | CronJob Forbid policy, external Secret, immutable image және non-overlap contract |
 | Deployment hardening | Template/CI дайын | Immutable digest rendering, bounded migration job, safe rollout, PDB, node spread, rollback және restore runbooks |
 | Provider/scheduler | Жоспарда | Push adapter, queue trigger, external metrics collector/alerting және organization routing |
-| Front/Admin UI | Front + Admin vertical slices жүріп жатыр | Front-та auth/discovery/contract/lifecycle/settings/account-deletion request; Admin-та liveness, database readiness, evidence-storage және notification-delivery aggregate operations cards бар, audit feed әлі disconnected |
+| Front/Admin UI | Front + Admin vertical slices жүріп жатыр | Front-та auth/discovery/contract/lifecycle/settings/account-deletion request; Admin-та liveness, database readiness, evidence-storage, notification-delivery және audit aggregate operations cards бар; identity-level audit feed әлі өшірулі |
 
 ## Қазіргі backend slice
 
@@ -142,6 +142,10 @@ QaryzLinkBack PR #111 merged at `87ce73a`: notification delivery metrics process
 QaryzLinkAdmin PR #10 merged at `a596ddd`: notification scheduler runs/claimed/sent/pending/failed және last-run timing server-rendered operations card ретінде қосылды. Бұл card Backend #111-ге тәуелді; recipient, payload және contact data Admin contract-ына кірмейді.
 
 QaryzLinkAdmin PR #11 merged at `18d7310`: public `GET /api/v1/health/ready` contract server-side readiness card-қа қосылды. Admin тек `ready/not_ready` және sanitized `database: up/down` күйін қабылдайды; HTTP 503 not-ready state ретінде көрсетіледі, ал күтпеген dependency details немесе status/body mismatch fail-closed reject болады.
+
+QaryzLinkBack PR #112 merged at `53c158a`: protected `GET /api/v1/metrics/audit` aggregate-only audit snapshot қосты. Response тек total event count, соңғы 24 сағат/7 күн counts, соңғы 7 күндегі actorless event count және capture time қайтарады; actorUserId, entityId, requestId, action және payload endpoint contract-ына кірмейді.
+
+QaryzLinkAdmin PR #12 merged at `d7b14bf`: audit placeholder server-rendered aggregate operations card-пен ауыстырылды. Client exact aggregate schema-ны ғана қабылдайды және identity/entity/payload өрістері пайда болса fail-closed reject етеді. METRICS_ACCESS_TOKEN browser bundle-ға шықпайды.
 
 Admin mutations, identity-level audit feed, contract/funding/payment management әрекеттері әлі өшірулі. Бұл кезең operational visibility ғана.
 
