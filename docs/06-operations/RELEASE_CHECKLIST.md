@@ -41,7 +41,9 @@
 - [x] Backend compiled HTTP auth/security lifecycle smoke: register/login/refresh rotation/logout, authorization, rate-limit, metrics және CORS contracts.
 - [x] Front/Admin production server HTTP security-header/CSP runtime smoke.
 - [ ] Front/Admin browser E2E tests және толық UI acceptance.
-- [ ] Privacy/consent enforcement, PII encryption және retention.
+- [x] Privacy/consent defaults және ephemeral auth/evidence retention baseline.
+- [ ] PII database encryption, key rotation және blind lookup migration.
+- [ ] Contract/payment/ledger/evidence/audit/session legal retention periods owner/legal review арқылы бекітілген.
 - [x] Backend reproducible lockfile, container build және runtime smoke test.
 - [ ] Front/Admin committed pnpm lockfile және `--frozen-lockfile` install.
 - [ ] Production migration job және rollback rehearsal.

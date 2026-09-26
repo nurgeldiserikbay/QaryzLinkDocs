@@ -433,3 +433,9 @@ PR quality checks енді docs-only өзгерістерде skip болады 
 CycloneDX SBOM 14 күндік Actions artifact ретінде сақталады. Осы өзгерістер merge кезінде GitHub Actions runner account billing/free-usage gate салдарынан job-тарды бастамады; quota қайта ашылғанда бір successful main/manual run acceptance evidence ретінде қажет.
 
 Front/Admin initial pnpm lockfile әлі жоқ; олардағы frozen install бөлек pending reproducibility gate болып қалды.
+
+## Ephemeral auth retention — 2026-09-26
+
+QaryzLinkBack PR #124 merged at `73dea46`: daily one-shot cleanup expired/consumed email-verification records және expired auth rate-limit buckets-ты ғана жояды. Session, contract, payment, ledger және persisted evidence history өзгермейді. Kubernetes CronJob template пен aggregate-only command output қосылды.
+
+Бұл өзгеріс GitHub Actions free-quota/billing gate job-тарды бастатпай тұрған кезде merge жасалды; automated verification pending. Retention boundaries `DATA_RETENTION.md` ішінде бекітілді. Full PII database encryption және legal retention periods әлі ашық release gate.
