@@ -465,3 +465,19 @@ QaryzLinkBack PR #128 merged at `dda0797`: ADR-0026 Phase A additive schema ен
 `PII_CONTACT_STORAGE_MODE` әдепкіде `plaintext`. `dual` немесе `encrypted` режимін таңдағанда active key id, versioned keyring және бөлек 32-byte blind-lookup key міндетті түрде validated; key material толық емес болса startup fail-closed.
 
 Account anonymization болашақ encrypted/hash contact columns-ды да тазалайды. Automated CI GitHub Actions quota/billing gate салдарынан pending; additive migration + plaintext default арқасында бұл кезең behavior-preserving болып қалады.
+
+## PII contact encryption implementation — 2026-09-26
+
+QaryzLinkBack #128 `dda0797`: additive encrypted/hash schema.
+QaryzLinkBack #129 `b76818a`: config-backed protection service.
+QaryzLinkBack #130 `001d32b`: bounded manual backfill command.
+QaryzLinkBack #131 `b658276`: plaintext/dual/encrypted runtime semantics.
+QaryzLinkBack #132 `4be80d3`: authentication/email-verification protected dual-write/read path.
+QaryzLinkBack #134 `6b568ee`: nullable legacy verification backfill safety fix.
+QaryzLinkBack #135 `0d906a2`: profile + notification readers migrated; encrypted startup backlog guard.
+QaryzLinkBack #136 `f3ea061`: privacy-safe migration mode/backlog metrics.
+QaryzLinkAdmin #24 `46a3a52`: read-only PII migration cutover status card.
+
+Код деңгейінде dual-write/backfill/encrypted-reader/cutover guard baseline дайын. Бірақ final PII gate жабылған жоқ: соңғы өзгерістер automated CI-дан өтпеді, staging-та dual → backfill → encrypted acceptance жасалмаған, key custody/rotation rehearsal орындалмаған және plaintext legacy columns әлі сақталған.
+
+Operations runbook: [PII_CONTACT_ENCRYPTION](../06-operations/PII_CONTACT_ENCRYPTION.md).
