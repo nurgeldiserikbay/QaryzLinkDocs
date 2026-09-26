@@ -157,6 +157,8 @@ QaryzLinkBack PR #115 merged at `ff50158`: compiled application smoke test notif
 
 QaryzLinkBack PR #116 merged at `9e0a57c`: `accounts:deletion:run` one-shot maintenance command notification/evidence command-тарымен бір failure contract-қа келтірілді. Command aggregate readiness/anonymization result-ін structured түрде логтайды, application context-ті жабады және bootstrap/processor қатесінде sanitized error + non-zero exit code береді.
 
+QaryzLinkBack PR #117 merged at `d89699b`: compiled `accounts:deletion:run` command CI smoke gate-ке қосылды. Алғашқы smoke successful result stdout-та observable емес екенін тапты; command machine-readable aggregate JSON stdout contract-ына түзетілді, failure generic stderr + non-zero exit күйінде қалды. Empty migrated CI database-та `evaluated=0` және `completed=0` runtime smoke арқылы бекітілді.
+
 Admin mutations, identity-level audit feed, contract/funding/payment management әрекеттері әлі өшірулі. Бұл кезең operational visibility ғана.
 
 
