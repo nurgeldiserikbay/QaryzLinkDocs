@@ -15,9 +15,9 @@
 | Database migration | Дайын | Бастапқы schema versioned SQL migration ретінде бекітілді |
 | Discovery | Restricted slice дайын | Private request, exact invitation, proposal, atomic acceptance |
 | Contract draft/signing | Дайын | Accepted proposal-дан immutable ContractVersion v1, privacy-safe read, dual hash acknowledgement |
-| Funding evidence/confirmation | Backend flow дайын, storage rollout толық емес | Upload intent, replay protection, signed upload/download boundaries және clean-object verification boundary бар; concrete storage signer/inspector/scanner rollout қалды |
+| Funding evidence/confirmation | Backend + storage adapter baseline дайын, operational rollout толық емес | Single-use intent, S3-compatible signed PUT/GET, HEAD verification, trusted malware verdict registry және orphan cleanup бар; external scanner, staging acceptance және retention policy қалды |
 | Schedule generation | Дайын | ACTIVE + CONFIRMED guard, ACT/365 Fixed + HALF_UP, versioned inputHash |
-| Payment evidence/confirmation/ledger | Backend flow дайын, storage rollout толық емес | Borrower evidence, lender decision, allocation және append-only ledger; single-use upload intent replay protection қосылды |
+| Payment evidence/confirmation/ledger | Backend + storage adapter baseline дайын, operational rollout толық емес | Borrower evidence, lender decision, allocation/ledger, size-bound replay protection және verified CLEAN-object gate бар |
 | Overdue status worker | Дайын | UTC due/overdue materialization, ACTIVE + CONFIRMED guard, idempotent transaction |
 | Payment reversal | Дайын | Lender-authorized immutable reversal, signed allocation restore және opposite ledger entries |
 | Notifications/outbox | Базалық slice дайын | Payment CONFIRMED/REVERSED оқиғалары, privacy-safe payload және idempotent outbox |
@@ -84,7 +84,7 @@ flowchart LR
 2. Invite-only loan request/offer/proposal use cases.
 3. Бір ұсынысты қабылдағанда қалған proposal-дарды атомарлы жабу.
 4. Contract version және екі тараптың қол қою workflow-ы — орындалды: [contract signing](../01-business/CONTRACT_SIGNING.md).
-5. Funding evidence және 72 сағаттық borrower confirmation — metadata/confirmation, signed upload/download және clean-object verification boundaries орындалды; concrete private-storage signer/inspector/scanner және retention integration қалды.
+5. Funding evidence және 72 сағаттық borrower confirmation — metadata/confirmation, S3-compatible signed upload/download, HEAD verification, trusted scan verdict registry және orphan cleanup орындалды; external scanner integration, staging acceptance және consumed-evidence retention policy қалды.
 6. Deterministic repayment schedule, payment confirmation және reversal — орындалды.
 7. Notification outbox, claim/retry worker, provider-neutral dispatch boundary, one-shot orchestrator, token-protected metrics және Kubernetes CronJob template — орындалды; нақты provider rollout, queue trigger, persistent monitoring және alerting.
 8. Осы API-ларға сәйкес Front, кейін Admin интерфейстері.
@@ -134,9 +134,11 @@ QaryzLinkBack PR #99 provider-neutral signed upload authorization boundary қо�
 
 QaryzLinkBack PR #100 storage object verification boundary қосты: evidence persistence алдында authenticated scope prefix, SHA-256, media type, expected size және malware scan `CLEAN` күйі тексеріледі. Missing/mismatched/non-clean object fail-closed қабылданбайды; inspector provider қатесі 503 EVIDENCE_STORAGE_UNAVAILABLE болады.
 
-QaryzLinkBack PR #101 persisted funding/payment evidence үшін participant-only signed download boundary қосты. Тек verified active borrower/lender қысқа мерзімді GET authorization ала алады; outsider және unknown evidence privacy-safe бірдей `EVIDENCE_NOT_FOUND` береді. Default download signer concrete storage конфигурацияланбайынша fail-closed қалады.
+QaryzLinkBack PR #101 persisted funding/payment evidence үшін participant-only signed download boundary қосты. Тек verified active borrower/lender қысқа мерзімді GET authorization ала алады; outsider және unknown evidence privacy-safe бірдей `EVIDENCE_NOT_FOUND` береді.
 
-Бұл private object storage толық дайын дегенді білдірмейді. Concrete signer/inspector/scanner provider, quarantine workflow және retention/deletion integration production gate ретінде ашық қалады. EVIDENCE_STORAGE_ENABLED нақты storage operational verification өтпейінше қосылмайды.
+QaryzLinkBack PR #102 concrete dependency-free AWS Signature V4 S3-compatible PUT/GET signer қосты. PR #103 signed HEAD inspection арқылы content type, content length, expected SHA-256/size metadata-ны тексереді және trusted malware verdict болмаса fail-closed қалады. PR #104 objectKey + SHA-256 бойынша PostgreSQL malware verdict registry және token-protected callback қосты; stale/replayed callback CLEAN/INFECTED күйін төмендете алмайды. PR #105 expired unconsumed upload object-терін қауіпсіз жоятын cleanup service қосты. PR #106 one-shot cleanup command пен hardened Kubernetes CronJob template арқылы осы cleanup-ты operational schedule-ге шығарды.
+
+Бұл private object storage production-ready дегенді білдірмейді. Нақты bucket/least-privilege credential, external scanner/event integration, staging end-to-end acceptance, alerting және consumed evidence retention/deletion policy environment/legal gate ретінде ашық қалады. Operations guide: [EVIDENCE_STORAGE](../06-operations/EVIDENCE_STORAGE.md). `EVIDENCE_STORAGE_ENABLED` осы acceptance өтпейінше production-да қосылмайды.
 
 ## Contract draft және dual acknowledgement
 
