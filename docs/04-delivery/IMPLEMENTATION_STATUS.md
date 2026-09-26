@@ -499,3 +499,11 @@ QaryzLinkBack PR #141 merged at `ebb87d2`: encrypted-mode final migration phase 
 User email/phone plaintext тек сол field-тің ciphertext + blind lookup hash екеуі де болғанда ғана null болады. Incomplete field сақталады және remaining backlog-та көрінеді. Retirement readiness енді deleted user және stale verification plaintext rows-ты да есептейді, сондықтан schema-drop алдында жалған zero болмайды.
 
 Tooling implementation дайын, бірақ actual destructive scrub execution, plaintext column removal және automated verification әлі staging/CI gate болып қалады.
+
+## Runtime error/log privacy hardening — 2026-09-26
+
+QaryzLinkBack PR #144 merged at `7c81e94`: notification outbox `lastError` arbitrary provider message-терді енді сақтамайды; тек approved generic operational messages allowlist арқылы өтеді, қалғаны `Notification delivery failed` болып нормализацияланады.
+
+Notification scheduler және evidence cleanup one-shot command-тары raw exception message орнына aggregate JSON success output және generic PII-free failure stderr қолданады. Notification scheduler empty-DB compiled command smoke CI-ға қосылды.
+
+GitHub Actions free-quota/billing gate салдарынан automated execution pending. Staging-та actual log observation — password/token/email/SMTP response/document data жоқ екенін human acceptance арқылы әлі тексеру керек.
