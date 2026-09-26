@@ -74,7 +74,9 @@
 - [ ] Жеке тұлғаларға арналған Қазақстан pilot scope-ы бекітілген.
 - [ ] Terms, privacy notice және сақтау мерзімдері тексерілген.
 - [ ] Public marketplace, penalty және amount-based commission false.
+- [x] Participant-only neutral dispute intake/read backend + Front contract panel.
 - [x] Support, incident және dispute procedures құжатталған; нақты owner/channel pilot алдында бекітіледі.
+- [ ] Support/admin dispute status transition workflow — actual support owner/process бекітілгеннен кейін.
 - [ ] Жоба иесі staging acceptance нәтижесін көрген.
 
 Platform acknowledgement qualified electronic signature болып табылмайды және жеке басты толық құқықтық растау емес. Email verification да қол қоюдың заңдық күшін растамайды.

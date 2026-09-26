@@ -515,3 +515,11 @@ QaryzLinkBack PR #146 merged at `3b66ce9`: IN_APP notifications durable outbox r
 QaryzLinkFront PR #24 merged at `9517af0`: authenticated read-only notifications page қосылды. Front тек event type, aggregate type/id және sentAt metadata оқиды; notification payload немесе қарсы тарап contact data сұралмайды.
 
 Automated verification GitHub Actions free-quota/billing gate салдарынан pending. Нақты SMTP provider acceptance және push channel әлі бөлек release gate.
+
+## Neutral dispute intake — 2026-09-27
+
+QaryzLinkBack PR #147 merged at `aefcade`: placeholder DisputesModule participant-only neutral intake/read slice-қа ауыстырылды. Additive `dispute_cases` schema бір contract-қа бір case сақтайды; тек borrower/lender party case аша/оқи алады; 5–1000 таңбалық description bounded; opener party id response-қа шықпайды; audit payload description сақтамайды; contract/payment/ledger автоматты өзгермейді.
+
+QaryzLinkFront PR #26 merged at `8d0cd99`: contract detail бетіне dispute panel қосылды. Existing case read-only көрсетіледі, case жоқ болса bounded description арқылы ашылады. Load error fail-closed, duplicate race existing case-ті қайта оқиды.
+
+Support/admin status transitions әлі intentionally absent: нақты support owner/process және legal handling бекітілгеннен кейін ғана қосылады. Automated CI GitHub Actions quota/billing gate салдарынан pending.
