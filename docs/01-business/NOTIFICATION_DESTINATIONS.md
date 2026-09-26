@@ -31,7 +31,7 @@ Organization party-де қазіргі schema бойынша `ownerUser` мін�
 - Delivery adapter destination-ды тек бір dispatch шақырылымында алады.
 - Unknown party, inactive user немесе unverified email `null` береді.
 - Destination жоқ болса delivery provider шақырылмайды; claim retry/FAILED policy-іне өтеді.
-- Қазіргі default adapter бәрібір fail-closed күйде.
+- IN_APP destination durable inbox adapter-ға өтеді; unsupported channel ғана unavailable fail-closed adapter-ға түседі.
 
 ## Backend mapping
 
@@ -40,4 +40,4 @@ Organization party-де қазіргі schema бойынша `ownerUser` мін�
 - `NotificationDeliveryService` — resolver мен delivery port-ты ретімен оркестрациялайды.
 - `NotificationClaim` ішінде contact address болмайды.
 
-Бұл boundary нақты SMTP/push SDK, consent UI және organization contact provider-ін қоспайды. Олар destination contract-іне кейін қосылады.
+Бұл boundary нақты SMTP provider acceptance, push SDK және organization contact provider-ін қоспайды. IN_APP inbox backend және Front read-only UI арқылы қолжетімді.

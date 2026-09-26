@@ -23,7 +23,7 @@ sequenceDiagram
     end
 ~~~
 
-The default adapter is intentionally unavailable. This prevents a staging or production deployment from claiming successful delivery without a configured provider.
+EMAIL uses the configured SMTP adapter when enabled. IN_APP uses the durable outbox row itself as the inbox record: the in-app adapter validates recipient/channel consistency and successful dispatch marks that row SENT, after which it becomes visible through the authenticated inbox endpoint. Unsupported channels still use the unavailable fail-closed adapter.
 
 ## Contract
 
@@ -57,4 +57,4 @@ A provider does not receive:
 
 ## Operational boundary
 
-Recipient destination resolution, a fail-closed SMTP adapter and optional email preference are now tested backend slices. Actual provider credentials/inbox delivery, organization contact routing, scheduler deployment and monitoring are still required before public pilot.
+Recipient destination resolution, durable IN_APP delivery, authenticated inbox reads, a fail-closed SMTP adapter and optional email preference are implemented backend slices. Actual SMTP provider/inbox delivery, organization contact routing, scheduler deployment and monitoring are still required before public pilot.

@@ -507,3 +507,11 @@ QaryzLinkBack PR #144 merged at `7c81e94`: notification outbox `lastError` arbit
 Notification scheduler және evidence cleanup one-shot command-тары raw exception message орнына aggregate JSON success output және generic PII-free failure stderr қолданады. Notification scheduler empty-DB compiled command smoke CI-ға қосылды.
 
 GitHub Actions free-quota/billing gate салдарынан automated execution pending. Staging-та actual log observation — password/token/email/SMTP response/document data жоқ екенін human acceptance арқылы әлі тексеру керек.
+
+## Durable in-app notifications — 2026-09-26
+
+QaryzLinkBack PR #146 merged at `3b66ce9`: IN_APP notifications durable outbox row арқылы нақты delivery path алды. Matching recipient/channel adapter success болғаннан кейін row SENT күйіне өтеді және authenticated `GET /api/v1/notifications/in-app` endpoint latest 50 metadata rows-ты ғана қайтарады. Payload/contact data inbox response-қа кірмейді.
+
+QaryzLinkFront PR #24 merged at `9517af0`: authenticated read-only notifications page қосылды. Front тек event type, aggregate type/id және sentAt metadata оқиды; notification payload немесе қарсы тарап contact data сұралмайды.
+
+Automated verification GitHub Actions free-quota/billing gate салдарынан pending. Нақты SMTP provider acceptance және push channel әлі бөлек release gate.
