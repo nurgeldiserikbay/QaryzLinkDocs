@@ -32,6 +32,21 @@ Anonymization removes direct contact identity, disables privacy/discovery surfac
 
 The password verifier treats anonymization tombstone hashes as invalid credentials and fails closed without throwing.
 
+## Front request flow
+
+Authenticated user deletion request-ті `/dashboard/settings` арқылы бастай алады. Frontend бұл әрекетті immediate hard delete ретінде көрсетпейді:
+
+- destructive action profile/privacy save form-нан бөлек орналасқан;
+- user `ЖОЮ` confirmation phrase-ін explicit енгізбей request жіберілмейді;
+- request `POST /api/v1/profile/me/deletion-request` endpoint-іне Bearer session арқылы жіберіледі;
+- Backend request қабылданған сәтте active sessions revoke етеді;
+- Front successful response-тен кейін local `sessionStorage` session-ын өшіреді;
+- UI grace period және contractual retention checks бар екенін түсіндіреді;
+- UI fixed completion date уәде етпейді, себебі grace configuration және legal retention policy production алдында бекітілуі керек;
+- cancellation endpoint қазіргі contract-та жоқ, сондықтан UI request-ті кері қайтару мүмкіндігін көрсетпейді.
+
+Request idempotent: сол user қайта request жасаған жағдайда Backend бұрынғы request lifecycle-ын қайталамай сақтайды.
+
 ## Operations
 
 The maintenance command is:
