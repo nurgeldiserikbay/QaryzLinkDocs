@@ -40,7 +40,8 @@
 - [ ] Нақты SMTP/push provider, queue trigger, persistent monitoring және alerting.
 - [x] Backend compiled HTTP auth/security lifecycle smoke: register/login/refresh rotation/logout, authorization, rate-limit, metrics және CORS contracts.
 - [x] Front/Admin production server HTTP security-header/CSP runtime smoke.
-- [ ] Front/Admin browser E2E tests және толық UI acceptance.
+- [x] Front/Admin manual-only Chromium E2E harness дайын.
+- [ ] Front/Admin actual browser E2E run және толық UI acceptance — Actions quota ашылғаннан кейін.
 - [x] Privacy/consent defaults және ephemeral auth/evidence retention baseline.
 - [ ] PII encrypted-mode staging acceptance.
 - [x] PII plaintext-retirement aggregate readiness gate (`PII_PLAINTEXT_RETIREMENT.md`).
