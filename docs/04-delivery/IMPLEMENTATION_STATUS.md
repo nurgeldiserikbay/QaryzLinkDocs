@@ -1,6 +1,6 @@
 # Implementation status
 
-Жаңартылған күні: 2026-09-25
+Жаңартылған күні: 2026-09-26
 
 Бұл құжат specification мен нақты код арасындағы қысқа бақылау нүктесі. Толық талаптар өзгермейді; мұнда тек орындалу күйі көрсетіледі.
 
@@ -33,7 +33,7 @@
 | Notification Kubernetes scheduler | Deployment template дайын | CronJob Forbid policy, external Secret, immutable image және non-overlap contract |
 | Deployment hardening | Template/CI дайын | Immutable digest rendering, bounded migration job, safe rollout, PDB, node spread, rollback және restore runbooks |
 | Provider/scheduler | Жоспарда | Push adapter, queue trigger, persistent metrics/alerting және organization routing |
-| Front/Admin UI | Жоспарда | Backend contract тұрақтанған сайын вертикаль slice бойынша жасалады |
+| Front/Admin UI | Front vertical slice жүріп жатыр | Auth/register, email verification, private discovery, role-aware proposals, read-only contract draft және profile/privacy settings бар; Admin бөлек foundation күйінде |
 
 ## Қазіргі backend slice
 
@@ -80,14 +80,14 @@ flowchart LR
     S --> UI["Front vertical slice"]
 ~~~
 
-1. Email verification backend аяқталды; Front verification беті және нақты SMTP staging тексеруі қалды.
+1. Email verification backend және Front verification беті аяқталды; нақты SMTP staging delivery/inbox тексеруі қалды.
 2. Invite-only loan request/offer/proposal use cases.
 3. Бір ұсынысты қабылдағанда қалған proposal-дарды атомарлы жабу.
 4. Contract version және екі тараптың қол қою workflow-ы — орындалды: [contract signing](../01-business/CONTRACT_SIGNING.md).
 5. Funding evidence және 72 сағаттық borrower confirmation — metadata/confirmation, S3-compatible signed upload/download, HEAD verification, trusted scan verdict registry және orphan cleanup орындалды; external scanner integration, staging acceptance және consumed-evidence retention policy қалды.
 6. Deterministic repayment schedule, payment confirmation және reversal — орындалды.
 7. Notification outbox, claim/retry worker, provider-neutral dispatch boundary, one-shot orchestrator, token-protected metrics және Kubernetes CronJob template — орындалды; нақты provider rollout, queue trigger, persistent monitoring және alerting.
-8. Осы API-ларға сәйкес Front, кейін Admin интерфейстері.
+8. Front vertical slice басталды: auth → email verification → private discovery/proposal → read-only contract draft → profile/privacy settings; келесі UI жұмысы backend legal/operations gate-теріне сәйкес жалғасады, Admin бөлек кезең.
 
 ## Production-ға жіберілмейтін мүмкіндіктер
 
@@ -115,10 +115,18 @@ Prisma format/generate/validate, үш migration, TypeScript, ESLint, 18 файл
 Coverage конфигурациясына кірген код: lines/statements 99.47%, branches 97.19%, functions 100%; бұл толық HTTP e2e coverage емес.
 
 Бір реттік 15 минуттық token, атомарлы confirm, resend лимиті және SMTP adapter қосылды.
-Нақты SMTP жеткізу және Front verification беті әлі тексерілмеген; MAIL_ENABLED=false әдепкі күйде.
+QaryzLinkFront PR #13 email verification page, fragment token parsing, resend/status және explicit confirm flow қосты; тіркелуден кейін user осы бетке өтеді. Нақты SMTP жеткізу/inbox placement staging-та әлі тексерілмеген; MAIL_ENABLED=false әдепкі күйде.
 Шешім мен workflow: [ADR-0006](../../adr/ADR-0006-email-verification.md).
 Орнату: [Deployment](../06-operations/DEPLOYMENT.md), [иесінен қажет мәліметтер](../06-operations/OWNER_CHECKLIST.md), [release checklist](../06-operations/RELEASE_CHECKLIST.md).
 
+
+## Front user vertical slice — 2026-09-26
+
+QaryzLinkFront PR #13 merged at `e96dba3`: email verification journey Backend `/api/v1/auth/email/*` contract-ына қосылды. Token URL fragment-тен ғана оқылады, confirm explicit user action арқылы орындалады, 401/400/429/503 күйлері privacy-safe UI state-терге mapped.
+
+QaryzLinkFront PR #14 merged at `ba3221a`: authenticated `/dashboard/settings` page Backend `GET/PATCH /api/v1/profile/me` contract-ын қолданады. User display name/timezone, publicId/contact search visibility, public profile opt-in, analytics consent және optional email notification preference-ін өзі басқарады. Account deletion бұл slice-ке әдейі кірмейді.
+
+Front-та бұған дейін auth/register, private discovery list/create/detail, exact invitation, role-aware proposal/decision және read-only contract draft бар. Public marketplace, contract signing mutation, funding/payment mutation және production evidence upload UI legal/operations gate өтпейінше Front-та қосылмайды.
 
 ## Funding evidence және borrower confirmation
 
