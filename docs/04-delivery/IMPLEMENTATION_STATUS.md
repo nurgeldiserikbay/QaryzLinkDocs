@@ -33,7 +33,7 @@
 | Notification Kubernetes scheduler | Deployment template дайын | CronJob Forbid policy, external Secret, immutable image және non-overlap contract |
 | Deployment hardening | Template/CI дайын | Immutable digest rendering, bounded migration job, safe rollout, PDB, node spread, rollback және restore runbooks |
 | Provider/scheduler | Жоспарда | Push adapter, queue trigger, external metrics collector/alerting және organization routing |
-| Front/Admin UI | Front + Admin vertical slices жүріп жатыр | Front-та auth/discovery/contract/lifecycle/settings; Admin-та liveness, evidence-storage және notification-delivery aggregate operations cards бар, audit feed әлі disconnected |
+| Front/Admin UI | Front + Admin vertical slices жүріп жатыр | Front-та auth/discovery/contract/lifecycle/settings; Admin-та liveness, database readiness, evidence-storage және notification-delivery aggregate operations cards бар, audit feed әлі disconnected |
 
 ## Қазіргі backend slice
 
@@ -87,7 +87,7 @@ flowchart LR
 5. Funding evidence және 72 сағаттық borrower confirmation — metadata/confirmation, S3-compatible signed upload/download, HEAD verification, trusted scan verdict registry және orphan cleanup орындалды; external scanner integration, staging acceptance және consumed-evidence retention policy қалды.
 6. Deterministic repayment schedule, payment confirmation және reversal — орындалды.
 7. Notification outbox, claim/retry worker, provider-neutral dispatch boundary, one-shot orchestrator, PostgreSQL-backed token-protected aggregate metrics және Kubernetes CronJob template — орындалды; нақты provider rollout, queue trigger, external collector және alerting қалды.
-8. Front vertical slice: auth → email verification → private discovery/proposal → read-only contract draft → read-only funding/schedule/payment lifecycle → profile/privacy settings. Admin vertical slice те басталды: public liveness + server-rendered evidence/notification aggregate operations visibility; mutations және identity-level audit feed өшірулі.
+8. Front vertical slice: auth → email verification → private discovery/proposal → read-only contract draft → read-only funding/schedule/payment lifecycle → profile/privacy settings. Admin vertical slice те басталды: public liveness + server-rendered database readiness + evidence/notification aggregate operations visibility; mutations және identity-level audit feed өшірулі.
 
 ## Production-ға жіберілмейтін мүмкіндіктер
 
@@ -136,6 +136,8 @@ QaryzLinkAdmin PR #9 merged at `8757850`: protected `GET /api/v1/metrics/evidenc
 QaryzLinkBack PR #111 merged at `87ce73a`: notification delivery metrics process-local memory-ден PostgreSQL singleton aggregate snapshot-қа көшті. One-shot `pnpm notifications:run` процесі мен API процесі енді бір counters state-ті бөліседі; migration, PostgreSQL integration test, compiled smoke және container security scan green болды (CI 36237408886, Supply Chain 36237408938).
 
 QaryzLinkAdmin PR #10 merged at `a596ddd`: notification scheduler runs/claimed/sent/pending/failed және last-run timing server-rendered operations card ретінде қосылды. Бұл card Backend #111-ге тәуелді; recipient, payload және contact data Admin contract-ына кірмейді.
+
+QaryzLinkAdmin PR #11 merged at `18d7310`: public `GET /api/v1/health/ready` contract server-side readiness card-қа қосылды. Admin тек `ready/not_ready` және sanitized `database: up/down` күйін қабылдайды; HTTP 503 not-ready state ретінде көрсетіледі, ал күтпеген dependency details немесе status/body mismatch fail-closed reject болады.
 
 Admin mutations, identity-level audit feed, contract/funding/payment management әрекеттері әлі өшірулі. Бұл кезең operational visibility ғана.
 
@@ -332,7 +334,7 @@ QaryzLinkFront:
 
 QaryzLinkAdmin:
 
-- Public health card тек read-only liveness endpoint-ке қосылады.
+- Public health card read-only liveness endpoint-ке қосылады; бөлек server-rendered readiness card тек sanitized database `up/down` күйін көрсетеді.
 - Evidence-storage және notification-delivery metrics server component арқылы ғана оқылады; `METRICS_ACCESS_TOKEN` browser bundle-ға шықпайды.
 - Metrics clients exact aggregate schema-ны ғана қабылдайды; күтпеген identity/object/payload өрістері fail-closed reject болады.
 - Audit модулі live feed-ке қосылмаған, PII hidden және mutation жоқ.
