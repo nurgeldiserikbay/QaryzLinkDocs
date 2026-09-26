@@ -51,7 +51,7 @@ Account deletion request бірден hard-delete емес.
 
 ## 5. PII encryption status
 
-Database-at-rest PII field encryption әлі толық cutover жасалған жоқ. Additive encrypted/hash columns мен crypto primitive дайын, бірақ current runtime әдепкіде `plaintext` mode қолданады және user email/phone lookup/uniqueness үшін legacy plaintext field-тер сақталады. Мұны қауіпсіз өзгерту үшін бір уақытта:
+Database-at-rest PII encryption implementation additive schema, crypto, dual-write/backfill, encrypted readers, cutover guard және key-rotation tooling деңгейіне жетті. Legacy plaintext columns compatibility/rollback үшін әлі schema-да бар. Final plaintext retirement бөлек destructive phase ретінде `PII_PLAINTEXT_RETIREMENT.md` бойынша ғана орындалады.
 
 1. encryption key management;
 2. deterministic/blind lookup key;
