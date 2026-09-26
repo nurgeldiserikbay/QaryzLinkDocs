@@ -19,7 +19,7 @@
 ~~~bash
 corepack enable
 corepack prepare pnpm@12.4.2 --activate
-pnpm install --no-frozen-lockfile
+pnpm install --frozen-lockfile
 pnpm prisma:generate
 pnpm prisma:validate
 pnpm build
@@ -27,7 +27,7 @@ pnpm prisma:migrate:deploy
 pnpm start:prod
 ~~~
 
-DATABASE_URL Prisma generate алдында да ортада болуы керек. Install әзірге dependency resolution жасайды; reproducible frozen lockfile және тексерілген release image public launch алдындағы міндетті жұмыс.
+DATABASE_URL Prisma generate алдында да ортада болуы керек. `pnpm-lock.yaml` repository-де бекітілген; CI және Docker build `--frozen-lockfile` қолданады. Release image immutable digest арқылы render етіледі және production dependency/container security gates-тен өтуі тиіс.
 Migration бір release job арқылы, traffic ашылғанға дейін орындалады. Production-да migrate dev, db push немесе migrate reset қолданылмайды.
 Build/test үшін production базасын қолданбаңыз. pnpm check нақты integration тесттерін іске қосады: оған бөлек disposable test DB керек.
 Процесс supervisor/platform restart policy арқылы бақылансын; shutdown үшін SIGTERM жеткізілсін.
@@ -54,6 +54,16 @@ Command evidence storage disabled болса fail етеді, `selected/purged/f
 
 Private evidence storage конфигурациясы, S3-compatible signer, malware callback және staging acceptance толық [Evidence storage operations](EVIDENCE_STORAGE.md) нұсқаулығында берілген.
 
+### 2.3 Account deletion maintenance job
+
+Deletion request retention күйін қайта есептеп, тек `READY` request-терді anonymize ету үшін build-тен кейін:
+
+~~~bash
+pnpm accounts:deletion:run
+~~~
+
+Command HTTP server ашпайды. Алдымен grace/retention hold қайта есептеледі, содан кейін eligible account-тар anonymize етіледі. Active contractual obligation табылса request `RETENTION_HOLD` күйіне қайтарылады. Kubernetes template: `ops/kubernetes/account-deletion-cronjob.yaml`; engineering cadence күн сайын, `concurrencyPolicy: Forbid`. Production cadence және `ACCOUNT_DELETION_GRACE_DAYS` мәні заңдық retention шешімінен кейін ғана бекітіледі.
+
 ## 3. Конфигурация
 
 | Variable | Мақсаты |
@@ -70,6 +80,7 @@ Private evidence storage конфигурациясы, S3-compatible signer, mal
 | PUBLIC_MARKETPLACE_ENABLED | false |
 | PENALTY_ENABLED | false |
 | AMOUNT_BASED_COMMISSION_ENABLED | false |
+| ACCOUNT_DELETION_GRACE_DAYS | Engineering default 30; production мәні legal retention review-дан кейін бекітіледі |
 
 Secret-терді репозиторийге, screenshot-қа немесе чатқа енгізбеңіз. Жергілікті docker-compose.yml development парольдерін қолданады; production config ретінде пайдаланылмайды.
 
@@ -104,10 +115,9 @@ API: [backend README](https://github.com/nurgeldiserikbay/QaryzLinkBack#email-р
 
 ## 6. Docker және k3s
 
-Репозиторийде Dockerfile бар, бірақ осы email кезеңінің CI-ы контейнер build/start-ты тексермейді. Runtime image қазір Prisma migration файлдарын көшірмейді; оны migration job ретінде пайдалануға болмайды.
-Docker/k3s production release алдында жеке migration image/job, runtime smoke test, secret injection, readiness/liveness және trusted ingress баптауы аяқталсын.
-Notification және evidence-cleanup CronJob template-тері бар, бірақ нақты namespace, registry digest, Secret және alerting мәндері staging environment-те толтырылып тексерілуі керек.
-Әзірге жоғарыдағы Node deployment — бар кодқа сәйкес staging жолы; толық production k3s release дайын деп саналмайды.
+Қазіргі Dockerfile runtime image-ке compiled app-пен бірге Prisma schema/migrations және `prisma.config.ts` көшіреді. CI backend image-ті build етеді және HIGH/CRITICAL vulnerability scan орындайды. `ops/kubernetes/migration-job.yaml` сол API release-пен бір immutable image digest қолданатын bounded migration Job береді; API deployment `/api/v1/health` startup/liveness және `/api/v1/health/ready` readiness probe қолданады.
+
+Notification, account-deletion және evidence-cleanup CronJob template-тері бар. Бірақ нақты namespace, registry digest, Secret/ConfigMap, ingress/TLS және alerting мәндері staging environment-те render/deploy етіліп тексерілуі керек. Code/config readiness production acceptance орындалды дегенді білдірмейді.
 
 ## 7. Backup және rollback
 
