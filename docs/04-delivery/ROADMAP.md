@@ -128,6 +128,8 @@ Front KZ/RU presentation coverage landing/auth → discovery/proposal → contra
 - moderation;
 - spam/abuse controls.
 
+2026-09-27: LenderOffer backend foundation басталды. Verified KZ lender PUBLIC offer create/cancel жасай алады, verified borrower privacy-safe amount/term filtered browse қолдана алады; lender identity response-қа кірмейді, block rules және active-offer quota орындалады. Бірақ `PUBLIC_MARKETPLACE_ENABLED=false` default және release preflight true мәнін fail етеді. Application/matching/ranking/UI әлі жоқ. Толық boundary: [Public lender offers](../01-business/PUBLIC_LENDER_OFFERS.md).
+
 ### Legal gate
 
 Open/public matching production-да қосылмас бұрын Қазақстан заңгерінің written classification қажет. Gate өтпесе, feature private/closed-network mode-да қалады.
