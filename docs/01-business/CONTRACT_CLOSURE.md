@@ -132,7 +132,9 @@ Audit payload statement hash-пен шектеледі. Contact data, evidence o
 
 қамтиды.
 
-Settlement арқылы disputed debt closure, legal PDF certificate, qualified signature/EDS, external trusted timestamp және court-ready evidence package кейінгі Trust & Evidence кезеңіне жатады.
+ClosureCertificate жасалғаннан кейін participant Phase 2 [evidence summary/manifest](EVIDENCE_SUMMARY.md) baseline-ын бір рет freeze ете алады. Бұл JSON manifest PDF/ZIP немесе court-ready package емес.
+
+Settlement арқылы disputed debt closure, legal PDF certificate, qualified signature/EDS, external trusted timestamp және court-oriented evidence export кейінгі Trust & Evidence кезеңіне жатады.
 
 
 ## Closure notifications
