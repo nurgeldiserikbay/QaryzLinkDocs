@@ -555,3 +555,11 @@ QaryzLinkBack PR #151 merged at `d0007af`: authenticated `/api/v1/notifications/
 QaryzLinkFront PR #29 merged at `323b00a`: inbox latest-50 list-пен бірге exact unread count алады, сондықтан 50-ден көп unread notification болғанда UI undercount жасамайды. Visible notification mark-read болғанда total count local state-та қауіпсіз азаяды.
 
 Automated verification GitHub Actions quota gate салдарынан pending.
+
+## In-app mark-all-read — 2026-09-27
+
+QaryzLinkBack PR #152 merged at `01442ba`: authenticated mark-all-read mutation caller-дың personal party scope-ындағы unread SENT/IN_APP rows-ты ғана update етеді және aggregate updated count қайтарады.
+
+QaryzLinkFront PR #30 merged at `b6a18cf`: inbox summary бір әрекетпен барлық unread notification-ды оқылды деп белгілейді; bulk/per-item actions UI-де serialized, exact unread total success кезінде 0 болады.
+
+Payload/contact data бұл flow-ға қосылмайды. Automated verification GitHub Actions quota gate салдарынан pending.
