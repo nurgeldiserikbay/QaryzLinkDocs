@@ -2,7 +2,7 @@
 
 Бұл құжат Phase 3 Offers & Matching кезеңінің public lender offer foundation-ын, application bridge-ін және default-off Front workspace-ын сипаттайды.
 
-2026-09-27 күйі: lender public offer publication/browse/cancel backend implementation-ы және KZ/RU Front marketplace workspace бар. Бірақ **PUBLIC_MARKETPLACE_ENABLED=false** әдепкі күйде және current release preflight deployed environment үшін бұл flag true болса `fail` береді. Сондықтан UI кодының болуы production/staging launch рұқсаты емес.
+2026-09-27 күйі: lender public offer publication/browse/pause/resume/cancel, immutable financial-term versioning backend implementation-ы және KZ/RU Front marketplace workspace бар. Бірақ **PUBLIC_MARKETPLACE_ENABLED=false** әдепкі күйде және current release preflight deployed environment үшін бұл flag true болса `fail` береді. Сондықтан UI кодының болуы production/staging launch рұқсаты емес.
 
 ## Қазіргі scope
 
@@ -13,6 +13,8 @@ Backend мыналарды қолдайды:
 - create/cancel command-тары idempotency key және audit event қолданады;
 - active owner offer-ді pause/cancel ете алады;
 - paused owner offer-ді verified account resume ете алады;
+- verified owner ACTIVE немесе PAUSED offer terms-ін immutable жаңа version ретінде revise ете алады;
+- owner version history-ді identity data-сыз қарай алады;
 - verified KZ borrower public offer list-ін қарай алады;
 - browse amount және term range бойынша сүзеді;
 - cursor pagination бар;
@@ -33,6 +35,7 @@ Response ішінде:
 - min/max term;
 - annualRateBps;
 - responseHours;
+- currentVersion;
 - expiresAt
 
 ғана бар.
@@ -67,7 +70,7 @@ flowchart LR
     PAUSE --> EXP
 ~~~
 
-Pause/resume implementation бар; financial terms versioning әлі implementation-да жоқ.
+Pause/resume және immutable financial terms versioning implementation бар.
 
 ## Validation
 
@@ -88,6 +91,8 @@ Offer:
 - write path verified active KZ personal account талап етеді;
 - pause/cancel active owner үшін email re-verification-сыз қолжетімді, сондықтан қауіпсіз deactivation blocked болмайды;
 - resume қайта public publication болғандықтан verified email талап етеді және active-offer quota қайта тексеріледі;
+- revise verified owner талап етеді, status/expiry-ді өзгертпейді және no-op revision қабылдамайды;
+- version history `MAX_OFFER_VERSIONS` арқылы default 20, hard max 100 болып шектеледі;
 - existing discovery authenticated rate-limit қолданылады;
 - active-offer quota user-row serialization арқылы concurrent create кезінде де сақталады;
 - audit payload financial terms/contact identity сақтамайды;
@@ -98,8 +103,8 @@ Offer:
 `PUBLIC_MARKETPLACE_ENABLED=false` болса:
 
 - create;
-- cancel;
-- owner list;
+- pause/resume/revise/cancel;
+- owner list және version history;
 - public browse
 
 `DISCOVERY_MARKETPLACE_DISABLED` арқылы fail-closed болады.
@@ -117,8 +122,7 @@ Release preflight-та public marketplace true болса `restricted_financial_
 - lender public profile;
 - verification badges;
 - automatic matching/ranking;
-- negotiation versions;
-- financial terms version history;
+- negotiation/counter-offer versions;
 - moderation queue;
 - spam reputation;
 - offer lifecycle email notifications;
@@ -128,7 +132,7 @@ Release preflight-та public marketplace true болса `restricted_financial_
 
 Borrower application → lender concrete Proposal flow енді [Public offer applications](PUBLIC_OFFER_APPLICATIONS.md) ішінде іске асқан.
 
-Келесі safe backend work notification/outbox metadata, offer versioning және explainable matching foundation болып қалады. Open/public matching recommendation/search ranking legal classification-тан кейін ғана production enablement алады.
+Келесі safe backend work explainable matching foundation, moderation/spam controls және borrower-side discovery evolution болып қалады. Open/public matching recommendation/search ranking legal classification-тан кейін ғана production enablement алады.
 
 
 ## Front marketplace workspace
@@ -224,3 +228,79 @@ Own-offer card:
 Verification жоғалған owner PAUSED offer-ды cancel ете алады, бірақ Resume UI verification guidance көрсетеді.
 
 Lender application ACCEPT linked own offer PAUSED/expired/cancelled екені Front-қа белгілі болса disabled болады. Backend guard authoritative болып қалады.
+
+
+## Immutable financial-term versions
+
+QaryzLinkBack PR #171 және QaryzLinkFront PR #47 public offer terms revision-ды immutable history арқылы іске асырды.
+
+### Data model
+
+`LoanOffer` current materialized browse state ретінде:
+
+- `currentVersion`;
+- current amount min/max;
+- current term min/max;
+- current annualRateBps;
+- current responseHours
+
+сақтайды.
+
+Әр revision үшін бөлек immutable `LoanOfferVersion` row жасалады:
+
+- offerId;
+- monotonically increasing version;
+- identity-free termsSnapshot;
+- createdAt.
+
+`termsSnapshot.schemaVersion=1` JSON schema evolution-ды білдіреді. Бұл business revision number емес.
+
+Migration `20260927233500_offer_versions`:
+
+1. existing `LoanOffer.currentVersion=1` backfill жасайды;
+2. әр existing offer үшін version 1 immutable snapshot жасайды;
+3. existing application snapshot-тарына `offerVersion=1` қосады.
+
+### Revision contract
+
+Owner ACTIVE немесе PAUSED, expiry өтпеген offer-ды revise ете алады.
+
+Revision:
+
+- verified active KZ personal account талап етеді;
+- idempotency key қолданады;
+- кемінде бір financial term өзгеруін талап етеді;
+- offer status-ын өзгертпейді;
+- expiry-ді ұзартпайды;
+- `currentVersion + 1` immutable row жасайды;
+- materialized current terms-ті жаңа version-ға сәйкестендіреді;
+- audit payload-қа terms/contact data қоспайды.
+
+History default `MAX_OFFER_VERSIONS=20`, validation hard max 100.
+
+### Existing applications
+
+Revision existing application-дарды rewrite немесе supersede етпейді.
+
+Application snapshot екі бөлек version ұғымын сақтайды:
+
+- `version: 1` — application snapshot schema version;
+- `offerVersion: N` — application жасалған кездегі LoanOffer business revision.
+
+Сондықтан v1 кезінде жасалған application lender offer кейін v2/v3 болып өзгерсе де v1 terms-пен қалады. Lender оны ACCEPT етсе concrete Proposal дәл сол historical snapshot terms-тен жасалады.
+
+New application әрқашан current `LoanOffer.currentVersion` snapshot-ын алады.
+
+### Front
+
+Marketplace UI:
+
+- public/own offer card-та current `vN` көрсетеді;
+- verified owner ACTIVE/PAUSED offer terms-ін жаңа immutable version ретінде өзгерте алады;
+- no-op revision Front-та да blocked;
+- owner version history-ді on-demand қарайды;
+- history currentVersion өзгерсе refetch болады;
+- application card source `offerVersion` көрсетеді;
+- history identity/contact fields көрсетпейді.
+
+Version history read қауіпсіз owner action болғандықтан email verification жоғалған active owner үшін де қолжетімді; жаңа revision verified account талап етеді.

@@ -59,7 +59,8 @@ Range-based borrower negotiation кейінгі negotiation/versioning slice-қ�
 
 Application жасалған сәтте offer-дің identity-free snapshot-ы сақталады:
 
-- version;
+- `version: 1` — snapshot schema version;
+- `offerVersion` — application жасалған кездегі LoanOffer business revision;
 - currency;
 - amount min/max;
 - term min/max;
@@ -68,9 +69,9 @@ Application жасалған сәтте offer-дің identity-free snapshot-ы �
 
 Lender кейін application-ды ACCEPT еткенде concrete Proposal **current offer terms-тен емес**, осы snapshot-тан жасалады.
 
-Бұл future offer versioning кезінде бұрынғы application terms-ін үнсіз өзгертіп жібермеу үшін қажет.
+Immutable LoanOffer versioning іске асқаннан кейін бұл boundary нақты business revision-мен байланысады. Existing application snapshot rewrite болмайды.
 
-Current offer acceptance кезінде әлі ACTIVE + PUBLIC болуы керек. Бірақ кейінгі mutable offer field өзгерісі application snapshot-ын өзгертпейді.
+Current offer acceptance кезінде әлі ACTIVE + PUBLIC болуы керек. Бірақ кейінгі `LoanOffer.currentVersion` өзгерісі application snapshot-ын өзгертпейді. Мысалы application v1 offer-да жасалып, current offer кейін v2 болса, lender ACCEPT concrete Proposal-ды application v1 snapshot terms-інен жасайды.
 
 ## Application lifecycle
 
@@ -228,7 +229,7 @@ QaryzLinkFront PR #45 application lifecycle-ды `/dashboard/marketplace` іші
 - lender participant inbox-та PENDING application-ды ACCEPT/REJECT етеді;
 - borrower PENDING application-ды WITHDRAW етеді;
 - accepted application үшін optional proposalId көрсетіледі;
-- immutable offer snapshot UI алдында supported terms fields-ке narrow жасалады;
+- immutable offer snapshot UI алдында supported terms fields-ке narrow жасалады және source `offerVersion` көрсетіледі;
 - identity/contact fields render path-қа кірмейді;
 - unverified active participant safe REJECT/WITHDRAW/offer cancel әрекеттерін жоғалтпайды;
 - lender ACCEPT және жаңа browse/publish verification талап етеді.
@@ -237,7 +238,6 @@ Front application action backend idempotency key contract-ын сақтайды.
 
 ## Кейінгі Phase 3 жұмыстар
 
-- offer pause/versioning;
 - borrower request public visibility;
 - negotiation versions;
 - explainable matching;

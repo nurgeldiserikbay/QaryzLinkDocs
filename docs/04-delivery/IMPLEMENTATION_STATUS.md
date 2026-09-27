@@ -13,7 +13,7 @@
 | IAM | Базалық нұсқа дайын | Register, login, refresh token rotation, current-session logout, email verification |
 | Profile, privacy және deletion request | Базалық нұсқа дайын | Өз профилін/ privacy баптауларын басқару және retention-aware account deletion request жіберу |
 | Database migration | Дайын | Бастапқы schema versioned SQL migration ретінде бекітілді |
-| Discovery | Private slice дайын + Phase 3 dark workspace | Private request/invite/proposal/acceptance; default-off public lender offer create/pause/resume/cancel/browse + borrower application → concrete Proposal + KZ/RU marketplace workspace қосылды |
+| Discovery | Private slice дайын + Phase 3 dark workspace | Private request/invite/proposal/acceptance; default-off public lender offer create/pause/resume/revise/cancel/browse + immutable version history + borrower application → concrete Proposal + KZ/RU marketplace workspace қосылды |
 | Contract draft/signing | Дайын | Accepted proposal-дан immutable ContractVersion v1, privacy-safe read, dual hash acknowledgement |
 | Funding evidence/confirmation | Backend + storage adapter baseline дайын, operational rollout толық емес | Single-use intent, S3-compatible signed PUT/GET, HEAD verification, trusted malware verdict registry, quarantine/orphan cleanup және aggregate metrics бар; external scanner, staging acceptance және retention policy қалды |
 | Schedule generation | Дайын | ACTIVE + CONFIRMED guard, ACT/365 Fixed + HALF_UP, versioned inputHash |
@@ -852,3 +852,46 @@ QaryzLinkFront PR #46 merged at `c914918`:
 Backend PR #170 workflow run `36340663952` және Front PR #46 run `36340860165` quality job құрғанымен GitHub Actions quota/billing gate салдарынан 0 step орындады. Automated PostgreSQL/typecheck/lint/build/browser verification pending.
 
 Marketplace әлі `PUBLIC_MARKETPLACE_ENABLED=false` default gate артында және release preflight legal approval-ға дейін deployed enablement-ті `fail` етеді.
+
+
+## Phase 3 immutable public offer versioning — 2026-09-27
+
+QaryzLinkBack PR #171 merged at `c693fcb`.
+
+Public LoanOffer financial terms енді immutable revision history сақтайды:
+
+- `LoanOffer.currentVersion` current materialized terms revision-ды көрсетеді;
+- `LoanOfferVersion` әр version үшін identity-free immutable `termsSnapshot` сақтайды;
+- migration `20260927233500_offer_versions` existing offers-ты version 1 ретінде backfill етеді;
+- existing OfferApplication snapshot-тарына `offerVersion=1` backfill жасалады;
+- жаңа offer atomically version 1 history row-мен бірге жасалады;
+- verified owner ACTIVE немесе PAUSED, unexpired offer-ды idempotent REVISE жасай алады;
+- revision status-ты өзгертпейді және expiry-ді ұзартпайды;
+- no-op revision conflict;
+- history `MAX_OFFER_VERSIONS` default 20, hard max 100 арқылы bounded;
+- owner-only version history endpoint identity/contact fields шығармайды;
+- public/owner offer read currentVersion береді.
+
+Version semantics әдейі екіге бөлінді:
+
+- application snapshot `version: 1` = snapshot JSON schema version;
+- application snapshot `offerVersion: N` = LoanOffer business-term revision.
+
+Existing PENDING application кейін offer terms v2/v3 болып өзгерсе де rewrite/supersede болмайды. Lender ACCEPT concrete Proposal-ды application жасалған кездегі immutable historical snapshot-тан құрады. New applications current offerVersion-ға байланысады. PostgreSQL regression incompatible later revision бұрынғы application terms-ін өзгертпейтінін тексереді.
+
+QaryzLinkFront PR #47 merged at `ec0b6c3`:
+
+- public/own offer card current `vN` көрсетеді;
+- verified lender ACTIVE/PAUSED offer terms-ін жаңа version ретінде өзгерте алады;
+- Front no-op revision-ды API-ға жібермей тоқтатады;
+- owner immutable version history-ді on-demand қарайды;
+- ашық history currentVersion өзгергенде refetch болады;
+- application card source offerVersion көрсетеді;
+- version history API жеке шағын module-ға бөлінді;
+- KZ/RU marketplace catalog 87/87 parity.
+
+Backend PR #171 workflow run `36342076280` және Front PR #47 run `36342488121` quality job құрғанымен GitHub Actions quota/billing gate салдарынан 0 step орындады. Local git clone арқылы verification жасау әрекеті execution environment сыртқы DNS-ке шыға алмағандықтан орындалмады. Сондықтан automated Prisma/typecheck/lint/unit/PostgreSQL/build/browser evidence pending; бұл runs code/test failure ретінде саналмайды.
+
+Marketplace әлі `PUBLIC_MARKETPLACE_ENABLED=false` default gate артында. Release preflight legal approval-ға дейін deployed enablement-ті `fail` етеді.
+
+Phase 3-те келесі implementation gaps: explainable matching foundation, negotiation/counter-offer versions, moderation/spam controls және public rollout legal classification.
