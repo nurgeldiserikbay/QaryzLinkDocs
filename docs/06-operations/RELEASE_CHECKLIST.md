@@ -5,6 +5,8 @@
 ## Backend staging
 
 - [ ] Нақты deploy commit-тің CI-ы жасыл.
+- [x] Privacy-safe `pnpm release:preflight` command implementation + CI smoke contract бар.
+- [ ] Нақты staging image/config ішінде release preflight орындалып, `fail` емес result acceptance evidence-ке жазылды.
 - [ ] Жеке staging database және credentials.
 - [ ] Migration сәтті; production дерегіне test орындалмайды.
 - [ ] HTTPS және restricted ingress.
