@@ -547,3 +547,11 @@ QaryzLinkBack PR #150 merged at `87518f7`: protected `/api/v1/metrics/disputes` 
 QaryzLinkAdmin PR #28 merged at `516cafd`: dispute lifecycle server-rendered read-only operations card ретінде қосылды. Exact response schema unexpected case-content/identity fields-ті reject етеді; `METRICS_ACCESS_TOKEN` browser-ға шықпайды.
 
 Monitoring source contract dispute backlog signal-ымен толықтырылды. Support/admin status mutations әлі intentionally disabled; actual support owner/process бекітілгеннен кейін ғана қосылады. Automated CI Actions quota gate салдарынан pending.
+
+## Exact in-app unread count — 2026-09-27
+
+QaryzLinkBack PR #151 merged at `d0007af`: authenticated `/api/v1/notifications/in-app/unread-count` caller-дың personal party scope-ында барлық unread SENT/IN_APP rows-ты санайды. Response тек `{ count }`; payload/contact data жоқ.
+
+QaryzLinkFront PR #29 merged at `323b00a`: inbox latest-50 list-пен бірге exact unread count алады, сондықтан 50-ден көп unread notification болғанда UI undercount жасамайды. Visible notification mark-read болғанда total count local state-та қауіпсіз азаяды.
+
+Automated verification GitHub Actions quota gate салдарынан pending.
