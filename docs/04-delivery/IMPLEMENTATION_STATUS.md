@@ -23,6 +23,7 @@
 | Payment reversal | Дайын | Lender-authorized immutable reversal, signed allocation restore және opposite ledger entries |
 | Contract closure | Дайын | Zero-balance readiness, dual final-statement confirmation, stale-hash guard, immutable closure certificate және lifecycle notifications |
 | Evidence summary / manifest | Дайын baseline | Participant coverage summary, completed-contract immutable JSON manifest, deterministic SHA-256 және privacy-safe field boundary |
+| Phase 2 critical E2E | Harness дайын, execution pending | Real PostgreSQL lifecycle + cross-user isolation spec кодта бар; Actions quota/billing gate салдарынан current run әлі орындалмады |
 | Notifications/outbox | Базалық slice дайын | Payment/dispute/repayment және closure lifecycle оқиғалары, privacy-safe payload және idempotent outbox |
 | Notification claim/retry worker | Базалық slice дайын | SKIP LOCKED claim, 5 минут lease, exponential retry және terminal FAILED |
 | Delivery adapter boundary | Базалық slice дайын | Provider-neutral port, dispatch service және safe unavailable default |
@@ -672,3 +673,26 @@ QaryzLinkFront PR #40 merged at `e992bb1`: contract detail Evidence Summary pane
 Бұл Phase 2 baseline court-ready PDF/ZIP export емес. PDF/ZIP, selected raw evidence binaries, manifest signing, trusted timestamp және jurisdiction-specific export Phase 4 Trust & Evidence scope-ында қалады.
 
 Backend PR #164 соңғы quality run және Front PR #40 quality run GitHub Actions quota/billing gate салдарынан 0 step орындады. Сондықтан automated Prisma/typecheck/lint/test/build verification pending және quota қалпына келгенде қайта жүргізілуі керек.
+
+
+## Phase 2 critical lifecycle and isolation harness — 2026-09-27
+
+QaryzLinkBack PR #165 merged at `ac34914`: real PostgreSQL critical integration harness Private Debt MVP lifecycle-ін request/invite → proposal/accept → contract draft → dual signing → funding evidence/confirmation → schedule → exact repayment confirmation → ledger → dual closure → immutable evidence package ретімен тексереді.
+
+Evidence storage operational rollout-ын жалған түрде green қылмау үшін external object verifier test-only no-op adapter-мен ауыстырылады, бірақ scoped one-time `EvidenceUploadIntent` rows нақты database-та жасалып, funding/payment repositories арқылы atomically consume болады.
+
+Harness мыналарды assert етеді:
+- exact repayment кейін `unallocatedMinor=0`, schedule item `PAID`, ledger sequence 1/2;
+- Contract `COMPLETED`, ClosureCertificate бар;
+- EvidencePackage create idempotent және SHA-256 manifest hash бар;
+- participant outputs/manifest evidence `objectKey` және user ID шығармайды;
+- unrelated verified user contract/funding/schedule/closure/evidence resources-қа кіре алмайды, payment list unknown contract-пен бірдей empty shape береді;
+- PAYMENT_CONFIRMED / CONTRACT_CLOSURE_READY / CONTRACT_COMPLETED outbox events тек contract тараптарына арналған және sensitive payload field-тері жоқ.
+
+Compiled HTTP smoke closure, evidence summary/package, funding, schedule және payment participant endpoints-тің unauthenticated request үшін 401 болуын да тексереді.
+
+Fixture cleanup тек сол test жасаған party ID-лермен шектеледі; parallel PostgreSQL tests үшін global synthetic selector қолданылмайды.
+
+PR #165 workflow run `36331025648` GitHub Actions quota/billing gate салдарынан quality job құрғанымен 0 step орындады. Сондықтан harness **implemented**, бірақ current code үшін successful PostgreSQL/typecheck/lint/build execution evidence pending. Phase 2 `critical E2E flows green` exit criterion әлі formal жабылған жоқ.
+
+Толық acceptance contract: [Phase 2 critical E2E](PHASE2_CRITICAL_E2E.md).
