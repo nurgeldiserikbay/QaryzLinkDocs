@@ -93,7 +93,7 @@ Scope:
 - manual payment confirmation;
 - closure;
 - reminders;
-- evidence summary.
+- evidence summary + immutable manifest baseline.
 
 ~~~mermaid
 flowchart LR
@@ -134,7 +134,7 @@ Open/public matching production-да қосылмас бұрын Қазақст�
 - verified claims;
 - contract PDF;
 - document hashes;
-- evidence package;
+- court/export evidence package (PDF/ZIP, manifest signature, trusted timestamp);
 - amendments;
 - disputes;
 - data export/deletion;
