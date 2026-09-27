@@ -23,6 +23,7 @@ QaryzLink — Қазақстандағы жеке тұлғалар арасын�
 | [Repayment schedule](docs/01-business/REPAYMENT_SCHEDULE.md) | Детерминистік өтеу кестесі және есептеу саясаты |
 | [Payment ledger](docs/01-business/PAYMENT_LEDGER.md) | Төлем дәлелі, растау, allocation және ledger |
 | [Overdue worker](docs/01-business/OVERDUE_WORKER.md) | Due/overdue күйін materialize ететін worker |
+| [Repayment reminders](docs/01-business/REPAYMENT_REMINDERS.md) | Due/overdue borrower reminders, cadence және privacy contract |
 | [Payment reversal](docs/01-business/PAYMENT_REVERSAL.md) | Confirmed төлемді immutable түрде кері жазу |
 | [Contract closure](docs/01-business/CONTRACT_CLOSURE.md) | Нөлдік баланс, dual final-statement confirmation және closure certificate |
 | [Notification outbox](docs/01-business/NOTIFICATION_OUTBOX.md) | Транзакциялық notification intent және idempotency |

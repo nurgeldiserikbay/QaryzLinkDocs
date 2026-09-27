@@ -19,9 +19,10 @@
 | Schedule generation | Дайын | ACTIVE + CONFIRMED guard, ACT/365 Fixed + HALF_UP, versioned inputHash |
 | Payment evidence/confirmation/ledger | Backend + storage adapter baseline дайын, operational rollout толық емес | Borrower evidence, lender decision, allocation/ledger, size-bound replay protection және verified CLEAN-object gate бар |
 | Overdue status worker | Дайын | UTC due/overdue materialization, ACTIVE + CONFIRMED guard, idempotent transaction |
+| Repayment reminders | Дайын | Latest schedule due/overdue borrower reminders, per-event/channel idempotency, IN_APP + email preference boundary |
 | Payment reversal | Дайын | Lender-authorized immutable reversal, signed allocation restore және opposite ledger entries |
 | Contract closure | Дайын | Zero-balance readiness, dual final-statement confirmation, stale-hash guard және immutable closure certificate |
-| Notifications/outbox | Базалық slice дайын | Payment CONFIRMED/REVERSED оқиғалары, privacy-safe payload және idempotent outbox |
+| Notifications/outbox | Базалық slice дайын | Payment/dispute және REPAYMENT_DUE/REPAYMENT_OVERDUE оқиғалары, privacy-safe payload және idempotent outbox |
 | Notification claim/retry worker | Базалық slice дайын | SKIP LOCKED claim, 5 минут lease, exponential retry және terminal FAILED |
 | Delivery adapter boundary | Базалық slice дайын | Provider-neutral port, dispatch service және safe unavailable default |
 | Notification recipient resolution | Базалық slice дайын | Party ID → in-app ID or active verified email, no PII in outbox |
@@ -621,3 +622,18 @@ QaryzLinkFront PR #37 merged at `45d074a`: contract detail бетіне final st
 Толық contract: [Contract closure](../01-business/CONTRACT_CLOSURE.md).
 
 Backend және Front PR workflow run-дары GitHub Actions quota/billing gate салдарынан runner step-теріне жетпей failure күйіне түсті: quality job жасалды, бірақ 0 step орындалды. Сондықтан бұл runs code/test failure ретінде саналмайды; автоматты quality verification quota қалпына келгенде қайта орындалуы тиіс.
+
+
+## Repayment due/overdue reminders — 2026-09-27
+
+QaryzLinkBack PR #162 merged at `50c4f93`: existing one-shot notification runtime енді delivery batch алдында due/overdue status materialization жасайды және latest schedule version бойынша borrower reminder intents генерациялайды.
+
+MVP cadence deliberately bounded: әр ScheduleItem/channel үшін due күні бір `REPAYMENT_DUE`, ал overdue болғанда бір `REPAYMENT_OVERDUE` event. Stable idempotency key repeated scheduler runs кезінде duplicate row жасатпайды. Generator тек ACTIVE Contract + CONFIRMED Funding + outstanding latest schedule item-ді қарайды.
+
+IN_APP intent әр eligible reminder үшін жасалады; EMAIL existing `emailNotificationsEnabled` preference boundary арқылы skip бола алады. Payload contractId, scheduleItemId, dueDate және DUE/OVERDUE state-пен шектеледі; amount, email/phone, evidence, bank data және dispute description outbox payload-қа кірмейді. Email renderer де generic subject/body ғана береді.
+
+QaryzLinkFront PR #38 merged at `22b5826`: metadata-only inbox `REPAYMENT_DUE`, `REPAYMENT_OVERDUE` және `SCHEDULE_ITEM` labels-ын көрсетеді. Notification payload Front-қа әлі шығарылмайды.
+
+Толық contract: [Repayment reminders](../01-business/REPAYMENT_REMINDERS.md).
+
+Backend PR #162 және Front PR #38 workflow run-дары GitHub Actions quota/billing gate салдарынан runner step-теріне жетпей failure болды: quality jobs 0 step орындады. Бұл code/test failure емес; quota қалпына келгенде automated quality verification қайта іске қосылуы керек.

@@ -246,7 +246,7 @@ Allocation priority country rule және contract арқылы versioned бол
 ScheduleItem due date өткенде және толық жабылмағанда overdue болады.
 
 - grace period rule қолданылады;
-- reminder жіберіледі;
+- MVP-де borrower-ға due күні бір рет және overdue болғанда бір рет idempotent reminder жіберіледі;
 - late charge тек valid country rule және contract болғанда есептеледі;
 - dispute болса disputed amount бөлек көрсетіледі;
 - public shame немесе автоматты жариялау болмайды.
