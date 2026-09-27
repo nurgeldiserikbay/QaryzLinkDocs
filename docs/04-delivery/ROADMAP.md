@@ -128,7 +128,7 @@ Front KZ/RU presentation coverage landing/auth → discovery/proposal → contra
 - moderation;
 - spam/abuse controls.
 
-2026-09-27: LenderOffer backend foundation және borrower OfferApplication slice іске асты. Verified KZ lender PUBLIC offer create/cancel жасай алады; verified borrower privacy-safe browse жасап, existing exact LoanRequest арқылы application береді. Lender ACCEPT concrete Proposal ғана жасайды, borrower кейін Proposal-ды бөлек explicit ACCEPT етеді. Application immutable offer snapshot сақтайды және competing applications winner таңдалғанда supersede болады. Бірақ `PUBLIC_MARKETPLACE_ENABLED=false` default және release preflight true мәнін fail етеді. Automatic matching/ranking/UI әлі жоқ. Boundaries: [Public lender offers](../01-business/PUBLIC_LENDER_OFFERS.md), [Public offer applications](../01-business/PUBLIC_OFFER_APPLICATIONS.md).
+2026-09-27: LenderOffer backend foundation және borrower OfferApplication slice іске асты. Verified KZ lender PUBLIC offer create/cancel жасай алады; verified borrower privacy-safe browse жасап, existing exact LoanRequest арқылы application береді. Lender ACCEPT concrete Proposal ғана жасайды, borrower кейін Proposal-ды бөлек explicit ACCEPT етеді. Application immutable offer snapshot сақтайды және competing applications winner таңдалғанда supersede болады. Бірақ `PUBLIC_MARKETPLACE_ENABLED=false` default және release preflight true мәнін fail етеді. Application lifecycle IN_APP notifications және Front KZ/RU inbox labels та дайын. Automatic matching/ranking/marketplace UI әлі жоқ. Boundaries: [Public lender offers](../01-business/PUBLIC_LENDER_OFFERS.md), [Public offer applications](../01-business/PUBLIC_OFFER_APPLICATIONS.md).
 
 ### Legal gate
 
