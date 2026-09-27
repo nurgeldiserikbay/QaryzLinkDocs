@@ -80,7 +80,8 @@
 - [x] Privacy-safe aggregate dispute backlog metrics + Admin read-only operations card.
 - [x] Dispute open counterparty durable IN_APP notification + Front inbox label.
 - [x] Support, incident және dispute procedures құжатталған; нақты owner/channel pilot алдында бекітіледі.
-- [ ] Support/admin dispute status transition workflow — actual support owner/process бекітілгеннен кейін.
+- [x] Default-off audited support dispute status transition backend boundary.
+- [ ] Support/admin transition production enablement және Admin mutation UI — actual support owner/process бекітілгеннен кейін.
 - [ ] Жоба иесі staging acceptance нәтижесін көрген.
 
 Platform acknowledgement qualified electronic signature болып табылмайды және жеке басты толық құқықтық растау емес. Email verification да қол қоюдың заңдық күшін растамайды.
