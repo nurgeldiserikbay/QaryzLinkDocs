@@ -769,3 +769,19 @@ PR #168 workflow run `36336963501` GitHub Actions quota/billing gate салда�
 Feature `PUBLIC_MARKETPLACE_ENABLED=false` gate артында қалады және release preflight enabled marketplace-ті legal approval-ға дейін fail етеді.
 
 Толық contract: [Public offer applications](../01-business/PUBLIC_OFFER_APPLICATIONS.md).
+
+
+## Phase 3 application lifecycle notifications — 2026-09-27
+
+QaryzLinkBack PR #169 merged at `2be3c4f`: OfferApplication create/accept/reject/withdraw state changes durable IN_APP outbox event-терімен transactionally байланыстырылды.
+
+Routing:
+- CREATED → lender;
+- ACCEPTED / REJECTED → borrower;
+- WITHDRAWN → lender.
+
+Payload тек applicationId, offerId, requestId және status сақтайды. Amount/rate/term, user/party/publicId, display name және contact data жоқ. Event-тер email channel-ға жіберілмейді; notification policy оларды IN_APP-only деп бекітеді. Command replay outbox idempotency арқылы duplicate event жасамайды.
+
+QaryzLinkFront PR #44 merged at `cbc0eaf`: inbox KZ/RU режимінде осы төрт event пен OFFER_APPLICATION target label-ын көрсетеді. Front raw outbox payload-ты әлі оқымайды.
+
+Backend PR #169 workflow run `36337328028` және Front PR #44 run `36337396219` Actions quota/billing gate салдарынан quality job құрғанымен 0 step орындады. Automated verification pending.

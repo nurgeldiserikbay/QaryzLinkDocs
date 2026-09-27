@@ -202,9 +202,25 @@ Current release preflight deployed environment-та `PUBLIC_MARKETPLACE_ENABLED=
 
 Legal classification аяқталғанша flag production/staging-та қосылмайды.
 
+## Lifecycle notifications
+
+Application state changes durable IN_APP notification outbox-пен байланыстырылған:
+
+| Event | Recipient | Payload |
+|---|---|---|
+| OFFER_APPLICATION_CREATED | lender | applicationId, offerId, requestId, PENDING |
+| OFFER_APPLICATION_ACCEPTED | borrower | applicationId, offerId, requestId, ACCEPTED |
+| OFFER_APPLICATION_REJECTED | borrower | applicationId, offerId, requestId, REJECTED |
+| OFFER_APPLICATION_WITHDRAWN | lender | applicationId, offerId, requestId, WITHDRAWN |
+
+Application state mutation және outbox enqueue бір database transaction ішінде орындалады. Command idempotency replay duplicate outbox row жасамайды.
+
+Бұл event-тер IN_APP-only. Payload-та amount/rate/term, userId/partyId/publicId, display name, email/phone жоқ.
+
+Front inbox metadata-only event/target labels-ты KZ/RU көрсетеді; raw payload Front-қа шығарылмайды.
+
 ## Кейінгі Phase 3 жұмыстар
 
-- application/proposal notification events;
 - Front KZ/RU dark UI;
 - offer pause/versioning;
 - borrower request public visibility;
