@@ -563,3 +563,11 @@ QaryzLinkBack PR #152 merged at `01442ba`: authenticated mark-all-read mutation 
 QaryzLinkFront PR #30 merged at `b6a18cf`: inbox summary бір әрекетпен барлық unread notification-ды оқылды деп белгілейді; bulk/per-item actions UI-де serialized, exact unread total success кезінде 0 болады.
 
 Payload/contact data бұл flow-ға қосылмайды. Automated verification GitHub Actions quota gate салдарынан pending.
+
+## Gated dispute support transitions — 2026-09-27
+
+QaryzLinkBack PR #153 merged at `6c38b00`: internal support dispute lifecycle mutation boundary қосылды. Ол default-off `SUPPORT_DISPUTE_TRANSITIONS_ENABLED=false` gate және бөлек `SUPPORT_ACCESS_TOKEN` арқылы қорғалған; status transition state machine conservative және row-level lock арқылы serialized.
+
+Әр нақты transition audit event жасайды, payload тек from/to status сақтайды; dispute description/contact/payment content жоқ. Admin mutation UI әдейі қосылған жоқ. Нақты support owner/process, internal ingress және staging acceptance бекітілмейінше production enablement release gate болып қалады.
+
+Automated CI GitHub Actions free-quota/billing gate салдарынан pending.
