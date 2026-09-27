@@ -539,3 +539,11 @@ QaryzLinkBack PR #149 merged at `a017317`: `notification_outbox` үшін nullab
 QaryzLinkFront PR #28 merged at `bbfdcff`: private notifications inbox unread count, unread visual state және explicit `Оқылды` action алды. 401 auth-required state-ке қайтады, басқа error privacy-safe generic UI күйінде қалады.
 
 Automated verification GitHub Actions free-quota/billing gate салдарынан pending.
+
+## Dispute operations visibility — 2026-09-27
+
+QaryzLinkBack PR #150 merged at `87518f7`: protected `/api/v1/metrics/disputes` aggregate endpoint OPEN/WAITING_USER/WAITING_INTERNAL/RESOLVED/CLOSED counts, oldest active age және capture time ғана қайтарады. Description, contract ID, opener identity немесе case payload response contract-ына кірмейді.
+
+QaryzLinkAdmin PR #28 merged at `516cafd`: dispute lifecycle server-rendered read-only operations card ретінде қосылды. Exact response schema unexpected case-content/identity fields-ті reject етеді; `METRICS_ACCESS_TOKEN` browser-ға шықпайды.
+
+Monitoring source contract dispute backlog signal-ымен толықтырылды. Support/admin status mutations әлі intentionally disabled; actual support owner/process бекітілгеннен кейін ғана қосылады. Automated CI Actions quota gate салдарынан pending.
