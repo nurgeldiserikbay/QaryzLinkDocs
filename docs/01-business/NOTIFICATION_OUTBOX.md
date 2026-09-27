@@ -23,6 +23,8 @@ Payment/dispute flows write transactional outbox rows, while repayment reminders
 | PAYMENT_REVERSED | Borrower and lender | Lender reverses confirmed repayment |
 | REPAYMENT_DUE | Borrower | Latest schedule item reaches its due UTC day with outstanding balance |
 | REPAYMENT_OVERDUE | Borrower | Latest schedule item is past due with outstanding balance |
+| CONTRACT_CLOSURE_READY | Borrower and lender | Contract is ready for final statement confirmation |
+| CONTRACT_COMPLETED | Borrower and lender | Dual confirmation completes the contract |
 
 Each event carries only opaque IDs and state metadata. It does not include email, phone, document contents, bank credentials or receipt files.
 
@@ -41,7 +43,7 @@ Each event carries only opaque IDs and state metadata. It does not include email
 
 ## Guarantees and limits
 
-- The outbox row commits or rolls back with the payment confirmation/reversal.
+- Transactional payment and closure events commit or roll back with their business state change.
 - Repeating the same event uses the unique idempotency key and does not create a second row.
 - Outbox persistence is not message delivery; provider retries and monitoring are still required.
 - QaryzLink does not hold money, issue a payment instruction, or make a notification a qualified legal notice.

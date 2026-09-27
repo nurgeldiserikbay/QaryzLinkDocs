@@ -72,6 +72,14 @@ pnpm notifications:run
 
 1. `OverdueWorker.run()` арқылы due/overdue status-тарды materialize етеді;
 2. `RepaymentReminderWorker.run()` арқылы latest schedule item-дерден idempotent `REPAYMENT_DUE` / `REPAYMENT_OVERDUE` intents жасайды;
-3. содан кейін `NotificationSchedulerService.runOnce()` outbox rows-ты claim/deliver етеді.
+3. `ClosureReadyNotificationWorker.run()` бұрын readiness notification алмаған eligible zero-balance contracts үшін bounded readiness intents жасайды;
+4. содан кейін `NotificationSchedulerService.runOnce()` outbox rows-ты claim/deliver етеді.
 
 Reminder preparation retry-safe: stable outbox idempotency keys duplicate notifications-ды басады.
+
+
+## Closure readiness preparation
+
+Closure readiness scan `CONTRACT_CLOSURE_READY` intent бұрын жасалмаған ACTIVE + CONFIRMED contracts-ты 500-row bounded batch-пен қарайды. Full closure guards орындалған contract borrower/lender үшін IN_APP және preference-controlled EMAIL intents алады.
+
+Бұл scan Contract GET endpoint-іне side effect қоспайды. First explicit closure confirmation да readiness intents-ті idempotent түрде қамтамасыз етеді, сондықтан counterparty scheduler-ді күтпей notification ала алады.
