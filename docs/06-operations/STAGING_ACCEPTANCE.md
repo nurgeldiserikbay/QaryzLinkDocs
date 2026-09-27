@@ -74,6 +74,8 @@
 
 ## 9. Monitoring
 
+Signal/alert contract: `MONITORING_ALERTING.md`.
+
 - [ ] readiness failure alert.
 - [ ] notification failed/pending growth alert.
 - [ ] evidence orphan/verdict failure alert.
