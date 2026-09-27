@@ -132,7 +132,7 @@ Release preflight-та public marketplace true болса `restricted_financial_
 
 Borrower application → lender concrete Proposal flow енді [Public offer applications](PUBLIC_OFFER_APPLICATIONS.md) ішінде іске асқан.
 
-Келесі safe backend work explainable matching foundation, moderation/spam controls және borrower-side discovery evolution болып қалады. Open/public matching recommendation/search ranking legal classification-тан кейін ғана production enablement алады.
+Келесі safe work negotiation/counter-offer versions, moderation/spam controls және borrower-side discovery evolution болып қалады. Deterministic compatibility explanation іске асты; automated ranking/recommendation әлі legal gate артында. Open/public matching recommendation/search ranking legal classification-тан кейін ғана production enablement алады.
 
 
 ## Front marketplace workspace
@@ -156,9 +156,10 @@ Lender view:
 Borrower view:
 
 - identity-free public offer list;
-- amount/term сәйкес келетін өзінің ACTIVE private request-тері ғана application selector-да көрінеді;
-- incompatible request UI деңгейінде ұсынылмайды;
-- backend бәрібір exact ownership/range/block/expiry guard-тарын қайта тексереді.
+- өзінің ACTIVE private request-тері selector-да көрсетіледі;
+- таңдалған request үшін Backend exact compatibility explanation қайтарады;
+- amount/term сәйкес болмаса reason code UI-де түсіндіріледі және Apply disabled қалады;
+- backend exact ownership/range/block/expiry guard-тарын application transaction ішінде қайта тексереді.
 
 Application inbox:
 
@@ -304,3 +305,16 @@ Marketplace UI:
 - history identity/contact fields көрсетпейді.
 
 Version history read қауіпсіз owner action болғандықтан email verification жоғалған active owner үшін де қолжетімді; жаңа revision verified account талап етеді.
+
+
+## Explainable compatibility
+
+Exact request → public offer compatibility explanation іске асқан: [Explainable compatibility](EXPLAINABLE_COMPATIBILITY.md).
+
+Бұл primitive:
+
+- current offerVersion-ды көрсетеді;
+- amount/term fit-ті deterministic reason code-пен түсіндіреді;
+- score/rank/recommendation шығармайды;
+- public browse сияқты verified active lender eligibility және block privacy rules-ын қолданады;
+- application authorization орнына жүрмейді — write transaction барлық guard-ты қайта тексереді.
