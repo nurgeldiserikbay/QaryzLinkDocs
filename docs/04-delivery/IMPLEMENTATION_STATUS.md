@@ -523,3 +523,11 @@ QaryzLinkBack PR #147 merged at `aefcade`: placeholder DisputesModule participan
 QaryzLinkFront PR #26 merged at `8d0cd99`: contract detail бетіне dispute panel қосылды. Existing case read-only көрсетіледі, case жоқ болса bounded description арқылы ашылады. Load error fail-closed, duplicate race existing case-ті қайта оқиды.
 
 Support/admin status transitions әлі intentionally absent: нақты support owner/process және legal handling бекітілгеннен кейін ғана қосылады. Automated CI GitHub Actions quota/billing gate салдарынан pending.
+
+## Dispute counterparty notification — 2026-09-27
+
+QaryzLinkBack PR #148 merged at `0c9a08a`: dispute case ашылған транзакцияда қарсы contract party үшін idempotent durable `DISPUTE_OPENED` IN_APP notification enqueue болады. Event payload тек contract/dispute identifiers және status қамтиды; dispute description, contact немесе opener identity notification payload-қа кірмейді. Policy `DISPUTE_OPENED` event-ін EMAIL арнасына жіберуге тыйым салады.
+
+QaryzLinkFront PR #27 merged at `cc3fbdc`: notifications inbox `DISPUTE_OPENED` event-ін `Дау ашылды` label-ымен көрсетеді және empty-state dispute events-ті түсіндіреді.
+
+Automated verification GitHub Actions free-quota/billing gate салдарынан pending.
