@@ -48,6 +48,7 @@ QaryzLink — Қазақстандағы жеке тұлғалар арасын�
 | [Privacy & security](docs/03-security/PRIVACY_SECURITY.md) | Privacy, consent, access және audit |
 | [Roadmap](docs/04-delivery/ROADMAP.md) | Этаптар, deliverable және exit criteria |
 | [Phase 2 critical E2E](docs/04-delivery/PHASE2_CRITICAL_E2E.md) | Private Debt MVP lifecycle және cross-user isolation acceptance |
+| [Phase 2 KZ/RU journey](docs/04-delivery/PHASE2_KZ_RU_JOURNEY.md) | Қазақша/орысша critical user journey және browser acceptance |
 | [Implementation status](docs/04-delivery/IMPLEMENTATION_STATUS.md) | Кодтың specification-ға қатысты ағымдағы күйі |
 | [Open questions](docs/05-governance/OPEN_QUESTIONS.md) | Шешілмеген сұрақтар мен legal gates |
 | [Deployment](docs/06-operations/DEPLOYMENT.md) | Backend staging орнату нұсқаулығы |
