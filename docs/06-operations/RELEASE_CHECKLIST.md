@@ -66,6 +66,7 @@
 - [ ] Metrics endpoint internal ingress review және staging acceptance.
 - [ ] Нақты SMTP delivery және пайдаланушының email растау flow-ы.
 - [x] Password reset backend/Front flow: enumeration-safe request, one-time token, session revoke, HTTPS reset URL және retention cleanup.
+- [x] Self-service logout-all sessions backend + Front security control + audit.
 - [ ] Password reset нақты SMTP inbox delivery және browser acceptance.
 - [x] Production dependency high/critical audit gate Back/Front/Admin CI ішінде.
 - [x] Full-history secret scanning және CycloneDX SBOM generation Back/Front/Admin CI ішінде.
