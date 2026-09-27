@@ -37,6 +37,7 @@ QaryzLink — Қазақстандағы жеке тұлғалар арасын�
 | [Notification metrics](docs/06-operations/NOTIFICATION_METRICS.md) | Privacy-safe delivery counters және operational snapshot |
 | [Notification CronJob](docs/06-operations/NOTIFICATION_CRONJOB.md) | Kubernetes one-shot scheduler deployment |
 | [Staging smoke test](docs/06-operations/STAGING_SMOKE_TEST.md) | Staging auth, privacy және legal-gate тексерістері |
+| [Release preflight](docs/06-operations/RELEASE_PREFLIGHT.md) | Secret-free deploy config/database readiness gate |
 | [Backup and restore](docs/06-operations/BACKUP_RESTORE.md) | Backup, restore drill және rollback тәртібі |
 | [Monitoring](docs/06-operations/MONITORING.md) | Privacy-safe сигналдар, log hygiene және incident flow |
 | [Notification preferences](docs/01-business/NOTIFICATION_PREFERENCES.md) | User-controlled optional email channel |
