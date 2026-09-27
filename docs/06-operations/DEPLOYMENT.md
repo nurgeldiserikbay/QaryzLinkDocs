@@ -86,6 +86,7 @@ Command HTTP server ашпайды. Алдымен grace/retention hold қайт
 | PENALTY_ENABLED | false |
 | AMOUNT_BASED_COMMISSION_ENABLED | false |
 | MAX_OUTGOING_APPLICATIONS_PER_DAY | Public-offer application daily quota; engineering default 10 |
+| MAX_OFFER_VERSIONS | Бір public offer үшін immutable financial-term history limit; default 20, validated max 100 |
 | ACCOUNT_DELETION_GRACE_DAYS | Engineering default 30; production мәні legal retention review-дан кейін бекітіледі |
 
 Secret-терді репозиторийге, screenshot-қа немесе чатқа енгізбеңіз. Жергілікті docker-compose.yml development парольдерін қолданады; production config ретінде пайдаланылмайды.
