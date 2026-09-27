@@ -48,6 +48,9 @@
 - [x] Runtime/provider error persistence және maintenance CLI stderr PII-safe generic boundary.
 - [x] Front/Admin production server HTTP security-header/CSP runtime smoke.
 - [x] Front/Admin manual-only Chromium E2E harness дайын.
+- [x] Front KZ/RU presentation coverage critical Phase 2 routes және account lifecycle бойынша implementation-да бар (Front #41/#42/#43).
+- [ ] KZ authenticated borrower/lender full browser journey successful staging run.
+- [ ] RU authenticated borrower/lender full browser journey successful staging run.
 - [ ] Front/Admin actual browser E2E run және толық UI acceptance — Actions quota ашылғаннан кейін.
 - [x] Privacy/consent defaults және ephemeral auth/evidence retention baseline.
 - [ ] PII encrypted-mode staging acceptance.
