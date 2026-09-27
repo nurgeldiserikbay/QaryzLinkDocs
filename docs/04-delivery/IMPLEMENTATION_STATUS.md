@@ -13,7 +13,7 @@
 | IAM | Базалық нұсқа дайын | Register, login, refresh token rotation, current-session logout, email verification |
 | Profile, privacy және deletion request | Базалық нұсқа дайын | Өз профилін/ privacy баптауларын басқару және retention-aware account deletion request жіберу |
 | Database migration | Дайын | Бастапқы schema versioned SQL migration ретінде бекітілді |
-| Discovery | Private slice дайын + Phase 3 dark workspace | Private request/invite/proposal/acceptance; default-off public lender offer create/pause/resume/revise/cancel/browse + immutable version history + borrower application → concrete Proposal + KZ/RU marketplace workspace қосылды |
+| Discovery | Private slice дайын + Phase 3 dark workspace | Private request/invite/proposal/acceptance; default-off public offer lifecycle/version history + deterministic request-offer compatibility explanation + borrower application → concrete Proposal + KZ/RU marketplace workspace қосылды |
 | Contract draft/signing | Дайын | Accepted proposal-дан immutable ContractVersion v1, privacy-safe read, dual hash acknowledgement |
 | Funding evidence/confirmation | Backend + storage adapter baseline дайын, operational rollout толық емес | Single-use intent, S3-compatible signed PUT/GET, HEAD verification, trusted malware verdict registry, quarantine/orphan cleanup және aggregate metrics бар; external scanner, staging acceptance және retention policy қалды |
 | Schedule generation | Дайын | ACTIVE + CONFIRMED guard, ACT/365 Fixed + HALF_UP, versioned inputHash |
@@ -894,4 +894,44 @@ Backend PR #171 workflow run `36342076280` және Front PR #47 run `3634248812
 
 Marketplace әлі `PUBLIC_MARKETPLACE_ENABLED=false` default gate артында. Release preflight legal approval-ға дейін deployed enablement-ті `fail` етеді.
 
-Phase 3-те келесі implementation gaps: explainable matching foundation, negotiation/counter-offer versions, moderation/spam controls және public rollout legal classification.
+Phase 3-те келесі implementation gaps: negotiation/counter-offer versions, moderation/spam controls, borrower-side discovery evolution және public rollout legal classification. Deterministic compatibility explanation бар, бірақ automated matching/ranking әлі жоқ.
+
+
+## Phase 3 explainable compatibility — 2026-09-27
+
+QaryzLinkBack PR #172 merged at `7271f9e`.
+
+Exact borrower request пен public lender offer арасында deterministic compatibility explanation қосылды:
+
+- endpoint: `GET /api/v1/discovery/offers/:offerId/compatibility?requestId=:requestId`;
+- response mode `EXACT_REQUEST_V1`;
+- current `offerVersion` response-қа кіреді;
+- result тек `compatible`, amount/term fit booleans және stable reason codes береді;
+- reason codes: `AMOUNT_BELOW_MIN`, `AMOUNT_ABOVE_MAX`, `TERM_BELOW_MIN`, `TERM_ABOVE_MAX`;
+- score/rank/recommendation/ordering жоқ;
+- owned ACTIVE unexpired exact request талап етіледі;
+- offer ACTIVE + PUBLIC + non-own + unexpired болуы керек;
+- lender ACTIVE + email verified болуы керек;
+- екі бағыттағы PartyBlock visibility-ді жабады;
+- cross-user request, own/blocked/ineligible offer privacy-safe unavailable shape қолданады;
+- output userId/partyId/publicId/displayName/email/phone шығармайды.
+
+Public browse consistency hardening та жасалды: lender account verification/status жоғалтса оның public offer-ы browse-тан бірден шығады. Бұрын бұл жағдай application create кезінде ғана кеш reject болуы мүмкін еді.
+
+QaryzLinkFront PR #48 merged at `83ef3b8`:
+
+- borrower selector енді барлық ACTIVE private request-ті көрсетеді;
+- selected request үшін Backend explanation шақырылады;
+- compatible request amount/term fit explanation көрсетеді;
+- incompatible request deterministic reason text көрсетеді;
+- Apply `compatible=true` болмайынша disabled;
+- бұрынғы duplicate client-side range filter жойылды, Backend authoritative;
+- UI compatibility-дің score/ranking емес екенін explicit көрсетеді;
+- logic hook/panel/API шағын файлдарға бөлінді;
+- KZ/RU marketplace catalog 99/99 parity.
+
+Backend PR #172 workflow run `36343077646` және Front PR #48 run `36343406106` quality job құрғанымен GitHub Actions quota/billing gate салдарынан 0 step орындады. Бұл code/test failure evidence емес; automated verification quota қалпына келгенде қайта орындалуы тиіс.
+
+Толық contract: [Explainable compatibility](../01-business/EXPLAINABLE_COMPATIBILITY.md).
+
+Marketplace әлі `PUBLIC_MARKETPLACE_ENABLED=false` default gate артында; release preflight legal approval-ға дейін deployed enablement-ті `fail` етеді.
