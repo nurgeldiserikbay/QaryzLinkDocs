@@ -24,6 +24,7 @@
 | Contract closure | Дайын | Zero-balance readiness, dual final-statement confirmation, stale-hash guard, immutable closure certificate және lifecycle notifications |
 | Evidence summary / manifest | Дайын baseline | Participant coverage summary, completed-contract immutable JSON manifest, deterministic SHA-256 және privacy-safe field boundary |
 | Phase 2 critical E2E | Harness дайын, execution pending | Real PostgreSQL lifecycle + cross-user isolation spec кодта бар; Actions quota/billing gate салдарынан current run әлі орындалмады |
+| KZ/RU user journey | Presentation coverage дайын, browser execution pending | Landing/auth/discovery/contract/lifecycle/closure/evidence/dispute/notifications/settings/account lifecycle KZ/RU; real authenticated two-party browser acceptance әлі орындалмады |
 | Notifications/outbox | Базалық slice дайын | Payment/dispute/repayment және closure lifecycle оқиғалары, privacy-safe payload және idempotent outbox |
 | Notification claim/retry worker | Базалық slice дайын | SKIP LOCKED claim, 5 минут lease, exponential retry және terminal FAILED |
 | Delivery adapter boundary | Базалық slice дайын | Provider-neutral port, dispatch service және safe unavailable default |
@@ -37,7 +38,7 @@
 | Notification Kubernetes scheduler | Deployment template дайын | CronJob Forbid policy, external Secret, immutable image және non-overlap contract |
 | Deployment hardening | Template/CI дайын | Immutable digest rendering, bounded migration job, safe rollout, PDB, node spread, rollback және restore runbooks |
 | Provider/scheduler | Жоспарда | Push adapter, queue trigger, external metrics collector/alerting және organization routing |
-| Front/Admin UI | Front + Admin vertical slices жүріп жатыр | Front-та auth/discovery/contract/lifecycle/closure/evidence-summary/settings/account-deletion; Admin-та liveness, database readiness, evidence-storage, notification-delivery, audit және account-deletion aggregate operations cards бар; identity-level feeds әлі өшірулі |
+| Front/Admin UI | Front critical MVP presentation кеңейді | Front-та auth/discovery/contract/lifecycle/closure/evidence/dispute/notifications/settings/security/account lifecycle KZ/RU coverage бар; Admin-та liveness, database readiness, evidence-storage, notification-delivery, audit және account-deletion aggregate operations cards бар; identity-level feeds әлі өшірулі |
 
 ## Қазіргі backend slice
 
@@ -696,3 +697,20 @@ Fixture cleanup тек сол test жасаған party ID-лермен шект
 PR #165 workflow run `36331025648` GitHub Actions quota/billing gate салдарынан quality job құрғанымен 0 step орындады. Сондықтан harness **implemented**, бірақ current code үшін successful PostgreSQL/typecheck/lint/build execution evidence pending. Phase 2 `critical E2E flows green` exit criterion әлі formal жабылған жоқ.
 
 Толық acceptance contract: [Phase 2 critical E2E](PHASE2_CRITICAL_E2E.md).
+
+
+## KZ/RU Phase 2 journey localization — 2026-09-27
+
+QaryzLinkFront үш incremental slice арқылы Private Debt MVP user-facing presentation-ды KZ/RU режиміне көшірді.
+
+PR #41 merged at `348023f`: app-wide locale provider, persistent `qaryzlink.locale`, document lang sync, ҚАЗ/РУС switcher, landing/login/register/dashboard/new-request foundation. Негізгі catalog 83/83 key parity.
+
+PR #42 merged at `07d89bc`: request/proposal/invite/decision/contract-draft, contract detail, funding/schedule/payment lifecycle, closure, evidence және dispute panels locale-aware болды. Critical journey catalog 149/149 key parity; financial/status helpers KZ default-ты сақтай отырып RU presentation алды.
+
+PR #43 merged at `4c9772d`: email verification, password recovery/reset, notification inbox, profile/privacy settings, password change, active sessions және account deletion KZ/RU болды. Account lifecycle catalog 135/135 key parity; destructive deletion confirmation KZ-де `ЖОЮ`, RU-де `УДАЛИТЬ`.
+
+Playwright implementation RU locale persistence, 390px overflow және request/contract/account lifecycle unauthenticated safe-state routes-ты қамтиды. Бірақ Front #41/#42/#43 quality runs GitHub Actions quota/billing gate салдарынан quality job құрғанымен 0 step орындады. Manual-only Browser E2E де current main үшін actual runner-де орындалмады.
+
+Сондықтан `KZ/RU full journey` үшін **presentation implementation coverage ready**, бірақ real authenticated borrower/lender staging/browser execution evidence pending. Formal Phase 2 exit criterion әлі жабылған жоқ.
+
+Толық acceptance contract: [Phase 2 KZ/RU journey](PHASE2_KZ_RU_JOURNEY.md).
