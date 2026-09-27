@@ -26,6 +26,7 @@ QaryzLink — Қазақстандағы жеке тұлғалар арасын�
 | [Repayment reminders](docs/01-business/REPAYMENT_REMINDERS.md) | Due/overdue borrower reminders, cadence және privacy contract |
 | [Payment reversal](docs/01-business/PAYMENT_REVERSAL.md) | Confirmed төлемді immutable түрде кері жазу |
 | [Contract closure](docs/01-business/CONTRACT_CLOSURE.md) | Нөлдік баланс, dual final-statement confirmation және closure certificate |
+| [Evidence summary](docs/01-business/EVIDENCE_SUMMARY.md) | Participant evidence coverage және immutable manifest baseline |
 | [Notification outbox](docs/01-business/NOTIFICATION_OUTBOX.md) | Транзакциялық notification intent және idempotency |
 | [Notification worker](docs/01-business/NOTIFICATION_WORKER.md) | Claim, lease және retry lifecycle |
 | [Notification delivery](docs/01-business/NOTIFICATION_DELIVERY.md) | Provider-neutral dispatch boundary |
