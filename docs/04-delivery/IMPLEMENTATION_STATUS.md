@@ -22,6 +22,7 @@
 | Repayment reminders | Дайын | Latest schedule due/overdue borrower reminders, per-event/channel idempotency, IN_APP + email preference boundary |
 | Payment reversal | Дайын | Lender-authorized immutable reversal, signed allocation restore және opposite ledger entries |
 | Contract closure | Дайын | Zero-balance readiness, dual final-statement confirmation, stale-hash guard, immutable closure certificate және lifecycle notifications |
+| Evidence summary / manifest | Дайын baseline | Participant coverage summary, completed-contract immutable JSON manifest, deterministic SHA-256 және privacy-safe field boundary |
 | Notifications/outbox | Базалық slice дайын | Payment/dispute/repayment және closure lifecycle оқиғалары, privacy-safe payload және idempotent outbox |
 | Notification claim/retry worker | Базалық slice дайын | SKIP LOCKED claim, 5 минут lease, exponential retry және terminal FAILED |
 | Delivery adapter boundary | Базалық slice дайын | Provider-neutral port, dispatch service және safe unavailable default |
@@ -35,7 +36,7 @@
 | Notification Kubernetes scheduler | Deployment template дайын | CronJob Forbid policy, external Secret, immutable image және non-overlap contract |
 | Deployment hardening | Template/CI дайын | Immutable digest rendering, bounded migration job, safe rollout, PDB, node spread, rollback және restore runbooks |
 | Provider/scheduler | Жоспарда | Push adapter, queue trigger, external metrics collector/alerting және organization routing |
-| Front/Admin UI | Front + Admin vertical slices жүріп жатыр | Front-та auth/discovery/contract/lifecycle/settings/account-deletion request; Admin-та liveness, database readiness, evidence-storage, notification-delivery, audit және account-deletion aggregate operations cards бар; identity-level feeds әлі өшірулі |
+| Front/Admin UI | Front + Admin vertical slices жүріп жатыр | Front-та auth/discovery/contract/lifecycle/closure/evidence-summary/settings/account-deletion; Admin-та liveness, database readiness, evidence-storage, notification-delivery, audit және account-deletion aggregate operations cards бар; identity-level feeds әлі өшірулі |
 
 ## Қазіргі backend slice
 
@@ -650,3 +651,24 @@ Completion кезінде Contract `COMPLETED`, immutable ClosureCertificate, au
 QaryzLinkFront PR #39 merged at `7c872e3`: metadata-only inbox жаңа closure event-терді `Қарызды жабуды растауға болады` және `Қарыз жабылды` label-дарымен көрсетеді.
 
 Backend PR #163 және Front PR #39 GitHub Actions quality jobs quota/billing gate салдарынан runner step-теріне жетпей failure болды: екі job та 0 step орындады. Бұл code/test failure емес; automated quality verification quota қалпына келгенде қайта орындалуы тиіс.
+
+
+## Evidence summary and immutable manifest — 2026-09-27
+
+QaryzLinkBack PR #164 merged at `fa3b270`: participant-only evidence summary және completed contract үшін immutable evidence manifest baseline қосылды.
+
+`GET /api/v1/contracts/:contractId/evidence-summary` contract versions/signatures, funding evidence/confirmations, schedule, payments/evidence, ledger, dispute және closure coverage-тың aggregate metadata-сын береді.
+
+`POST /api/v1/contracts/:contractId/evidence-package` тек Contract `COMPLETED` және ClosureCertificate бар кезде бір package жасайды; repeated call existing package-ті қайтарады. Package `schemaVersion=1`, canonical JSON manifest және SHA-256 `manifestHash` сақтайды. Contract row lock + unique contract/certificate constraints concurrent duplicate creation-ды тежейді.
+
+Manifest contract/signature hashes, funding/payment evidence SHA-256, confirmation roles/decisions, schedules, allocations, ledger, dispute status, closure confirmation/certificate және privacy-safe contract audit action/timestamp timeline-ын snapshot етеді. Storage object key, signed URL, contact/identity, confirmation reasons, dispute description, ledger metadata және audit actor ID кірмейді. Participant party IDs manifest ішінде BORROWER/LENDER role labels-пен алмастырылады.
+
+Canonical serialization object keys-ті deterministic lexical order-мен жазады және database arrays unique business order немесе timestamp+ID secondary order арқылы тұрақтандырылған. Privacy regression test storage/reason/description/audit actor secrets manifest-ке өтпейтінін бекітеді.
+
+QaryzLinkFront PR #40 merged at `e992bb1`: contract detail Evidence Summary panel coverage counts, dispute/closure күйі және package metadata көрсетеді. Closure completed болғанда user immutable manifest жасай алады; UI raw manifest-ті әдейі discard етеді және тек schema version/hash/createdAt көрсетеді.
+
+Толық contract: [Evidence summary and immutable manifest](../01-business/EVIDENCE_SUMMARY.md).
+
+Бұл Phase 2 baseline court-ready PDF/ZIP export емес. PDF/ZIP, selected raw evidence binaries, manifest signing, trusted timestamp және jurisdiction-specific export Phase 4 Trust & Evidence scope-ында қалады.
+
+Backend PR #164 соңғы quality run және Front PR #40 quality run GitHub Actions quota/billing gate салдарынан 0 step орындады. Сондықтан automated Prisma/typecheck/lint/test/build verification pending және quota қалпына келгенде қайта жүргізілуі керек.
