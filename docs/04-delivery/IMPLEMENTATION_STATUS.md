@@ -599,3 +599,11 @@ QaryzLinkBack PR #159 merged at `979d8ce`: authenticated user latest 50 active s
 QaryzLinkFront PR #35 merged at `3625f49`: Settings security card active session list және per-session revoke control алды. Current session revoke кезінде local sessionStorage тазаланып login-ге redirect болады. Front exact session response schema-ны ғана қабылдайды; unexpected IP/device/user-agent тәрізді tracking fields fail-closed reject етіледі.
 
 Automated verification GitHub Actions free-quota/billing gate салдарынан pending.
+
+## Authenticated password change — 2026-09-27
+
+QaryzLinkBack PR #160 merged at `ea6b1be`: authenticated `POST /api/v1/auth/password/change` current password-ты тексереді, existing password policy-ді қолданады және current password reuse-қа тыйым салады. Sensitive mutation transaction current session әлі active екенін қайта тексереді; success кезінде password atomically жаңарып, барлық active session revoke болады, outstanding password-reset challenge жойылады және PII-free `PASSWORD_CHANGED` audit event тек aggregate revoked-session count сақтайды.
+
+QaryzLinkFront PR #36 merged at `7a0df68`: Settings ішінде current/new/confirm password security card қосылды. Success кезінде local sessionStorage тазаланып login-ге redirect болады; current-password, policy және expired-session errors privacy-safe UI хабарламаларымен өңделеді.
+
+Automated verification GitHub Actions free-quota/billing gate салдарынан pending.
