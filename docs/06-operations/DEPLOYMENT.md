@@ -77,6 +77,7 @@ Command HTTP server ашпайды. Алдымен grace/retention hold қайт
 | REDIS_URL | Startup schema талап ететін URL |
 | JWT_ACCESS_SECRET | Кемінде 32 таңбалық криптографиялық кездейсоқ secret; replica-ларда бірдей |
 | MAIL_ENABLED | Алғашқы іске қосуда false |
+| PASSWORD_RESET_URL | MAIL_ENABLED=true кезінде HTTPS Front `/reset-password` URL |
 | NOTIFICATION_BATCH_SIZE | 1–100, әдепкісі 50 |
 | METRICS_ACCESS_TOKEN | Staging/production-та кемінде 32 таңба; metrics endpoint header token |
 | EVIDENCE_STORAGE_ENABLED | Private evidence storage feature gate; staging/production ғана, [runbook](EVIDENCE_STORAGE.md) талаптарынсыз қоспау |
