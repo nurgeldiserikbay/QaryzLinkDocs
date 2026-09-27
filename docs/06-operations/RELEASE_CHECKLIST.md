@@ -77,6 +77,7 @@
 - [ ] Terms, privacy notice және сақтау мерзімдері тексерілген.
 - [ ] Public marketplace, penalty және amount-based commission false.
 - [x] Participant-only neutral dispute intake/read backend + Front contract panel.
+- [x] Dispute open counterparty durable IN_APP notification + Front inbox label.
 - [x] Support, incident және dispute procedures құжатталған; нақты owner/channel pilot алдында бекітіледі.
 - [ ] Support/admin dispute status transition workflow — actual support owner/process бекітілгеннен кейін.
 - [ ] Жоба иесі staging acceptance нәтижесін көрген.
