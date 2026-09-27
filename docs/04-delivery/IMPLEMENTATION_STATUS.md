@@ -13,7 +13,7 @@
 | IAM | Базалық нұсқа дайын | Register, login, refresh token rotation, current-session logout, email verification |
 | Profile, privacy және deletion request | Базалық нұсқа дайын | Өз профилін/ privacy баптауларын басқару және retention-aware account deletion request жіберу |
 | Database migration | Дайын | Бастапқы schema versioned SQL migration ретінде бекітілді |
-| Discovery | Private slice дайын + Phase 3 dark foundation | Private request/invite/proposal/acceptance; default-off public lender offer create/cancel/privacy-safe browse қосылды |
+| Discovery | Private slice дайын + Phase 3 dark foundation | Private request/invite/proposal/acceptance; default-off public lender offer create/cancel/browse + borrower application → concrete Proposal қосылды |
 | Contract draft/signing | Дайын | Accepted proposal-дан immutable ContractVersion v1, privacy-safe read, dual hash acknowledgement |
 | Funding evidence/confirmation | Backend + storage adapter baseline дайын, operational rollout толық емес | Single-use intent, S3-compatible signed PUT/GET, HEAD verification, trusted malware verdict registry, quarantine/orphan cleanup және aggregate metrics бар; external scanner, staging acceptance және retention policy қалды |
 | Schedule generation | Дайын | ACTIVE + CONFIRMED guard, ACT/365 Fixed + HALF_UP, versioned inputHash |
@@ -750,3 +750,22 @@ Environment default-та `PUBLIC_MARKETPLACE_ENABLED=false`. Release preflight-�
 PR #167 workflow run `36335973418` quality job құрғанымен GitHub Actions quota/billing gate салдарынан 0 step орындады. Automated PostgreSQL/typecheck/lint/build evidence pending.
 
 Толық contract: [Public lender offers](../01-business/PUBLIC_LENDER_OFFERS.md).
+
+
+## Phase 3 public offer applications — 2026-09-27
+
+QaryzLinkBack PR #168 merged at `49dfd02`.
+
+New `OfferApplication` lifecycle public LoanOffer мен existing exact borrower LoanRequest арасында versioned bridge береді. Application immutable identity-free offer snapshot сақтайды. Lender ACCEPT current mutable offer terms-ін емес, application snapshot-ын қолданып concrete Proposal жасайды; Contract автоматты түрде жасалмайды. Borrower Proposal-ды existing explicit decision flow арқылы кейін бөлек ACCEPT етеді.
+
+Participant inbox borrower/lender role, financial request metadata, offer snapshot, status және optional proposalId ғана шығарады; userId/partyId/publicId/displayName/email/phone response-қа кірмейді. Block state application create және lender ACCEPT алдында қайта тексеріледі. Daily application quota concurrent commands кезінде serialized.
+
+Offer cancellation pending applications-ды SUPERSEDED етеді; borrower бір Proposal-ды қабылдағанда rival PENDING/ACCEPTED applications SUPERSEDED болады. Winning application ACCEPTED history ретінде қалады.
+
+Migration: `20260927193000_offer_applications`. Config: `MAX_OUTGOING_APPLICATIONS_PER_DAY` default 10.
+
+PR #168 workflow run `36336963501` GitHub Actions quota/billing gate салдарынан quality job құрғанымен 0 step орындады. Automated Prisma/typecheck/lint/PostgreSQL/build evidence pending.
+
+Feature `PUBLIC_MARKETPLACE_ENABLED=false` gate артында қалады және release preflight enabled marketplace-ті legal approval-ға дейін fail етеді.
+
+Толық contract: [Public offer applications](../01-business/PUBLIC_OFFER_APPLICATIONS.md).
