@@ -67,6 +67,7 @@
 - [ ] Нақты SMTP delivery және пайдаланушының email растау flow-ы.
 - [x] Password reset backend/Front flow: enumeration-safe request, one-time token, session revoke, HTTPS reset URL және retention cleanup.
 - [x] Self-service logout-all sessions backend + Front security control + audit.
+- [x] Authenticated current-password-confirmed password change backend + Front flow; success revokes all sessions.
 - [x] Privacy-safe active session inventory + selective owned-session revoke backend/Front controls.
 - [ ] Password reset нақты SMTP inbox delivery және browser acceptance.
 - [x] Production dependency high/critical audit gate Back/Front/Admin CI ішінде.
