@@ -19,6 +19,7 @@ QaryzLink — Қазақстандағы жеке тұлғалар арасын�
 | [Business logic](docs/01-business/BUSINESS_LOGIC.md) | Ұсыныс, matching, шарт, қаржыландыру және өтеу |
 | [Private discovery](docs/01-business/PRIVATE_DISCOVERY.md) | Іске асқан шақыру және proposal сценарийі |
 | [Public lender offers](docs/01-business/PUBLIC_LENDER_OFFERS.md) | Phase 3 default-off public offer publication/browse foundation |
+| [Public offer applications](docs/01-business/PUBLIC_OFFER_APPLICATIONS.md) | Borrower application → lender concrete proposal lifecycle |
 | [Contract signing](docs/01-business/CONTRACT_SIGNING.md) | Immutable contract және dual acknowledgement |
 | [Funding evidence](docs/01-business/FUNDING_EVIDENCE.md) | Төлем дәлелі және borrower confirmation |
 | [Repayment schedule](docs/01-business/REPAYMENT_SCHEDULE.md) | Детерминистік өтеу кестесі және есептеу саясаты |

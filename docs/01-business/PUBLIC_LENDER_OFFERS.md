@@ -110,8 +110,7 @@ Release preflight-та public marketplace true болса `restricted_financial_
 - ranking/recommendation;
 - lender public profile;
 - verification badges;
-- borrower application;
-- offer-linked proposal;
+- automatic matching/ranking;
 - negotiation versions;
 - pause/resume;
 - moderation queue;
@@ -120,16 +119,8 @@ Release preflight-та public marketplace true болса `restricted_financial_
 - Front UI;
 - Admin UI.
 
-## Next safe slice
+## Application slice
 
-Legal gate-ті ашпай-ақ кодпен жалғастыруға болатын келесі backend work:
+Borrower application → lender concrete Proposal flow енді [Public offer applications](PUBLIC_OFFER_APPLICATIONS.md) ішінде іске асқан.
 
-1. borrower application to a public offer;
-2. application owner/offer owner isolation;
-3. immutable lender terms snapshot;
-4. application → lender concrete proposal;
-5. no lender identity leak before allowed disclosure;
-6. notifications/outbox metadata;
-7. all endpoints same default-off marketplace gate.
-
-Open/public matching recommendation/search ranking legal classification-тан кейін ғана production enablement алады.
+Келесі safe backend work notification/outbox metadata, offer versioning және explainable matching foundation болып қалады. Open/public matching recommendation/search ranking legal classification-тан кейін ғана production enablement алады.

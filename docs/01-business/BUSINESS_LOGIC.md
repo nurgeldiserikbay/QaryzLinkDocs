@@ -311,3 +311,5 @@ Dispute түрлері:
 ## Public lender offer implementation boundary
 
 [Public lender offers](PUBLIC_LENDER_OFFERS.md) Phase 3-тің алғашқы default-off backend slice-ын сипаттайды. Offer publication және privacy-safe browse коды бар, бірақ `PUBLIC_MARKETPLACE_ENABLED=false` әдепкі күйде және deployed release preflight marketplace enablement-ті legal gate өтпейінше fail етеді.
+
+[Public offer applications](PUBLIC_OFFER_APPLICATIONS.md) borrower exact request-ті public offer-ге application ретінде байланыстырады. Lender ACCEPT concrete Proposal ғана жасайды; borrower кейін сол Proposal-ды бөлек explicit ACCEPT етеді. Application offer terms-ті immutable snapshot ретінде сақтайды.
