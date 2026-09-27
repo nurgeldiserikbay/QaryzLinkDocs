@@ -61,6 +61,17 @@ pnpm build
 pnpm notifications:run
 ~~~
 
-Команда `AppModule`-ды application context ретінде іске қосып, `NOTIFICATION_BATCH_SIZE` арқылы бір batch dispatch етеді. Тек aggregate counters логталады; bootstrap немесе күтпеген scheduler қатесі non-zero exit code береді. Dispatch-level provider қатесі outbox retry/FAILED policy ішінде қалады.
+Команда `AppModule`-ды application context ретінде іске қосып, алдымен due/overdue status materialization және repayment reminder intent generation орындайды, содан кейін `NOTIFICATION_BATCH_SIZE` арқылы бір outbox batch dispatch етеді. Тек aggregate counters логталады; bootstrap немесе күтпеген scheduler қатесі non-zero exit code береді. Dispatch-level provider қатесі outbox retry/FAILED policy ішінде қалады.
 
 Қазіргі default `UnavailableNotificationAdapter` fail-closed. Нақты SMTP немесе push adapter бөлек provider gate болып қалады; бұл command тек scheduler trigger boundary береді.
+
+
+## Reminder preparation
+
+`pnpm notifications:run` runtime boundary-де delivery алдында:
+
+1. `OverdueWorker.run()` арқылы due/overdue status-тарды materialize етеді;
+2. `RepaymentReminderWorker.run()` арқылы latest schedule item-дерден idempotent `REPAYMENT_DUE` / `REPAYMENT_OVERDUE` intents жасайды;
+3. содан кейін `NotificationSchedulerService.runOnce()` outbox rows-ты claim/deliver етеді.
+
+Reminder preparation retry-safe: stable outbox idempotency keys duplicate notifications-ды басады.
