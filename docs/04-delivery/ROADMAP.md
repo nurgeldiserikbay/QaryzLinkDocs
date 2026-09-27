@@ -112,6 +112,8 @@ flowchart LR
 - balances replay deterministically;
 - KZ/RU full journey.
 
+2026-09-27: backend critical lifecycle + tenant-isolation PostgreSQL harness implementation-ы дайын. GitHub Actions quota/billing gate салдарынан current commit үшін successful runner execution әлі жоқ, сондықтан `critical E2E flows green` және `no cross-user data leak` exit criteria formal түрде жабылған жоқ. Full KZ/RU browser journey де pending. Толық acceptance: [Phase 2 critical E2E](PHASE2_CRITICAL_E2E.md).
+
 ## Phase 3 — Offers және Matching
 
 - LenderOffer;
