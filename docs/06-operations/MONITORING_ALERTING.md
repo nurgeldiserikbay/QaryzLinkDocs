@@ -16,6 +16,7 @@
 - `/api/v1/metrics/pii-migration` — encrypted-storage migration backlog;
 - `/api/v1/metrics/pii-key-rotation` — old-key ciphertext backlog;
 - `/api/v1/metrics/audit` — privacy-safe audit aggregate.
+- `/api/v1/metrics/disputes` — dispute lifecycle status counts және oldest active age.
 
 Metrics endpoint-тер public internet-ке шығарылмайды. Collector server-side `METRICS_ACCESS_TOKEN` қолданады; browser/client бұл token-ді алмайды.
 
@@ -32,6 +33,7 @@ Metrics endpoint-тер public internet-ке шығарылмайды. Collector
 | auth retention | expired verification/rate-limit backlog persists across cleanup windows | warning |
 | PII migration | encrypted cutover requested while backlog > 0 | critical/block release |
 | key rotation | old-key backlog remains before planned key retirement | critical/block retirement |
+| disputes | active backlog persists немесе oldest active age operational target-тен асады | warning; support escalation policy-ге байланысты |
 | backup/restore | scheduled backup missing or restore rehearsal overdue | critical for release |
 
 ## 3. Threshold ownership
