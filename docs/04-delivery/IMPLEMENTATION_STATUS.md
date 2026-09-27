@@ -21,8 +21,8 @@
 | Overdue status worker | Дайын | UTC due/overdue materialization, ACTIVE + CONFIRMED guard, idempotent transaction |
 | Repayment reminders | Дайын | Latest schedule due/overdue borrower reminders, per-event/channel idempotency, IN_APP + email preference boundary |
 | Payment reversal | Дайын | Lender-authorized immutable reversal, signed allocation restore және opposite ledger entries |
-| Contract closure | Дайын | Zero-balance readiness, dual final-statement confirmation, stale-hash guard және immutable closure certificate |
-| Notifications/outbox | Базалық slice дайын | Payment/dispute және REPAYMENT_DUE/REPAYMENT_OVERDUE оқиғалары, privacy-safe payload және idempotent outbox |
+| Contract closure | Дайын | Zero-balance readiness, dual final-statement confirmation, stale-hash guard, immutable closure certificate және lifecycle notifications |
+| Notifications/outbox | Базалық slice дайын | Payment/dispute/repayment және closure lifecycle оқиғалары, privacy-safe payload және idempotent outbox |
 | Notification claim/retry worker | Базалық slice дайын | SKIP LOCKED claim, 5 минут lease, exponential retry және terminal FAILED |
 | Delivery adapter boundary | Базалық slice дайын | Provider-neutral port, dispatch service және safe unavailable default |
 | Notification recipient resolution | Базалық slice дайын | Party ID → in-app ID or active verified email, no PII in outbox |
@@ -637,3 +637,16 @@ QaryzLinkFront PR #38 merged at `22b5826`: metadata-only inbox `REPAYMENT_DUE`, 
 Толық contract: [Repayment reminders](../01-business/REPAYMENT_REMINDERS.md).
 
 Backend PR #162 және Front PR #38 workflow run-дары GitHub Actions quota/billing gate салдарынан runner step-теріне жетпей failure болды: quality jobs 0 step орындады. Бұл code/test failure емес; quota қалпына келгенде automated quality verification қайта іске қосылуы керек.
+
+
+## Closure lifecycle notifications — 2026-09-27
+
+QaryzLinkBack PR #163 merged at `7158fb5`: `CONTRACT_CLOSURE_READY` және `CONTRACT_COMPLETED` notification events қосылды.
+
+Ready-to-close notification GET endpoint side effect-і емес. Existing notification runtime бұрын readiness intent алмаған ACTIVE + CONFIRMED candidate contracts-ты bounded 500-row scan арқылы қарайды, full closure guards-ты қайта есептейді және eligible contract үшін borrower/lender-ға IN_APP + preference-controlled EMAIL intents жасайды. Бір explicit closure confirmation да дәл сол readiness intents-ті idempotent түрде қамтамасыз етеді, сондықтан counterparty scheduler run-ды күтпейді.
+
+Completion кезінде Contract `COMPLETED`, immutable ClosureCertificate, audit event және екі тарапқа completion notification intents бір transaction ішінде жазылады. Payload readiness үшін contractId/status, completion үшін contractId/certificateId/status metadata-мен шектеледі; amount, contact, bank/evidence немесе dispute content outbox-қа қосылмайды.
+
+QaryzLinkFront PR #39 merged at `7c872e3`: metadata-only inbox жаңа closure event-терді `Қарызды жабуды растауға болады` және `Қарыз жабылды` label-дарымен көрсетеді.
+
+Backend PR #163 және Front PR #39 GitHub Actions quality jobs quota/billing gate салдарынан runner step-теріне жетпей failure болды: екі job та 0 step орындады. Бұл code/test failure емес; automated quality verification quota қалпына келгенде қайта орындалуы тиіс.
