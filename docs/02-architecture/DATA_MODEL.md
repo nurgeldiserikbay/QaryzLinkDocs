@@ -517,3 +517,29 @@ erDiagram
 ~~~
 
 `request_invitations(requestId,lenderPartyId)` unique; `discovery_commands(userId,key)` composite primary key; `proposals(requestId)` partial unique accepted index. Receipt және mutation бір transaction-да орындалады.
+
+
+## Current EvidencePackage implementation mapping — 2026-09-27
+
+Phase 2 implementation conceptual document/storage model-дің толық Phase 4 нұсқасын күтпей, completed contract үшін privacy-safe immutable manifest baseline қосты.
+
+~~~mermaid
+erDiagram
+    CONTRACTS ||--o| CLOSURE_CERTIFICATES : closes_with
+    CONTRACTS ||--o| EVIDENCE_PACKAGES : freezes
+    CLOSURE_CERTIFICATES ||--o| EVIDENCE_PACKAGES : anchors
+~~~
+
+Prisma `EvidencePackage`:
+
+- `id` UUID primary key;
+- `contractId` unique FK;
+- `closureCertificateId` unique FK;
+- `schemaVersion`;
+- `manifest` JSONB;
+- `manifestHash` unique SHA-256;
+- `createdAt`.
+
+Бір contract үшін бір immutable package invariant database unique constraint-пен бекітіледі. Бұл table raw evidence binary немесе storage key сақтамайды; manifest тек verifiable metadata/hashes және participant role labels snapshot-ын ұстайды.
+
+Толық PDF/ZIP evidence container, manifest signing және trusted timestamp Phase 4 data model extension болып қалады.

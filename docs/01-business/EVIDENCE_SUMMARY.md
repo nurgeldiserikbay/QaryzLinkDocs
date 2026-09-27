@@ -1,0 +1,176 @@
+# Evidence summary and immutable manifest
+
+Бұл құжат Phase 2 Private Debt MVP ішіндегі evidence summary baseline-ды сипаттайды.
+
+Мақсат — contract history-дің қандай дәлелдері барын participant-ке түсінікті көрсету және қарыз толық жабылғаннан кейін сол күйдің verifiable immutable JSON manifest snapshot-ын бекіту.
+
+Бұл baseline **court-ready evidence package, PDF/ZIP export немесе trusted timestamp емес**. Олар Phase 4 Trust & Evidence scope-ында қалады.
+
+## Екі бөлек ұғым
+
+### Live evidence summary
+
+`GET /api/v1/contracts/:contractId/evidence-summary` ағымдағы participant-visible coverage metadata қайтарады:
+
+- contract version саны;
+- signature саны;
+- funding status/evidence/confirmation counts;
+- schedule version/item counts;
+- payment totals, confirmed/reversed counts және payment evidence count;
+- ledger entry count;
+- dispute бар/жоқ және status;
+- closure certificate metadata;
+- immutable package бұрын жасалған болса оның id/schema/hash/createdAt metadata-сы.
+
+Summary immutable емес: contract lifecycle жалғасқан сайын оның count/status мәндері өзгеруі мүмкін.
+
+### Immutable evidence manifest
+
+`POST /api/v1/contracts/:contractId/evidence-package` тек мына кезде package жасайды:
+
+1. caller contract borrower немесе lender participant;
+2. Contract `COMPLETED`;
+3. ClosureCertificate бар.
+
+Бір contract үшін бір ғана `EvidencePackage` жасалады. Қайталанған POST existing package-ті қайтарады.
+
+`GET /api/v1/contracts/:contractId/evidence-package` бұрын жасалған immutable manifest-ті participant-ке қайтарады.
+
+## Manifest schema v1
+
+Manifest мыналарды snapshot ретінде сақтайды:
+
+- Contract ID/status/currency/principal және lifecycle timestamps;
+- барлық ContractVersion metadata;
+- signature method, role, signed payload hash және timestamp;
+- Funding status/amount және funding evidence SHA-256/media type;
+- funding confirmation role/decision/timestamp;
+- барлық ScheduleVersion input hash/policy version және item financial state;
+- payments, reversal linkage, evidence SHA-256, confirmation role/decision және allocations;
+- ledger sequence/direction/account/amount/currency/effective time;
+- dispute ID/status/opener role және timestamps;
+- closure confirmations;
+- ClosureCertificate hashes және aggregate totals;
+- contract-scoped audit timeline-нан action + timestamp.
+
+Party database ID manifest ішінде participant role-ға (`BORROWER`, `LENDER`) алмастырылады.
+
+## Әдейі кірмейтін деректер
+
+Manifest пен summary-ға:
+
+- evidence storage `objectKey`;
+- signed download URL;
+- email/phone;
+- ЖСН/БСН немесе identity document;
+- raw receipt/document bytes;
+- funding/payment confirmation reason;
+- dispute description;
+- ledger metadata JSON;
+- audit actor user ID;
+- password/token/session data
+
+кірмейді.
+
+Бұл boundary evidence package-ті PII dump-қа айналдырмау үшін бекітілген.
+
+## Hash және deterministic serialization
+
+Manifest hash SHA-256 арқылы canonical JSON-нан есептеледі.
+
+Canonicalization:
+
+- object key-лері lexical deterministic order-мен жазылады;
+- array order business/source order арқылы алдын ала deterministic жасалады;
+- BigInt financial values decimal string ретінде беріледі;
+- Date values ISO-8601 UTC string ретінде беріледі;
+- nullable values explicit `null`.
+
+Database list query-лерінде unique business order немесе timestamp + ID secondary order қолданылады.
+
+Сондықтан бір snapshot-тың field insertion order-ы өзгерсе де hash өзгермеуі тиіс; evidence truth өзгерсе hash өзгереді.
+
+## Persistence
+
+~~~mermaid
+erDiagram
+    CONTRACTS ||--o| CLOSURE_CERTIFICATES : closes_with
+    CONTRACTS ||--o| EVIDENCE_PACKAGES : freezes
+    CLOSURE_CERTIFICATES ||--o| EVIDENCE_PACKAGES : anchors
+
+    EVIDENCE_PACKAGES {
+      uuid id PK
+      uuid contractId UK
+      uuid closureCertificateId UK
+      int schemaVersion
+      jsonb manifest
+      char64 manifestHash UK
+      datetime createdAt
+    }
+~~~
+
+Contract row lock package creation race-ін serialize етеді. Unique `contractId` және `closureCertificateId` constraints бір final package invariant-ын бекітеді.
+
+Package жасалғаннан кейін manifest қайта есептеліп overwrite болмайды.
+
+## Audit
+
+Package алғаш жасалғанда:
+
+- action: `EVIDENCE_PACKAGE_CREATED`;
+- entity: Contract;
+- payload: `schemaVersion` + `manifestHash`
+
+ғана audit-ке жазылады.
+
+Manifest content audit payload-қа көшірілмейді.
+
+## Frontend boundary
+
+Contract detail ішіндегі Evidence Summary panel:
+
+- aggregate evidence coverage көрсетеді;
+- package creation тек closure completed болғанда ұсынады;
+- package жасалғаннан кейін schema version, manifest hash және created timestamp көрсетеді;
+- API create response-та келген raw manifest-ті UI helper әдейі discard етеді.
+
+Frontend storage key, raw evidence, identity/contact немесе manifest contents көрсетпейді.
+
+## Нені дәлелдейді және нені дәлелдемейді
+
+Manifest:
+
+- QaryzLink database state-інің белгілі бір completed contract үшін қандай evidence metadata snapshot-ын бекіткенін;
+- included document/evidence hashes-ты;
+- contract/signature/payment/ledger/closure records арасындағы байланыс metadata-сын
+
+тексеруге негіз береді.
+
+Manifest өздігінен:
+
+- құжаттың заңдық күшіне;
+- signer identity assurance деңгейіне;
+- файлдың сотта admissibility-іне;
+- сыртқы timestamp authority-ге;
+- нотариалдық куәландыруға
+
+кепілдік бермейді.
+
+## Phase 4 evolution
+
+Trust & Evidence кезеңінде осы manifest baseline үстіне:
+
+- contract rendered PDF;
+- selected evidence binaries;
+- manifest JSON;
+- manifest signature;
+- trusted timestamp;
+- ZIP container;
+- export audit;
+- retention/legal-hold policy;
+- identity/KYC assurance references;
+- jurisdiction-specific legal wording
+
+қосылуы мүмкін.
+
+Phase 4 export жаңа versioned package format болуы тиіс; Phase 2 `schemaVersion: 1` manifest үнсіз өзгертілмейді.
