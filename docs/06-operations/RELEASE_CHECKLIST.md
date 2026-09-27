@@ -37,8 +37,8 @@
 - [x] Privacy-safe notification delivery metrics backend slice.
 - [x] Metrics endpoint token protection backend slice.
 - [x] Notification scheduler Kubernetes CronJob deployment contract.
-- [x] Durable IN_APP delivery + authenticated latest-50 inbox backend.
-- [x] Front read-only private notifications inbox.
+- [x] Durable IN_APP delivery + authenticated latest-50 inbox backend + ownership-safe read/unread state.
+- [x] Front private notifications inbox + unread count/mark-read UX.
 - [ ] Нақты SMTP/push provider және queue trigger.
 - [x] Provider-neutral monitoring/alert signal contract (`MONITORING_ALERTING.md`).
 - [ ] External collector/provider, tuned thresholds, paging және escalation acceptance.

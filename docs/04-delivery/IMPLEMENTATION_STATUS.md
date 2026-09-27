@@ -531,3 +531,11 @@ QaryzLinkBack PR #148 merged at `0c9a08a`: dispute case ашылған тран�
 QaryzLinkFront PR #27 merged at `cc3fbdc`: notifications inbox `DISPUTE_OPENED` event-ін `Дау ашылды` label-ымен көрсетеді және empty-state dispute events-ті түсіндіреді.
 
 Automated verification GitHub Actions free-quota/billing gate салдарынан pending.
+
+## In-app notification read state — 2026-09-27
+
+QaryzLinkBack PR #149 merged at `a017317`: `notification_outbox` үшін nullable `readAt` қосылды. Authenticated user тек өзінің SENT/IN_APP notification row-ын idempotent mark-read ете алады; non-owned және missing row бірдей generic 404 boundary қолданады. Inbox response metadata-only болып қалады және payload/contact data шығармайды.
+
+QaryzLinkFront PR #28 merged at `bbfdcff`: private notifications inbox unread count, unread visual state және explicit `Оқылды` action алды. 401 auth-required state-ке қайтады, басқа error privacy-safe generic UI күйінде қалады.
+
+Automated verification GitHub Actions free-quota/billing gate салдарынан pending.
