@@ -157,7 +157,7 @@ stateDiagram-v2
 | Contract → Signed | Барлық required party нақты hash-қа қол қойған |
 | Signed → Active | Funding CONFIRMED |
 | Payment → Confirmed | Counterparty немесе trusted provider растады |
-| Active → Completed | Outstanding confirmed balance = 0 және unresolved dispute жоқ |
+| Active → Completed | Funding CONFIRMED, schedule outstanding = 0, unresolved payment/dispute және unallocated credit жоқ, екі тарап бірдей final statement hash-ті растаған |
 | Consent → Revoked | Future access тоқтайды; legal retention бөлек бағаланады |
 
 
@@ -189,3 +189,10 @@ QaryzLinkBack-та lender CONFIRMED repayment үшін ғана POST /api/v1/pay
 ## Notification implementation mapping
 
 Payment CONFIRMED немесе REVERSED болғанда QaryzLinkBack сол database transaction ішінде екі тарапқа IN_APP NotificationOutbox intent жазады. Event payload тек payment/contract/reversal идентификаторлары мен status metadata-дан тұрады; email, телефон, құжат немесе банк деректері сақталмайды. Unique idempotencyKey duplicate intent-ті басады. Outbox persistence, claim/retry worker, provider-neutral dispatch boundary және one-shot scheduler/orchestrator дайын; default adapter fail-closed, ал нақты provider delivery мен deployment scheduler кейінгі кезеңде орындалады.
+
+
+## Contract closure implementation mapping
+
+QaryzLinkBack-та participant-only `GET /api/v1/contracts/:contractId/closure` current financial truth-тен deterministic final statement hash есептейді. Closure ready болуы үшін Contract ACTIVE, Funding CONFIRMED, latest schedule бойынша outstanding 0, unresolved payment/dispute және unallocated credit болмауы керек.
+
+Borrower және lender `POST /api/v1/contracts/:contractId/closure/confirm` арқылы дәл сол statement hash-ті бөлек растайды. Confirmation transaction contract row-ды lock етеді және snapshot-ты қайта тексереді. Екінші distinct party сол hash-ті растағанда Contract COMPLETED болып, immutable ClosureCertificate жасалады. Бірінші confirmation-нан кейін financial truth өзгерсе stale hash completion жасай алмайды.
