@@ -219,9 +219,24 @@ Application state mutation және outbox enqueue бір database transaction �
 
 Front inbox metadata-only event/target labels-ты KZ/RU көрсетеді; raw payload Front-қа шығарылмайды.
 
+## Front application workspace
+
+QaryzLinkFront PR #45 application lifecycle-ды `/dashboard/marketplace` ішінде KZ/RU көрсетеді.
+
+- borrower өзінің ACTIVE private request-ін compatible public offer-ға application ретінде жібереді;
+- request selector offer amount/term range-іне сәйкес request-терді ғана ұсынады;
+- lender participant inbox-та PENDING application-ды ACCEPT/REJECT етеді;
+- borrower PENDING application-ды WITHDRAW етеді;
+- accepted application үшін optional proposalId көрсетіледі;
+- immutable offer snapshot UI алдында supported terms fields-ке narrow жасалады;
+- identity/contact fields render path-қа кірмейді;
+- unverified active participant safe REJECT/WITHDRAW/offer cancel әрекеттерін жоғалтпайды;
+- lender ACCEPT және жаңа browse/publish verification талап етеді.
+
+Front application action backend idempotency key contract-ын сақтайды. Backend ownership, block, expiry және snapshot guards authoritative болып қалады.
+
 ## Кейінгі Phase 3 жұмыстар
 
-- Front KZ/RU dark UI;
 - offer pause/versioning;
 - borrower request public visibility;
 - negotiation versions;

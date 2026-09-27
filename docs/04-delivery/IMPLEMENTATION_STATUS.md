@@ -13,7 +13,7 @@
 | IAM | Базалық нұсқа дайын | Register, login, refresh token rotation, current-session logout, email verification |
 | Profile, privacy және deletion request | Базалық нұсқа дайын | Өз профилін/ privacy баптауларын басқару және retention-aware account deletion request жіберу |
 | Database migration | Дайын | Бастапқы schema versioned SQL migration ретінде бекітілді |
-| Discovery | Private slice дайын + Phase 3 dark foundation | Private request/invite/proposal/acceptance; default-off public lender offer create/cancel/browse + borrower application → concrete Proposal қосылды |
+| Discovery | Private slice дайын + Phase 3 dark workspace | Private request/invite/proposal/acceptance; default-off public lender offer create/cancel/browse + borrower application → concrete Proposal + KZ/RU marketplace workspace қосылды |
 | Contract draft/signing | Дайын | Accepted proposal-дан immutable ContractVersion v1, privacy-safe read, dual hash acknowledgement |
 | Funding evidence/confirmation | Backend + storage adapter baseline дайын, operational rollout толық емес | Single-use intent, S3-compatible signed PUT/GET, HEAD verification, trusted malware verdict registry, quarantine/orphan cleanup және aggregate metrics бар; external scanner, staging acceptance және retention policy қалды |
 | Schedule generation | Дайын | ACTIVE + CONFIRMED guard, ACT/365 Fixed + HALF_UP, versioned inputHash |
@@ -785,3 +785,38 @@ Payload тек applicationId, offerId, requestId және status сақтайд�
 QaryzLinkFront PR #44 merged at `cbc0eaf`: inbox KZ/RU режимінде осы төрт event пен OFFER_APPLICATION target label-ын көрсетеді. Front raw outbox payload-ты әлі оқымайды.
 
 Backend PR #169 workflow run `36337328028` және Front PR #44 run `36337396219` Actions quota/billing gate салдарынан quality job құрғанымен 0 step орындады. Automated verification pending.
+
+
+## Phase 3 marketplace Front workspace — 2026-09-27
+
+QaryzLinkFront PR #45 merged at `bbd07ec`.
+
+`/dashboard/marketplace` default-off Phase 3 workspace қосылды:
+
+- Dashboard navigation-та KZ/RU Marketplace link;
+- verified lender bounded public offer create;
+- own offer list және safe ACTIVE offer cancel;
+- expired own offer effective presentation;
+- verified borrower identity-free public offer browse;
+- offer amount/term range-іне сәйкес ACTIVE private requests ғана application selector-да көрсетіледі;
+- borrower application create;
+- participant application inbox;
+- lender ACCEPT/REJECT және borrower WITHDRAW;
+- optional proposalId presentation;
+- responsive 390px mobile layout;
+- KZ/RU marketplace catalog exact parity.
+
+Privacy boundary:
+
+- public offer UI lender userId/partyId/publicId/displayName/email/phone алмайды және көрсетпейді;
+- application UI borrower/lender identity fields көрсетпейді;
+- opaque offer snapshot supported financial term fields-ке narrow жасалады;
+- Front filtering UX ғана; backend ownership/range/block/expiry guards authoritative.
+
+Verification-loss boundary backend contract-пен сәйкестендірілді: unverified active user жаңа publish/browse немесе lender ACCEPT жасай алмайды, бірақ existing own offer cancel және safe application REJECT/WITHDRAW actions workspace-та жоғалмайды.
+
+PR #45 сонымен бірге бұрынғы Front compatibility bug-ты түзетті: Backend `GET /discovery/requests` `{ items, nextCursor }` pagination shape қайтарады, ал Front raw array күтетін. `listDiscoveryRequests()` енді `page.items` unwrap етеді; Dashboard пен marketplace request selection current Backend contract-пен сәйкес.
+
+Front PR #45 workflow run `36340201581` quality job құрғанымен GitHub Actions quota/billing gate салдарынан 0 step орындады. Сондықтан typecheck/lint/unit/build/browser automated evidence pending.
+
+Feature әлі `PUBLIC_MARKETPLACE_ENABLED=false` default gate артында. Release preflight deployed marketplace enablement-ті legal approval-ға дейін `fail` етеді. Front implementation бұл gate-ті айналып өтпейді.

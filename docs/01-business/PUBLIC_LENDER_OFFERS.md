@@ -1,8 +1,8 @@
 # Public lender offer foundation
 
-Бұл құжат Phase 3 Offers & Matching кезеңінің алғашқы backend slice-ын сипаттайды.
+Бұл құжат Phase 3 Offers & Matching кезеңінің public lender offer foundation-ын, application bridge-ін және default-off Front workspace-ын сипаттайды.
 
-2026-09-27 күйі: lender public offer publication/browse/cancel backend implementation-ы бар, бірақ **PUBLIC_MARKETPLACE_ENABLED=false** әдепкі күйде және current release preflight deployed environment үшін бұл flag true болса `fail` береді. Сондықтан feature production/staging-та legal gate өтпейінше қосылмайды.
+2026-09-27 күйі: lender public offer publication/browse/cancel backend implementation-ы және KZ/RU Front marketplace workspace бар. Бірақ **PUBLIC_MARKETPLACE_ENABLED=false** әдепкі күйде және current release preflight deployed environment үшін бұл flag true болса `fail` береді. Сондықтан UI кодының болуы production/staging launch рұқсаты емес.
 
 ## Қазіргі scope
 
@@ -115,12 +115,55 @@ Release preflight-та public marketplace true болса `restricted_financial_
 - pause/resume;
 - moderation queue;
 - spam reputation;
-- notifications;
-- Front UI;
-- Admin UI.
+- offer lifecycle email notifications;
+- Admin moderation UI.
 
 ## Application slice
 
 Borrower application → lender concrete Proposal flow енді [Public offer applications](PUBLIC_OFFER_APPLICATIONS.md) ішінде іске асқан.
 
 Келесі safe backend work notification/outbox metadata, offer versioning және explainable matching foundation болып қалады. Open/public matching recommendation/search ranking legal classification-тан кейін ғана production enablement алады.
+
+
+## Front marketplace workspace
+
+QaryzLinkFront PR #45 public marketplace-тің default-off user workspace-ын қосты.
+
+Navigation:
+
+- `/dashboard/marketplace`;
+- KZ/RU persistent locale;
+- 390px mobile responsive layout.
+
+Lender view:
+
+- bounded public offer create;
+- own offer list;
+- ACTIVE offer cancel;
+- effective expired offer presentation;
+- email verification жоғалса да existing own offer-ді қауіпсіз cancel етуге болады.
+
+Borrower view:
+
+- identity-free public offer list;
+- amount/term сәйкес келетін өзінің ACTIVE private request-тері ғана application selector-да көрінеді;
+- incompatible request UI деңгейінде ұсынылмайды;
+- backend бәрібір exact ownership/range/block/expiry guard-тарын қайта тексереді.
+
+Application inbox:
+
+- borrower/lender role;
+- application lifecycle status;
+- request financial terms;
+- identity-free immutable offer snapshot;
+- optional proposal id;
+- lender ACCEPT/REJECT;
+- borrower WITHDRAW.
+
+UI lender/borrower userId, partyId, publicId, display name, email немесе phone көрсетпейді.
+
+Verification жоғалған active participant үшін workspace толық жабылмайды: own offer cancel және safe application reject/withdraw backend contract-ына сәйкес қолжетімді болып қалады. Жаңа publish/browse және lender ACCEPT verification талап етеді.
+
+`PUBLIC_MARKETPLACE_ENABLED=false` болса Front feature-disabled state көрсетеді; flag-ты Front өзі қоспайды.
+
+Front implementation marketplace-ті legal/release gate-тен айналып өтпейді.
