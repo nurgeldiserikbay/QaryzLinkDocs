@@ -1,6 +1,6 @@
 # Implementation status
 
-Жаңартылған күні: 2026-09-26
+Жаңартылған күні: 2026-09-27
 
 Бұл құжат specification мен нақты код арасындағы қысқа бақылау нүктесі. Толық талаптар өзгермейді; мұнда тек орындалу күйі көрсетіледі.
 
@@ -20,6 +20,7 @@
 | Payment evidence/confirmation/ledger | Backend + storage adapter baseline дайын, operational rollout толық емес | Borrower evidence, lender decision, allocation/ledger, size-bound replay protection және verified CLEAN-object gate бар |
 | Overdue status worker | Дайын | UTC due/overdue materialization, ACTIVE + CONFIRMED guard, idempotent transaction |
 | Payment reversal | Дайын | Lender-authorized immutable reversal, signed allocation restore және opposite ledger entries |
+| Contract closure | Дайын | Zero-balance readiness, dual final-statement confirmation, stale-hash guard және immutable closure certificate |
 | Notifications/outbox | Базалық slice дайын | Payment CONFIRMED/REVERSED оқиғалары, privacy-safe payload және idempotent outbox |
 | Notification claim/retry worker | Базалық slice дайын | SKIP LOCKED claim, 5 минут lease, exponential retry және terminal FAILED |
 | Delivery adapter boundary | Базалық slice дайын | Provider-neutral port, dispatch service және safe unavailable default |
@@ -607,3 +608,16 @@ QaryzLinkBack PR #160 merged at `ea6b1be`: authenticated `POST /api/v1/auth/pass
 QaryzLinkFront PR #36 merged at `7a0df68`: Settings ішінде current/new/confirm password security card қосылды. Success кезінде local sessionStorage тазаланып login-ге redirect болады; current-password, policy және expired-session errors privacy-safe UI хабарламаларымен өңделеді.
 
 Automated verification GitHub Actions free-quota/billing gate салдарынан pending.
+
+
+## Dual-confirm contract closure — 2026-09-27
+
+QaryzLinkBack PR #161 merged at `e351f77`: participant-only contract closure flow қосылды. Backend current contract/schedule/payment truth-тен deterministic final statement hash есептейді және Contract ACTIVE + Funding CONFIRMED + schedule outstanding = 0 + unresolved payment/dispute жоқ + unallocated credit жоқ guards-ын талап етеді.
+
+Borrower және lender дәл сол final statement hash-ті бөлек растайды. Confirmation contract row lock ішінде snapshot-ты қайта тексереді; екінші distinct party бірдей hash-ті растағанда Contract `COMPLETED` болады және immutable `ClosureCertificate` contract/schedule hashes пен aggregate financial totals-ты snapshot ретінде сақтайды. Бірінші confirmation-нан кейін financial truth өзгерсе stale hash completion жасай алмайды.
+
+QaryzLinkFront PR #37 merged at `45d074a`: contract detail бетіне final statement panel қосылды. UI total due/paid/outstanding, statement hash, 0/2–2/2 confirmation progress және closure certificate күйін көрсетеді; blocker reason-дарды backend contract-ынан алады және payment alone-ды debt closure деп көрсетпейді.
+
+Толық contract: [Contract closure](../01-business/CONTRACT_CLOSURE.md).
+
+Backend және Front PR workflow run-дары GitHub Actions quota/billing gate салдарынан runner step-теріне жетпей failure күйіне түсті: quality job жасалды, бірақ 0 step орындалды. Сондықтан бұл runs code/test failure ретінде саналмайды; автоматты quality verification quota қалпына келгенде қайта орындалуы тиіс.

@@ -24,6 +24,7 @@ QaryzLink — Қазақстандағы жеке тұлғалар арасын�
 | [Payment ledger](docs/01-business/PAYMENT_LEDGER.md) | Төлем дәлелі, растау, allocation және ledger |
 | [Overdue worker](docs/01-business/OVERDUE_WORKER.md) | Due/overdue күйін materialize ететін worker |
 | [Payment reversal](docs/01-business/PAYMENT_REVERSAL.md) | Confirmed төлемді immutable түрде кері жазу |
+| [Contract closure](docs/01-business/CONTRACT_CLOSURE.md) | Нөлдік баланс, dual final-statement confirmation және closure certificate |
 | [Notification outbox](docs/01-business/NOTIFICATION_OUTBOX.md) | Транзакциялық notification intent және idempotency |
 | [Notification worker](docs/01-business/NOTIFICATION_WORKER.md) | Claim, lease және retry lifecycle |
 | [Notification delivery](docs/01-business/NOTIFICATION_DELIVERY.md) | Provider-neutral dispatch boundary |
