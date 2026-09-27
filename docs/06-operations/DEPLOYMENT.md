@@ -24,11 +24,12 @@ pnpm prisma:generate
 pnpm prisma:validate
 pnpm build
 pnpm prisma:migrate:deploy
+pnpm release:preflight
 pnpm start:prod
 ~~~
 
 DATABASE_URL Prisma generate алдында да ортада болуы керек. `pnpm-lock.yaml` repository-де бекітілген; CI және Docker build `--frozen-lockfile` қолданады. Release image immutable digest арқылы render етіледі және production dependency/container security gates-тен өтуі тиіс.
-Migration бір release job арқылы, traffic ашылғанға дейін орындалады. Production-да migrate dev, db push немесе migrate reset қолданылмайды.
+Migration бір release job арқылы, traffic ашылғанға дейін орындалады. Migration аяқталғаннан кейін `pnpm release:preflight` орындалады; `status=fail` болса rollout тоқтайды, `attention` external/manual acceptance әлі бар екенін білдіреді. Команда secret/config мәндерін шығармайды; толық contract: [Release preflight](RELEASE_PREFLIGHT.md). Production-да migrate dev, db push немесе migrate reset қолданылмайды.
 Build/test үшін production базасын қолданбаңыз. pnpm check нақты integration тесттерін іске қосады: оған бөлек disposable test DB керек.
 Процесс supervisor/platform restart policy арқылы бақылансын; shutdown үшін SIGTERM жеткізілсін.
 
