@@ -13,7 +13,7 @@
 | IAM | Базалық нұсқа дайын | Register, login, refresh token rotation, current-session logout, email verification |
 | Profile, privacy және deletion request | Базалық нұсқа дайын | Өз профилін/ privacy баптауларын басқару және retention-aware account deletion request жіберу |
 | Database migration | Дайын | Бастапқы schema versioned SQL migration ретінде бекітілді |
-| Discovery | Private slice дайын + Phase 3 dark workspace | Private request/invite/proposal/acceptance; default-off public lender offer create/cancel/browse + borrower application → concrete Proposal + KZ/RU marketplace workspace қосылды |
+| Discovery | Private slice дайын + Phase 3 dark workspace | Private request/invite/proposal/acceptance; default-off public lender offer create/pause/resume/cancel/browse + borrower application → concrete Proposal + KZ/RU marketplace workspace қосылды |
 | Contract draft/signing | Дайын | Accepted proposal-дан immutable ContractVersion v1, privacy-safe read, dual hash acknowledgement |
 | Funding evidence/confirmation | Backend + storage adapter baseline дайын, operational rollout толық емес | Single-use intent, S3-compatible signed PUT/GET, HEAD verification, trusted malware verdict registry, quarantine/orphan cleanup және aggregate metrics бар; external scanner, staging acceptance және retention policy қалды |
 | Schedule generation | Дайын | ACTIVE + CONFIRMED guard, ACT/365 Fixed + HALF_UP, versioned inputHash |
@@ -820,3 +820,35 @@ PR #45 сонымен бірге бұрынғы Front compatibility bug-ты т�
 Front PR #45 workflow run `36340201581` quality job құрғанымен GitHub Actions quota/billing gate салдарынан 0 step орындады. Сондықтан typecheck/lint/unit/build/browser automated evidence pending.
 
 Feature әлі `PUBLIC_MARKETPLACE_ENABLED=false` default gate артында. Release preflight deployed marketplace enablement-ті legal approval-ға дейін `fail` етеді. Front implementation бұл gate-ті айналып өтпейді.
+
+
+## Phase 3 public offer pause/resume — 2026-09-27
+
+QaryzLinkBack PR #170 merged at `e0e548d`.
+
+Public lender offer lifecycle енді reversible `PAUSED` күйін қолданады:
+
+- owner ACTIVE offer-ды idempotent PAUSE жасай алады;
+- PAUSE safe deactivation болғандықтан email re-verification талап етпейді;
+- paused offer public browse және жаңа application-нан шығады;
+- existing PENDING applications сақталады;
+- lender ACCEPT paused offer кезінде blocked;
+- owner PAUSED offer-ды terminal CANCEL жасай алады, сонда pending applications `SUPERSEDED`;
+- RESUME verified owner-ды, unexpired offer-ды және current active-offer quota-ны талап етеді;
+- resume quota user-row serialized command boundary ішінде қайта тексеріледі;
+- pause/resume auth endpoints compiled 401 smoke list-ке қосылды;
+- audit/idempotency regression status-only payload boundary-ын тексереді.
+
+QaryzLinkFront PR #46 merged at `c914918`:
+
+- own offer card ACTIVE / PAUSED / EXPIRED / CANCELLED effective state көрсетеді;
+- ACTIVE → Pause/Cancel;
+- PAUSED → Resume/Cancel;
+- unverified owner terminal Cancel-ды жоғалтпайды, Resume үшін verification guidance алады;
+- linked own offer PAUSED/expired/cancelled екені белгілі болса lender application ACCEPT Front-та disabled;
+- unverified lender ACCEPT те disabled;
+- KZ/RU marketplace catalog 75/75 key parity.
+
+Backend PR #170 workflow run `36340663952` және Front PR #46 run `36340860165` quality job құрғанымен GitHub Actions quota/billing gate салдарынан 0 step орындады. Automated PostgreSQL/typecheck/lint/build/browser verification pending.
+
+Marketplace әлі `PUBLIC_MARKETPLACE_ENABLED=false` default gate артында және release preflight legal approval-ға дейін deployed enablement-ті `fail` етеді.
