@@ -591,3 +591,11 @@ QaryzLinkBack PR #158 merged at `25b5759`: authenticated `POST /api/v1/auth/logo
 QaryzLinkFront PR #34 merged at `fdcdf11`: Settings ішіне `Барлық құрылғылардан шығу` security control қосылды; success кезінде server sessions revoke болып, local sessionStorage тазаланып login-ге redirect болады.
 
 Automated CI GitHub Actions quota/billing gate салдарынан pending.
+
+## Active session management — 2026-09-27
+
+QaryzLinkBack PR #159 merged at `979d8ce`: authenticated user latest 50 active session metadata-ны (`createdAt`, `lastUsedAt`, `expiresAt`, current flag) көре алады және нақты owned session-ды selective revoke ете алады. Backend IP, user-agent, device name немесе browser fingerprint жинамайды. Foreign/already-revoked session mutation audit event жасамайды; successful revoke PII-free `SESSION_REVOKED` audit event қалдырады.
+
+QaryzLinkFront PR #35 merged at `3625f49`: Settings security card active session list және per-session revoke control алды. Current session revoke кезінде local sessionStorage тазаланып login-ге redirect болады. Front exact session response schema-ны ғана қабылдайды; unexpected IP/device/user-agent тәрізді tracking fields fail-closed reject етіледі.
+
+Automated verification GitHub Actions free-quota/billing gate салдарынан pending.
