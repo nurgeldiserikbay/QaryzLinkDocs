@@ -39,7 +39,9 @@
 - [x] Notification scheduler Kubernetes CronJob deployment contract.
 - [x] Durable IN_APP delivery + authenticated latest-50 inbox backend.
 - [x] Front read-only private notifications inbox.
-- [ ] Нақты SMTP/push provider, queue trigger, persistent monitoring және alerting.
+- [ ] Нақты SMTP/push provider және queue trigger.
+- [x] Provider-neutral monitoring/alert signal contract (`MONITORING_ALERTING.md`).
+- [ ] External collector/provider, tuned thresholds, paging және escalation acceptance.
 - [x] Backend compiled HTTP auth/security lifecycle smoke: register/login/refresh rotation/logout, authorization, rate-limit, metrics және CORS contracts.
 - [x] Runtime/provider error persistence және maintenance CLI stderr PII-safe generic boundary.
 - [x] Front/Admin production server HTTP security-header/CSP runtime smoke.
@@ -57,7 +59,7 @@
 - [ ] Front/Admin committed pnpm lockfile және `--frozen-lockfile` install.
 - [ ] Production migration job және rollback rehearsal.
 - [x] Trusted proxy default-off bounded configuration және exact CORS allowlist code/CI contracts.
-- [ ] Staging ingress proxy-hop/header sanitization acceptance, persistent monitoring және alerting — `STAGING_ACCEPTANCE.md` бойынша.
+- [ ] Staging ingress proxy-hop/header sanitization acceptance — `STAGING_ACCEPTANCE.md` бойынша.
 - [x] Backend privacy-safe liveness/readiness contracts және PostgreSQL readiness check.
 - [ ] Staging ingress/orchestrator readiness probe нақты `/api/v1/health/ready` endpoint-іне қосылғаны тексерілді.
 - [ ] Kubernetes CronJob staging rollout, immutable image verification және job alerting.
