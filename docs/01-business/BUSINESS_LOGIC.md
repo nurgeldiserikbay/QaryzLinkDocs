@@ -307,3 +307,7 @@ Dispute түрлері:
 ## Private discovery implementation
 
 [Request → invitation → proposal → acceptance](PRIVATE_DISCOVERY.md) іске асқан restricted slice-ты сипаттайды. Бір accepted proposal request-ті MATCHED етеді; contract, signature және funding бөлек кезеңдерде орындалады.
+
+## Public lender offer implementation boundary
+
+[Public lender offers](PUBLIC_LENDER_OFFERS.md) Phase 3-тің алғашқы default-off backend slice-ын сипаттайды. Offer publication және privacy-safe browse коды бар, бірақ `PUBLIC_MARKETPLACE_ENABLED=false` әдепкі күйде және deployed release preflight marketplace enablement-ті legal gate өтпейінше fail етеді.
