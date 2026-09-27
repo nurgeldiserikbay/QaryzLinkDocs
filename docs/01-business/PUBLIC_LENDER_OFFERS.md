@@ -11,7 +11,8 @@ Backend мыналарды қолдайды:
 - verified active KZ personal lender public offer жасайды;
 - бір lender үшін active public offer саны `MAX_ACTIVE_PUBLIC_OFFERS` арқылы шектеледі;
 - create/cancel command-тары idempotency key және audit event қолданады;
-- active owner offer-ді cancel ете алады;
+- active owner offer-ді pause/cancel ете алады;
+- paused owner offer-ді verified account resume ете алады;
 - verified KZ borrower public offer list-ін қарай алады;
 - browse amount және term range бойынша сүзеді;
 - cursor pagination бар;
@@ -58,11 +59,15 @@ flowchart LR
     OFF["Feature flag OFF"] -->|legal gate passed later| ON["Marketplace enabled"]
     ON --> NEW["Create ACTIVE PUBLIC offer"]
     NEW --> BROWSE["Privacy-safe browse"]
+    NEW --> PAUSE["Owner PAUSE"]
+    PAUSE -->|verified + quota + not expired| NEW
     NEW --> CANCEL["Owner cancel"]
+    PAUSE --> CANCEL
     NEW --> EXP["Expiry hides from browse"]
+    PAUSE --> EXP
 ~~~
 
-PAUSED/resume/versioning әлі implementation-да жоқ.
+Pause/resume implementation бар; financial terms versioning әлі implementation-да жоқ.
 
 ## Validation
 
@@ -81,7 +86,8 @@ Offer:
 ## Security and abuse controls
 
 - write path verified active KZ personal account талап етеді;
-- cancel active owner үшін email re-verification-сыз қолжетімді, сондықтан қауіпсіз deactivation blocked болмайды;
+- pause/cancel active owner үшін email re-verification-сыз қолжетімді, сондықтан қауіпсіз deactivation blocked болмайды;
+- resume қайта public publication болғандықтан verified email талап етеді және active-offer quota қайта тексеріледі;
 - existing discovery authenticated rate-limit қолданылады;
 - active-offer quota user-row serialization арқылы concurrent create кезінде де сақталады;
 - audit payload financial terms/contact identity сақтамайды;
@@ -112,7 +118,7 @@ Release preflight-та public marketplace true болса `restricted_financial_
 - verification badges;
 - automatic matching/ranking;
 - negotiation versions;
-- pause/resume;
+- financial terms version history;
 - moderation queue;
 - spam reputation;
 - offer lifecycle email notifications;
@@ -167,3 +173,54 @@ Verification жоғалған active participant үшін workspace толық �
 `PUBLIC_MARKETPLACE_ENABLED=false` болса Front feature-disabled state көрсетеді; flag-ты Front өзі қоспайды.
 
 Front implementation marketplace-ті legal/release gate-тен айналып өтпейді.
+
+
+## Pause / resume semantics
+
+QaryzLinkBack PR #170 және QaryzLinkFront PR #46 offer lifecycle-ға reversible suspension қосты.
+
+### Pause
+
+Owner ACTIVE offer-ды PAUSED күйіне ауыстыра алады.
+
+- email re-verification талап етілмейді;
+- offer public browse-тан жоғалады;
+- жаңа application қабылдамайды;
+- existing PENDING applications жойылмайды;
+- lender ACCEPT paused күйде blocked;
+- borrower WITHDRAW және lender REJECT сияқты safe terminal actions application history үшін қолжетімді;
+- audit payload status-пен шектеледі.
+
+Pause command idempotent.
+
+### Resume
+
+PAUSED offer қайта ACTIVE болуы үшін:
+
+- owner verified active KZ account;
+- offer expiry өтпеген;
+- current active public offer count `MAX_ACTIVE_PUBLIC_OFFERS` шегінен аспайды.
+
+Resume quota actor/user row serialization ішінде қайта тексеріледі, сондықтан concurrent create/resume quota bypass жасамайды.
+
+### Cancel from PAUSED
+
+PAUSED offer terminal CANCEL бола алады.
+
+Cancel:
+
+- re-verification талап етпейді;
+- pending applications-ды `SUPERSEDED` етеді;
+- кейін resume мүмкін емес.
+
+### Front behavior
+
+Own-offer card:
+
+- ACTIVE → Pause / Cancel;
+- PAUSED → Resume / Cancel;
+- EXPIRED/CANCELLED → read-only state.
+
+Verification жоғалған owner PAUSED offer-ды cancel ете алады, бірақ Resume UI verification guidance көрсетеді.
+
+Lender application ACCEPT linked own offer PAUSED/expired/cancelled екені Front-қа белгілі болса disabled болады. Backend guard authoritative болып қалады.
