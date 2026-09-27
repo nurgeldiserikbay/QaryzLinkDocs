@@ -581,3 +581,13 @@ QaryzLinkBack PR #154 password-reset core-ды қосты. QaryzLinkBack PR #156
 QaryzLinkFront PR #33 merged at `6786b03`: login recovery link, generic request page және URL fragment token қолданатын reset-confirm page қосылды; token оқылғаннан кейін address bar-дан өшіріледі.
 
 Automated CI GitHub Actions quota/billing gate салдарынан pending; нақты SMTP inbox және browser acceptance әлі release gate.
+
+## Account security operations — 2026-09-27
+
+QaryzLinkBack PR #157 merged at `3e84a20` және QaryzLinkAdmin PR #29 merged at `d303418`: auth-retention aggregate snapshot/card енді expired/consumed password-reset challenge backlog-ты да identity/token деректерін шығармай көрсетеді.
+
+QaryzLinkBack PR #158 merged at `25b5759`: authenticated `POST /api/v1/auth/logout-all` барлық active session-ды current user scope ішінде revoke етеді және `ALL_SESSIONS_REVOKED` audit event-те тек aggregate revoked count сақтайды.
+
+QaryzLinkFront PR #34 merged at `fdcdf11`: Settings ішіне `Барлық құрылғылардан шығу` security control қосылды; success кезінде server sessions revoke болып, local sessionStorage тазаланып login-ге redirect болады.
+
+Automated CI GitHub Actions quota/billing gate салдарынан pending.
