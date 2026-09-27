@@ -133,3 +133,26 @@ Audit payload statement hash-пен шектеледі. Contact data, evidence o
 қамтиды.
 
 Settlement арқылы disputed debt closure, legal PDF certificate, qualified signature/EDS, external trusted timestamp және court-ready evidence package кейінгі Trust & Evidence кезеңіне жатады.
+
+
+## Closure notifications
+
+Closure lifecycle екі privacy-safe event шығарады:
+
+- `CONTRACT_CLOSURE_READY` — contract closure guard-тардан өтіп, final statement растауға дайын болғанда;
+- `CONTRACT_COMPLETED` — екі distinct party бірдей final statement hash-ті растағаннан кейін Contract `COMPLETED` болып, ClosureCertificate жасалғанда.
+
+`CONTRACT_CLOSURE_READY` GET endpoint side effect-і емес. Ол notification runtime scan арқылы жасалады; бірінші explicit closure confirmation да дәл сол idempotent readiness intents-ті transaction ішінде қамтамасыз етеді.
+
+`CONTRACT_COMPLETED` intents Contract status update және ClosureCertificate creation-мен бір transaction ішінде жазылады. Сондықтан completion state commit болып, notification intent жоғалатын аралық күй болмайды.
+
+Екі event borrower және lender үшін IN_APP channel-ға, ал email preference рұқсат етсе EMAIL channel-ға fan-out жасалады.
+
+Notification payload:
+
+- readiness үшін: contractId + `READY_FOR_CLOSURE`;
+- completion үшін: contractId + certificateId + `COMPLETED`.
+
+Amount, email, phone, evidence, bank data, final statement financial fields немесе dispute description notification payload-қа кірмейді.
+
+Readiness scheduler scan 500 бұрын notification алмаған ACTIVE + CONFIRMED candidate contract-ты bounded batch ретінде қарайды. Existing readiness intent бар contract scan-нан шығарылады, сондықтан бір batch-тің бірдей contract-тармен қайта толып, кейінгі contract-тарды starvation-ға ұшыратуына жол берілмейді.
