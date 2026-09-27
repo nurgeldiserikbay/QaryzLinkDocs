@@ -36,7 +36,7 @@
 | Notification email preference | Базалық slice дайын | PrivacySettings opt-out, profile API және enqueue-time EMAIL filtering |
 | Notification delivery metrics | Persistent aggregate slice дайын | PostgreSQL singleton counters, cross-process scheduler/API snapshot және staging/production token guard |
 | Notification Kubernetes scheduler | Deployment template дайын | CronJob Forbid policy, external Secret, immutable image және non-overlap contract |
-| Deployment hardening | Template/CI дайын | Immutable digest rendering, bounded migration job, safe rollout, PDB, node spread, rollback және restore runbooks |
+| Deployment hardening | Template/CI дайын | Immutable digest rendering, bounded migration job, privacy-safe release preflight, safe rollout, PDB, node spread, rollback және restore runbooks |
 | Provider/scheduler | Жоспарда | Push adapter, queue trigger, external metrics collector/alerting және organization routing |
 | Front/Admin UI | Front critical MVP presentation кеңейді | Front-та auth/discovery/contract/lifecycle/closure/evidence/dispute/notifications/settings/security/account lifecycle KZ/RU coverage бар; Admin-та liveness, database readiness, evidence-storage, notification-delivery, audit және account-deletion aggregate operations cards бар; identity-level feeds әлі өшірулі |
 
@@ -714,3 +714,16 @@ Playwright implementation RU locale persistence, 390px overflow және request
 Сондықтан `KZ/RU full journey` үшін **presentation implementation coverage ready**, бірақ real authenticated borrower/lender staging/browser execution evidence pending. Formal Phase 2 exit criterion әлі жабылған жоқ.
 
 Толық acceptance contract: [Phase 2 KZ/RU journey](PHASE2_KZ_RU_JOURNEY.md).
+
+
+## Privacy-safe release preflight — 2026-09-27
+
+QaryzLinkBack PR #166 merged at `a359c0d`: compiled `pnpm release:preflight` one-shot command қосылды.
+
+Command staging/production environment, live PostgreSQL readiness, CORS presence, PII mode және product/operations feature gates-ті secret-free aggregate JSON ретінде бағалайды. Development/test environment, unavailable database немесе public marketplace/penalty/amount-based commission enablement `fail` береді.
+
+TRUST_PROXY_HOPS topology, SMTP inbox/provider, evidence storage/scanner, enabled contract-signing legal gate және support mutation process автоматты `pass` болмайды; олар `manual` болып қалады. Осылайша preflight external staging acceptance-ті жалған green етпейді.
+
+CI compiled command-ты staging-like config + disposable PostgreSQL-пен smoke жасауға және output ішінде secret-like field атауы шықпауына арналған gate алды. PR #166 workflow run `36334974547` GitHub Actions quota/billing gate салдарынан quality job құрғанымен 0 step орындады, сондықтан current main үшін actual compiled preflight run evidence pending.
+
+Runbook: [Release preflight](../06-operations/RELEASE_PREFLIGHT.md).

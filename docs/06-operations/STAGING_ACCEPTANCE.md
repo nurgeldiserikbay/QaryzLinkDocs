@@ -10,6 +10,7 @@
 - [ ] API/worker/CronJob image бір immutable digest қолданады.
 - [ ] CI және supply-chain checks green.
 - [ ] Migration Job сол digest-пен аяқталды.
+- [ ] Сол image/config ішінде `pnpm release:preflight` іске қосылды; overall status `fail` емес және JSON evidence secret-free сақталды.
 
 ## 2. Network және TLS
 
@@ -88,3 +89,5 @@ Signal/alert contract: `MONITORING_ALERTING.md`.
 Әр scenario үшін тек environment, UTC timestamp, commit/image digest, scenario name және pass/fail сақталады. Password, token, full email/phone, IIN/BIN, signed URL, raw document немесе database dump acceptance evidence-ке кірмейді.
 
 Acceptance-ті owner және кемінде бір инженер review етеді.
+
+Release preflight тек machine-checkable бөлікті алдын ала бөледі; `manual` checks осы checklist арқылы нақты environment-те жабылады. Толық contract: [Release preflight](RELEASE_PREFLIGHT.md).
