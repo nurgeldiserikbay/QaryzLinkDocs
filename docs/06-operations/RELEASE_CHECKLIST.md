@@ -65,6 +65,8 @@
 - [ ] Kubernetes CronJob staging rollout, immutable image verification және job alerting.
 - [ ] Metrics endpoint internal ingress review және staging acceptance.
 - [ ] Нақты SMTP delivery және пайдаланушының email растау flow-ы.
+- [x] Password reset backend/Front flow: enumeration-safe request, one-time token, session revoke, HTTPS reset URL және retention cleanup.
+- [ ] Password reset нақты SMTP inbox delivery және browser acceptance.
 - [x] Production dependency high/critical audit gate Back/Front/Admin CI ішінде.
 - [x] Full-history secret scanning және CycloneDX SBOM generation Back/Front/Admin CI ішінде.
 - [ ] SBOM artifact retention/access policy documented in `SBOM_POLICY.md`; Back/Front/Admin retention workflow-тары main-ге merged, бірақ billing/quota gate шешілгеннен кейін бір successful run-мен acceptance жабылады.

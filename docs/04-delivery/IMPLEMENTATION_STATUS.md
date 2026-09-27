@@ -571,3 +571,13 @@ QaryzLinkBack PR #153 merged at `6c38b00`: internal support dispute lifecycle mu
 Әр нақты transition audit event жасайды, payload тек from/to status сақтайды; dispute description/contact/payment content жоқ. Admin mutation UI әдейі қосылған жоқ. Нақты support owner/process, internal ingress және staging acceptance бекітілмейінше production enablement release gate болып қалады.
 
 Automated CI GitHub Actions free-quota/billing gate салдарынан pending.
+
+## Dispute status notifications and password recovery — 2026-09-27
+
+QaryzLinkBack PR #155 merged at `bf92b72`: approved support status transition кезінде borrower және lender party-ға privacy-safe durable IN_APP `DISPUTE_STATUS_CHANGED` event enqueue етіледі. Front PR #32 merged at `5d276d5`: inbox жаңа event-ті `Дау күйі өзгерді` label-ымен көрсетеді.
+
+QaryzLinkBack PR #154 password-reset core-ды қосты. QaryzLinkBack PR #156 merged at `d88e7d4`: enumeration-safe public request/confirm endpoints, TLS SMTP reset mailer, HTTPS `PASSWORD_RESET_URL`, stricter reset rate limit және expired/consumed challenge cleanup қосылды. Successful confirm барлық active session-ды revoke етеді.
+
+QaryzLinkFront PR #33 merged at `6786b03`: login recovery link, generic request page және URL fragment token қолданатын reset-confirm page қосылды; token оқылғаннан кейін address bar-дан өшіріледі.
+
+Automated CI GitHub Actions quota/billing gate салдарынан pending; нақты SMTP inbox және browser acceptance әлі release gate.
