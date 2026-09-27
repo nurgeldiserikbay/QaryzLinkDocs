@@ -13,7 +13,7 @@
 | IAM | Базалық нұсқа дайын | Register, login, refresh token rotation, current-session logout, email verification |
 | Profile, privacy және deletion request | Базалық нұсқа дайын | Өз профилін/ privacy баптауларын басқару және retention-aware account deletion request жіберу |
 | Database migration | Дайын | Бастапқы schema versioned SQL migration ретінде бекітілді |
-| Discovery | Restricted slice дайын | Private request, exact invitation, proposal, atomic acceptance |
+| Discovery | Private slice дайын + Phase 3 dark foundation | Private request/invite/proposal/acceptance; default-off public lender offer create/cancel/privacy-safe browse қосылды |
 | Contract draft/signing | Дайын | Accepted proposal-дан immutable ContractVersion v1, privacy-safe read, dual hash acknowledgement |
 | Funding evidence/confirmation | Backend + storage adapter baseline дайын, operational rollout толық емес | Single-use intent, S3-compatible signed PUT/GET, HEAD verification, trusted malware verdict registry, quarantine/orphan cleanup және aggregate metrics бар; external scanner, staging acceptance және retention policy қалды |
 | Schedule generation | Дайын | ACTIVE + CONFIRMED guard, ACT/365 Fixed + HALF_UP, versioned inputHash |
@@ -727,3 +727,26 @@ TRUST_PROXY_HOPS topology, SMTP inbox/provider, evidence storage/scanner, enable
 CI compiled command-ты staging-like config + disposable PostgreSQL-пен smoke жасауға және output ішінде secret-like field атауы шықпауына арналған gate алды. PR #166 workflow run `36334974547` GitHub Actions quota/billing gate салдарынан quality job құрғанымен 0 step орындады, сондықтан current main үшін actual compiled preflight run evidence pending.
 
 Runbook: [Release preflight](../06-operations/RELEASE_PREFLIGHT.md).
+
+
+## Phase 3 public lender offer foundation — 2026-09-27
+
+QaryzLinkBack PR #167 merged at `272d69c`.
+
+Existing `LoanOffer` schema негізінде default-off public marketplace foundation қосылды:
+
+- verified active KZ personal lender public offer жасайды;
+- amount/term/rate/response bounds domain policy арқылы тексеріледі;
+- per-lender `MAX_ACTIVE_PUBLIC_OFFERS` concurrent create кезінде user-row serialization арқылы сақталады;
+- create/cancel idempotent discovery command және privacy-safe audit event жасайды;
+- active owner cancel қауіпсіздік әрекеті ретінде қайта email verification талап етпейді;
+- verified borrower amount/term бойынша privacy-safe browse жасай алады;
+- own offers, expired offers және екі бағыттағы PartyBlock relationship browse-тан жасырылады;
+- browse lender userId/partyId/publicId/email/phone/display name шығармайды;
+- compiled HTTP smoke unauthenticated `/api/v1/discovery/offers` үшін 401 boundary қосады.
+
+Environment default-та `PUBLIC_MARKETPLACE_ENABLED=false`. Release preflight-та marketplace/penalty/amount-based commission restricted feature тобының кез келгені true болса `fail`. Сондықтан бұл merge staging/production marketplace enablement емес.
+
+PR #167 workflow run `36335973418` quality job құрғанымен GitHub Actions quota/billing gate салдарынан 0 step орындады. Automated PostgreSQL/typecheck/lint/build evidence pending.
+
+Толық contract: [Public lender offers](../01-business/PUBLIC_LENDER_OFFERS.md).
