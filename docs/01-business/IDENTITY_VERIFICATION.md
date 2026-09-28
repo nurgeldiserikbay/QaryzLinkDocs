@@ -6,9 +6,10 @@ QaryzLink Phase 4 Trust & Evidence кезеңінде external identity/KYC inte
 
 ## Қазіргі boundary
 
-Authenticated user үшін екі endpoint бар:
+Authenticated user үшін үш endpoint бар:
 
 - `GET /api/v1/identity/verification/capability`;
+- `GET /api/v1/identity/verification/status`;
 - `POST /api/v1/identity/verification/start`.
 
 `IDENTITY_VERIFICATION_ENABLED=false` әдепкі күйде.
@@ -22,6 +23,37 @@ Provider session response үшін:
 - session expiry future болуы тиіс;
 - malformed/unsafe result generic unavailable response-қа fail-closed өтеді.
 
+## Minimal verified-claim persistence
+
+Provider-neutral claim core енді product DB-де тек минималды authoritative metadata сақтауға дайын:
+
+- user relation;
+- internal normalized provider code;
+- raw provider subject/reference орнына SHA-256 hash;
+- assurance level: қазір тек `L2`;
+- `verifiedAt`;
+- `expiresAt`;
+- optional `revokedAt`;
+- audit event.
+
+Raw provider response, document image, face/liveness result, IIN/BIN, email, phone немесе provider subject string сақталмайды.
+
+`GET /api/v1/identity/verification/status` тек privacy-safe effective state қайтарады:
+
+- `UNVERIFIED`;
+- `VERIFIED`;
+- `EXPIRED`;
+- `REVOKED`.
+
+Response-та provider code/reference/hash, claim id немесе identity/contact fields жоқ. Expiry timestamp арқылы runtime-де есептеледі, сондықтан claim-ды EXPIRED ету үшін background cron қажет емес.
+
+Provider callback үшін internal service boundary екі операцияны дайындайды:
+
+1. valid L2 claim-ды жазу және overlap active claim-ды atomically revoke ету;
+2. provider reference арқылы idempotent revocation жасау.
+
+Бұл internal mutation API user/browser-ге ашылмаған.
+
 ## Current provider state
 
 Current adapter — `UnavailableIdentityVerificationProvider`. Ол verification session жасамайды және 503 қайтарады.
@@ -32,31 +64,43 @@ Release preflight `IDENTITY_VERIFICATION_ENABLED=true` болса `provider_adap
 
 Бұл foundation:
 
-- identity verified claim емес;
+- нақты provider callback келгенше user-ды өздігінен VERIFIED етпейді;
 - email verification-ды KYC деп есептемейді;
 - contract signature legal validity бермейді;
-- provider callback/result persistence жасамайды;
+- raw provider callback payload-ын product DB-ға сақтамайды;
 - document upload/KYC evidence storage жасамайды;
 - face/liveness/document matching verdict шығармайды.
 
 ## Келесі implementation кезеңі
 
-Нақты L2 KYC provider таңдалғаннан кейін ғана:
+Нақты L2 KYC provider таңдалғаннан кейін:
 
 1. provider adapter;
 2. signed/authenticated callback boundary;
 3. provider session correlation;
-4. minimal verified-claim model;
-5. claim expiry/revocation;
-6. provider-specific sensitive-data minimization;
-7. audit/observability;
-8. KZ legal meaning және privacy notice;
-9. staging acceptance
+4. callback verdict mapping → дайын minimal claim service;
+5. provider-specific sensitive-data minimization review;
+6. revocation webhook mapping;
+7. KZ legal meaning және privacy notice;
+8. staging acceptance
 
 қосылады.
+
+Minimal claim persistence, expiry derivation және revocation core provider таңдауынан тәуелсіз орындалды.
 
 Verified claim user-controlled profile text-тен бөлек authoritative state болуы тиіс. Provider raw payload-ы product DB-ға әдепкіде көшірілмеуі керек; минималды claim metadata ғана сақталуы тиіс.
 
 ## Verification status
 
 QaryzLinkBack PR #180 merged at `086893c`. GitHub Actions account quota/billing gate салдарынан automated verification pending.
+
+## Claim lifecycle invariants — 2026-09-28
+
+- claim expiry міндетті түрде verification уақытынан кейін;
+- already-expired callback claim қабылданбайды;
+- clock-skew үшін verifiedAt future tolerance 5 минутпен шектелген;
+- provider code bounded және normalized;
+- raw provider reference тек request scope-та өмір сүреді және SHA-256 hash-ке айналады;
+- жаңа valid claim сол user-дың overlap active claim-ын serialised user-row transaction ішінде жабады;
+- provider revocation қайталанса duplicate audit жасамайды;
+- verification/revocation audit payload identity data сақтамайды.
