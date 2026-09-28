@@ -115,6 +115,8 @@ Metadata/text artifacts v1-дегідей қалады:
 - `evidence/funding/{evidenceId}.pdf|jpg|png`;
 - `evidence/payment/{evidenceId}.pdf|jpg|png`.
 
+`archive-profile.json` object key, signed URL немесе participant PII сақтамайды; ол тек archive format/schema identity береді.
+
 Final `bundle-manifest.json` барлық metadata және binary artifact үшін:
 
 - stable path;
