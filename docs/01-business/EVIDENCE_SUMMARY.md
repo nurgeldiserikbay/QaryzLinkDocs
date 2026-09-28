@@ -230,3 +230,12 @@ Trust & Evidence кезеңінде осы manifest baseline үстіне:
 қосылуы мүмкін.
 
 Phase 4 export жаңа versioned package format болуы тиіс; Phase 2 `schemaVersion: 1` manifest үнсіз өзгертілмейді.
+
+
+## Bundle manifest implementation evidence — 2026-09-28
+
+QaryzLinkBack PR #184 merged at `76f9a59`: deterministic bundle manifest, ClosureCertificate document-hash binding, audited participant-only export және POST auth smoke gate.
+
+QaryzLinkFront PR #55 merged at `0e0cdad`: bundle manifest download, bundle hash және artifact count UI.
+
+Back CI run `36455112812` және Front CI run `36455120153` quality job жасады, бірақ runner step орындалмады. Сондықтан automated typecheck/lint/test/build verification pending; бұл run-дарда application code орындалмаған.
