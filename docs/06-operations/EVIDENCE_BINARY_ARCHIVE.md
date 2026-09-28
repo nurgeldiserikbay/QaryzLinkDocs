@@ -199,3 +199,12 @@ Enable алдында кемінде:
 - bucket lifecycle/legal-hold staging acceptance;
 - load/SLO acceptance;
 - large archive true streaming/ZIP64 қажет болса бөлек design.
+
+
+## Implementation evidence — 2026-09-28
+
+QaryzLinkBack PR #188 merged at `d390b71`: default-off bounded ZIP_STORE_V2, frozen-manifest binary selection, consumed-intent binding, pre/post CLEAN malware checks, streamed S3 byte verification, deterministic v2 bundle/archive және direct ZIP response.
+
+QaryzLinkFront PR #58 merged at `253ff44`: participant-scoped binary archive capability, raw Blob download және browser-side ZIP SHA-256 display.
+
+Back CI run `36470173599` және Front CI run `36470182893` quality job құрды, бірақ runner step орындалмады. Сондықтан automated Prisma/typecheck/lint/test/build verification pending; application code бұл run-дарда орындалмаған.
