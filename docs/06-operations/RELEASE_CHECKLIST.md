@@ -90,6 +90,8 @@
 - [ ] Public marketplace, penalty және amount-based commission false.
 - [x] Provider-neutral fail-closed identity verification boundary (`IDENTITY_VERIFICATION.md`).
 - [ ] External L2 KYC provider adapter, callback, verified claims және KZ privacy/legal staging acceptance.
+- [x] Participant-only immutable contract document source (`CONTRACT_DOCUMENT_RENDERING.md`).
+- [ ] Approved KZ/RU legal template + deterministic PDF renderer + staging visual/hash acceptance.
 - [x] Participant-only immutable evidence manifest + audited canonical JSON export with hash re-verification.
 - [ ] Court/export package hardening: PDF/ZIP, manifest signature, trusted timestamp және legal-hold policy.
 - [x] Participant-only neutral dispute intake/read backend + Front contract panel.
