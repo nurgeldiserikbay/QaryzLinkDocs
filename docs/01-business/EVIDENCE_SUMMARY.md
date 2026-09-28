@@ -237,7 +237,9 @@ Successful export `EVIDENCE_ARCHIVE_EXPORTED` audit event жасайды. Audit 
 
 Front Base64 transport-ты bytes-ке айналдырып explicit user action арқылы ZIP жүктейді және archive hash/count/size көрсетеді.
 
-Бұл **metadata/text ZIP v1**. Raw funding/payment evidence binaries әдейі кірмейді; олар storage streaming, malware-clean verification, legal-hold және size policy дайын болғаннан кейін ғана қосылады.
+Бұл **metadata/text ZIP v1**. Ол backward-stable болып қалады.
+
+Full binary export бөлек **ZIP_STORE_V2** capability ретінде қосылды. v2 immutable manifest-те frozen болған funding/payment evidence bytes-ті ғана қосады; consumed upload intent, CLEAN malware verdict, exact size/mediaType және downloaded SHA-256 қайта тексеріледі. Feature default-off және bounded. Толық boundary: [Full evidence binary archive v2](../06-operations/EVIDENCE_BINARY_ARCHIVE.md).
 
 Manifest signature және trusted timestamp әлі жоқ.
 
@@ -252,7 +254,8 @@ Trust & Evidence кезеңінде осы manifest baseline үстіне:
 - manifest signature;
 - trusted timestamp;
 - [x] bounded deterministic metadata/text ZIP container;
-- [ ] streaming evidence-binary ZIP expansion;
+- [x] bounded selected evidence binary ZIP v2;
+- [ ] large archive true streaming/ZIP64 if required;
 - export audit;
 - [x] application-level contract legal-hold foundation;
 - [ ] jurisdiction retention periods + external storage lifecycle acceptance;

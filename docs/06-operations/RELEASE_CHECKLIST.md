@@ -102,7 +102,9 @@
 - [ ] Production KMS/HSM signing adapter, approved key IAM/rotation/revocation және staging verification.
 - [x] Application-level contract evidence legal hold: scoped support control, audit, one-active-hold invariant және cleanup exclusion.
 - [ ] Legal retention completion: Kazakhstan retention periods, consumed-evidence deletion policy, account-deletion interaction және external bucket lifecycle acceptance.
-- [ ] Court/export package hardening: approved PDF artifact, selected evidence binary streaming және trusted timestamp.
+- [x] Default-off bounded full evidence ZIP v2: frozen-manifest selection, consumed-intent binding, CLEAN verdict, storage byte SHA-256 verification және direct binary response.
+- [ ] Full binary ZIP staging/load acceptance: real bucket/scanner, max-size concurrency және memory/latency evidence.
+- [ ] Court/export package hardening: approved PDF artifact, KMS/HSM signature for ZIP v2 және trusted timestamp.
 - [x] Participant-only neutral dispute intake/read backend + Front contract panel.
 - [x] Privacy-safe aggregate dispute backlog metrics + Admin read-only operations card.
 - [x] Marketplace enum-only abuse reports + aggregate moderation backlog.

@@ -45,6 +45,9 @@ Backend мыналарды орындайды:
 | EVIDENCE_MAX_UPLOAD_BYTES | Максималды upload size; default 10 MiB |
 | EVIDENCE_SIGNED_URL_TTL_SECONDS | Signed PUT/GET TTL; 60–900 sec, default 300 |
 | EVIDENCE_CLEANUP_BATCH_SIZE | Бір cleanup run ішіндегі max orphan саны; 1–100, default 50 |
+| EVIDENCE_BINARY_ARCHIVE_ENABLED | Full evidence ZIP v2 feature gate; default false |
+| EVIDENCE_BINARY_ARCHIVE_MAX_BYTES | Full ZIP payload cap; default 20 MiB, hard max 50 MiB |
+| EVIDENCE_BINARY_ARCHIVE_MAX_OBJECTS | Binary evidence object cap; default 8, hard max 32 |
 | EVIDENCE_S3_BUCKET_ENDPOINT | Private bucket HTTPS endpoint |
 | EVIDENCE_S3_REGION | Signature V4 region |
 | EVIDENCE_S3_ACCESS_KEY_ID | Secret store-дағы storage credential |
@@ -151,9 +154,13 @@ Metrics token browser bundle-ге немесе public telemetry-ге беріл�
 12. cleanup storage error болса row retry үшін қалады;
 13. active legal hold бар contract-тың expired unconsumed object-і cleanup-қа таңдалмайды;
 14. hold нақты hold ID арқылы release болғаннан кейін expired unconsumed object қайта cleanup-қа жарамды болады;
-13. persisted evidence verdict-і CLEAN → INFECTED болып upgrade етілсе download fail-closed блокталады;
-14. INFECTED callback object-ті жояды, delete provider error болса 503 арқылы scanner retry жасай алады.
-15. never-issued немесе expired-unconsumed object үшін scanner verdict rejected болады; consumed evidence үшін later re-scan verdict қабылданады.
+15. persisted evidence verdict-і CLEAN → INFECTED болып upgrade етілсе download fail-closed блокталады;
+16. INFECTED callback object-ті жояды, delete provider error болса 503 арқылы scanner retry жасай алады;
+17. never-issued немесе expired-unconsumed object үшін scanner verdict rejected болады; consumed evidence үшін later re-scan verdict қабылданады;
+18. full binary ZIP v2 тек frozen manifest references-ті қосады;
+19. binary export алдында consumed intent + CLEAN verdict + exact downloaded size/mediaType/SHA-256 қайта тексеріледі;
+20. binary object/total payload limits enforce болады;
+21. max-size және concurrent binary export memory/latency staging profile өлшенеді.
 
 Evidence ретінде secret, signed URL, token, raw PII немесе document content сақталмайды. Тек commit SHA, environment, UTC timestamp, scenario және pass/fail сақталады.
 
@@ -166,5 +173,6 @@ Evidence ретінде secret, signed URL, token, raw PII немесе document
 - staging end-to-end acceptance;
 - metrics baseline бар; нақты alert thresholds, collector integration және scanner/storage outage ownership staging-та бекітілуі керек;
 - consumed evidence retention/deletion policy бойынша заңгерлік шешім;
+- full binary archive max-size/concurrency load acceptance;
 - backup/restore және incident procedure;
 - data residency талабының орындалуы.
