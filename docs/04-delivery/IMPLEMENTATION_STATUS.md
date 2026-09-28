@@ -60,7 +60,9 @@ Contract-level evidence legal-hold foundation қосылды: enum-only reason, 
 
 QaryzLinkBack PR #187 merged at `b5c7f11`. CI run `36464196233` quality job құрғанымен runner step орындамады; automated verification pending.
 
-Бұл baseline court-ready package емес: approved contract PDF, selected evidence binaries/streaming, production KMS/HSM signer/key lifecycle, trusted timestamp, jurisdiction retention periods және external bucket lifecycle acceptance әлі Phase 4 backlog-та.
+Bounded full binary archive v2 қосылды: тек immutable manifest-те frozen evidence таңдалады; persisted row + consumed upload intent + CLEAN malware verdict қайта байланысады; S3 bytes chunk-by-chunk оқылып size/mediaType/SHA-256 бойынша тексеріледі; final ZIP direct binary response ретінде беріледі. Existing metadata ZIP v1 өзгермейді.
+
+Бұл baseline court-ready package емес: approved contract PDF, production KMS/HSM signer/key lifecycle for v2, trusted timestamp, jurisdiction retention periods, external bucket lifecycle acceptance және production load acceptance әлі Phase 4 backlog-та.
 
 ## Қазіргі backend slice
 
