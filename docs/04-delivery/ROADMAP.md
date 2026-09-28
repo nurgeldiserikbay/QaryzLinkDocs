@@ -140,8 +140,9 @@ Open/public matching production-да қосылмас бұрын Қазақст�
 - [ ] vetted L2 KYC provider adapter + authenticated callback;
 - [x] provider-neutral minimal L2 claim persistence/expiry/revocation core;
 - [x] participant-only immutable contract document source;
+- [x] deterministic KZ/RU technical preview + source/input/render hash integrity boundary;
 - [ ] approved KZ/RU contract template + deterministic PDF renderer;
-- document hashes;
+- [x] technical render hashes; final PDF artifact hash binding pending;
 - [x] participant-only audited canonical JSON evidence export baseline;
 - court/export evidence package (PDF/ZIP, manifest signature, trusted timestamp);
 - amendments;
@@ -152,6 +153,8 @@ Open/public matching production-да қосылмас бұрын Қазақст�
 2026-09-28: Phase 4 басталды. Existing immutable schema v1 manifest үшін participant-only canonical JSON export қосылды. Export persisted manifest hash-ін қайта тексереді, mismatch кезінде fail-closed болады және successful export audit event жасайды. Бұл әлі PDF/ZIP, external signature немесе trusted timestamp емес.
 
 Identity foundation minimal L2 claim persistence-ке дейін кеңейді: raw provider reference сақталмайды, hash қана қалады; status VERIFIED/EXPIRED/REVOKED ретінде privacy-safe derive болады; internal record/revoke service future authenticated provider callback-қа дайын. Vetted provider adapter, signed callback және KZ legal/privacy acceptance әлі ашық.
+
+Contract rendering foundation technical deterministic renderer-ге дейін кеңейді: persisted source document hash, canonical render-input hash және actual rendered content hash бөлек беріледі; KZ/RU locale render identity-ге кіреді; Front technical TXT preview/download береді. Бұл approved legal template немесе PDF емес.
 
 ## Phase 5 — Public Beta Kazakhstan
 
