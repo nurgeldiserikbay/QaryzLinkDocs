@@ -69,7 +69,7 @@ Intent mismatch болса bytes storage-дан оқылмайды.
 
 ## Malware gate
 
-Әр binary object үшін latest trusted malware verdict қайта оқылады.
+Әр binary object үшін latest trusted malware verdict storage read-ке дейін және verified bytes толық оқылғаннан кейін қайта оқылады. Осылайша export кезінде CLEAN → INFECTED/FAILED transition байқалса archive fail-closed тоқтайды.
 
 Тек:
 
