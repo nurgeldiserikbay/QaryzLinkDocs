@@ -27,7 +27,10 @@ erDiagram
     ORGANIZATIONS ||--o{ MEMBERSHIPS : contains
     USERS ||--o{ MEMBERSHIPS : joins
     VERIFICATION_CASES ||--o{ VERIFIED_CLAIMS : produces
+    USERS ||--o{ IDENTITY_VERIFICATION_CLAIMS : has_current_foundation
 ~~~
+
+> Current Phase 4 implementation толық target Identity Vault емес. Қазір `identity_verification_claims` minimal provider-neutral table ғана бар; `verification_cases`, richer verified claims және encrypted identity vault provider/legal design бекітілгеннен кейін кеңейеді.
 
 ### Негізгі кестелер
 
@@ -53,6 +56,20 @@ erDiagram
 - verified_claim_id;
 - created_at;
 - retention_until.
+
+#### identity_verification_claims — current Phase 4 baseline
+
+- id;
+- user_id;
+- provider_code — internal bounded namespace;
+- provider_reference_hash — raw external subject/reference сақталмайды;
+- assurance_level — қазір L2;
+- verified_at;
+- expires_at;
+- revoked_at;
+- created_at.
+
+Effective EXPIRED state persisted enum емес, `expires_at` арқылы derive болады.
 
 #### profiles
 
