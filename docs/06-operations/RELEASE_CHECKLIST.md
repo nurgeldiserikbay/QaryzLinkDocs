@@ -90,6 +90,9 @@
 - [ ] Public marketplace, penalty және amount-based commission false.
 - [x] Participant-only neutral dispute intake/read backend + Front contract panel.
 - [x] Privacy-safe aggregate dispute backlog metrics + Admin read-only operations card.
+- [x] Marketplace enum-only abuse reports + aggregate moderation backlog.
+- [x] Default-off privacy-safe row-level marketplace moderation Resolve/Dismiss backend + Admin server-action UI.
+- [ ] Marketplace moderation production enablement: support owner/process, restricted ingress және per-staff/JIT attribution acceptance.
 - [x] Dispute open counterparty durable IN_APP notification + Front inbox label.
 - [x] Support, incident және dispute procedures құжатталған; нақты owner/channel pilot алдында бекітіледі.
 - [x] Default-off audited support dispute status transition backend boundary.
