@@ -150,7 +150,9 @@ Open/public matching production-да қосылмас бұрын Қазақст�
 - [ ] KMS/HSM signing adapter + key lifecycle acceptance;
 - [x] application-level contract evidence legal-hold foundation;
 - [ ] jurisdiction retention periods + external storage lifecycle acceptance;
-- [ ] selected evidence binary streaming + trusted timestamp;
+- [x] bounded frozen-manifest evidence binary ZIP v2 + storage byte verification;
+- [ ] large archive true streaming/ZIP64 if load requirements demand it;
+- [ ] trusted timestamp;
 - amendments;
 - disputes;
 - data export/deletion;
@@ -162,7 +164,7 @@ Identity foundation minimal L2 claim persistence-ке дейін кеңейді:
 
 Contract rendering foundation technical deterministic renderer-ге дейін кеңейді: persisted source document hash, canonical render-input hash және actual rendered content hash бөлек беріледі; KZ/RU locale render identity-ге кіреді; Front technical TXT preview/download береді. Бұл approved legal template немесе PDF емес.
 
-Evidence export foundation deterministic ZIP-ке дейін кеңейді: evidence JSON + KZ/RU technical previews және bundle-manifest fixed-order STORE archive-ке жиналады, ZIP bytes жеке SHA-256 алады. Provider-neutral Ed25519 seal foundation archive/evidence/bundle hashes-ты domain-separated canonical payload-қа байлайды және provider signature-ны Backend қайта verify етеді. Production signer intentionally unavailable/default-off. Contract-level legal-hold foundation application cleanup-ты active hold кезінде тоқтатады және scoped support/audit boundary береді. KMS/HSM adapter, jurisdiction retention periods, external storage lifecycle acceptance, selected evidence binaries және trusted timestamp әлі ашық.
+Evidence export foundation deterministic ZIP-ке дейін кеңейді: evidence JSON + KZ/RU technical previews және bundle-manifest fixed-order STORE archive-ке жиналады, ZIP bytes жеке SHA-256 алады. Provider-neutral Ed25519 seal foundation archive/evidence/bundle hashes-ты domain-separated canonical payload-қа байлайды және provider signature-ны Backend қайта verify етеді. Production signer intentionally unavailable/default-off. Contract-level legal-hold foundation application cleanup-ты active hold кезінде тоқтатады және scoped support/audit boundary береді. Bounded full binary ZIP v2 frozen manifest evidence-ті consumed intent + CLEAN malware verdict + exact storage size/mediaType/SHA-256 арқылы қайта тексеріп direct ZIP body береді. KMS/HSM adapter, jurisdiction retention periods, external storage lifecycle acceptance, trusted timestamp және production load acceptance әлі ашық.
 
 ## Phase 5 — Public Beta Kazakhstan
 
