@@ -38,7 +38,8 @@ Command:
 - penalty өшірулі екенін;
 - amount-based commission өшірулі екенін;
 - PII contact storage mode күйін;
-- contract signing/support mutation/API docs gates күйін
+- contract signing/support mutation/API docs gates күйін;
+- evidence cryptographic sealing provider gate күйін
 
 санаттайды.
 
@@ -48,7 +49,8 @@ Command:
 - database unavailable;
 - PUBLIC_MARKETPLACE_ENABLED=true;
 - PENALTY_ENABLED=true;
-- AMOUNT_BASED_COMMISSION_ENABLED=true.
+- AMOUNT_BASED_COMMISSION_ENABLED=true;
+- EVIDENCE_SEALING_ENABLED=true, бірақ current KMS/HSM provider adapter әлі unavailable.
 
 ## Manual checks
 
@@ -65,7 +67,8 @@ Command әдейі келесілерді автоматты pass деп бел�
 - alert owner/escalation;
 - browser KZ/RU authenticated journey;
 - enabled contract signing legal gate;
-- enabled support mutation operational gate.
+- enabled support mutation operational gate;
+- evidence signing key IAM/rotation/revocation және independent signature verification acceptance.
 
 Олар `manual` ретінде қалады.
 
