@@ -121,3 +121,10 @@ Object storage provider lifecycle rule application DB-ды айналып өті
 7. audit review
 
 өткеннен кейін қосылады.
+
+
+## Implementation evidence — 2026-09-28
+
+QaryzLinkBack PR #187 merged at `b5c7f11`: contract-level legal hold schema/migration, scoped support API, one-active-hold invariant, idempotent release-by-hold-id, audit және race-safe cleanup serialization.
+
+Back CI run `36464196233` quality job құрды, бірақ runner step орындалмады. Automated Prisma/typecheck/lint/test/build verification pending; application code бұл run-да орындалмаған.
