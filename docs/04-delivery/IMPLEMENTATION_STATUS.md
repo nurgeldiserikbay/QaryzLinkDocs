@@ -1115,9 +1115,9 @@ QaryzLinkBack PR #180 merged at `086893c`: provider-neutral authenticated identi
 
 Core start boundary provider-ге authenticated user-дың opaque subject reference-ын ғана береді; email/phone/IIN/BIN/document payload жібермейді. Provider redirect HTTPS, credential-free және future-expiry болуы тиіс, әйтпесе generic fail-closed 503.
 
-Бұл verified claim емес. Нақты L2 KYC provider adapter, authenticated callback, claim persistence/expiry/revocation және KZ legal/privacy acceptance әлі Phase 4 backlog.
+Provider-neutral minimal L2 claim persistence/expiry/revocation core қосылды. Raw provider reference сақталмайды: normalized provider namespace-пен SHA-256 hash қана сақталады. Authenticated user privacy-safe `UNVERIFIED/VERIFIED/EXPIRED/REVOKED` status оқи алады; provider claim write/revoke mutation browser-ге ашылмайды. Нақты L2 KYC provider adapter, authenticated callback/session correlation және KZ legal/privacy acceptance әлі Phase 4 backlog.
 
-Automated CI GitHub Actions quota/billing gate салдарынан pending.
+QaryzLinkBack PR #182 minimal claim persistence/expiry/revocation core-ды қосты. CI run `36452180331` job құрғанымен runner step орындамады, сондықтан automated Prisma/typecheck/lint/test/build verification pending.
 
 ## Phase 4 contract document source — 2026-09-28
 
