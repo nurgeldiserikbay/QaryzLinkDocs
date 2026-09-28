@@ -144,7 +144,8 @@ Open/public matching production-да қосылмас бұрын Қазақст�
 - [ ] approved KZ/RU contract template + deterministic PDF renderer;
 - [x] technical render hashes; final PDF artifact hash binding pending;
 - [x] participant-only audited canonical JSON evidence export baseline;
-- court/export evidence package (PDF/ZIP, manifest signature, trusted timestamp);
+- [x] deterministic evidence bundle manifest + artifact path/size/hash contract;
+- [ ] ZIP container + manifest signature + trusted timestamp + legal-hold policy;
 - amendments;
 - disputes;
 - data export/deletion;
@@ -155,6 +156,8 @@ Open/public matching production-да қосылмас бұрын Қазақст�
 Identity foundation minimal L2 claim persistence-ке дейін кеңейді: raw provider reference сақталмайды, hash қана қалады; status VERIFIED/EXPIRED/REVOKED ретінде privacy-safe derive болады; internal record/revoke service future authenticated provider callback-қа дайын. Vetted provider adapter, signed callback және KZ legal/privacy acceptance әлі ашық.
 
 Contract rendering foundation technical deterministic renderer-ге дейін кеңейді: persisted source document hash, canonical render-input hash және actual rendered content hash бөлек беріледі; KZ/RU locale render identity-ге кіреді; Front technical TXT preview/download береді. Бұл approved legal template немесе PDF емес.
+
+Evidence export foundation deterministic bundle manifest-ке дейін кеңейді: evidence JSON + KZ/RU technical previews үшін stable archive paths, byte length және SHA-256 бекітіледі, ал bundle manifest өзі жеке hash алады. Signature/timestamp explicit absent; actual ZIP container әлі ашық.
 
 ## Phase 5 — Public Beta Kazakhstan
 
