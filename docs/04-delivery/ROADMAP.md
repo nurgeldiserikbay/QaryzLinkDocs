@@ -146,7 +146,9 @@ Open/public matching production-да қосылмас бұрын Қазақст�
 - [x] participant-only audited canonical JSON evidence export baseline;
 - [x] deterministic evidence bundle manifest + artifact path/size/hash contract;
 - [x] bounded deterministic metadata/text ZIP archive + archive SHA-256;
-- [ ] selected evidence binary streaming + manifest signature + trusted timestamp + legal-hold policy;
+- [x] provider-neutral Ed25519 seal payload + backend signature verification + default-off capability boundary;
+- [ ] KMS/HSM signing adapter + key lifecycle acceptance;
+- [ ] selected evidence binary streaming + trusted timestamp + legal-hold policy;
 - amendments;
 - disputes;
 - data export/deletion;
@@ -158,7 +160,7 @@ Identity foundation minimal L2 claim persistence-ке дейін кеңейді:
 
 Contract rendering foundation technical deterministic renderer-ге дейін кеңейді: persisted source document hash, canonical render-input hash және actual rendered content hash бөлек беріледі; KZ/RU locale render identity-ге кіреді; Front technical TXT preview/download береді. Бұл approved legal template немесе PDF емес.
 
-Evidence export foundation deterministic ZIP-ке дейін кеңейді: evidence JSON + KZ/RU technical previews және bundle-manifest fixed-order STORE archive-ке жиналады, ZIP bytes жеке SHA-256 алады. Бұл metadata/text v1 ғана; selected evidence binaries, signature/timestamp және legal-hold әлі ашық.
+Evidence export foundation deterministic ZIP-ке дейін кеңейді: evidence JSON + KZ/RU technical previews және bundle-manifest fixed-order STORE archive-ке жиналады, ZIP bytes жеке SHA-256 алады. Provider-neutral Ed25519 seal foundation archive/evidence/bundle hashes-ты domain-separated canonical payload-қа байлайды және provider signature-ны Backend қайта verify етеді. Production signer intentionally unavailable/default-off; KMS/HSM adapter, selected evidence binaries, trusted timestamp және legal-hold әлі ашық.
 
 ## Phase 5 — Public Beta Kazakhstan
 
