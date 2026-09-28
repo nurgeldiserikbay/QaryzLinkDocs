@@ -148,7 +148,9 @@ Open/public matching production-да қосылмас бұрын Қазақст�
 - [x] bounded deterministic metadata/text ZIP archive + archive SHA-256;
 - [x] provider-neutral Ed25519 seal payload + backend signature verification + default-off capability boundary;
 - [ ] KMS/HSM signing adapter + key lifecycle acceptance;
-- [ ] selected evidence binary streaming + trusted timestamp + legal-hold policy;
+- [x] application-level contract evidence legal-hold foundation;
+- [ ] jurisdiction retention periods + external storage lifecycle acceptance;
+- [ ] selected evidence binary streaming + trusted timestamp;
 - amendments;
 - disputes;
 - data export/deletion;
@@ -160,7 +162,7 @@ Identity foundation minimal L2 claim persistence-ке дейін кеңейді:
 
 Contract rendering foundation technical deterministic renderer-ге дейін кеңейді: persisted source document hash, canonical render-input hash және actual rendered content hash бөлек беріледі; KZ/RU locale render identity-ге кіреді; Front technical TXT preview/download береді. Бұл approved legal template немесе PDF емес.
 
-Evidence export foundation deterministic ZIP-ке дейін кеңейді: evidence JSON + KZ/RU technical previews және bundle-manifest fixed-order STORE archive-ке жиналады, ZIP bytes жеке SHA-256 алады. Provider-neutral Ed25519 seal foundation archive/evidence/bundle hashes-ты domain-separated canonical payload-қа байлайды және provider signature-ны Backend қайта verify етеді. Production signer intentionally unavailable/default-off; KMS/HSM adapter, selected evidence binaries, trusted timestamp және legal-hold әлі ашық.
+Evidence export foundation deterministic ZIP-ке дейін кеңейді: evidence JSON + KZ/RU technical previews және bundle-manifest fixed-order STORE archive-ке жиналады, ZIP bytes жеке SHA-256 алады. Provider-neutral Ed25519 seal foundation archive/evidence/bundle hashes-ты domain-separated canonical payload-қа байлайды және provider signature-ны Backend қайта verify етеді. Production signer intentionally unavailable/default-off. Contract-level legal-hold foundation application cleanup-ты active hold кезінде тоқтатады және scoped support/audit boundary береді. KMS/HSM adapter, jurisdiction retention periods, external storage lifecycle acceptance, selected evidence binaries және trusted timestamp әлі ашық.
 
 ## Phase 5 — Public Beta Kazakhstan
 

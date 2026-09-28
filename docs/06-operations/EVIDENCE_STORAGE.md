@@ -96,7 +96,7 @@ Expired және `consumedAt = null` intent-тер үшін:
 pnpm evidence:cleanup:run
 ~~~
 
-Command HTTP server ашпайды. Ол storage disabled болса іске қосылмайды, aggregate `selected/purged/failed` counters логтайды және кемінде бір object cleanup сәтсіз болса non-zero exit code қайтарады.
+Command HTTP server ашпайды. Ол storage disabled болса іске қосылмайды, aggregate `selected/purged/held/failed` counters логтайды және кемінде бір object cleanup сәтсіз болса non-zero exit code қайтарады.
 
 Kubernetes template:
 
@@ -104,7 +104,11 @@ Kubernetes template:
 
 Engineering cadence — сағатына бір рет. `concurrencyPolicy: Forbid`, bounded runtime және immutable image placeholder қолданылады. Нақты namespace, registry digest, Secret/ConfigMap және alerting staging-та тексерілуі керек.
 
-Бұл cleanup **consumed/persisted evidence-ті жоймайды**. Legal retention evidence үшін бөлек policy қажет.
+Бұл cleanup **consumed/persisted evidence-ті жоймайды**.
+
+Active contract-level evidence legal hold бар болса expired/unconsumed intent те cleanup selection-ға кірмейді; storage delete шақырылмайды. Boundary: [Evidence legal hold](EVIDENCE_LEGAL_HOLD.md).
+
+Бұл application-level protection external bucket lifecycle rule-ды автоматты түрде блоктамайды. Қазақстанға арналған нақты legal retention period және provider lifecycle configuration бөлек бекітілуі тиіс.
 
 ## 6. Monitoring және alerting baseline
 
@@ -145,6 +149,8 @@ Metrics token browser bundle-ге немесе public telemetry-ге беріл�
 10. outsider download request privacy-safe not-found қайтарады;
 11. expired unconsumed upload cleanup object пен stale scan verdict-ті жояды;
 12. cleanup storage error болса row retry үшін қалады;
+13. active legal hold бар contract-тың expired unconsumed object-і cleanup-қа таңдалмайды;
+14. hold нақты hold ID арқылы release болғаннан кейін expired unconsumed object қайта cleanup-қа жарамды болады;
 13. persisted evidence verdict-і CLEAN → INFECTED болып upgrade етілсе download fail-closed блокталады;
 14. INFECTED callback object-ті жояды, delete provider error болса 503 арқылы scanner retry жасай алады.
 15. never-issued немесе expired-unconsumed object үшін scanner verdict rejected болады; consumed evidence үшін later re-scan verdict қабылданады.

@@ -67,7 +67,7 @@ Command әдейі келесілерді автоматты pass деп бел�
 - alert owner/escalation;
 - browser KZ/RU authenticated journey;
 - enabled contract signing legal gate;
-- enabled support mutation operational gate;
+- enabled support mutation operational gate, соның ішінде evidence legal hold owner/process және scoped staff access;
 - evidence signing key IAM/rotation/revocation және independent signature verification acceptance.
 
 Олар `manual` ретінде қалады.

@@ -254,7 +254,8 @@ Trust & Evidence кезеңінде осы manifest baseline үстіне:
 - [x] bounded deterministic metadata/text ZIP container;
 - [ ] streaming evidence-binary ZIP expansion;
 - export audit;
-- retention/legal-hold policy;
+- [x] application-level contract legal-hold foundation;
+- [ ] jurisdiction retention periods + external storage lifecycle acceptance;
 - identity/KYC assurance references;
 - jurisdiction-specific legal wording
 
@@ -339,3 +340,12 @@ QaryzLinkBack PR #186 merged at `c2d2a1e`: domain-separated Ed25519 seal payload
 QaryzLinkFront PR #57 merged at `aad8056`: Ed25519 seal capability UI, default-off provider status және future detached seal JSON download boundary.
 
 Back CI run `36461356114` және Front CI run `36461359027` quality job құрды, бірақ runner step орындалмады. Сондықтан automated typecheck/lint/test/build verification pending; бұл run-дар application code-ты орындамаған.
+
+
+## Phase 4 evidence legal-hold foundation
+
+Contract-level legal hold destructive evidence cleanup-ты тоқтату үшін қосылды. Hold enum-only reason, scoped support actor және immutable placement/release history сақтайды. Бір contract-та бір active hold ғана DB partial unique index арқылы рұқсат етіледі.
+
+Active hold кезінде expired/unconsumed evidence upload cleanup query contract-ты таңдаудан алып тастайды, сондықтан object delete-ке дейін fail-safe protection бар.
+
+Бұл full legal retention емес: consumed evidence retention period, account deletion interaction және external object-store lifecycle acceptance әлі ашық. Толық boundary: [Evidence legal hold](../06-operations/EVIDENCE_LEGAL_HOLD.md).
