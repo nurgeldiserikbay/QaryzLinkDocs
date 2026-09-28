@@ -209,7 +209,37 @@ Successful bundle manifest export `EVIDENCE_BUNDLE_MANIFEST_EXPORTED` audit even
 
 Front user explicit action кезінде bundle manifest JSON-ды жүктейді және bundle hash пен artifact count көрсетеді.
 
-Бұл әлі ZIP container емес. Бірақ кейін ZIP implementation дәл осы paths + byte hashes contract-ын пайдалануы тиіс.
+## Phase 4 deterministic ZIP archive
+
+`POST /api/v1/contracts/:contractId/evidence-package/archive` bundle builder-дің дәл сол artifact set-ын deterministic ZIP ретінде жинайды.
+
+Archive v1:
+
+- compression қолданбайды (`STORE`);
+- filenames UTF-8;
+- file order lexical;
+- DOS timestamp fixed `1980-01-01 00:00:00`;
+- duplicate/unsafe paths reject;
+- payload 5 MiB және 16 entry-мен bounded;
+- әр file CRC32 ZIP compatibility үшін;
+- бүкіл ZIP bytes үшін SHA-256 `archiveHash`.
+
+ZIP ішінде:
+
+- `bundle-manifest.json`;
+- canonical evidence manifest JSON;
+- KZ technical contract preview;
+- RU technical contract preview.
+
+`bundle-manifest.json` өзінің recursive hash мәселесін тудырмау үшін bundle artifact list-ке кірмейді; бүкіл container integrity-ін бөлек `archiveHash` жабады.
+
+Successful export `EVIDENCE_ARCHIVE_EXPORTED` audit event жасайды. Audit тек package/evidence/bundle/archive hashes, entry count, size және format metadata сақтайды.
+
+Front Base64 transport-ты bytes-ке айналдырып explicit user action арқылы ZIP жүктейді және archive hash/count/size көрсетеді.
+
+Бұл **metadata/text ZIP v1**. Raw funding/payment evidence binaries әдейі кірмейді; олар storage streaming, malware-clean verification, legal-hold және size policy дайын болғаннан кейін ғана қосылады.
+
+Manifest signature және trusted timestamp әлі жоқ.
 
 ## Phase 4 evolution
 
@@ -221,7 +251,8 @@ Trust & Evidence кезеңінде осы manifest baseline үстіне:
 - [x] deterministic bundle artifact index + bundle manifest hash;
 - manifest signature;
 - trusted timestamp;
-- ZIP container;
+- [x] bounded deterministic metadata/text ZIP container;
+- [ ] streaming evidence-binary ZIP expansion;
 - export audit;
 - retention/legal-hold policy;
 - identity/KYC assurance references;
@@ -239,3 +270,12 @@ QaryzLinkBack PR #184 merged at `76f9a59`: deterministic bundle manifest, Closur
 QaryzLinkFront PR #55 merged at `0e0cdad`: bundle manifest download, bundle hash және artifact count UI.
 
 Back CI run `36455112812` және Front CI run `36455120153` quality job жасады, бірақ runner step орындалмады. Сондықтан automated typecheck/lint/test/build verification pending; бұл run-дарда application code орындалмаған.
+
+
+## Deterministic ZIP implementation evidence — 2026-09-28
+
+QaryzLinkBack PR #185 merged at `d167663`: dependency-free deterministic STORE ZIP writer, shared bundle builder, participant archive endpoint, whole-archive SHA-256 және audit boundary.
+
+QaryzLinkFront PR #56 merged at `b61aeb0`: ZIP download, archive hash, entry count және size UI.
+
+Back CI run `36456180490` және Front CI run `36456185321` quality job құрды, бірақ runner step орындалмады. Automated typecheck/lint/test/build verification pending; бұл run-дар application code-ты орындамаған.
