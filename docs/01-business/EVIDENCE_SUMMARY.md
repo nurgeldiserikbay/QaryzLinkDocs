@@ -308,6 +308,8 @@ Production signature algorithm contract — `Ed25519`. External signer adapter:
 
 Public key fingerprint — SPKI DER bytes SHA-256.
 
+Backend-side signature verification cryptographic consistency-ді тексереді, бірақ returned public key өздігінен trust anchor емес. Production KMS/HSM adapter approved key alias/version-ды pin етуі, IAM арқылы signing permission-ды шектеуі және unexpected key identity-ді fail-closed reject етуі тиіс.
+
 Endpoints:
 
 - `GET /api/v1/contracts/:contractId/evidence-package/seal-capability`;
