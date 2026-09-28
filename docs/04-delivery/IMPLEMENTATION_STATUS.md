@@ -44,7 +44,9 @@
 
 Existing immutable EvidencePackage schema v1 өзгертілмей, participant-only canonical JSON export қосылды. Backend export алдында persisted manifest-ті қайта hash етеді; stored `manifestHash` сәйкес болмаса fail-closed. Successful export `EVIDENCE_PACKAGE_EXPORTED` audit event жасайды, бірақ manifest content audit payload-қа көшірілмейді. Front KZ/RU contract evidence panel user action арқылы JSON файлды жүктейді.
 
-Бұл baseline court-ready package емес: contract PDF, ZIP container, manifest signature, trusted timestamp, selected evidence binaries және legal-hold policy әлі Phase 4 backlog-та.
+Canonical JSON export үстіне deterministic bundle manifest foundation қосылды: immutable evidence manifest және KZ/RU technical contract previews stable archive path/size/SHA-256 metadata арқылы бір bundle hash-ке байланысады. ClosureCertificate contract document hash render source hash-пен қайта тексеріледі. Front bundle manifest JSON download жасап, artifact count + bundle hash көрсетеді.
+
+Бұл baseline court-ready package емес: approved contract PDF, actual ZIP container, selected evidence binaries, manifest signature, trusted timestamp және legal-hold policy әлі Phase 4 backlog-та.
 
 ## Қазіргі backend slice
 
