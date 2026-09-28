@@ -1108,3 +1108,13 @@ QaryzLinkAdmin PR #32 merged at `0ee77f3`: server-only moderation credential env
 Automated CI GitHub Actions quota/billing gate салдарынан pending.
 
 QaryzLinkBack PR #178 merged at `7004952`: deprecated `SUPPORT_ACCESS_TOKEN` environment config толық алынып тасталды. Backend support authorization contract енді бірмәнді: `SUPPORT_STAFF_CREDENTIALS_JSON` registry + caller `x-support-token`; shared static backend token fallback жоқ.
+
+## Phase 4 identity verification foundation — 2026-09-28
+
+QaryzLinkBack PR #180 merged at `086893c`: provider-neutral authenticated identity-verification boundary қосылды. `IDENTITY_VERIFICATION_ENABLED=false` default, current adapter unavailable және release preflight enablement-ті `provider_adapter_unavailable` fail арқылы блоктайды.
+
+Core start boundary provider-ге authenticated user-дың opaque subject reference-ын ғана береді; email/phone/IIN/BIN/document payload жібермейді. Provider redirect HTTPS, credential-free және future-expiry болуы тиіс, әйтпесе generic fail-closed 503.
+
+Бұл verified claim емес. Нақты L2 KYC provider adapter, authenticated callback, claim persistence/expiry/revocation және KZ legal/privacy acceptance әлі Phase 4 backlog.
+
+Automated CI GitHub Actions quota/billing gate салдарынан pending.
