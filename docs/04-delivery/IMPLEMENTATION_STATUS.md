@@ -22,7 +22,7 @@
 | Repayment reminders | Дайын | Latest schedule due/overdue borrower reminders, per-event/channel idempotency, IN_APP + email preference boundary |
 | Payment reversal | Дайын | Lender-authorized immutable reversal, signed allocation restore және opposite ledger entries |
 | Contract closure | Дайын | Zero-balance readiness, dual final-statement confirmation, stale-hash guard, immutable closure certificate және lifecycle notifications |
-| Evidence summary / manifest | Дайын baseline | Participant coverage summary, completed-contract immutable JSON manifest, deterministic SHA-256 және privacy-safe field boundary |
+| Evidence summary / manifest | Phase 4 export baseline басталды | Participant coverage summary, completed-contract immutable JSON manifest, deterministic SHA-256, audited canonical JSON download және export-time integrity recheck бар; PDF/ZIP/signature/trusted timestamp қалды |
 | Phase 2 critical E2E | Harness дайын, execution pending | Real PostgreSQL lifecycle + cross-user isolation spec кодта бар; Actions quota/billing gate салдарынан current run әлі орындалмады |
 | KZ/RU user journey | Presentation coverage дайын, browser execution pending | Landing/auth/discovery/contract/lifecycle/closure/evidence/dispute/notifications/settings/account lifecycle KZ/RU; real authenticated two-party browser acceptance әлі орындалмады |
 | Notifications/outbox | Базалық slice дайын | Payment/dispute/repayment және closure lifecycle оқиғалары, privacy-safe payload және idempotent outbox |
@@ -39,6 +39,12 @@
 | Deployment hardening | Template/CI дайын | Immutable digest rendering, bounded migration job, privacy-safe release preflight, safe rollout, PDB, node spread, rollback және restore runbooks |
 | Provider/scheduler | Жоспарда | Push adapter, queue trigger, external metrics collector/alerting және organization routing |
 | Front/Admin UI | Front critical MVP presentation кеңейді | Front-та auth/discovery/contract/lifecycle/closure/evidence/dispute/notifications/settings/security/account lifecycle KZ/RU coverage бар; Admin-та liveness, database readiness, evidence-storage, notification-delivery, audit және account-deletion aggregate operations cards бар; identity-level feeds әлі өшірулі |
+
+## Phase 4 Trust & Evidence басталуы — 2026-09-28
+
+Existing immutable EvidencePackage schema v1 өзгертілмей, participant-only canonical JSON export қосылды. Backend export алдында persisted manifest-ті қайта hash етеді; stored `manifestHash` сәйкес болмаса fail-closed. Successful export `EVIDENCE_PACKAGE_EXPORTED` audit event жасайды, бірақ manifest content audit payload-қа көшірілмейді. Front KZ/RU contract evidence panel user action арқылы JSON файлды жүктейді.
+
+Бұл baseline court-ready package емес: contract PDF, ZIP container, manifest signature, trusted timestamp, selected evidence binaries және legal-hold policy әлі Phase 4 backlog-та.
 
 ## Қазіргі backend slice
 
