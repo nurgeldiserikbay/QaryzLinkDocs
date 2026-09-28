@@ -49,6 +49,8 @@ Raw support token browser/public API contract-қа шықпайды.
 
 Placement contract row-ды `FOR UPDATE` арқылы serializes.
 
+Cleanup әр selected intent үшін дәл сол contract row-ды `FOR UPDATE` арқылы қайта lock етеді және storage delete алдында active hold-ты қайта тексереді. Сондықтан selection мен delete аралығында hold қойылса, операция commit ordering арқылы анық реттеледі: hold бірінші commit болса delete skipped; cleanup lock бірінші алса cleanup аяқталғаннан кейін ғана жаңа hold қойылады.
+
 Database partial unique index:
 
 `UNIQUE(contractId) WHERE releasedAt IS NULL`
