@@ -1118,3 +1118,13 @@ Core start boundary provider-ге authenticated user-дың opaque subject refer
 Бұл verified claim емес. Нақты L2 KYC provider adapter, authenticated callback, claim persistence/expiry/revocation және KZ legal/privacy acceptance әлі Phase 4 backlog.
 
 Automated CI GitHub Actions quota/billing gate салдарынан pending.
+
+## Phase 4 contract document source — 2026-09-28
+
+QaryzLinkBack PR #181 merged at `2941102`: verified participant-only `GET /api/v1/contracts/:contractId/document-source` endpoint қосылды. Immutable `document` section ContractVersion version/currency/principal/documentHash/termsSnapshot/calculationPolicy-ды береді; platform acknowledgement metadata бөлек section-да role/method/signedAt ретінде ғана шығады.
+
+User/party/public/contact/display identifiers response-қа кірмейді. Lifecycle status және funding deadline immutable document source-қа әдейі кірмейді.
+
+Бұл әлі PDF емес. KZ/RU legal template approval, deterministic renderer, PDF hash/source binding және staging visual/integrity acceptance кейінгі Phase 4 slice болып қалады.
+
+Automated CI GitHub Actions quota/billing gate салдарынан pending.
