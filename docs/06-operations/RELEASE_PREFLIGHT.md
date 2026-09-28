@@ -39,7 +39,8 @@ Command:
 - amount-based commission өшірулі екенін;
 - PII contact storage mode күйін;
 - contract signing/support mutation/API docs gates күйін;
-- evidence cryptographic sealing provider gate күйін
+- evidence cryptographic sealing provider gate күйін;
+- full evidence binary archive feature gate күйін
 
 санаттайды.
 
@@ -62,6 +63,7 @@ Command әдейі келесілерді автоматты pass деп бел�
 - evidence bucket least privilege;
 - malware scanner callback және CLEAN/INFECTED flow;
 - evidence signed PUT/GET;
+- enabled full binary archive max-size/concurrency/memory/latency acceptance;
 - TLS certificate;
 - backup/restore;
 - alert owner/escalation;
