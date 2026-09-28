@@ -138,7 +138,7 @@ Open/public matching production-да қосылмас бұрын Қазақст�
 
 - [x] provider-neutral default-off identity verification boundary;
 - [ ] vetted L2 KYC provider adapter + authenticated callback;
-- [ ] verified claims persistence/expiry/revocation;
+- [x] provider-neutral minimal L2 claim persistence/expiry/revocation core;
 - [x] participant-only immutable contract document source;
 - [ ] approved KZ/RU contract template + deterministic PDF renderer;
 - document hashes;
@@ -150,6 +150,8 @@ Open/public matching production-да қосылмас бұрын Қазақст�
 - staff JIT access.
 
 2026-09-28: Phase 4 басталды. Existing immutable schema v1 manifest үшін participant-only canonical JSON export қосылды. Export persisted manifest hash-ін қайта тексереді, mismatch кезінде fail-closed болады және successful export audit event жасайды. Бұл әлі PDF/ZIP, external signature немесе trusted timestamp емес.
+
+Identity foundation minimal L2 claim persistence-ке дейін кеңейді: raw provider reference сақталмайды, hash қана қалады; status VERIFIED/EXPIRED/REVOKED ретінде privacy-safe derive болады; internal record/revoke service future authenticated provider callback-қа дайын. Vetted provider adapter, signed callback және KZ legal/privacy acceptance әлі ашық.
 
 ## Phase 5 — Public Beta Kazakhstan
 
