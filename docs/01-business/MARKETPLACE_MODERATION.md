@@ -2,7 +2,7 @@
 
 Бұл құжат Phase 3 public marketplace үшін user-driven abuse reporting және privacy-safe moderation visibility contract-ын сипаттайды.
 
-2026-09-28 күйі: Backend offer report write-path, Front report control және Admin aggregate backlog visibility іске асқан. Marketplace өзі әлі `PUBLIC_MARKETPLACE_ENABLED=false` default legal/release gate артында.
+2026-09-28 күйі: Backend offer report write-path, Front report control, aggregate backlog және default-off row-level human review workflow іске асқан. Marketplace өзі әлі `PUBLIC_MARKETPLACE_ENABLED=false` default legal/release gate артында.
 
 ## Мақсаты
 
@@ -105,13 +105,13 @@ Current data model:
 ~~~mermaid
 stateDiagram-v2
     [*] --> OPEN
-    OPEN --> RESOLVED: future human moderation workflow
-    OPEN --> DISMISSED: future human moderation workflow
+    OPEN --> RESOLVED: human review
+    OPEN --> DISMISSED: human review
 ~~~
 
-Қазіргі slice `OPEN` report жасайды және aggregate backlog көрсетеді.
+Қазіргі implementation `OPEN` report жасайды, aggregate backlog көрсетеді және бөлек default-off support gate арқылы `RESOLVED` / `DISMISSED` human-review transition орындай алады.
 
-`RESOLVED` / `DISMISSED` moderator mutation workflow әлі implementation-да жоқ. Сондықтан бұл status-тардың schema-да болуы current Admin-ға report row mutation құқығын бермейді.
+Бұл transition report row статусын ғана өзгертеді. Offer visibility/status, lender account status, matching/ranking және reputation автоматты өзгермейді.
 
 ## Audit privacy
 
@@ -152,7 +152,9 @@ KZ/RU marketplace catalog report UI қосылғаннан кейін 112/112 ke
 
 ## Admin visibility
 
-Admin row-level report list алмайды.
+Admin екі бөлек surface қолданады.
+
+### Aggregate operations visibility
 
 Protected endpoint:
 
@@ -182,7 +184,51 @@ Admin-ға мыналар берілмейді:
 - complaint content;
 - contact fields.
 
-Бұл intentional aggregate-only operations baseline.
+Бұл aggregate operations baseline.
+
+### Row-level human review
+
+Row-level queue бөлек support gate артында:
+
+~~~text
+GET /api/v1/internal/support/marketplace-reports?status=OPEN
+x-support-token: <server-only secret>
+
+PATCH /api/v1/internal/support/marketplace-reports/:reportId/status
+x-support-token: <server-only secret>
+
+{
+  "status": "RESOLVED"
+}
+~~~
+
+Allowed terminal outcomes:
+
+- `RESOLVED`;
+- `DISMISSED`.
+
+Queue moderator-ға тек:
+
+- report id;
+- reason code;
+- report status/timestamps;
+- offer-дың non-identity financial/expiry terms
+
+береді.
+
+Queue reporter/lender userId/partyId/publicId/displayName/email/phone немесе free-text complaint бермейді.
+
+Admin `SUPPORT_ACCESS_TOKEN` мәнін browser props/JS-ке шығармайды. Resolve/Dismiss server action арқылы Backend-ке жіберіледі.
+
+Backend gate:
+
+~~~text
+SUPPORT_MARKETPLACE_REPORT_TRANSITIONS_ENABLED=false
+~~~
+
+әдепкіде false.
+
+Transition status-only audit event жасайды және same terminal status replay idempotent. Бір terminal outcome-ды екіншісіне ауыстыру conflict береді.
 
 ## Abuse controls
 
@@ -194,7 +240,11 @@ Admin-ға мыналар берілмейді:
 - idempotency key;
 - offer visibility/ownership/block recheck;
 - offer lifecycle row lock;
-- aggregate-only Admin metrics.
+- aggregate-only Admin metrics;
+- default-off row-level support gate;
+- server-only support token;
+- exact queue response-shape validation;
+- audited terminal review transitions.
 
 Report count offer visibility-ге, ranking-ке немесе account status-қа автоматты әсер етпейді.
 
@@ -210,11 +260,8 @@ Release preflight marketplace enablement-ті Қазақстандағы legal c
 
 Кейін бөлек design/review талап етеді:
 
-- moderator row-level review queue;
-- least-privilege/JIT report access;
-- OPEN → RESOLVED / DISMISSED controlled transition;
-- moderation audit trail;
-- retention policy;
+- per-staff least-privilege/JIT identity және attributable staff audit;
+- moderation retention policy;
 - repeated-target abuse analytics;
 - automated spam/fraud signals;
 - sanctions/offer visibility changes.

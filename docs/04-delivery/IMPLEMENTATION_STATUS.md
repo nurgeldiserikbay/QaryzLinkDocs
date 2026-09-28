@@ -13,7 +13,7 @@
 | IAM | Базалық нұсқа дайын | Register, login, refresh token rotation, current-session logout, email verification |
 | Profile, privacy және deletion request | Базалық нұсқа дайын | Өз профилін/ privacy баптауларын басқару және retention-aware account deletion request жіберу |
 | Database migration | Дайын | Бастапқы schema versioned SQL migration ретінде бекітілді |
-| Discovery | Private slice дайын + Phase 3 dark workspace | Private request/invite/proposal/acceptance + immutable borrower counter negotiation; default-off public offer lifecycle/version history + compatibility explanation + application → concrete Proposal + KZ/RU marketplace workspace |
+| Discovery | Private slice дайын + Phase 3 dark workspace | Private request/invite/proposal/acceptance + immutable borrower counter negotiation; default-off public offer lifecycle/version history + compatibility explanation + application → concrete Proposal + bounded reporting + support-gated human review |
 | Contract draft/signing | Дайын | Accepted proposal-дан immutable ContractVersion v1, privacy-safe read, dual hash acknowledgement |
 | Funding evidence/confirmation | Backend + storage adapter baseline дайын, operational rollout толық емес | Single-use intent, S3-compatible signed PUT/GET, HEAD verification, trusted malware verdict registry, quarantine/orphan cleanup және aggregate metrics бар; external scanner, staging acceptance және retention policy қалды |
 | Schedule generation | Дайын | ACTIVE + CONFIRMED guard, ACT/365 Fixed + HALF_UP, versioned inputHash |
@@ -1039,3 +1039,52 @@ CI evidence:
 Екі run-да да GitHub Actions `quality` job құрылды, бірақ quota/billing gate салдарынан **0 step** орындады. Бұл code/test failure evidence емес; Prisma/typecheck/lint/unit/PostgreSQL/build/browser execution quota қалпына келгенде қайта орындалуы тиіс.
 
 Canonical contract: [Proposal negotiation](../01-business/PROPOSAL_NEGOTIATION.md).
+
+
+## Phase 3 row-level marketplace moderation review — 2026-09-28
+
+QaryzLinkBack PR #176 merged at `13f6282`.
+
+Marketplace report moderation енді aggregate visibility-ден бөлек default-off row-level human review workflow алды:
+
+- `GET /api/v1/internal/support/marketplace-reports?status=OPEN`;
+- `PATCH /api/v1/internal/support/marketplace-reports/:reportId/status`;
+- allowed terminal outcomes: `RESOLVED` және `DISMISSED`;
+- queue oldest-first, bounded 50-row page;
+- cursor reviewed row status өзгергеннен кейін де stable;
+- queue report ID, reason/status/timestamps және non-identity offer terms ғана қайтарады;
+- reporter/lender userId/partyId/publicId/displayName/email/phone және free-text complaint шығарылмайды;
+- same terminal transition idempotent;
+- terminal outcome rewrite conflict;
+- transition audit payload тек `fromStatus/toStatus`;
+- resolve/dismiss offer немесе lender account status-ын автоматты өзгертпейді.
+
+Security gate:
+
+- `SUPPORT_MARKETPLACE_REPORT_TRANSITIONS_ENABLED=false` default;
+- server-only `SUPPORT_ACCESS_TOKEN` талап етіледі;
+- release preflight support mutation enablement-ті `manual` acceptance ретінде көрсетеді;
+- public marketplace gate бұдан тәуелсіз және әлі default-off.
+
+QaryzLinkAdmin PR #31 merged at `768286d`.
+
+Admin:
+
+- OPEN row-level queue көрсетеді;
+- exact response-shape validator unexpected identity/content field келсе fail-closed;
+- support token browser props/JS-ке берілмейді;
+- Resolve/Dismiss Next server action арқылы жүреді;
+- report UUID және terminal status Admin server-де қайта validate болады;
+- UI automatic hide/ban/ranking болмайтынын explicit көрсетеді;
+- moderation mutations Admin safety metadata-да default-off.
+
+CI evidence:
+
+- Back PR #176 run `36424355848`: `quality` job **0 step**;
+- Admin PR #31 run `36424928679`: `quality` job **0 step**.
+
+Екі run да GitHub Actions quota/billing gate салдарынан runner step орындамаған. Бұл code/test failure evidence емес; successful CI/staging acceptance pending.
+
+Қалған moderation gap: shared support token орнына per-staff least-privilege/JIT identity және attributable staff audit. Бұл Phase 4 staff JIT access-пен бірге орындалуы тиіс.
+
+Толық contract: [Marketplace moderation](../01-business/MARKETPLACE_MODERATION.md).

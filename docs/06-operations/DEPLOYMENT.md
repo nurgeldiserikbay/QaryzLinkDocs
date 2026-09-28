@@ -87,6 +87,8 @@ Command HTTP server ашпайды. Алдымен grace/retention hold қайт
 | AMOUNT_BASED_COMMISSION_ENABLED | false |
 | MAX_OUTGOING_APPLICATIONS_PER_DAY | Public-offer application daily quota; engineering default 10 |
 | MAX_MARKETPLACE_REPORTS_PER_DAY | Бір account үшін marketplace offer report daily quota; default 5, validated max 50 |
+| SUPPORT_MARKETPLACE_REPORT_TRANSITIONS_ENABLED | false; row-level Resolve/Dismiss support workflow-ды explicit қосады |
+| SUPPORT_ACCESS_TOKEN | Support mutations қосылса server-only ≥32 таңбалық secret; browser-ге шықпайды |
 | MAX_OFFER_VERSIONS | Бір public offer үшін immutable financial-term history limit; default 20, validated max 100 |
 | ACCOUNT_DELETION_GRACE_DAYS | Engineering default 30; production мәні legal retention review-дан кейін бекітіледі |
 
@@ -119,6 +121,7 @@ API: [backend README](https://github.com/nurgeldiserikbay/QaryzLinkBack#email-р
 - `TRUST_PROXY_HOPS=0` әдепкіде forwarded client identity-ді толық елемейді. Ingress proxy chain және header sanitization staging-та тексерілгеннен кейін ғана нақты hop санын 1–3 етіп қойыңыз. Hop саны topology-мен дәл сәйкес келуі тиіс; direct API ingress restricted болуы керек.
 - DB/Redis порттарын интернетке ашпаңыз; HTTPS-тен басқа ingress тек әкімшілік рұқсатпен.
 - Metrics endpoint тек internal ingress арқылы қолжетімді болсын және x-metrics-token header талап етсін.
+- Internal support endpoints public ingress-тен бөлек restricted болуы тиіс. Marketplace review enable болса x-support-token server-side ғана жіберіледі; Front/browser бұл token-ды ешқашан алмайды.
 - Login, refresh, logout, metrics authorization және email workflow-ларын staging-де тексеріңіз.
 
 ## 6. Docker және k3s
