@@ -52,7 +52,9 @@ Bundle manifest үстіне bounded deterministic metadata/text ZIP archive қ�
 
 QaryzLinkBack PR #185 merged at `d167663`, QaryzLinkFront PR #56 merged at `b61aeb0`. CI runs `36456180490` және `36456185321` quality job құрғанымен runner step орындамады; automated verification pending.
 
-Бұл baseline court-ready package емес: approved contract PDF, selected evidence binaries/streaming, manifest signature, trusted timestamp және legal-hold policy әлі Phase 4 backlog-та.
+Deterministic ZIP үстіне provider-neutral Ed25519 seal foundation қосылды: canonical domain-separated payload archive/bundle/evidence hashes-ты байланыстырады; external signer result Backend ішінде public key арқылы қайта verify болады; key fingerprint/signature hash audit metadata-ға ғана түседі. Production signer default-off, Front unavailable capability-ді ғана көрсетеді.
+
+Бұл baseline court-ready package емес: approved contract PDF, selected evidence binaries/streaming, production KMS/HSM signer/key lifecycle, trusted timestamp және legal-hold policy әлі Phase 4 backlog-та.
 
 ## Қазіргі backend slice
 
