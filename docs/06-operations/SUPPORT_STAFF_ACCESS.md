@@ -49,7 +49,7 @@ Production support/moderation enablement алдында:
 
 бекітілуі тиіс.
 
-Shared `SUPPORT_ACCESS_TOKEN` legacy/deprecated config ретінде ғана қалады және жаңа backend authorization flow оны қолданбайды.
+`SUPPORT_ACCESS_TOKEN` backend config-тан толық алынып тасталды. Canonical authorization config — тек `SUPPORT_STAFF_CREDENTIALS_JSON`.
 
 ## Verification status
 
