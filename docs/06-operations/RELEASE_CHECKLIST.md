@@ -97,7 +97,8 @@
 - [ ] Approved KZ/RU legal template + deterministic PDF renderer + final PDF artifact hash/source binding + staging visual acceptance.
 - [x] Participant-only immutable evidence manifest + audited canonical JSON export with hash re-verification.
 - [x] Deterministic evidence bundle manifest: stable artifact paths, byte lengths, SHA-256, closure document hash binding және audited bundle hash.
-- [ ] Court/export package hardening: approved PDF artifact, actual ZIP container, selected evidence binaries, manifest signature, trusted timestamp және legal-hold policy.
+- [x] Bounded deterministic metadata/text ZIP archive with fixed timestamps, CRC32 compatibility және whole-archive SHA-256.
+- [ ] Court/export package hardening: approved PDF artifact, selected evidence binary streaming, manifest signature, trusted timestamp және legal-hold policy.
 - [x] Participant-only neutral dispute intake/read backend + Front contract panel.
 - [x] Privacy-safe aggregate dispute backlog metrics + Admin read-only operations card.
 - [x] Marketplace enum-only abuse reports + aggregate moderation backlog.
