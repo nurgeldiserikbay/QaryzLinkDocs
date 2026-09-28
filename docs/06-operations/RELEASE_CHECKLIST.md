@@ -92,11 +92,12 @@
 - [x] Privacy-safe aggregate dispute backlog metrics + Admin read-only operations card.
 - [x] Marketplace enum-only abuse reports + aggregate moderation backlog.
 - [x] Default-off privacy-safe row-level marketplace moderation Resolve/Dismiss backend + Admin server-action UI.
-- [ ] Marketplace moderation production enablement: support owner/process, restricted ingress және per-staff/JIT attribution acceptance.
+- [x] Backend scoped/expiring per-staff support credential registry + attributable audit foundation (`SUPPORT_STAFF_ACCESS.md`).
+- [ ] Marketplace moderation production enablement: support owner/process, restricted ingress, actual multi-user staff identity/JIT issuance және revocation acceptance.
 - [x] Dispute open counterparty durable IN_APP notification + Front inbox label.
 - [x] Support, incident және dispute procedures құжатталған; нақты owner/channel pilot алдында бекітіледі.
 - [x] Default-off audited support dispute status transition backend boundary.
-- [ ] Support/admin transition production enablement және Admin mutation UI — actual support owner/process бекітілгеннен кейін.
+- [ ] Support/admin transition production enablement — actual support owner/process, staff identity/JIT issuance және staging acceptance кейін.
 - [ ] Жоба иесі staging acceptance нәтижесін көрген.
 
 Platform acknowledgement qualified electronic signature болып табылмайды және жеке басты толық құқықтық растау емес. Email verification да қол қоюдың заңдық күшін растамайды.
