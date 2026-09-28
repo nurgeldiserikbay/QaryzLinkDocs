@@ -1,6 +1,6 @@
 # Implementation status
 
-Жаңартылған күні: 2026-09-27
+Жаңартылған күні: 2026-09-28
 
 Бұл құжат specification мен нақты код арасындағы қысқа бақылау нүктесі. Толық талаптар өзгермейді; мұнда тек орындалу күйі көрсетіледі.
 
@@ -13,7 +13,7 @@
 | IAM | Базалық нұсқа дайын | Register, login, refresh token rotation, current-session logout, email verification |
 | Profile, privacy және deletion request | Базалық нұсқа дайын | Өз профилін/ privacy баптауларын басқару және retention-aware account deletion request жіберу |
 | Database migration | Дайын | Бастапқы schema versioned SQL migration ретінде бекітілді |
-| Discovery | Private slice дайын + Phase 3 dark workspace | Private request/invite/proposal/acceptance; default-off public offer lifecycle/version history + deterministic request-offer compatibility explanation + borrower application → concrete Proposal + KZ/RU marketplace workspace қосылды |
+| Discovery | Private slice дайын + Phase 3 dark workspace | Private request/invite/proposal/acceptance + immutable borrower counter negotiation; default-off public offer lifecycle/version history + compatibility explanation + application → concrete Proposal + KZ/RU marketplace workspace |
 | Contract draft/signing | Дайын | Accepted proposal-дан immutable ContractVersion v1, privacy-safe read, dual hash acknowledgement |
 | Funding evidence/confirmation | Backend + storage adapter baseline дайын, operational rollout толық емес | Single-use intent, S3-compatible signed PUT/GET, HEAD verification, trusted malware verdict registry, quarantine/orphan cleanup және aggregate metrics бар; external scanner, staging acceptance және retention policy қалды |
 | Schedule generation | Дайын | ACTIVE + CONFIRMED guard, ACT/365 Fixed + HALF_UP, versioned inputHash |
@@ -990,3 +990,52 @@ CI evidence:
 Marketplace әлі `PUBLIC_MARKETPLACE_ENABLED=false` default gate артында. Release preflight legal approval-ға дейін deployed enablement-ті `fail` етеді.
 
 Толық contract: [Marketplace moderation](../01-business/MARKETPLACE_MODERATION.md).
+
+
+## Phase 3 immutable proposal negotiation — 2026-09-28
+
+QaryzLinkBack PR #174 merged at `7877e64`.
+
+Negotiation model existing Proposal final-accept invariant-ын бұзбайды:
+
+- borrower PENDING lender Proposal-ға immutable counter suggestion жібереді;
+- counter source Proposal terms-пен exact бірдей болса conflict;
+- бір source Proposal үшін бір active PENDING counter;
+- `MAX_PROPOSAL_COUNTERS_PER_DAY` default 10, hard max 50;
+- create/respond active+verified participants және two-way block relationship-ті қайта тексереді;
+- borrower `WITHDRAW`, lender `REJECT` safe terminal action ретінде re-verification-сыз орындала алады;
+- lender counter-ды тікелей ACCEPT етпейді;
+- lender RESPOND жаңа lender-authored Proposal жасайды;
+- source Proposal `SUPERSEDED`, counter `RESPONDED`, `responseProposalId` сақталады;
+- final Proposal ACCEPT тек borrower арқылы existing flow-да орындалады;
+- source Proposal terminal болса pending counter `SUPERSEDED`;
+- competing Proposal request-ті MATCHED етсе loser Proposal counters та `SUPERSEDED`;
+- participant-only history userId/partyId/publicId/email/phone шығармайды;
+- idempotent replay duplicate row/audit жасамайды;
+- audit payload status-only boundary-ын сақтайды.
+
+Backend PostgreSQL integration tests borrower → counter → lender response Proposal → borrower final ACCEPT lifecycle, unrelated-user isolation, block recheck, withdraw/reject, pending uniqueness, no-op, quota, idempotency және competing Proposal cleanup-ты қамтиды.
+
+QaryzLinkFront PR #50 merged at `ac83ced`.
+
+Request detail Proposal card ішіне KZ/RU negotiation panel қосылды:
+
+- borrower counter form;
+- exact no-op Front-та blocked;
+- immutable counter history;
+- lender REJECT немесе new Proposal terms-пен RESPOND;
+- borrower WITHDRAW;
+- response Proposal short reference;
+- terminal/superseded history read-only;
+- direct Counter ACCEPT UI әдейі жоқ;
+- API/types жеке compact `proposal-negotiation.ts` модуліне бөлінді;
+- responsive mobile styling;
+- journey catalog KZ/RU 178/178 parity.
+
+CI evidence:
+- Back PR #174 run `36382300375`;
+- Front PR #50 run `36415563949`.
+
+Екі run-да да GitHub Actions `quality` job құрылды, бірақ quota/billing gate салдарынан **0 step** орындады. Бұл code/test failure evidence емес; Prisma/typecheck/lint/unit/PostgreSQL/build/browser execution quota қалпына келгенде қайта орындалуы тиіс.
+
+Canonical contract: [Proposal negotiation](../01-business/PROPOSAL_NEGOTIATION.md).
