@@ -318,3 +318,8 @@ Dispute түрлері:
 ## Public marketplace moderation boundary
 
 [Marketplace moderation reporting baseline](MARKETPLACE_MODERATION.md) user-driven public offer reports-ты enum-only reason code, duplicate/daily quota және privacy-safe visibility guards арқылы шектейді. Report automatic sanction, ranking немесе fraud verdict емес. Current Admin тек aggregate backlog көреді; row-level review және moderator mutation кейінгі бөлек workflow.
+
+
+## Proposal negotiation boundary
+
+[Proposal negotiation](PROPOSAL_NEGOTIATION.md) borrower counter suggestion-ды lender-approved concrete Proposal-дан әдейі бөледі. Borrower counter-ды тікелей ACCEPT ету мүмкін емес: lender жаңа Proposal шығарады, final ACCEPT қайта borrower-де қалады. Бұл lender-authority және borrower explicit consent invariant-ын сақтайды.

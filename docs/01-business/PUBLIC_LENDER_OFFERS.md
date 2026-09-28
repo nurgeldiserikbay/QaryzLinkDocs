@@ -122,7 +122,6 @@ Release preflight-та public marketplace true болса `restricted_financial_
 - lender public profile;
 - verification badges;
 - automatic matching/ranking;
-- negotiation/counter-offer versions;
 - row-level moderator review queue;
 - automated spam reputation/sanctions;
 - offer lifecycle email notifications;
@@ -132,7 +131,7 @@ Release preflight-та public marketplace true болса `restricted_financial_
 
 Borrower application → lender concrete Proposal flow енді [Public offer applications](PUBLIC_OFFER_APPLICATIONS.md) ішінде іске асқан.
 
-User-driven moderation reporting baseline іске асты: [Marketplace moderation](MARKETPLACE_MODERATION.md). Келесі safe work negotiation/counter-offer versions, controlled moderator workflow және borrower-side discovery evolution болып қалады. Deterministic compatibility explanation іске асты; automated ranking/recommendation әлі legal gate артында. Open/public matching recommendation/search ranking legal classification-тан кейін ғана production enablement алады.
+User-driven moderation reporting baseline іске асты: [Marketplace moderation](MARKETPLACE_MODERATION.md). Borrower counter → lender response Proposal negotiation іске асты: [Proposal negotiation](PROPOSAL_NEGOTIATION.md). Келесі safe work controlled moderator workflow және borrower-side discovery evolution болып қалады. Deterministic compatibility explanation іске асты; automated ranking/recommendation әлі legal gate артында. Open/public matching recommendation/search ranking legal classification-тан кейін ғана production enablement алады.
 
 
 ## Front marketplace workspace
@@ -333,3 +332,10 @@ Public offer user-driven reporting baseline іске асқан: [Marketplace mo
 - Admin тек aggregate backlog көреді.
 
 Row-level moderator review және RESOLVED/DISMISSED mutation әлі кейінгі workflow.
+
+
+## Proposal negotiation
+
+Private және marketplace-origin Proposal үшін immutable borrower counter lifecycle іске асқан: [Proposal negotiation](PROPOSAL_NEGOTIATION.md).
+
+Counter public offer terms versioning-ті алмастырмайды. LoanOffer version application жасалған сәттегі lender publication terms-ті бекітеді; кейін lender concrete Proposal жасайды; borrower сол Proposal-ға immutable counter suggestion бере алады. Counter тікелей ACCEPT болмайды — lender response жаңа Proposal жасайды, final ACCEPT borrower-де қалады.
