@@ -58,6 +58,8 @@ QaryzLinkBack PR #186 merged at `c2d2a1e`, QaryzLinkFront PR #57 merged at `aad8
 
 Contract-level evidence legal-hold foundation қосылды: enum-only reason, scoped support read/write, one-active-hold DB invariant, idempotent hold/release және cleanup query exclusion. Active hold expired/unconsumed object storage deletion-ға дейін contract-ты selection-нан алып тастайды.
 
+QaryzLinkBack PR #187 merged at `b5c7f11`. CI run `36464196233` quality job құрғанымен runner step орындамады; automated verification pending.
+
 Бұл baseline court-ready package емес: approved contract PDF, selected evidence binaries/streaming, production KMS/HSM signer/key lifecycle, trusted timestamp, jurisdiction retention periods және external bucket lifecycle acceptance әлі Phase 4 backlog-та.
 
 ## Қазіргі backend slice
