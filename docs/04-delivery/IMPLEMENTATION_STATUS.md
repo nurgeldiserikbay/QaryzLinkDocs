@@ -1100,3 +1100,5 @@ QaryzLinkAdmin PR #32 merged at `0ee77f3`: server-only moderation credential env
 Бұл backend attribution foundation ғана. Actual multi-user staff login/SSO/JIT issuance, revocation process, support owner және restricted internal ingress production enablement алдында әлі acceptance gate болып қалады.
 
 Automated CI GitHub Actions quota/billing gate салдарынан pending.
+
+QaryzLinkBack PR #178 merged at `7004952`: deprecated `SUPPORT_ACCESS_TOKEN` environment config толық алынып тасталды. Backend support authorization contract енді бірмәнді: `SUPPORT_STAFF_CREDENTIALS_JSON` registry + caller `x-support-token`; shared static backend token fallback жоқ.
