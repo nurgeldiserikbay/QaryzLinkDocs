@@ -93,7 +93,8 @@
 - [x] Front KZ/RU privacy-safe identity status/capability UI; provider disabled болса start action hidden.
 - [ ] External L2 KYC provider adapter, authenticated callback/session correlation және KZ privacy/legal staging acceptance.
 - [x] Participant-only immutable contract document source (`CONTRACT_DOCUMENT_RENDERING.md`).
-- [ ] Approved KZ/RU legal template + deterministic PDF renderer + staging visual/hash acceptance.
+- [x] Deterministic KZ/RU technical preview with source/input/content SHA-256 integrity boundary + Front TXT download.
+- [ ] Approved KZ/RU legal template + deterministic PDF renderer + final PDF artifact hash/source binding + staging visual acceptance.
 - [x] Participant-only immutable evidence manifest + audited canonical JSON export with hash re-verification.
 - [ ] Court/export package hardening: PDF/ZIP, manifest signature, trusted timestamp және legal-hold policy.
 - [x] Participant-only neutral dispute intake/read backend + Front contract panel.
