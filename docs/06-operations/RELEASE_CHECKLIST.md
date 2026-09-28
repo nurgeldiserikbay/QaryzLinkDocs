@@ -100,7 +100,9 @@
 - [x] Bounded deterministic metadata/text ZIP archive with fixed timestamps, CRC32 compatibility және whole-archive SHA-256.
 - [x] Provider-neutral Ed25519 seal payload + backend detached-signature verification + participant-scoped capability UI.
 - [ ] Production KMS/HSM signing adapter, approved key IAM/rotation/revocation және staging verification.
-- [ ] Court/export package hardening: approved PDF artifact, selected evidence binary streaming, trusted timestamp және legal-hold policy.
+- [x] Application-level contract evidence legal hold: scoped support control, audit, one-active-hold invariant және cleanup exclusion.
+- [ ] Legal retention completion: Kazakhstan retention periods, consumed-evidence deletion policy, account-deletion interaction және external bucket lifecycle acceptance.
+- [ ] Court/export package hardening: approved PDF artifact, selected evidence binary streaming және trusted timestamp.
 - [x] Participant-only neutral dispute intake/read backend + Front contract panel.
 - [x] Privacy-safe aggregate dispute backlog metrics + Admin read-only operations card.
 - [x] Marketplace enum-only abuse reports + aggregate moderation backlog.
