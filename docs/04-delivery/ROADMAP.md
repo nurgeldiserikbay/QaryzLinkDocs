@@ -136,8 +136,9 @@ Open/public matching production-да қосылмас бұрын Қазақст�
 
 ## Phase 4 — Trust және Evidence
 
-- L2 KYC adapter;
-- verified claims;
+- [x] provider-neutral default-off identity verification boundary;
+- [ ] vetted L2 KYC provider adapter + authenticated callback;
+- [ ] verified claims persistence/expiry/revocation;
 - contract PDF;
 - document hashes;
 - [x] participant-only audited canonical JSON evidence export baseline;
