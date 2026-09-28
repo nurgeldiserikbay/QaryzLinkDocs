@@ -279,3 +279,52 @@ QaryzLinkBack PR #185 merged at `d167663`: dependency-free deterministic STORE Z
 QaryzLinkFront PR #56 merged at `b61aeb0`: ZIP download, archive hash, entry count және size UI.
 
 Back CI run `36456180490` және Front CI run `36456185321` quality job құрды, бірақ runner step орындалмады. Automated typecheck/lint/test/build verification pending; бұл run-дар application code-ты орындамаған.
+
+
+## Phase 4 cryptographic seal foundation
+
+Deterministic ZIP үстіне provider-neutral detached signature boundary қосылды.
+
+Seal payload canonical JSON ретінде мыналарды байлайды:
+
+- fixed purpose: `QARYZLINK_EVIDENCE_ARCHIVE_SEAL_V1`;
+- EvidencePackage ID;
+- evidence manifest SHA-256;
+- bundle manifest SHA-256;
+- archive SHA-256;
+- archive format `ZIP_STORE_V1`;
+- ZIP entry count;
+- ZIP byte size.
+
+Payload өзі бөлек SHA-256 `payloadHash` алады.
+
+Production signature algorithm contract — `Ed25519`. External signer adapter:
+
+1. canonical payload bytes алады;
+2. detached signature, opaque bounded key ID және SPKI public key қайтарады;
+3. Backend signature-ны Ed25519 public key арқылы қайта verify етеді;
+4. verification өтпесе seal result берілмейді;
+5. audit-ке raw payload/public key/signature емес, payload/archive hashes, key ID, key fingerprint және signature hash қана жазылады.
+
+Public key fingerprint — SPKI DER bytes SHA-256.
+
+Endpoints:
+
+- `GET /api/v1/contracts/:contractId/evidence-package/seal-capability`;
+- `POST /api/v1/contracts/:contractId/evidence-package/seal`.
+
+Capability contract participant access boundary арқылы өтеді.
+
+Current production provider — intentionally unavailable. `EVIDENCE_SEALING_ENABLED=false` default. Flag true болса current release preflight `seal_provider_adapter_unavailable` арқылы fail етеді. Осылайша private key application env/config-ке салынбайды және жалған "signed" state жасалмайды.
+
+Front Evidence panel:
+
+- `Ed25519` capability status көрсетеді;
+- provider unavailable кезде seal action көрсетпейді;
+- provider enabled болғанда ғана explicit seal action ашады;
+- successful detached seal JSON ретінде жүктеледі;
+- payload hash, key identity/fingerprint verification metadata сақталады.
+
+`trustedTimestamp` current seal response-та explicit `null`. App-generated timestamp trusted timestamp ретінде көрсетілмейді.
+
+Келесі external dependency: KMS/HSM немесе equivalent managed signing provider adapter, approved key lifecycle/IAM, rotation/revocation және independent staging verification. Trusted timestamp authority одан кейін бөлек layer.
