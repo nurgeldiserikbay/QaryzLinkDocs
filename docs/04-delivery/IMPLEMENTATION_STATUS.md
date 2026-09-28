@@ -1129,6 +1129,8 @@ User/party/public/contact/display identifiers response-қа кірмейді. Li
 
 Immutable source үстіне deterministic technical renderer қосылады: KZ/RU locale, fixed template ID, persisted source document hash, canonical render-input hash және rendered UTF-8 content hash бөлек беріледі. Front contract detail technical preview көрсетіп, TXT download береді. Signatures/acknowledgements immutable rendered content-ке әдейі кірмейді.
 
+QaryzLinkBack PR #183 merged at `5f96c0e`, QaryzLinkFront PR #54 merged at `d4ee270`. Екі CI run (`36453973371`, `36453978353`) job жасағанымен runner step орындамады; automated verification pending.
+
 Бұл әлі legal PDF емес. KZ/RU legal template approval, deterministic PDF engine, final PDF artifact hash/source binding және staging visual/integrity acceptance ашық қалады.
 
 Automated CI GitHub Actions quota/billing gate салдарынан pending.
