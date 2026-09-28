@@ -140,11 +140,14 @@ Open/public matching production-да қосылмас бұрын Қазақст�
 - verified claims;
 - contract PDF;
 - document hashes;
+- [x] participant-only audited canonical JSON evidence export baseline;
 - court/export evidence package (PDF/ZIP, manifest signature, trusted timestamp);
 - amendments;
 - disputes;
 - data export/deletion;
 - staff JIT access.
+
+2026-09-28: Phase 4 басталды. Existing immutable schema v1 manifest үшін participant-only canonical JSON export қосылды. Export persisted manifest hash-ін қайта тексереді, mismatch кезінде fail-closed болады және successful export audit event жасайды. Бұл әлі PDF/ZIP, external signature немесе trusted timestamp емес.
 
 ## Phase 5 — Public Beta Kazakhstan
 
