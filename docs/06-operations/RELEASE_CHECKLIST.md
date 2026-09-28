@@ -89,7 +89,8 @@
 - [ ] Terms, privacy notice және сақтау мерзімдері тексерілген.
 - [ ] Public marketplace, penalty және amount-based commission false.
 - [x] Provider-neutral fail-closed identity verification boundary (`IDENTITY_VERIFICATION.md`).
-- [ ] External L2 KYC provider adapter, callback, verified claims және KZ privacy/legal staging acceptance.
+- [x] Minimal L2 verified-claim persistence, expiry derivation, hashed provider reference және idempotent revocation core.
+- [ ] External L2 KYC provider adapter, authenticated callback/session correlation және KZ privacy/legal staging acceptance.
 - [x] Participant-only immutable contract document source (`CONTRACT_DOCUMENT_RENDERING.md`).
 - [ ] Approved KZ/RU legal template + deterministic PDF renderer + staging visual/hash acceptance.
 - [x] Participant-only immutable evidence manifest + audited canonical JSON export with hash re-verification.
