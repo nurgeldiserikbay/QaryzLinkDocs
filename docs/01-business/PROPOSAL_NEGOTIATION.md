@@ -316,3 +316,45 @@ Front implementation tests:
 - existing request-detail mobile auth smoke remains in suite.
 
 Current automated GitHub Actions execution quota/billing gate салдарынан actual runner evidence әлі pending.
+
+
+## Lifecycle notifications
+
+Proposal counter lifecycle existing transactional notification outbox-қа қосылған.
+
+IN_APP event mapping:
+
+| Event | Recipient | Meaning |
+|---|---|---|
+| `PROPOSAL_COUNTER_CREATED` | lender | Borrower жаңа counter suggestion жіберді |
+| `PROPOSAL_COUNTER_RESPONDED` | borrower | Lender жаңа concrete Proposal шығарды |
+| `PROPOSAL_COUNTER_REJECTED` | borrower | Lender counter-ды қабылдамады |
+| `PROPOSAL_COUNTER_WITHDRAWN` | lender | Borrower pending counter-ды қайтарды |
+
+Барлық төрт event **IN_APP-only**. Notification policy EMAIL channel-ға жіберуді reject етеді.
+
+Outbox payload тек:
+
+- counterId;
+- proposalId;
+- requestId;
+- status;
+- `responseProposalId` — RESPONDED event үшін ғана
+
+сақтайды.
+
+Payload-та:
+
+- amount;
+- term;
+- annualRateBps;
+- email;
+- phone;
+- publicId;
+- borrower/lender partyId
+
+жоқ.
+
+Notification intent counter business mutation-ымен бір PostgreSQL transaction ішінде жазылады. Command idempotent replay бұрынғы result-ты қайтарады және duplicate outbox row жасамайды.
+
+Current scope passive `EXPIRED` немесе `SUPERSEDED` counter notification-ын автоматты түрде шығармайды. Бұл lifecycle кейін бөлек scheduler/materialization slice ретінде қарастырылады.
