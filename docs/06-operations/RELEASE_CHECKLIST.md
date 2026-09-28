@@ -88,6 +88,8 @@
 - [ ] Жеке тұлғаларға арналған Қазақстан pilot scope-ы бекітілген.
 - [ ] Terms, privacy notice және сақтау мерзімдері тексерілген.
 - [ ] Public marketplace, penalty және amount-based commission false.
+- [x] Provider-neutral fail-closed identity verification boundary (`IDENTITY_VERIFICATION.md`).
+- [ ] External L2 KYC provider adapter, callback, verified claims және KZ privacy/legal staging acceptance.
 - [x] Participant-only immutable evidence manifest + audited canonical JSON export with hash re-verification.
 - [ ] Court/export package hardening: PDF/ZIP, manifest signature, trusted timestamp және legal-hold policy.
 - [x] Participant-only neutral dispute intake/read backend + Front contract panel.
