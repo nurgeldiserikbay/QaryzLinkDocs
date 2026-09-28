@@ -38,7 +38,7 @@
 | Notification Kubernetes scheduler | Deployment template дайын | CronJob Forbid policy, external Secret, immutable image және non-overlap contract |
 | Deployment hardening | Template/CI дайын | Immutable digest rendering, bounded migration job, privacy-safe release preflight, safe rollout, PDB, node spread, rollback және restore runbooks |
 | Provider/scheduler | Жоспарда | Push adapter, queue trigger, external metrics collector/alerting және organization routing |
-| Front/Admin UI | Front critical MVP presentation кеңейді | Front-та auth/discovery/contract/lifecycle/closure/evidence/dispute/notifications/settings/security/account lifecycle KZ/RU coverage бар; Admin-та liveness, database readiness, evidence-storage, notification-delivery, audit және account-deletion aggregate operations cards бар; identity-level feeds әлі өшірулі |
+| Front/Admin UI | Front critical MVP presentation кеңейді | Front-та auth/discovery/contract/lifecycle/closure/evidence/dispute/notifications/settings/security/account lifecycle және privacy-safe L2 identity status KZ/RU coverage бар; Admin-та liveness, database readiness, evidence-storage, notification-delivery, audit және account-deletion aggregate operations cards бар; raw identity-level feeds өшірулі |
 
 ## Phase 4 Trust & Evidence басталуы — 2026-09-28
 
@@ -1117,7 +1117,9 @@ Core start boundary provider-ге authenticated user-дың opaque subject refer
 
 Provider-neutral minimal L2 claim persistence/expiry/revocation core қосылды. Raw provider reference сақталмайды: normalized provider namespace-пен SHA-256 hash қана сақталады. Authenticated user privacy-safe `UNVERIFIED/VERIFIED/EXPIRED/REVOKED` status оқи алады; provider claim write/revoke mutation browser-ге ашылмайды. Нақты L2 KYC provider adapter, authenticated callback/session correlation және KZ legal/privacy acceptance әлі Phase 4 backlog.
 
-QaryzLinkBack PR #182 minimal claim persistence/expiry/revocation core-ды қосты. CI run `36452180331` job құрғанымен runner step орындамады, сондықтан automated Prisma/typecheck/lint/test/build verification pending.
+QaryzLinkBack PR #182 merged at `d1da649`: minimal claim persistence/expiry/revocation core. CI run `36452180331` job құрғанымен runner step орындамады, сондықтан automated Prisma/typecheck/lint/test/build verification pending.
+
+QaryzLinkFront PR #53 merged at `4ecd179`: settings ішінде privacy-safe identity status/capability card бар. Provider disabled кезде start action көрсетілмейді; VERIFIED тек Backend authoritative claim state-тан көрсетіледі; provider identity/raw payload UI-ға шықпайды. CI run `36452734535` да runner step орындамады.
 
 ## Phase 4 contract document source — 2026-09-28
 

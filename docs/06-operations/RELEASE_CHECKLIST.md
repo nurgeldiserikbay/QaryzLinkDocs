@@ -90,6 +90,7 @@
 - [ ] Public marketplace, penalty және amount-based commission false.
 - [x] Provider-neutral fail-closed identity verification boundary (`IDENTITY_VERIFICATION.md`).
 - [x] Minimal L2 verified-claim persistence, expiry derivation, hashed provider reference және idempotent revocation core.
+- [x] Front KZ/RU privacy-safe identity status/capability UI; provider disabled болса start action hidden.
 - [ ] External L2 KYC provider adapter, authenticated callback/session correlation және KZ privacy/legal staging acceptance.
 - [x] Participant-only immutable contract document source (`CONTRACT_DOCUMENT_RENDERING.md`).
 - [ ] Approved KZ/RU legal template + deterministic PDF renderer + staging visual/hash acceptance.

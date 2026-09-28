@@ -54,6 +54,19 @@ Provider callback үшін internal service boundary екі операцияны
 
 Бұл internal mutation API user/browser-ге ашылмаған.
 
+## Frontend status boundary
+
+QaryzLinkFront settings беті authenticated user үшін capability + privacy-safe status-ты ғана оқиды. UI:
+
+- `VERIFIED` кезінде L2 assurance және verified/expiry уақытын көрсетеді;
+- `UNVERIFIED/EXPIRED/REVOKED` state-терін бөлек көрсетеді;
+- provider capability disabled болса start батырмасын көрсетпейді;
+- start result redirect-ін browser navigation алдында HTTPS ретінде қайта тексереді;
+- provider code/reference/hash, claim ID, document/biometric payload немесе contact data көрсетпейді;
+- email verification-ды L2 KYC ретінде көрсетпейді.
+
+Current provider unavailable болғандықтан production UI verification-ды имитацияламайды.
+
 ## Current provider state
 
 Current adapter — `UnavailableIdentityVerificationProvider`. Ол verification session жасамайды және 503 қайтарады.
@@ -92,7 +105,9 @@ Verified claim user-controlled profile text-тен бөлек authoritative stat
 
 ## Verification status
 
-QaryzLinkBack PR #180 merged at `086893c` provider boundary-ды қосты. QaryzLinkBack PR #182 minimal claim persistence/expiry/revocation core-ды қосады. PR #182 CI run `36452180331` quality job құрды, бірақ runner step орындалмады; automated Prisma/typecheck/lint/test/build verification pending.
+QaryzLinkBack PR #180 merged at `086893c` provider boundary-ды қосты. QaryzLinkBack PR #182 merged at `d1da649`: minimal claim persistence/expiry/revocation core. PR #182 CI run `36452180331` quality job құрды, бірақ runner step орындалмады; automated Prisma/typecheck/lint/test/build verification pending.
+
+QaryzLinkFront PR #53 merged at `4ecd179`: KZ/RU settings identity status/capability UI және safe start redirect boundary. CI run `36452734535` quality job құрды, бірақ runner step орындалмады; automated typecheck/lint/test/build verification pending.
 
 ## Claim lifecycle invariants — 2026-09-28
 
