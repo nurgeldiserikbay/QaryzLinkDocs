@@ -1088,3 +1088,15 @@ CI evidence:
 Қалған moderation gap: shared support token орнына per-staff least-privilege/JIT identity және attributable staff audit. Бұл Phase 4 staff JIT access-пен бірге орындалуы тиіс.
 
 Толық contract: [Marketplace moderation](../01-business/MARKETPLACE_MODERATION.md).
+
+## Phase 4 support staff attribution foundation — 2026-09-28
+
+QaryzLinkBack PR #177 merged at `fe40ff2`: shared support mutation authorization replaced by scoped/expiring credential registry. Registry stores opaque staff id, SHA-256 token hash, expiry and scopes; dispute transitions require `disputes:write`, moderation queue `marketplace-reports:read`, moderation mutation `marketplace-reports:write`.
+
+Successful dispute/moderation mutations audit payload-қа opaque `supportActorId` қосады. Staff name/email/raw token/token hash audit event-ке кірмейді. Backend existing `x-support-token` transport header-ді compatibility үшін сақтайды.
+
+QaryzLinkAdmin PR #32 merged at `0ee77f3`: server-only moderation credential env атауы `SUPPORT_STAFF_TOKEN` болды. Token browser-ға шықпайды; backend actor/scope/expiry-ге resolve етеді.
+
+Бұл backend attribution foundation ғана. Actual multi-user staff login/SSO/JIT issuance, revocation process, support owner және restricted internal ingress production enablement алдында әлі acceptance gate болып қалады.
+
+Automated CI GitHub Actions quota/billing gate салдарынан pending.
