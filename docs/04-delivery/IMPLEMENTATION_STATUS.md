@@ -50,6 +50,8 @@ QaryzLinkBack PR #184 merged at `76f9a59`, QaryzLinkFront PR #55 merged at `0e0c
 
 Bundle manifest үстіне bounded deterministic metadata/text ZIP archive қосылды: fixed timestamps, STORE method, lexical order, CRC32 және whole-archive SHA-256. Front explicit ZIP download және archive hash/count/size көрсетеді.
 
+QaryzLinkBack PR #185 merged at `d167663`, QaryzLinkFront PR #56 merged at `b61aeb0`. CI runs `36456180490` және `36456185321` quality job құрғанымен runner step орындамады; automated verification pending.
+
 Бұл baseline court-ready package емес: approved contract PDF, selected evidence binaries/streaming, manifest signature, trusted timestamp және legal-hold policy әлі Phase 4 backlog-та.
 
 ## Қазіргі backend slice
