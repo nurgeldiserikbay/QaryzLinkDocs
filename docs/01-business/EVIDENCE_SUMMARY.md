@@ -4,7 +4,7 @@
 
 Мақсат — contract history-дің қандай дәлелдері барын participant-ке түсінікті көрсету және қарыз толық жабылғаннан кейін сол күйдің verifiable immutable JSON manifest snapshot-ын бекіту.
 
-Бұл baseline **court-ready evidence package, PDF/ZIP export немесе trusted timestamp емес**. Олар Phase 4 Trust & Evidence scope-ында қалады.
+Бұл baseline court-ready evidence package емес. 2026-09-28 бастап Phase 4-тің алғашқы қадамы ретінде participant-only audited canonical JSON export қосылды; PDF/ZIP, manifest signature және trusted timestamp әлі Phase 4 scope-ында қалады.
 
 ## Екі бөлек ұғым
 
@@ -155,6 +155,23 @@ Manifest өздігінен:
 - нотариалдық куәландыруға
 
 кепілдік бермейді.
+
+## Phase 4 JSON export baseline
+
+`POST /api/v1/contracts/:contractId/evidence-package/export` existing immutable package үшін ғана жұмыс істейді.
+
+Export алдында backend persisted manifest-ті canonical JSON ретінде қайта serialize етіп, SHA-256 hash-ін persisted `manifestHash` мәнімен салыстырады. Hash сәйкес келмесе `EVIDENCE_PACKAGE_INTEGRITY_FAILED` арқылы fail-closed болады және файл берілмейді.
+
+Successful export:
+
+- authenticated borrower/lender participant-пен ғана шектелген;
+- canonical JSON content, deterministic filename, schema version және manifest hash қайтарады;
+- `EVIDENCE_PACKAGE_EXPORTED` audit event жасайды;
+- audit payload-қа manifest content, raw evidence, contact немесе storage key қоспайды.
+
+Front raw manifest-ті тұрақты UI state-ке сақтамайды: user explicit download action жасағанда content уақытша Blob ретінде жасалып, JSON файл болып жүктеледі.
+
+Бұл export әлі court-ready ZIP емес және trusted timestamp/signature қоспайды.
 
 ## Phase 4 evolution
 
