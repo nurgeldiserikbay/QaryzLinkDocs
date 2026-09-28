@@ -22,6 +22,7 @@ QaryzLink — Қазақстандағы жеке тұлғалар арасын�
 | [Public offer applications](docs/01-business/PUBLIC_OFFER_APPLICATIONS.md) | Borrower application → lender concrete proposal lifecycle |
 | [Explainable compatibility](docs/01-business/EXPLAINABLE_COMPATIBILITY.md) | Exact request/offer amount-term сәйкестігін deterministic reason codes-пен түсіндіру |
 | [Marketplace moderation](docs/01-business/MARKETPLACE_MODERATION.md) | Enum-only offer reports, bounded abuse controls және aggregate moderation visibility |
+| [Proposal negotiation](docs/01-business/PROPOSAL_NEGOTIATION.md) | Borrower counter suggestion → lender response Proposal → borrower final ACCEPT contract |
 | [Contract signing](docs/01-business/CONTRACT_SIGNING.md) | Immutable contract және dual acknowledgement |
 | [Funding evidence](docs/01-business/FUNDING_EVIDENCE.md) | Төлем дәлелі және borrower confirmation |
 | [Repayment schedule](docs/01-business/REPAYMENT_SCHEDULE.md) | Детерминистік өтеу кестесі және есептеу саясаты |
