@@ -139,7 +139,8 @@ Open/public matching production-да қосылмас бұрын Қазақст�
 - [x] provider-neutral default-off identity verification boundary;
 - [ ] vetted L2 KYC provider adapter + authenticated callback;
 - [ ] verified claims persistence/expiry/revocation;
-- contract PDF;
+- [x] participant-only immutable contract document source;
+- [ ] approved KZ/RU contract template + deterministic PDF renderer;
 - document hashes;
 - [x] participant-only audited canonical JSON evidence export baseline;
 - court/export evidence package (PDF/ZIP, manifest signature, trusted timestamp);
