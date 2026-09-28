@@ -96,7 +96,7 @@ Expired және `consumedAt = null` intent-тер үшін:
 pnpm evidence:cleanup:run
 ~~~
 
-Command HTTP server ашпайды. Ол storage disabled болса іске қосылмайды, aggregate `selected/purged/failed` counters логтайды және кемінде бір object cleanup сәтсіз болса non-zero exit code қайтарады.
+Command HTTP server ашпайды. Ол storage disabled болса іске қосылмайды, aggregate `selected/purged/held/failed` counters логтайды және кемінде бір object cleanup сәтсіз болса non-zero exit code қайтарады.
 
 Kubernetes template:
 
