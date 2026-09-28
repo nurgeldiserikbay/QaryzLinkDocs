@@ -173,6 +173,44 @@ Front raw manifest-ті тұрақты UI state-ке сақтамайды: user 
 
 Бұл export әлі court-ready ZIP емес және trusted timestamp/signature қоспайды.
 
+## Phase 4 deterministic bundle manifest
+
+`POST /api/v1/contracts/:contractId/evidence-package/bundle-manifest` existing immutable package үстінен болашақ archive contract-ын жасайды.
+
+Bundle manifest ZIP binary жасамайды. Ол болашақ archive-ке кіретін artifact metadata-ны deterministic түрде бекітеді:
+
+- canonical `evidence/manifest-v{schema}.json`;
+- `contract/technical-preview.kk.txt`;
+- `contract/technical-preview.ru.txt`.
+
+Әр artifact үшін:
+
+- normalized relative path;
+- media type;
+- UTF-8 byte size;
+- SHA-256
+
+сақталады. Artifact path-тар lexical order-мен canonical manifest-ке кіреді; unsafe/duplicate path reject болады.
+
+Bundle manifest жеке:
+
+- persisted evidence `manifestHash`;
+- ClosureCertificate `contractDocumentHash`;
+- artifact hashes;
+- `bundleManifestHash`
+
+арасында integrity chain жасайды.
+
+KZ/RU technical preview екеуінің `sourceDocumentHash` мәні ClosureCertificate contract document hash-імен дәл сәйкес келуі міндетті. Сәйкес болмаса export fail-closed.
+
+`cryptographicSeals.manifestSignature` және `trustedTimestamp` қазір explicit `null`. Сондықтан бұл implementation қолтаңба немесе external timestamp бар деп мәлімдемейді.
+
+Successful bundle manifest export `EVIDENCE_BUNDLE_MANIFEST_EXPORTED` audit event жасайды. Audit payload raw manifest/content емес, тек package/hash/artifact count metadata сақтайды.
+
+Front user explicit action кезінде bundle manifest JSON-ды жүктейді және bundle hash пен artifact count көрсетеді.
+
+Бұл әлі ZIP container емес. Бірақ кейін ZIP implementation дәл осы paths + byte hashes contract-ын пайдалануы тиіс.
+
 ## Phase 4 evolution
 
 Trust & Evidence кезеңінде осы manifest baseline үстіне:
@@ -180,6 +218,7 @@ Trust & Evidence кезеңінде осы manifest baseline үстіне:
 - contract rendered PDF;
 - selected evidence binaries;
 - manifest JSON;
+- [x] deterministic bundle artifact index + bundle manifest hash;
 - manifest signature;
 - trusted timestamp;
 - ZIP container;
