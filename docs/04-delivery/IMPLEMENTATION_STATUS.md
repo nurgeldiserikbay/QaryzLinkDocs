@@ -1127,6 +1127,8 @@ QaryzLinkBack PR #181 merged at `2941102`: verified participant-only `GET /api/v
 
 User/party/public/contact/display identifiers response-қа кірмейді. Lifecycle status және funding deadline immutable document source-қа әдейі кірмейді.
 
-Бұл әлі PDF емес. KZ/RU legal template approval, deterministic renderer, PDF hash/source binding және staging visual/integrity acceptance кейінгі Phase 4 slice болып қалады.
+Immutable source үстіне deterministic technical renderer қосылады: KZ/RU locale, fixed template ID, persisted source document hash, canonical render-input hash және rendered UTF-8 content hash бөлек беріледі. Front contract detail technical preview көрсетіп, TXT download береді. Signatures/acknowledgements immutable rendered content-ке әдейі кірмейді.
+
+Бұл әлі legal PDF емес. KZ/RU legal template approval, deterministic PDF engine, final PDF artifact hash/source binding және staging visual/integrity acceptance ашық қалады.
 
 Automated CI GitHub Actions quota/billing gate салдарынан pending.
