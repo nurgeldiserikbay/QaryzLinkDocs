@@ -330,3 +330,12 @@ Front Evidence panel:
 `trustedTimestamp` current seal response-та explicit `null`. App-generated timestamp trusted timestamp ретінде көрсетілмейді.
 
 Келесі external dependency: KMS/HSM немесе equivalent managed signing provider adapter, approved key lifecycle/IAM, rotation/revocation және independent staging verification. Trusted timestamp authority одан кейін бөлек layer.
+
+
+## Cryptographic seal implementation evidence — 2026-09-28
+
+QaryzLinkBack PR #186 merged at `c2d2a1e`: domain-separated Ed25519 seal payload, provider-neutral signer boundary, Backend signature verification, participant-scoped capability/seal endpoints, release-preflight gate және default-off unavailable provider.
+
+QaryzLinkFront PR #57 merged at `aad8056`: Ed25519 seal capability UI, default-off provider status және future detached seal JSON download boundary.
+
+Back CI run `36461356114` және Front CI run `36461359027` quality job құрды, бірақ runner step орындалмады. Сондықтан automated typecheck/lint/test/build verification pending; бұл run-дар application code-ты орындамаған.
