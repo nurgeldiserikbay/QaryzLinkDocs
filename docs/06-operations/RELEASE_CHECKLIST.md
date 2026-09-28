@@ -98,7 +98,9 @@
 - [x] Participant-only immutable evidence manifest + audited canonical JSON export with hash re-verification.
 - [x] Deterministic evidence bundle manifest: stable artifact paths, byte lengths, SHA-256, closure document hash binding және audited bundle hash.
 - [x] Bounded deterministic metadata/text ZIP archive with fixed timestamps, CRC32 compatibility және whole-archive SHA-256.
-- [ ] Court/export package hardening: approved PDF artifact, selected evidence binary streaming, manifest signature, trusted timestamp және legal-hold policy.
+- [x] Provider-neutral Ed25519 seal payload + backend detached-signature verification + participant-scoped capability UI.
+- [ ] Production KMS/HSM signing adapter, approved key IAM/rotation/revocation және staging verification.
+- [ ] Court/export package hardening: approved PDF artifact, selected evidence binary streaming, trusted timestamp және legal-hold policy.
 - [x] Participant-only neutral dispute intake/read backend + Front contract panel.
 - [x] Privacy-safe aggregate dispute backlog metrics + Admin read-only operations card.
 - [x] Marketplace enum-only abuse reports + aggregate moderation backlog.
