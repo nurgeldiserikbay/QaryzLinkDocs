@@ -123,8 +123,8 @@ Release preflight-та public marketplace true болса `restricted_financial_
 - verification badges;
 - automatic matching/ranking;
 - negotiation/counter-offer versions;
-- moderation queue;
-- spam reputation;
+- row-level moderator review queue;
+- automated spam reputation/sanctions;
 - offer lifecycle email notifications;
 - Admin moderation UI.
 
@@ -132,7 +132,7 @@ Release preflight-та public marketplace true болса `restricted_financial_
 
 Borrower application → lender concrete Proposal flow енді [Public offer applications](PUBLIC_OFFER_APPLICATIONS.md) ішінде іске асқан.
 
-Келесі safe work negotiation/counter-offer versions, moderation/spam controls және borrower-side discovery evolution болып қалады. Deterministic compatibility explanation іске асты; automated ranking/recommendation әлі legal gate артында. Open/public matching recommendation/search ranking legal classification-тан кейін ғана production enablement алады.
+User-driven moderation reporting baseline іске асты: [Marketplace moderation](MARKETPLACE_MODERATION.md). Келесі safe work negotiation/counter-offer versions, controlled moderator workflow және borrower-side discovery evolution болып қалады. Deterministic compatibility explanation іске асты; automated ranking/recommendation әлі legal gate артында. Open/public matching recommendation/search ranking legal classification-тан кейін ғана production enablement алады.
 
 
 ## Front marketplace workspace
@@ -318,3 +318,18 @@ Exact request → public offer compatibility explanation іске асқан: [E
 - score/rank/recommendation шығармайды;
 - public browse сияқты verified active lender eligibility және block privacy rules-ын қолданады;
 - application authorization орнына жүрмейді — write transaction барлық guard-ты қайта тексереді.
+
+
+## Moderation reporting
+
+Public offer user-driven reporting baseline іске асқан: [Marketplace moderation](MARKETPLACE_MODERATION.md).
+
+- reason enum-only;
+- free-text жоқ;
+- one account + one offer duplicate guard;
+- daily quota default 5;
+- visible ACTIVE PUBLIC offer ғана report болады;
+- automatic hide/ban/rank/score жоқ;
+- Admin тек aggregate backlog көреді.
+
+Row-level moderator review және RESOLVED/DISMISSED mutation әлі кейінгі workflow.

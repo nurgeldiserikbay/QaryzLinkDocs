@@ -935,3 +935,58 @@ Backend PR #172 workflow run `36343077646` және Front PR #48 run `3634340610
 Толық contract: [Explainable compatibility](../01-business/EXPLAINABLE_COMPATIBILITY.md).
 
 Marketplace әлі `PUBLIC_MARKETPLACE_ENABLED=false` default gate артында; release preflight legal approval-ға дейін deployed enablement-ті `fail` етеді.
+
+
+## Phase 3 marketplace moderation reporting baseline — 2026-09-28
+
+QaryzLinkBack PR #173 merged at `094961c`.
+
+User-driven public offer reporting baseline қосылды:
+
+- `POST /api/v1/discovery/offers/:id/report`;
+- enum-only reasons: `SPAM`, `MISLEADING_TERMS`, `SUSPICIOUS`, `OTHER`;
+- free-text complaint body жоқ;
+- verified active KZ personal account талап етіледі;
+- тек current visible ACTIVE PUBLIC offer report болады;
+- own/blocked/expired/paused/cancelled немесе ineligible lender offer privacy-safe unavailable shape қолданады;
+- one account + one offer unique guard;
+- daily quota `MAX_MARKETPLACE_REPORTS_PER_DAY`, default 5, hard max 50;
+- idempotent Discovery command;
+- report create offer lifecycle row lock-пен serialize болады;
+- audit payload `{ status: "OPEN" }` ғана сақтайды.
+
+Бұл baseline automatic ban/hide/ranking/reputation/fraud verdict жасамайды.
+
+Backend aggregate moderation metrics:
+`GET /api/v1/metrics/marketplace-reports`
+
+тек OPEN/RESOLVED/DISMISSED counters, last-24h count, reason buckets, oldest-open age және capturedAt шығарады. User/party/offer identifiers немесе complaint content жоқ.
+
+QaryzLinkFront PR #49 merged at `efbb69f`:
+
+- public offer card-та compact report control;
+- reason selector enum-only;
+- free-text input жоқ;
+- duplicate/daily-limit/feature-disabled errors privacy-safe көрсетіледі;
+- success тек moderation signal жіберілгенін айтады, sanction болды деп көрсетпейді;
+- KZ/RU marketplace catalog 112/112 parity.
+
+QaryzLinkAdmin PR #30 merged at `2b3cd22`:
+
+- protected aggregate marketplace-report metrics client;
+- exact top-level және nested response shape validation;
+- unexpected identifier/content field келсе fail-closed;
+- operations console OPEN, last24h, RESOLVED, DISMISSED, reason buckets және oldest-open age көрсетеді;
+- row-level report, reporter identity, lender identity, offerId және complaint content Admin-ға шығарылмайды;
+- moderator mutations әлі жоқ.
+
+CI evidence:
+- Back PR #173 run `36380658519`;
+- Front PR #49 run `36380836537`;
+- Admin PR #30 run `36381075148`.
+
+Үшеуінде де GitHub Actions quality job құрылды, бірақ quota/billing gate салдарынан **0 step** орындады. Бұл code/test failure evidence емес; automated Prisma/typecheck/lint/unit/PostgreSQL/build/browser verification quota қалпына келгенде қайта орындалуы тиіс.
+
+Marketplace әлі `PUBLIC_MARKETPLACE_ENABLED=false` default gate артында. Release preflight legal approval-ға дейін deployed enablement-ті `fail` етеді.
+
+Толық contract: [Marketplace moderation](../01-business/MARKETPLACE_MODERATION.md).

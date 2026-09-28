@@ -313,3 +313,8 @@ Dispute түрлері:
 [Public lender offers](PUBLIC_LENDER_OFFERS.md) Phase 3-тің алғашқы default-off backend slice-ын сипаттайды. Offer publication және privacy-safe browse коды бар, бірақ `PUBLIC_MARKETPLACE_ENABLED=false` әдепкі күйде және deployed release preflight marketplace enablement-ті legal gate өтпейінше fail етеді.
 
 [Public offer applications](PUBLIC_OFFER_APPLICATIONS.md) borrower exact request-ті public offer-ге application ретінде байланыстырады. Lender ACCEPT concrete Proposal ғана жасайды; borrower кейін сол Proposal-ды бөлек explicit ACCEPT етеді. Application offer terms-ті immutable snapshot ретінде сақтайды.
+
+
+## Public marketplace moderation boundary
+
+[Marketplace moderation reporting baseline](MARKETPLACE_MODERATION.md) user-driven public offer reports-ты enum-only reason code, duplicate/daily quota және privacy-safe visibility guards арқылы шектейді. Report automatic sanction, ranking немесе fraud verdict емес. Current Admin тек aggregate backlog көреді; row-level review және moderator mutation кейінгі бөлек workflow.
