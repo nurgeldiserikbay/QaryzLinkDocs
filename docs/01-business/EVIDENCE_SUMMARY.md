@@ -270,3 +270,12 @@ QaryzLinkBack PR #184 merged at `76f9a59`: deterministic bundle manifest, Closur
 QaryzLinkFront PR #55 merged at `0e0cdad`: bundle manifest download, bundle hash және artifact count UI.
 
 Back CI run `36455112812` және Front CI run `36455120153` quality job жасады, бірақ runner step орындалмады. Сондықтан automated typecheck/lint/test/build verification pending; бұл run-дарда application code орындалмаған.
+
+
+## Deterministic ZIP implementation evidence — 2026-09-28
+
+QaryzLinkBack PR #185 merged at `d167663`: dependency-free deterministic STORE ZIP writer, shared bundle builder, participant archive endpoint, whole-archive SHA-256 және audit boundary.
+
+QaryzLinkFront PR #56 merged at `b61aeb0`: ZIP download, archive hash, entry count және size UI.
+
+Back CI run `36456180490` және Front CI run `36456185321` quality job құрды, бірақ runner step орындалмады. Automated typecheck/lint/test/build verification pending; бұл run-дар application code-ты орындамаған.
