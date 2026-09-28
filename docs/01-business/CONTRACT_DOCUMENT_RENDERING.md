@@ -76,4 +76,10 @@ PDF renderer legal text/template, font embedding, pagination, reproducibility ж
 
 ## Verification status
 
-QaryzLinkBack PR #181 merged at `2941102`: immutable participant document source. Technical renderer slice кейінгі PR арқылы source/input/render hash boundary және KZ/RU deterministic TXT preview қосады. Бұл legal PDF approval-ды айналып өтпейді.
+QaryzLinkBack PR #181 merged at `2941102`: immutable participant document source.
+
+QaryzLinkBack PR #183 merged at `5f96c0e`: deterministic KZ/RU technical renderer, source/input/render SHA-256 boundary және participant preview endpoint. CI run `36453973371` quality job құрды, бірақ runner step орындалмады; automated typecheck/lint/test/build verification pending.
+
+QaryzLinkFront PR #54 merged at `d4ee270`: contract detail technical preview, integrity hashes және TXT download. CI run `36453978353` те quality job құрғанымен runner step орындалмады.
+
+Бұл legal PDF approval-ды айналып өтпейді.
