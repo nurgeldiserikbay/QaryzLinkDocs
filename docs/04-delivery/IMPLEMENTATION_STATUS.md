@@ -46,6 +46,8 @@ Existing immutable EvidencePackage schema v1 өзгертілмей, participant
 
 Canonical JSON export үстіне deterministic bundle manifest foundation қосылды: immutable evidence manifest және KZ/RU technical contract previews stable archive path/size/SHA-256 metadata арқылы бір bundle hash-ке байланысады. ClosureCertificate contract document hash render source hash-пен қайта тексеріледі. Front bundle manifest JSON download жасап, artifact count + bundle hash көрсетеді.
 
+QaryzLinkBack PR #184 merged at `76f9a59`, QaryzLinkFront PR #55 merged at `0e0cdad`. CI runs `36455112812` және `36455120153` quality job құрғанымен runner step орындамады; automated verification pending.
+
 Бұл baseline court-ready package емес: approved contract PDF, actual ZIP container, selected evidence binaries, manifest signature, trusted timestamp және legal-hold policy әлі Phase 4 backlog-та.
 
 ## Қазіргі backend slice
