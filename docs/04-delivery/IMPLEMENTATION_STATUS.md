@@ -25,7 +25,7 @@
 | Evidence summary / manifest | Дайын baseline | Participant coverage summary, completed-contract immutable JSON manifest, deterministic SHA-256 және privacy-safe field boundary |
 | Phase 2 critical E2E | Harness дайын, execution pending | Real PostgreSQL lifecycle + cross-user isolation spec кодта бар; Actions quota/billing gate салдарынан current run әлі орындалмады |
 | KZ/RU user journey | Presentation coverage дайын, browser execution pending | Landing/auth/discovery/contract/lifecycle/closure/evidence/dispute/notifications/settings/account lifecycle KZ/RU; real authenticated two-party browser acceptance әлі орындалмады |
-| Notifications/outbox | Базалық slice дайын | Payment/dispute/repayment және closure lifecycle оқиғалары, privacy-safe payload және idempotent outbox |
+| Notifications/outbox | Базалық slice дайын | Payment/dispute/repayment/closure + marketplace application + proposal-counter lifecycle оқиғалары, privacy-safe payload және idempotent outbox |
 | Notification claim/retry worker | Базалық slice дайын | SKIP LOCKED claim, 5 минут lease, exponential retry және terminal FAILED |
 | Delivery adapter boundary | Базалық slice дайын | Provider-neutral port, dispatch service және safe unavailable default |
 | Notification recipient resolution | Базалық slice дайын | Party ID → in-app ID or active verified email, no PII in outbox |
@@ -1039,3 +1039,37 @@ CI evidence:
 Екі run-да да GitHub Actions `quality` job құрылды, бірақ quota/billing gate салдарынан **0 step** орындады. Бұл code/test failure evidence емес; Prisma/typecheck/lint/unit/PostgreSQL/build/browser execution quota қалпына келгенде қайта орындалуы тиіс.
 
 Canonical contract: [Proposal negotiation](../01-business/PROPOSAL_NEGOTIATION.md).
+
+
+## Proposal counter lifecycle notifications — 2026-09-28
+
+QaryzLinkBack PR #175 merged at `a620b51`.
+
+Counter negotiation lifecycle transactional IN_APP notification events алды:
+
+- `PROPOSAL_COUNTER_CREATED` → lender;
+- `PROPOSAL_COUNTER_RESPONDED` → borrower;
+- `PROPOSAL_COUNTER_REJECTED` → borrower;
+- `PROPOSAL_COUNTER_WITHDRAWN` → lender.
+
+Барлық counter event-тері notification policy-де **IN_APP-only**. EMAIL channel әдейі қолдау көрсетпейді.
+
+Outbox payload counter/proposal/request opaque references, status және RESPONDED кезінде `responseProposalId` ғана сақтайды. Amount/term/rate/contact/publicId/partyId payload-қа кірмейді.
+
+Notification intent counter business mutation-ымен бір transaction ішінде enqueue болады. Idempotent command replay duplicate outbox intent жасамайтыны PostgreSQL integration test-пен бекітілген.
+
+QaryzLinkFront PR #51 merged at `518ce169`:
+
+- төрт `PROPOSAL_COUNTER_*` event үшін KZ/RU presentation label;
+- `PROPOSAL_COUNTER` aggregate target label;
+- generic notification inbox component unchanged;
+- event/target regression tests қосылды.
+
+CI evidence:
+
+- Back PR #175 run `36416325648`;
+- Front PR #51 run `36416480671`.
+
+Екі run-да да GitHub Actions `quality` job құрылды, бірақ quota/billing gate салдарынан **0 step** орындады. Бұл code/test failure evidence емес.
+
+Current scope passive counter `EXPIRED` немесе `SUPERSEDED` event notification-ын автоматты түрде шығармайды; олар кейінгі lifecycle scheduler/materialization slice.
