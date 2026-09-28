@@ -92,7 +92,7 @@ Verified claim user-controlled profile text-тен бөлек authoritative stat
 
 ## Verification status
 
-QaryzLinkBack PR #180 merged at `086893c`. GitHub Actions account quota/billing gate салдарынан automated verification pending.
+QaryzLinkBack PR #180 merged at `086893c` provider boundary-ды қосты. QaryzLinkBack PR #182 minimal claim persistence/expiry/revocation core-ды қосады. PR #182 CI run `36452180331` quality job құрды, бірақ runner step орындалмады; automated Prisma/typecheck/lint/test/build verification pending.
 
 ## Claim lifecycle invariants — 2026-09-28
 
