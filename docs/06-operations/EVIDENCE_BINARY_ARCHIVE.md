@@ -100,6 +100,10 @@ S3-compatible reader:
 
 ZIP v2 deterministic STORE format қолданады.
 
+ZIP v2 басында deterministic self-description artifact бар:
+
+- `archive-profile.json` → `{"format":"ZIP_STORE_V2","schemaVersion":2}`.
+
 Metadata/text artifacts v1-дегідей қалады:
 
 - canonical evidence manifest;
