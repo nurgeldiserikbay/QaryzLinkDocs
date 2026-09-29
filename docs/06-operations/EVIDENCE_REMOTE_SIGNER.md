@@ -150,7 +150,7 @@ Raw signature/public key, remote token, signer URL, ZIP bytes және evidence 
 
 ## Key rotation
 
-Current runtime бір approved active fingerprint pin жасайды.
+Current runtime expected key ID + fingerprint pin жасайды және дәл сол identity application trust registry-де ACTIVE болуын талап етеді.
 
 Rotation controlled deployment ретінде орындалады:
 
@@ -158,11 +158,13 @@ Rotation controlled deployment ретінде орындалады:
 2. public SPKI және fingerprint independently derive/verify;
 3. staging signer жаңа key арқылы test payload қол қояды;
 4. Backend local verification өтеді;
-5. deployment secret/config expected fingerprint жаңа мәнге ауысады;
-6. key ID/fingerprint acceptance evidence сақталады;
-7. бұрынғы key disable/revoke timing legal retention талабымен бекітіледі.
+5. deployment secret/config expected key ID + fingerprint жаңа мәнге ауысады;
+6. controlled `evidence:signing-key:accept` command жаңа identity-ді ACTIVE registry-ге қабылдайды және previous ACTIVE key-ді RETIRED етеді;
+7. v1/v2 seal verification жаңа ACTIVE key арқылы өтеді;
+8. maintenance gate қайта false болады;
+9. бұрынғы provider-side key disable timing legal retention талабымен бекітіледі.
 
-Historical seal JSON өз public key және fingerprint-ын сақтайды, бірақ trusted historical key registry/revocation record бөлек operational requirement.
+Historical seal JSON өз public key/fingerprint-ын сақтайды, ал application trust registry ACTIVE/RETIRED/REVOKED lifecycle history береді. Participant contract-scoped key-status endpoint арқылы current lifecycle state-ті тексере алады. Толық boundary: [Evidence signing key trust registry](EVIDENCE_SIGNING_KEY_REGISTRY.md).
 
 ## Staging acceptance
 
@@ -194,8 +196,8 @@ Adapter implementation нақты KMS/HSM production acceptance-ті автом�
 - нақты KMS/HSM-backed signer deployment;
 - least-privilege signer IAM;
 - key creation/rotation/revocation owner;
-- old-key trust registry;
-- key compromise runbook;
+- provider-side old-key disable/delete acceptance;
+- incident ownership and external KMS compromise drill;
 - staging load/latency/error acceptance;
 - trusted timestamp;
 - jurisdiction/legal approval.
