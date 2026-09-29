@@ -116,6 +116,12 @@ Contract amendment proposal/approval foundation қосылды: feature default-
 
 QaryzLinkBack PR #201 merged at `46a8512`, QaryzLinkDocs PR #128 merged at `3371848`. Back CI run `36610594361` conclusion=failure көрсеткенімен quality job-та `steps=[]`, `runner_id=0`; application code орындалмаған. Automated Prisma/typecheck/lint/test/build verification әлі pending.
 
+Approved non-financial `OTHER` amendment N+1 signing/evidence continuation қосылды. Dual-approved amendment exact current signed base version-нан deterministic ContractVersion N+1 `SIGNING` source жасайды; source base document hash + amendment proposedDocumentHash + inherited terms/calculation policy + pinned PDF template identity-лерді bind етеді. Default contract/document/closure reads unsigned newer candidate-ті емес, exact `Contract.currentVersion`-ды қолданады; participant candidate-ті explicit version source/preview/PDF routes арқылы review етеді. Бірінші signature currentVersion немесе financial state-ті өзгертпейді; екінші participant signature N+1→SIGNED, base→SUPERSEDED, amendment→ACTIVATED және currentVersion→N+1 жасайды. Contract status/funding/schedule/payment/ledger өзгермейді. Exact start/sign replay activation-нан кейін де idempotent. TERMS_CHANGE/SCHEDULE_CHANGE N+1 activation deterministic financial/schedule transition policy дайын болғанша fail-closed.
+
+New evidence package creation amendment provenance үшін schema v2 қолданады: ContractVersion sourceAmendmentId, amendment proposal hash/status, role-only approvals және activated-version metadata canonical manifest-ке кіреді. Existing persisted schema v1 packages retroactive rewrite болмайды және бұрынғы stored schemaVersion бойынша export болады.
+
+QaryzLinkBack PR #202 merged at `be32e2d`, QaryzLinkDocs PR #130 merged at `92e64cd`. Back CI run `36615138764` conclusion=failure көрсеткенімен quality job-та `steps=[]`, `runner_id=0`; application code орындалмаған. Automated Prisma/typecheck/lint/test/build verification әлі pending.
+
 Бұл baseline court-ready package емес: vetted L2 KYC provider selection/provider-specific API/event mapping/KZ privacy-legal staging acceptance, actual approved KZ/RU legal template content/visual acceptance, actual KMS/HSM signer deployment/external IAM/key ceremony acceptance, RFC3161/qualified TSA legal acceptance, jurisdiction retention periods, external bucket lifecycle acceptance және production load acceptance әлі Phase 4 backlog-та.
 
 ## Қазіргі backend slice
