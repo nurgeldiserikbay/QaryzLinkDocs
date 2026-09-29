@@ -84,6 +84,10 @@ Verified contract PDF evidence binding ZIP v2-ге қосылды: archive assem
 
 QaryzLinkBack PR #193 merged at `d3a85da`, QaryzLinkDocs PR #112 merged at `ec21597`. Back CI run `36565733456` conclusion=failure көрсеткенімен quality job-та `steps=[]` және `runner_id=0`; application code орындалмаған. Сондықтан automated typecheck/lint/test/build verification әлі pending.
 
+Evidence retention/lifecycle release boundary қосылды: evidence storage үшін versioned `EVIDENCE_RETENTION_POLICY_ID` және `EVIDENCE_STORAGE_LIFECYCLE_POLICY_ID` references енгізілді. Staging-та missing references release preflight structured `fail` береді; production-та storage enabled болса missing references config validation кезінде fail-fast тоқтайды. References бар болса preflight оларды әдейі `manual` қалдырады, сондықтан legal/provider approval жалған green болмайды. Provider lifecycle persisted/consumed evidence және active legal hold object-терін destructive expiry-ден қорғауы staging acceptance gate болып қалды.
+
+QaryzLinkBack PR #194 merged at `d5178cd`, QaryzLinkDocs PR #114 merged at `e4e1466`. Back CI run `36570269381` conclusion=failure көрсеткенімен quality job-та `steps=[]`, `runner_id=0`; application code орындалмаған. Automated typecheck/lint/test/build verification әлі pending.
+
 Бұл baseline court-ready package емес: actual approved KZ/RU legal template content/visual acceptance, actual KMS/HSM signer deployment/external IAM/key ceremony acceptance, RFC3161/qualified TSA legal acceptance, jurisdiction retention periods, external bucket lifecycle acceptance және production load acceptance әлі Phase 4 backlog-та.
 
 ## Қазіргі backend slice
