@@ -95,6 +95,8 @@
 - [x] Vendor-neutral signed remote L2 session adapter + authenticated correlated VERIFIED callback foundation.
 - [x] Vendor-neutral signed REVOKED callback + hashed revocation tombstone/out-of-order protection.
 - [ ] Vetted L2 KYC provider selection, provider-specific API/event mapping және KZ privacy/legal staging acceptance.
+- [x] Contract amendment proposal + dual-party approval + immutable proposed-document hash foundation (`CONTRACT_AMENDMENTS.md`).
+- [ ] Approved amendment → ContractVersion N+1 signing/evidence/financial transition policy.
 - [x] Participant-only immutable contract document source (`CONTRACT_DOCUMENT_RENDERING.md`).
 - [x] Deterministic KZ/RU technical preview with source/input/content SHA-256 integrity boundary + Front TXT download.
 - [x] Deterministic verified PDF renderer + final PDF artifact hash/source/template binding implementation.
