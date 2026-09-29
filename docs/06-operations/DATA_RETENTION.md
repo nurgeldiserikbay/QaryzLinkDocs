@@ -86,6 +86,7 @@ Evidence storage enabled орта енді retention мерзімдерін code
 Бұл ID-лер duration немесе legal conclusion емес. Нақты күн саны, limitation/accounting/privacy негізі және legal owner policy құжатында бекітіледі.
 
 Release preflight:
+- staging config policy reference-терсіз parse бола алады, сондықтан preflight structured `fail` evidence шығара алады; production startup storage enabled кезде екі reference жоқ болса fail-fast болады;
 - evidence storage disabled болса бұл references required емес;
 - storage enabled және reference жоқ болса `fail`;
 - екі reference бар болса да `manual` болып қалады, өйткені application config policy-дің legal approval-ын немесе provider lifecycle-дың нақты applied күйін дәлелдей алмайды.
