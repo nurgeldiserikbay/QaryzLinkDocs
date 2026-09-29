@@ -139,7 +139,8 @@ Open/public matching production-да қосылмас бұрын Қазақст�
 - [x] provider-neutral default-off identity verification boundary;
 - [x] release config/preflight requires versioned L2 provider contract + callback-auth + privacy/residency + legal-classification references;
 - [x] vendor-neutral signed remote L2 session adapter + authenticated correlated VERIFIED callback foundation;
-- [ ] vetted L2 KYC provider selection + provider-specific revocation mapping + staging/privacy/legal acceptance;
+- [x] vendor-neutral signed REVOKED callback + hashed revocation tombstone/out-of-order protection;
+- [ ] vetted L2 KYC provider selection + provider-specific API/event mapping + staging/privacy/legal acceptance;
 - [x] provider-neutral minimal L2 claim persistence/expiry/revocation core;
 - [x] participant-only immutable contract document source;
 - [x] deterministic KZ/RU technical preview + source/input/render hash integrity boundary;
@@ -171,7 +172,7 @@ Open/public matching production-да қосылмас бұрын Қазақст�
 
 2026-09-28: Phase 4 басталды. Existing immutable schema v1 manifest үшін participant-only canonical JSON export қосылды. Export persisted manifest hash-ін қайта тексереді, mismatch кезінде fail-closed болады және successful export audit event жасайды. Бұл әлі PDF/ZIP, external signature немесе trusted timestamp емес.
 
-Identity foundation minimal L2 claim persistence және signed remote integration foundation-ға дейін кеңейді: start random opaque subjectRef қолданады, signed provider session response pinned Ed25519 identity арқылы verify болады, session correlation raw subject орнына hash сақтайды, authenticated + signed VERIFIED callback one-time completion/replay protection-пен minimal claim-ға atomically map болады. Vetted provider selection, provider-specific revocation webhook, KZ legal/privacy және staging acceptance әлі ашық.
+Identity foundation minimal L2 claim persistence және signed remote integration foundation-ға дейін кеңейді: start random opaque subjectRef қолданады, signed provider session response pinned Ed25519 identity арқылы verify болады, session correlation raw subject орнына hash сақтайды, authenticated + signed VERIFIED callback one-time completion/replay protection-пен minimal claim-ға atomically map болады. Signed REVOKED callback + hashed tombstone foundation provider-neutral түрде дайын; vetted provider selection, provider-specific API/event mapping, KZ legal/privacy және staging acceptance әлі ашық.
 
 Contract rendering foundation technical deterministic renderer-ге дейін кеңейді: persisted source document hash, canonical render-input hash және actual rendered content hash бөлек беріледі; KZ/RU locale render identity-ге кіреді; Front technical TXT preview/download береді. Бұл approved legal template немесе PDF емес.
 
