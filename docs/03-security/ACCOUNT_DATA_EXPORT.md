@@ -12,12 +12,18 @@ Default:
 
 Feature production/staging-та privacy/legal scope acceptance аяқталмайынша өшірулі қалады.
 
+Production enablement versioned reviewed policy reference талап етеді:
+
+`ACCOUNT_DATA_EXPORT_POLICY_ID=kz-account-data-export-v1`
+
+Бұл ID legal text емес; reviewed export/redaction/deletion-ordering policy artifact-інің opaque version reference-і.
+
 Release preflight feature enabled болса:
 
 - `account_data_export=manual`;
 - `privacy_export_scope_acceptance_required`
 
-көрсетеді.
+көрсетеді. Policy reference жоқ болса `account_data_export_governance=fail` / `account_data_export_policy_missing`; production startup та fail-fast.
 
 ## API
 
