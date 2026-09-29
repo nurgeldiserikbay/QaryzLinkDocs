@@ -94,6 +94,12 @@ Release preflight flag true болып қалса:
 
 арқылы fail етеді.
 
+Sealing enabled болса preflight configured key identity-ді DB registry-ден оқиды. Дәл сол key ACTIVE болмаса:
+
+`active_signing_key_not_registered`
+
+арқылы fail етеді. Registry ready болғанда check `active_signing_key_registered` болады.
+
 ## Accept / rotate configured key
 
 Command:
