@@ -148,7 +148,8 @@ Open/public matching production-да қосылмас бұрын Қазақст�
 - [x] bounded deterministic metadata/text ZIP archive + archive SHA-256;
 - [x] provider-neutral Ed25519 seal payload + backend signature verification + default-off capability boundary;
 - [x] pinned HTTPS remote Ed25519 signer adapter + ZIP v1/v2 domain-separated seal;
-- [ ] actual KMS/HSM gateway + key IAM/rotation/revocation acceptance;
+- [x] application signing key trust registry + controlled activation/retirement/revocation;
+- [ ] actual KMS/HSM gateway + external IAM/key ceremony acceptance;
 - [x] application-level contract evidence legal-hold foundation;
 - [ ] jurisdiction retention periods + external storage lifecycle acceptance;
 - [x] bounded frozen-manifest evidence binary ZIP v2 + storage byte verification;
@@ -165,7 +166,7 @@ Identity foundation minimal L2 claim persistence-ке дейін кеңейді:
 
 Contract rendering foundation technical deterministic renderer-ге дейін кеңейді: persisted source document hash, canonical render-input hash және actual rendered content hash бөлек беріледі; KZ/RU locale render identity-ге кіреді; Front technical TXT preview/download береді. Бұл approved legal template немесе PDF емес.
 
-Evidence export foundation deterministic ZIP-ке дейін кеңейді: evidence JSON + KZ/RU technical previews және bundle-manifest fixed-order STORE archive-ке жиналады, ZIP bytes жеке SHA-256 алады. Provider-neutral Ed25519 seal foundation archive/evidence/bundle hashes-ты domain-separated canonical payload-қа байлайды және provider signature-ны Backend қайта verify етеді. Production signer intentionally unavailable/default-off. Contract-level legal-hold foundation application cleanup-ты active hold кезінде тоқтатады және scoped support/audit boundary береді. Bounded full binary ZIP v2 frozen manifest evidence-ті consumed intent + CLEAN malware verdict + exact storage size/mediaType/SHA-256 арқылы қайта тексеріп direct ZIP body береді. Pinned HTTPS remote Ed25519 signer adapter ZIP v1/v2 үшін қосылды: redirect/timeout/response-size bounds, expected SPKI fingerprint pinning және Backend local signature verification бар. Нақты KMS/HSM gateway/key lifecycle acceptance, jurisdiction retention periods, external storage lifecycle acceptance, trusted timestamp және production load acceptance әлі ашық.
+Evidence export foundation deterministic ZIP-ке дейін кеңейді: evidence JSON + KZ/RU technical previews және bundle-manifest fixed-order STORE archive-ке жиналады, ZIP bytes жеке SHA-256 алады. Provider-neutral Ed25519 seal foundation archive/evidence/bundle hashes-ты domain-separated canonical payload-қа байлайды және provider signature-ны Backend қайта verify етеді. Production signer intentionally unavailable/default-off. Contract-level legal-hold foundation application cleanup-ты active hold кезінде тоқтатады және scoped support/audit boundary береді. Bounded full binary ZIP v2 frozen manifest evidence-ті consumed intent + CLEAN malware verdict + exact storage size/mediaType/SHA-256 арқылы қайта тексеріп direct ZIP body береді. Pinned HTTPS remote Ed25519 signer adapter ZIP v1/v2 үшін қосылды: redirect/timeout/response-size bounds, expected key ID/SPKI fingerprint pinning және Backend local signature verification бар. Application-side signing key trust registry бір ACTIVE key invariant, controlled rotation/revocation, historical lifecycle lookup және release-preflight maintenance guard береді. Нақты KMS/HSM gateway/external IAM/key ceremony acceptance, jurisdiction retention periods, external storage lifecycle acceptance, trusted timestamp және production load acceptance әлі ашық.
 
 ## Phase 5 — Public Beta Kazakhstan
 
