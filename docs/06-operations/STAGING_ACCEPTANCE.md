@@ -137,7 +137,13 @@
 - [ ] Raw callback subjectRef/providerReference/signature, document image, biometric/liveness payload product DB/log/audit-ке көшірілмейді.
 - [ ] `IDENTITY_PRIVACY_RESIDENCY_POLICY_ID` data minimization, processor/subprocessor, residency және retention policy version-ға сәйкес.
 - [ ] `IDENTITY_LEGAL_CLASSIFICATION_ID` Kazakhstan L2 KYC legal/privacy classification record-қа сәйкес.
-- [ ] Provider revocation webhook existing revocation core-ға idempotent mapping жасайды немесе release scope-та explicit pending.
+- [ ] Signed REVOKED callback wrong token/signature/key/provider code кезінде fail-closed.
+- [ ] Revocation callback raw provider reference-ті сақтамай SHA-256 tombstone жасайды.
+- [ ] REVOKED event VERIFIED event-тен бұрын келсе кейінгі stale verification claim blocked.
+- [ ] Same/lower revocation retry idempotent; newer revocation tombstone-ды алға жылжытады.
+- [ ] Concurrent VERIFIED/REVOKED callback бір hashed provider subject advisory lock арқылы serialise болады.
+- [ ] Revocation-нан кейін provider кейінгі жаңа `verifiedAt` берсе re-verification policy бойынша allowed.
+- [ ] Actual provider event names/status mapping generic `QARYZLINK_IDENTITY_REVOCATION_V1` contract-қа сәйкестендірілген.
 - [ ] Provider outage/start-session failure generic fail-closed behavior береді.
 - [ ] Release preflight remote adapter + governance refs-ті `manual` acceptance ретінде көрсетеді; refs/provider config өздігінен production approval емес.
 - [ ] KZ/RU UI email verification-ды KYC деп көрсетпейді және provider raw identifiers-ді шығармайды.
