@@ -244,3 +244,12 @@ Remote authority configured:
 - independent NTP/time-source operations review.
 
 Егер legal review нақты RFC3161 немесе qualified timestamp талап етсе, осы provider contract жаңа standards-based adapter-мен ауыстырылады/кеңейтіледі.
+
+
+## Implementation evidence — 2026-09-29
+
+QaryzLinkBack PR #191 merged at `427d70d`: deterministic timestamp subject, HTTPS remote Ed25519 authority adapter, nonce/clock-skew checks, pinned authority ID/SPKI fingerprint, local signature verification, fail-closed required mode және seal/audit integration.
+
+QaryzLinkFront PR #61 merged at `48c4032`: timestamp capability contract, verified authority metadata, authority time/attestation hash UI және explicit RFC3161/qualified-timestamp disclaimer.
+
+Back CI run `36523556368` және Front CI run `36523562198` quality job құрды, бірақ runner step орындалмады. Сондықтан automated typecheck/lint/test/build verification pending; application code бұл run-дарда орындалмаған.
