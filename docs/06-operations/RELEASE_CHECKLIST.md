@@ -96,8 +96,9 @@
 - [x] Vendor-neutral signed REVOKED callback + hashed revocation tombstone/out-of-order protection.
 - [ ] Vetted L2 KYC provider selection, provider-specific API/event mapping және KZ privacy/legal staging acceptance.
 - [x] Contract amendment proposal + dual-party approval + immutable proposed-document hash foundation (`CONTRACT_AMENDMENTS.md`).
-- [x] Approved non-financial `OTHER` amendment → ContractVersion N+1 signing/currentVersion activation + evidence v2 provenance binding.
-- [ ] TERMS_CHANGE/SCHEDULE_CHANGE deterministic financial/schedule transition, already-paid allocation invariants және legal acceptance.
+- [x] Approved non-financial `OTHER` amendment → ContractVersion N+1 signing/currentVersion activation.
+- [x] Guarded pre-payment TERMS_CHANGE/SCHEDULE_CHANGE: normalized bounded terms, zero-payment guard, schedule replacement/provenance, repayment race block және evidence v3 binding.
+- [ ] Post-payment financial amendment policy: immutable historical allocations, accrual cutover, ledger reconciliation және legal/staging acceptance.
 - [x] Participant-only immutable contract document source (`CONTRACT_DOCUMENT_RENDERING.md`).
 - [x] Deterministic KZ/RU technical preview with source/input/content SHA-256 integrity boundary + Front TXT download.
 - [x] Deterministic verified PDF renderer + final PDF artifact hash/source/template binding implementation.
