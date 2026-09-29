@@ -97,7 +97,7 @@ Behavior:
 - production-та `IDENTITY_VERIFICATION_ENABLED=true` және refs толық емес болса config fail-fast;
 - refs толық болса governance check `manual` күйінде қалады;
 - provider `unavailable` болса жалпы identity verification check `provider_adapter_unavailable` fail береді; `remote-signed-l2` configured болса check `manual` staging acceptance болып қалады;
-- generic signed adapter/session correlation implementation бар, бірақ actual vetted vendor mapping, revocation webhook және privacy/legal staging acceptance аяқталмайынша feature production-ready болып саналмайды.
+- generic signed adapter/session correlation және signed revocation foundation бар, бірақ actual vetted vendor API/event mapping және privacy/legal staging acceptance аяқталмайынша feature production-ready болып саналмайды.
 
 ## Authenticated correlated callback foundation
 
@@ -118,7 +118,27 @@ Successful callback canonical attestation hash-ін `completionHash` ретін�
 
 Claim persistence бұрынғы privacy boundary-ды сақтайды: raw provider reference claim row-ға түспейді, тек SHA-256 hash сақталады. Callback body/signature/raw subjectRef audit payload-қа көшірілмейді.
 
-Бұл foundation қазір VERIFIED/L2 callback path-ты жабады. Provider-specific revocation webhook adapter әлі бөлек integration item; existing `revokeByProviderReference` core соған дайын.
+Бұл foundation VERIFIED/L2 callback path-ты жабады.
+
+## Signed revocation callback foundation
+
+Provider verification-ды кейін revoke еткен сценарий үшін internal endpoint:
+
+`POST /api/v1/internal/identity-verification/callback/revoked`
+
+Payload `QARYZLINK_IDENTITY_REVOCATION_V1` canonical contract-пен provider code, event ID, opaque provider reference, `revokedAt`, `generatedAt` және detached Ed25519 signature береді. Callback VERIFIED path сияқты deployment token, configured provider code және pinned provider key fingerprint арқылы fail-closed тексеріледі.
+
+Product DB raw provider reference-ті сақтамайды. Backend normalized provider namespace + provider reference үшін SHA-256 hash шығарып, `identity_verification_revocations` кестесінде тек hash, latest revocation timestamp және attestation hash сақтайды.
+
+Revocation tombstone-ның мақсаты — event ordering-ті қауіпсіз ету:
+- REVOKED callback VERIFIED callback-тан бұрын келсе де tombstone сақталады;
+- кейін сол provider reference үшін `verifiedAt <= revokedAt` callback stale ретінде reject болады;
+- provider revocation-нан кейін жаңа verification жасаса және жаңа `verifiedAt > revokedAt` болса re-verification рұқсат етіледі;
+- same/older revocation retry idempotent no-op;
+- later revocation tombstone timestamp-ты алға жылжытады және matching active claim-ды revoke етеді;
+- VERIFIED және REVOKED concurrent transaction бір raw-reference-free advisory lock key арқылы serialise болады.
+
+Revocation audit payload provider code-тан артық identity/provider reference дерегін сақтамайды. Нақты vendor-дың event/status атауларын осы generic contract-қа mapping жасау және staging acceptance әлі provider-specific жұмыс болып қалады.
 ## Бұл не емес
 
 Бұл foundation:
@@ -136,7 +156,7 @@ Generic signed session adapter, authenticated VERIFIED callback және opaque 
 
 1. provider-specific API/profile mapping осы generic contract-қа сәйкестендіріледі;
 2. callback/event contract real provider staging environment-та тексеріледі;
-3. revocation webhook mapping existing revocation core-ға қосылады;
+3. provider-specific revocation event/status mapping generic signed revocation contract-қа сәйкестендіріледі;
 4. provider-specific sensitive-data minimization/residency review;
 5. KZ legal meaning және privacy notice;
 6. provider SLA/error/incident ownership;
@@ -162,6 +182,9 @@ QaryzLinkFront PR #53 merged at `4ecd179`: KZ/RU settings identity status/capabi
 - provider code bounded және normalized;
 - raw provider reference тек request scope-та өмір сүреді және SHA-256 hash-ке айналады;
 - жаңа valid claim сол user-дың overlap active claim-ын serialised user-row transaction ішінде жабады;
+- provider revocation raw reference сақтамай hashed tombstone жасайды;
+- out-of-order revocation stale verification-ды блоктайды, кейінгі fresh re-verification-ды рұқсат етеді;
+- VERIFIED/REVOKED concurrent mutation hashed provider-subject advisory lock арқылы serialise болады;
 - provider revocation қайталанса duplicate audit жасамайды;
 - verification/revocation audit payload identity data сақтамайды.
 
