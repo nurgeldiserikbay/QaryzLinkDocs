@@ -199,3 +199,12 @@ Adapter implementation нақты KMS/HSM production acceptance-ті автом�
 - staging load/latency/error acceptance;
 - trusted timestamp;
 - jurisdiction/legal approval.
+
+
+## Implementation evidence — 2026-09-29
+
+QaryzLinkBack PR #189 merged at `ba3d1ea`: ZIP v1/v2 domain-separated seal payloads, default-off HTTPS remote Ed25519 signer adapter, pinned key ID/SPKI fingerprint, bounded transport, local signature verification және participant-only `seal-v2` endpoint.
+
+QaryzLinkFront PR #59 merged at `e68d354`: provider/archive-format capability, separate Full ZIP v2 seal action, key/archive hash/fingerprint UI және detached v2 seal JSON download.
+
+Back CI run `36516530077` және Front CI run `36516534678` quality job құрды, бірақ runner step орындалмады. Сондықтан automated typecheck/lint/test/build verification pending; application code бұл run-дарда орындалмаған.
