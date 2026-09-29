@@ -71,7 +71,7 @@ QaryzLinkFront settings беті authenticated user үшін capability + privac
 - provider code/reference/hash, claim ID, document/biometric payload немесе contact data көрсетпейді;
 - email verification-ды L2 KYC ретінде көрсетпейді.
 
-Current provider unavailable болғандықтан production UI verification-ды имитацияламайды.
+Default provider `unavailable` болғандықтан production UI verification-ды өздігінен имитацияламайды; signed adapter тек explicit approved configuration кезінде қосылады.
 
 ## Current provider state
 
@@ -96,8 +96,8 @@ Behavior:
 - staging-та refs жоқ болса `release:preflight` `identity_provider_governance=fail` береді;
 - production-та `IDENTITY_VERIFICATION_ENABLED=true` және refs толық емес болса config fail-fast;
 - refs толық болса governance check `manual` күйінде қалады;
-- current adapter әлі unavailable болғандықтан жалпы identity verification check бәрібір `provider_adapter_unavailable` fail береді;
-- actual vetted adapter, authenticated callback/session correlation және privacy/legal staging acceptance аяқталмайынша feature production-ready болып саналмайды.
+- provider `unavailable` болса жалпы identity verification check `provider_adapter_unavailable` fail береді; `remote-signed-l2` configured болса check `manual` staging acceptance болып қалады;
+- generic signed adapter/session correlation implementation бар, бірақ actual vetted vendor mapping, revocation webhook және privacy/legal staging acceptance аяқталмайынша feature production-ready болып саналмайды.
 
 ## Authenticated correlated callback foundation
 
