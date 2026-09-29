@@ -102,6 +102,8 @@
 - [x] Default-off HTTPS remote Ed25519 signer adapter: ZIP v1/v2 domain separation, pinned key ID/SPKI fingerprint, Backend local signature verification, redirect/timeout/response-size bounds.
 - [x] Application signing key trust registry: one ACTIVE key, controlled activation/retirement/revocation, historical lifecycle lookup, maintenance preflight fail gate және sealing-enabled ACTIVE-registry preflight check.
 - [ ] Actual KMS/HSM signer deployment, approved external key IAM/ceremony, provider-side disable/delete policy және staging verification.
+- [x] Default-off external signed time attestation adapter: nonce, subject hash binding, pinned authority ID/key fingerprint, local verification және fail-closed required mode.
+- [ ] RFC3161/qualified TSA/provider selection, legal effect, certificate/revocation policy және staging acceptance.
 - [x] Application-level contract evidence legal hold: scoped support control, audit, one-active-hold invariant және cleanup exclusion.
 - [ ] Legal retention completion: Kazakhstan retention periods, consumed-evidence deletion policy, account-deletion interaction және external bucket lifecycle acceptance.
 - [x] Default-off bounded full evidence ZIP v2: frozen-manifest selection, consumed-intent binding, CLEAN verdict, storage byte SHA-256 verification және direct binary response.
