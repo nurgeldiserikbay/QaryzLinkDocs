@@ -198,3 +198,12 @@ Registry implementation application-side key lifecycle-ді күшейтеді, 
 - historical seal re-verification workflow/report;
 - trusted timestamp;
 - Kazakhstan legal acceptance.
+
+
+## Implementation evidence — 2026-09-29
+
+QaryzLinkBack PR #190 merged at `6d9090d`: PostgreSQL ACTIVE/RETIRED/REVOKED trust registry, one-ACTIVE-key invariant, controlled accept/rotate/revoke commands, participant historical lifecycle lookup, seal-time ACTIVE recheck және release-preflight registry/maintenance gates.
+
+QaryzLinkFront PR #60 merged at `2f454c3`: seal capability registry readiness, registry-specific unavailable states, ACTIVE activation metadata және historical signing-key lifecycle API client.
+
+Back CI run `36520601061` және Front CI run `36520607376` quality job құрды, бірақ runner step орындалмады. Сондықтан automated Prisma/typecheck/lint/test/build verification pending; application code бұл run-дарда орындалмаған.
