@@ -12,6 +12,7 @@
 | KMS/HSM signer deployment, least-privilege IAM, key ceremony және key lifecycle policy version-дері | Evidence sealing staging алдында | ZIP seal private-key custody, rotation/revocation және release acceptance |
 | Timestamp standards profile, authority trust/revocation policy және Kazakhstan legal classification version-дері | Trusted timestamp staging алдында | RFC3161/QTSA selection және timestamp legal/cryptographic acceptance |
 | L2 KYC provider contract/profile, callback-auth policy, privacy/residency policy және legal classification version-дері | Identity verification staging алдында | Provider adapter, callback trust және Kazakhstan privacy/legal acceptance |
+| L2 KYC staging session endpoint, bearer/callback credentials, provider signing-key fingerprint және test account | Identity provider integration staging алдында | Signed session/callback verification, correlation/replay және fail-closed drills |
 | SMTP провайдер және расталған sender | Email қосқанда | SMTP secrets және DNS |
 | Test mailbox | Staging verification кезінде | Өзіңіз бақылайтын қабылдаушы |
 | Backup retention және restore мақсаттары | Production алдында | Операциялық регламент |
