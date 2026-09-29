@@ -84,7 +84,7 @@ Verified contract PDF evidence binding ZIP v2-ге қосылды: archive assem
 
 QaryzLinkBack PR #193 merged at `d3a85da`, QaryzLinkDocs PR #112 merged at `ec21597`. Back CI run `36565733456` conclusion=failure көрсеткенімен quality job-та `steps=[]` және `runner_id=0`; application code орындалмаған. Сондықтан automated typecheck/lint/test/build verification әлі pending.
 
-Бұл baseline court-ready package емес: actual approved KZ/RU legal template content/visual acceptance, final PDF evidence binding, actual KMS/HSM signer deployment/external IAM/key ceremony acceptance, RFC3161/qualified TSA legal acceptance, jurisdiction retention periods, external bucket lifecycle acceptance және production load acceptance әлі Phase 4 backlog-та.
+Бұл baseline court-ready package емес: actual approved KZ/RU legal template content/visual acceptance, actual KMS/HSM signer deployment/external IAM/key ceremony acceptance, RFC3161/qualified TSA legal acceptance, jurisdiction retention periods, external bucket lifecycle acceptance және production load acceptance әлі Phase 4 backlog-та.
 
 ## Қазіргі backend slice
 
