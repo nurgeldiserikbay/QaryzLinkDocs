@@ -44,6 +44,8 @@ Pair invariants DB CHECK арқылы қорғалады.
 
 Feature disabled кезінде жаңа version-да pins null болып қалады.
 
+PDF feature enabled болса дәл осы KZ/RU template identity canonical signed `documentHash` input-ына да кіреді. Сондықтан party platform acknowledgement тек financial/source terms-ті емес, render template identity-ді де бекітеді. ClosureCertificate кейін сол `contractDocumentHash` арқылы осы binding-ті evidence chain-ға алып өтеді.
+
 Ескі contract-тарға кейіннен template автоматты backfill жасалмайды.
 
 Бұл маңызды: signed contract identity deployment config өзгергеннен кейін қайта интерпретацияланбауы тиіс.
@@ -279,6 +281,6 @@ Foundation-нан кейін ашық:
 - renderer deployment/SLA;
 - KZ/RU visual regression fixtures;
 - approved fonts and deterministic embedding policy;
-- final PDF artifacts-ті evidence bundle manifest/ZIP v2 ішіне тұрақты binding;
+- final PDF bytes SHA-256-ды evidence bundle manifest/ZIP v2 ішіне тұрақты binding (template identity signed documentHash арқылы қазірдің өзінде bound);
 - closure/evidence export-та PDF hashes verification;
 - signed-document semantics бойынша Kazakhstan legal review.
