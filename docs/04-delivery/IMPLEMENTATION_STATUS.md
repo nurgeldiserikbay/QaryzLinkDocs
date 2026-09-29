@@ -112,6 +112,10 @@ Signed identity revocation lifecycle қосылды: provider `QARYZLINK_IDENTIT
 
 QaryzLinkBack PR #200 merged at `791e8fb`, QaryzLinkDocs PR #126 merged at `ab89619`. Back CI run `36605492182` conclusion=failure көрсеткенімен quality job-та `steps=[]`, `runner_id=0`; application code орындалмаған. Automated Prisma/typecheck/lint/test/build verification әлі pending.
 
+Contract amendment proposal/approval foundation қосылды: feature default-off; тек SIGNED/FUNDING_PENDING/ACTIVE contract үшін current signed version-ға байланған next-version amendment proposal жасалады. Product DB raw legal text/terms JSON сақтамайды — purpose, base/proposed version және immutable proposed-document SHA-256 ғана сақталады. Borrower/lender approvals бөлек explicit action, duplicate same-party approval idempotent, екі approval жиналғанда amendment APPROVED болады. Proposal/approval existing ContractVersion, contract currentVersion/status, funding, schedule, payments немесе ledger-ге mutation жасамайды. Release preflight enabled amendment feature-ді manual legal/process acceptance ретінде көрсетеді. Approved amendment → ContractVersion N+1 activation/signing, evidence binding және deterministic financial/schedule transition әлі бөлек pending slice.
+
+QaryzLinkBack PR #201 merged at `46a8512`, QaryzLinkDocs PR #128 merged at `3371848`. Back CI run `36610594361` conclusion=failure көрсеткенімен quality job-та `steps=[]`, `runner_id=0`; application code орындалмаған. Automated Prisma/typecheck/lint/test/build verification әлі pending.
+
 Бұл baseline court-ready package емес: vetted L2 KYC provider selection/provider-specific API/event mapping/KZ privacy-legal staging acceptance, actual approved KZ/RU legal template content/visual acceptance, actual KMS/HSM signer deployment/external IAM/key ceremony acceptance, RFC3161/qualified TSA legal acceptance, jurisdiction retention periods, external bucket lifecycle acceptance және production load acceptance әлі Phase 4 backlog-та.
 
 ## Қазіргі backend slice
