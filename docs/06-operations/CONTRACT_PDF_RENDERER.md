@@ -284,3 +284,12 @@ Foundation-нан кейін ашық:
 - final PDF bytes SHA-256-ды evidence bundle manifest/ZIP v2 ішіне тұрақты binding (template identity signed documentHash арқылы қазірдің өзінде bound);
 - closure/evidence export-та PDF hashes verification;
 - signed-document semantics бойынша Kazakhstan legal review.
+
+
+## Implementation evidence — 2026-09-29
+
+QaryzLinkBack PR #192 merged at `6218e73`: immutable KZ/RU template pins in ContractVersion, template identity in new contract documentHash, participant PDF capability/render endpoints, deterministic render-input hash, remote signed renderer verification және privacy-safe export audit.
+
+QaryzLinkFront PR #62 merged at `e9dcd26`: pinned-template PDF capability UI, explicit legacy-contract state, verified PDF download және PDF/render-input/attestation hash display.
+
+Back CI run `36542155035` және Front CI run `36536087948` quality job құрды, бірақ runner step орындалмады. Сондықтан automated Prisma/typecheck/lint/test/build verification pending; application code бұл run-дарда орындалмаған.
