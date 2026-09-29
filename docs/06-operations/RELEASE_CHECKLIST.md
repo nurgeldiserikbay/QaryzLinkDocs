@@ -108,6 +108,7 @@
 - [x] Production config/preflight requires versioned KMS/HSM deployment/IAM/key-ceremony/key-lifecycle references.
 - [ ] Actual KMS/HSM signer deployment, approved external key IAM/ceremony, provider-side disable/delete policy және staging verification.
 - [x] Default-off external signed time attestation adapter: nonce, subject hash binding, pinned authority ID/key fingerprint, local verification және fail-closed required mode.
+- [x] Production config/preflight requires versioned timestamp standards/trust/revocation/legal-classification references.
 - [ ] RFC3161/qualified TSA/provider selection, legal effect, certificate/revocation policy және staging acceptance.
 - [x] Application-level contract evidence legal hold: scoped support control, audit, one-active-hold invariant және cleanup exclusion.
 - [ ] Legal retention completion: Kazakhstan retention periods, consumed-evidence deletion policy, account-deletion interaction және external bucket lifecycle acceptance.
