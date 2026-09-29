@@ -186,6 +186,19 @@ Audit:
 8. Maintenance gate қайта false.
 9. Legal/security owner historical signatures treatment туралы шешім қабылдайды.
 
+## Deployment/IAM/ceremony reference gate
+
+Application trust registry ACTIVE/RETIRED/REVOKED lifecycle-ді сақтайды, бірақ ол KMS/HSM account-side controls-ты өзі тексермейді. Сондықтан production sealing config төрт versioned non-secret reference талап етеді:
+
+- `EVIDENCE_SIGNER_DEPLOYMENT_ID`;
+- `EVIDENCE_SIGNER_IAM_POLICY_ID`;
+- `EVIDENCE_SIGNER_KEY_CEREMONY_ID`;
+- `EVIDENCE_SIGNER_KEY_LIFECYCLE_POLICY_ID`.
+
+Registry acceptance command осы references-ті database-қа көшірмейді және олардың мазмұнын audit-ке жазбайды. Олар release configuration provenance үшін ғана.
+
+Key rotation кезінде жаңа ceremony/lifecycle artifact version қолданылса deployment config reference-тері де жаңа approved version-ға ауысуы тиіс. Preflight толық references болғанның өзінде `manual` күйін сақтайды.
+
 ## Remaining production gates
 
 Registry implementation application-side key lifecycle-ді күшейтеді, бірақ мыналарды автоматты жаппайды:
