@@ -82,6 +82,12 @@ Command HTTP server ашпайды. Алдымен grace/retention hold қайт
 | NOTIFICATION_BATCH_SIZE | 1–100, әдепкісі 50 |
 | METRICS_ACCESS_TOKEN | Staging/production-та кемінде 32 таңба; metrics endpoint header token |
 | EVIDENCE_STORAGE_ENABLED | Private evidence storage feature gate; staging/production ғана, [runbook](EVIDENCE_STORAGE.md) талаптарынсыз қоспау |
+| EVIDENCE_SEALING_ENABLED / EVIDENCE_SEAL_PROVIDER | Evidence archive signing gate/provider; remote signer + ACTIVE trust-registry acceptance талап етіледі |
+| EVIDENCE_TIMESTAMP_ENABLED / EVIDENCE_TIMESTAMP_PROVIDER | External signed time attestation gate/provider; sealing enabled болуы тиіс; RFC3161/qualified status-ты білдірмейді |
+| EVIDENCE_TIMESTAMP_REMOTE_URL / TOKEN | HTTPS-only authority endpoint және server-side bearer credential |
+| EVIDENCE_TIMESTAMP_EXPECTED_AUTHORITY_ID / KEY_FINGERPRINT | Pinned timestamp authority cryptographic identity |
+| EVIDENCE_TIMESTAMP_REMOTE_TIMEOUT_MS | Authority request timeout, 500–10000 ms; default 3000 |
+| EVIDENCE_TIMESTAMP_MAX_CLOCK_SKEW_SECONDS | Authority time sanity bound, 30–3600 seconds; default 300 |
 | PUBLIC_MARKETPLACE_ENABLED | false |
 | PENALTY_ENABLED | false |
 | AMOUNT_BASED_COMMISSION_ENABLED | false |
