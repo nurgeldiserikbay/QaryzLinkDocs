@@ -96,6 +96,7 @@
 - [x] Participant-only immutable contract document source (`CONTRACT_DOCUMENT_RENDERING.md`).
 - [x] Deterministic KZ/RU technical preview with source/input/content SHA-256 integrity boundary + Front TXT download.
 - [x] Deterministic verified PDF renderer + final PDF artifact hash/source/template binding implementation.
+- [x] Production config/preflight requires versioned PDF template-approval/legal-signoff/visual/font-policy references.
 - [ ] Approved KZ/RU legal template artifacts + visual/font/pagination/legal staging acceptance.
 - [x] Participant-only immutable evidence manifest + audited canonical JSON export with hash re-verification.
 - [x] Deterministic evidence bundle manifest: stable artifact paths, byte lengths, SHA-256, closure document hash binding және audited bundle hash.

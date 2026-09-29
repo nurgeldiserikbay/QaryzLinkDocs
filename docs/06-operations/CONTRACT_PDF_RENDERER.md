@@ -200,6 +200,23 @@ Bounds:
 
 Rendering only staging/production environment-та enabled бола алады.
 
+## Production PDF governance references
+
+Production-та `CONTRACT_PDF_ENABLED=true` болу үшін renderer/template pins жеткіліксіз. Deployment төрт versioned non-secret reference береді:
+
+- `CONTRACT_PDF_TEMPLATE_APPROVAL_ID` — KZ/RU approved template artifact set/version;
+- `CONTRACT_PDF_LEGAL_SIGNOFF_ID` — Kazakhstan legal wording/sign-off record version;
+- `CONTRACT_PDF_VISUAL_ACCEPTANCE_ID` — KZ/RU pagination/line-break/layout visual acceptance version;
+- `CONTRACT_PDF_FONT_EMBEDDING_POLICY_ID` — approved deterministic font/embedding policy version.
+
+Бұл ID-лер legal text, font file немесе approval content емес. Олар reviewed external artifacts-қа opaque provenance reference қана.
+
+Behavior:
+- staging-та refs жоқ PDF config parse бола алады, бірақ `release:preflight` `contract_pdf_governance=fail` береді;
+- production-та PDF enabled және төрт reference-тің бірі жоқ болса config fail-fast;
+- refs толық болса preflight `manual` күйінде қалады;
+- configured template ID/hash өзі legal/visual approval деп саналмайды.
+
 ## Response and audit
 
 Participant response:
@@ -277,12 +294,13 @@ Enable алдында кемінде:
 
 Foundation-нан кейін ашық:
 
+- [x] production config/preflight requires versioned template-approval/legal-signoff/visual/font-policy references;
 - нақты approved KZ/RU legal template content;
 - renderer deployment/SLA;
-- KZ/RU visual regression fixtures;
-- approved fonts and deterministic embedding policy;
-- final PDF bytes SHA-256-ды evidence bundle manifest/ZIP v2 ішіне тұрақты binding (template identity signed documentHash арқылы қазірдің өзінде bound);
-- closure/evidence export-та PDF hashes verification;
+- KZ/RU visual regression fixtures/acceptance;
+- approved fonts and deterministic embedding policy acceptance;
+- [x] final verified KZ/RU PDF bytes + metadata ZIP v2 bundle hash chain-ге immutable binding;
+- [x] archive build кезінде ClosureCertificate source hash + verified PDF hash/source/template binding;
 - signed-document semantics бойынша Kazakhstan legal review.
 
 

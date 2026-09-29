@@ -143,6 +143,7 @@ Open/public matching production-да қосылмас бұрын Қазақст�
 - [x] participant-only immutable contract document source;
 - [x] deterministic KZ/RU technical preview + source/input/render hash integrity boundary;
 - [x] immutable KZ/RU PDF template identity snapshot + signed documentHash binding + signed remote renderer boundary;
+- [x] release config/preflight requires versioned PDF template approval + legal sign-off + visual/font policy references;
 - [ ] actual approved KZ/RU legal template content + visual/legal acceptance;
 - [x] participant verified PDF artifact download foundation;
 - [x] technical render hashes + verified KZ/RU PDF artifact hash/source/template/renderer binding into full ZIP v2;

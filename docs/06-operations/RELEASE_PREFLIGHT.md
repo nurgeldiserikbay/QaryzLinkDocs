@@ -46,6 +46,7 @@ Command:
 - timestamping enabled болса standards profile/trust/revocation/legal-classification references толық екенін;
 - identity verification enabled болса provider contract/callback-auth/privacy-residency/legal-classification references толық екенін;
 - contract PDF enabled болса pinned KZ/RU template identity + remote signed renderer acceptance manual екенін;
+- contract PDF enabled болса template approval/legal sign-off/visual acceptance/font policy references толық екенін;
 - signing key maintenance one-shot gate normal release кезінде disabled екенін;
 - evidence sealing enabled болса configured signing key DB trust registry-де ACTIVE екенін;
 - full evidence binary archive feature gate күйін;
@@ -90,7 +91,7 @@ Command әдейі келесілерді автоматты pass деп бел�
 - enabled support mutation operational gate, соның ішінде evidence legal hold owner/process және scoped staff access;
 - evidence signer TLS/private routing, configured deployment reference-тің нақты KMS/HSM deployment-қа сәйкестігі, least-privilege IAM review, independent key ceremony, provider-side key lifecycle policy, trust-registry rotation/revocation drill, pinned identity cutover және independent signature verification acceptance;
 - timestamp authority TLS/auth/nonce/clock-skew/signature failure drills, configured standards profile/trust/revocation policy references-тің нақты provider controls-қа сәйкестігі және legal TSA classification;
-- contract PDF renderer TLS/auth/template pin/source hash/PDF hash/signature failure drills және KZ/RU legal/visual acceptance.
+- contract PDF renderer TLS/auth/template pin/source hash/PDF hash/signature failure drills, configured approval references-тің нақты KZ/RU legal artifacts/visual/font policy-ге сәйкестігі және owner+legal acceptance.
 
 Олар `manual` ретінде қалады.
 
