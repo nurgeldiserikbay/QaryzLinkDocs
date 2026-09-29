@@ -80,6 +80,10 @@ Contract PDF foundation immutable template snapshot пен signed remote rendere
 
 QaryzLinkBack PR #192 merged at `6218e73`, QaryzLinkFront PR #62 merged at `e9dcd26`. CI runs `36542155035` және `36536087948` quality job құрғанымен runner step орындамады; automated Prisma/typecheck/lint/test/build verification pending.
 
+Verified contract PDF evidence binding ZIP v2-ге қосылды: archive assembly KZ/RU pinned-template PDF artifact-терін verified renderer арқылы қайта құрады, ClosureCertificate source hash-пен сәйкестігін тексереді және PDF bytes + template/source/render-input/renderer attestation metadata-ны bundle hash chain-ге қосады. Standalone PDF export audit internal archive build кезінде жасалмайды; ZIP v1 өзгермейді.
+
+QaryzLinkBack PR #193 merged at `d3a85da`, QaryzLinkDocs PR #112 merged at `ec21597`. Back CI run `36565733456` conclusion=failure көрсеткенімен quality job-та `steps=[]` және `runner_id=0`; application code орындалмаған. Сондықтан automated typecheck/lint/test/build verification әлі pending.
+
 Бұл baseline court-ready package емес: actual approved KZ/RU legal template content/visual acceptance, final PDF evidence binding, actual KMS/HSM signer deployment/external IAM/key ceremony acceptance, RFC3161/qualified TSA legal acceptance, jurisdiction retention periods, external bucket lifecycle acceptance және production load acceptance әлі Phase 4 backlog-та.
 
 ## Қазіргі backend slice
