@@ -138,7 +138,7 @@ Revocation tombstone-ның мақсаты — event ordering-ті қауіпс�
 - later revocation tombstone timestamp-ты алға жылжытады және matching active claim-ды revoke етеді;
 - VERIFIED және REVOKED concurrent transaction бір raw-reference-free advisory lock key арқылы serialise болады.
 
-Revocation audit payload provider code-тан артық identity/provider reference дерегін сақтамайды. Нақты vendor-дың event/status атауларын осы generic contract-қа mapping жасау және staging acceptance әлі provider-specific жұмыс болып қалады.
+Revocation audit payload provider code-тан артық identity/provider reference дерегін сақтамайды. Нақты vendor-дың event/status атауларын осы generic contract-қа mapping жасау және staging acceptance әлі provider-specific жұмыс болып қалады. Revocation tombstone retention мерзімі кодта hard-code етілмейді; ол `IDENTITY_PRIVACY_RESIDENCY_POLICY_ID` және provider/legal retention acceptance арқылы бекітілуі тиіс.
 ## Бұл не емес
 
 Бұл foundation:
