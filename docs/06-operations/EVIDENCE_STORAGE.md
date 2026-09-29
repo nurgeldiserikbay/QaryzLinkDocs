@@ -41,6 +41,8 @@ Backend мыналарды орындайды:
 | Variable | Мақсаты |
 |---|---|
 | EVIDENCE_STORAGE_ENABLED | Evidence storage feature gate |
+| EVIDENCE_RETENTION_POLICY_ID | Versioned legal/operational retention policy reference; duration емес |
+| EVIDENCE_STORAGE_LIFECYCLE_POLICY_ID | Applied private-bucket lifecycle configuration reference |
 | EVIDENCE_UPLOAD_INTENT_TTL_SECONDS | Single-use upload intent TTL; 60–3600 sec, default 600 |
 | EVIDENCE_MAX_UPLOAD_BYTES | Максималды upload size; default 10 MiB |
 | EVIDENCE_SIGNED_URL_TTL_SECONDS | Signed PUT/GET TTL; 60–900 sec, default 300 |
@@ -111,7 +113,7 @@ Engineering cadence — сағатына бір рет. `concurrencyPolicy: Forb
 
 Active contract-level evidence legal hold бар болса expired/unconsumed intent те cleanup selection-ға кірмейді; storage delete шақырылмайды. Boundary: [Evidence legal hold](EVIDENCE_LEGAL_HOLD.md).
 
-Бұл application-level protection external bucket lifecycle rule-ды автоматты түрде блоктамайды. Қазақстанға арналған нақты legal retention period және provider lifecycle configuration бөлек бекітілуі тиіс.
+Бұл application-level protection external bucket lifecycle rule-ды автоматты түрде блоктамайды. Қазақстанға арналған нақты legal retention period және provider lifecycle configuration бөлек бекітілуі тиіс. Storage enabled deployment енді осы екі approved/versioned source-ты `EVIDENCE_RETENTION_POLICY_ID` және `EVIDENCE_STORAGE_LIFECYCLE_POLICY_ID` арқылы атайды; бұл references өздігінен acceptance емес.
 
 ## 6. Monitoring және alerting baseline
 
@@ -160,7 +162,10 @@ Metrics token browser bundle-ге немесе public telemetry-ге беріл�
 18. full binary ZIP v2 тек frozen manifest references-ті қосады;
 19. binary export алдында consumed intent + CLEAN verdict + exact downloaded size/mediaType/SHA-256 қайта тексеріледі;
 20. binary object/total payload limits enforce болады;
-21. max-size және concurrent binary export memory/latency staging profile өлшенеді.
+21. max-size және concurrent binary export memory/latency staging profile өлшенеді;
+22. configured retention policy ID нақты reviewed policy version-ға сәйкес;
+23. configured lifecycle policy ID provider console/IaC-та applied version-ға сәйкес;
+24. provider lifecycle persisted/consumed evidence және active legal hold объекттерін destructive expiry rule-ға қоспайтыны тексеріледі.
 
 Evidence ретінде secret, signed URL, token, raw PII немесе document content сақталмайды. Тек commit SHA, environment, UTC timestamp, scenario және pass/fail сақталады.
 
@@ -172,7 +177,8 @@ Evidence ретінде secret, signed URL, token, raw PII немесе document
 - external malware scanner/event integration;
 - staging end-to-end acceptance;
 - metrics baseline бар; нақты alert thresholds, collector integration және scanner/storage outage ownership staging-та бекітілуі керек;
-- consumed evidence retention/deletion policy бойынша заңгерлік шешім;
+- consumed evidence retention/deletion policy бойынша заңгерлік шешім және versioned `EVIDENCE_RETENTION_POLICY_ID`;
+- external bucket lifecycle reviewed/applied configuration және versioned `EVIDENCE_STORAGE_LIFECYCLE_POLICY_ID`;
 - full binary archive max-size/concurrency load acceptance;
 - backup/restore және incident procedure;
 - data residency талабының орындалуы.
