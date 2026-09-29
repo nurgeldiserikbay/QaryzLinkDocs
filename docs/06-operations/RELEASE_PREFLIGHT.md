@@ -45,7 +45,8 @@ Command:
 - contract PDF enabled болса pinned KZ/RU template identity + remote signed renderer acceptance manual екенін;
 - signing key maintenance one-shot gate normal release кезінде disabled екенін;
 - evidence sealing enabled болса configured signing key DB trust registry-де ACTIVE екенін;
-- full evidence binary archive feature gate күйін
+- full evidence binary archive feature gate күйін;
+- evidence storage enabled болса versioned retention policy reference және external bucket lifecycle policy reference бар-жоғын
 
 санаттайды.
 
@@ -56,7 +57,10 @@ Command:
 - PUBLIC_MARKETPLACE_ENABLED=true;
 - PENALTY_ENABLED=true;
 - AMOUNT_BASED_COMMISSION_ENABLED=true;
-- EVIDENCE_SEALING_ENABLED=true, бірақ current KMS/HSM provider adapter әлі unavailable.
+- EVIDENCE_SEALING_ENABLED=true, бірақ current KMS/HSM provider adapter әлі unavailable;
+- evidence storage enabled, бірақ `EVIDENCE_RETENTION_POLICY_ID` немесе `EVIDENCE_STORAGE_LIFECYCLE_POLICY_ID` жоқ.
+
+Staging-та бұл жағдай command-тың structured `fail` snapshot-ында көрінеді. Production-та storage enabled конфигурация policy references жоқ болса application config fail-fast тоқтайды.
 
 ## Manual checks
 
@@ -66,6 +70,8 @@ Command әдейі келесілерді автоматты pass деп бел�
 - forwarded-header sanitization;
 - SMTP sender/DNS/inbox delivery;
 - evidence bucket least privilege;
+- configured retention policy ID-дің нақты reviewed Kazakhstan policy version-ға сәйкестігі;
+- configured lifecycle policy ID-дің provider/IaC applied version-ға сәйкестігі және legal-hold/persisted-object destructive expiry exclusion;
 - malware scanner callback және CLEAN/INFECTED flow;
 - evidence signed PUT/GET;
 - enabled full binary archive max-size/concurrency/memory/latency acceptance;

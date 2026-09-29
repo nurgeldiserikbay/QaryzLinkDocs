@@ -153,7 +153,8 @@ Open/public matching production-да қосылмас бұрын Қазақст�
 - [x] application signing key trust registry + controlled activation/retirement/revocation;
 - [ ] actual KMS/HSM gateway + external IAM/key ceremony acceptance;
 - [x] application-level contract evidence legal-hold foundation;
-- [ ] jurisdiction retention periods + external storage lifecycle acceptance;
+- [x] release-preflight/config boundary requires versioned retention + storage lifecycle policy references when evidence storage is enabled;
+- [ ] jurisdiction retention periods + external storage lifecycle provider/legal acceptance;
 - [x] bounded frozen-manifest evidence binary ZIP v2 + storage byte verification;
 - [ ] large archive true streaming/ZIP64 if load requirements demand it;
 - [x] external signed time attestation foundation;

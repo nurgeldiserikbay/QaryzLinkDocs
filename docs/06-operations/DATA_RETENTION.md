@@ -75,3 +75,20 @@ Backend PR #124 ephemeral auth retention cleanup-ты қосты. Ол GitHub Ac
 - support ticket retention;
 - PII encryption/key custody/rotation owner;
 - privacy notice-та deletion және retained records түсіндірмесі.
+
+## 8. Versioned retention policy reference gate — 2026-09-29
+
+Evidence storage enabled орта енді retention мерзімдерін code/config ішінде ойдан шығармайды. Оның орнына deployment екі opaque versioned reference беруге тиіс:
+
+- `EVIDENCE_RETENTION_POLICY_ID` — Қазақстан MVP үшін approved retention policy/document нұсқасына сілтеме;
+- `EVIDENCE_STORAGE_LIFECYCLE_POLICY_ID` — private object storage bucket lifecycle configuration нұсқасына сілтеме.
+
+Бұл ID-лер duration немесе legal conclusion емес. Нақты күн саны, limitation/accounting/privacy негізі және legal owner policy құжатында бекітіледі.
+
+Release preflight:
+- staging config policy reference-терсіз parse бола алады, сондықтан preflight structured `fail` evidence шығара алады; production startup storage enabled кезде екі reference жоқ болса fail-fast болады;
+- evidence storage disabled болса бұл references required емес;
+- storage enabled және reference жоқ болса `fail`;
+- екі reference бар болса да `manual` болып қалады, өйткені application config policy-дің legal approval-ын немесе provider lifecycle-дың нақты applied күйін дәлелдей алмайды.
+
+External lifecycle rule persisted/consumed evidence немесе active legal hold object-ін application cleanup-тан тәуелсіз жоймауы тиіс. Бұл provider-side acceptance staging checklist арқылы тексеріледі.
