@@ -40,6 +40,7 @@ Command:
 - PII contact storage mode күйін;
 - contract signing/support mutation/API docs gates күйін;
 - evidence cryptographic sealing provider gate күйін;
+- configured remote signer болса key lifecycle acceptance әлі manual екенін;
 - full evidence binary archive feature gate күйін
 
 санаттайды.
@@ -70,7 +71,7 @@ Command әдейі келесілерді автоматты pass деп бел�
 - browser KZ/RU authenticated journey;
 - enabled contract signing legal gate;
 - enabled support mutation operational gate, соның ішінде evidence legal hold owner/process және scoped staff access;
-- evidence signing key IAM/rotation/revocation және independent signature verification acceptance.
+- evidence signer TLS/private routing, key IAM/rotation/revocation, pinned fingerprint cutover және independent signature verification acceptance.
 
 Олар `manual` ретінде қалады.
 
