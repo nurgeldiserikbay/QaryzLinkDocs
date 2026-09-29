@@ -161,11 +161,12 @@ Raw object key, signed URL, file bytes, user contacts немесе document cont
 
 ## Signing boundary
 
-Current Ed25519 seal foundation `ZIP_STORE_V1` metadata archive-ке арналған.
+Seal contract енді format бойынша domain-separated:
 
-ZIP v2 автоматты түрде signed деп саналмайды.
+- `ZIP_STORE_V1` → `QARYZLINK_EVIDENCE_ARCHIVE_SEAL_V1`;
+- `ZIP_STORE_V2` → `QARYZLINK_EVIDENCE_ARCHIVE_SEAL_V2`.
 
-KMS/HSM signing implementation кейін seal payload version/format contract-ты explicit v2 support-пен кеңейтіп, archive v2 hash-ін бөлек sign етуі тиіс.
+Default-off remote Ed25519 signer adapter екі форматты да қолдайды және Backend returned signature-ны pinned public-key fingerprint арқылы қайта verify етеді. Нақты KMS/HSM-backed gateway және key lifecycle staging acceptance әлі production gate. Boundary: [Remote Ed25519 signer](EVIDENCE_REMOTE_SIGNER.md).
 
 Trusted timestamp әлі жоқ.
 
