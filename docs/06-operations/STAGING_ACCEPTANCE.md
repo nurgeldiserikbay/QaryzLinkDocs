@@ -115,16 +115,26 @@
 
 ### 6.4 Identity/KYC provider
 
+- [ ] `IDENTITY_VERIFICATION_PROVIDER=remote-signed-l2` тек approved staging config-та қосылған.
 - [ ] `IDENTITY_PROVIDER_CONTRACT_ID` vetted L2 provider profile/contract version-ға сәйкес.
-- [ ] `IDENTITY_CALLBACK_AUTH_POLICY_ID` callback signature/authentication және replay policy version-ға сәйкес.
-- [ ] Callback provider session/user correlation fail-closed.
-- [ ] Duplicate/replayed callback idempotent және unauthorized callback rejected.
-- [ ] Raw provider payload, document image, biometric/liveness payload product DB/log/audit-ке көшірілмейді.
+- [ ] Session endpoint HTTPS/routing policy-ге сәйкес және wrong bearer credential rejected.
+- [ ] Provider session response request-тегі random opaque `subjectRef`-ті exact қайтарады.
+- [ ] Wrong provider code немесе wrong Ed25519 key fingerprint rejected.
+- [ ] Changed redirect/expiry/session attestation detached-signature verification-нан өтпейді.
+- [ ] Provider-ге app user ID, email, phone, IIN/BIN немесе profile payload жіберілмейтіні network/log review арқылы тексерілді.
+- [ ] `IDENTITY_CALLBACK_AUTH_POLICY_ID` callback token + Ed25519 signature/authentication/replay policy version-ға сәйкес.
+- [ ] Wrong `x-identity-callback-token` claim mutation-ға жетпейді.
+- [ ] Wrong callback signature/key/provider code fail-closed.
+- [ ] Callback generatedAt configured clock-skew шекарасынан тыс болса reject.
+- [ ] Unknown немесе invalid session correlation claim жасамайды.
+- [ ] Duplicate exact callback idempotent; completed session-ге altered replay rejected.
+- [ ] VERIFIED callback claim write + session completion atomic transaction ретінде орындалады.
+- [ ] Raw callback subjectRef/providerReference/signature, document image, biometric/liveness payload product DB/log/audit-ке көшірілмейді.
 - [ ] `IDENTITY_PRIVACY_RESIDENCY_POLICY_ID` data minimization, processor/subprocessor, residency және retention policy version-ға сәйкес.
 - [ ] `IDENTITY_LEGAL_CLASSIFICATION_ID` Kazakhstan L2 KYC legal/privacy classification record-қа сәйкес.
-- [ ] Provider revocation webhook claim lifecycle-ге idempotent mapping жасайды.
+- [ ] Provider revocation webhook existing revocation core-ға idempotent mapping жасайды немесе release scope-та explicit pending.
 - [ ] Provider outage/start-session failure generic fail-closed behavior береді.
-- [ ] Release preflight governance refs-ті manual деп көрсетеді; actual adapter unavailable болса overall release fail болып қалуы тиіс.
+- [ ] Release preflight remote adapter + governance refs-ті `manual` acceptance ретінде көрсетеді; refs/provider config өздігінен production approval емес.
 - [ ] KZ/RU UI email verification-ды KYC деп көрсетпейді және provider raw identifiers-ді шығармайды.
 
 ## 7. Background jobs
