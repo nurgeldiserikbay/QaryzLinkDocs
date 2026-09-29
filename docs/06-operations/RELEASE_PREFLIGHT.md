@@ -40,6 +40,7 @@ Command:
 - PII contact storage mode күйін;
 - contract signing/support mutation/API docs gates күйін;
 - contract amendments enabled болса legal/process acceptance manual екенін;
+- account data export enabled болса privacy/export scope acceptance manual екенін;
 - evidence cryptographic sealing provider gate күйін;
 - configured remote signer болса external KMS/HSM acceptance әлі manual екенін;
 - evidence sealing enabled болса versioned signer deployment/IAM/key-ceremony/key-lifecycle references толық екенін;
@@ -90,6 +91,7 @@ Command әдейі келесілерді автоматты pass деп бел�
 - browser KZ/RU authenticated journey;
 - KYC provider contract, callback authentication/session correlation, sensitive-data minimization, residency/processor controls және Kazakhstan legal classification;
 - enabled contract signing legal gate;
+- enabled account own-data export scope, third-party redaction, deletion ordering және Kazakhstan privacy/legal acceptance;
 - enabled support mutation operational gate, соның ішінде evidence legal hold owner/process және scoped staff access;
 - evidence signer TLS/private routing, configured deployment reference-тің нақты KMS/HSM deployment-қа сәйкестігі, least-privilege IAM review, independent key ceremony, provider-side key lifecycle policy, trust-registry rotation/revocation drill, pinned identity cutover және independent signature verification acceptance;
 - timestamp authority TLS/auth/nonce/clock-skew/signature failure drills, configured standards profile/trust/revocation policy references-тің нақты provider controls-қа сәйкестігі және legal TSA classification;
