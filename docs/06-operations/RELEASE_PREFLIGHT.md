@@ -41,6 +41,7 @@ Command:
 - contract signing/support mutation/API docs gates күйін;
 - contract amendments enabled болса legal/process acceptance manual екенін;
 - account data export enabled болса privacy/export scope acceptance manual екенін;
+- account data export enabled болса versioned `ACCOUNT_DATA_EXPORT_POLICY_ID` governance reference бар-жоғын;
 - evidence cryptographic sealing provider gate күйін;
 - configured remote signer болса external KMS/HSM acceptance әлі manual екенін;
 - evidence sealing enabled болса versioned signer deployment/IAM/key-ceremony/key-lifecycle references толық екенін;
@@ -69,6 +70,7 @@ Command:
 - timestamping enabled, бірақ `EVIDENCE_TIMESTAMP_STANDARD_PROFILE_ID`, `EVIDENCE_TIMESTAMP_TRUST_POLICY_ID`, `EVIDENCE_TIMESTAMP_REVOCATION_POLICY_ID` немесе `EVIDENCE_TIMESTAMP_LEGAL_CLASSIFICATION_ID` жоқ;
 - identity verification enabled, бірақ `IDENTITY_PROVIDER_CONTRACT_ID`, `IDENTITY_CALLBACK_AUTH_POLICY_ID`, `IDENTITY_PRIVACY_RESIDENCY_POLICY_ID` немесе `IDENTITY_LEGAL_CLASSIFICATION_ID` жоқ.
 - identity verification enabled, бірақ provider adapter `remote-signed-l2` емес.
+- account data export enabled, бірақ `ACCOUNT_DATA_EXPORT_POLICY_ID` жоқ.
 
 Staging-та бұл жағдайлар command-тың structured `fail` snapshot-ында көрінеді. Production-та storage enabled болса retention/lifecycle references, sealing enabled болса signer operations references, timestamping enabled болса timestamp governance references, identity verification enabled болса identity provider governance references жоқ конфигурация application startup кезінде fail-fast тоқтайды.
 
