@@ -165,7 +165,8 @@ Open/public matching production-да қосылмас бұрын Қазақст�
 - [x] external signed time attestation foundation;
 - [x] release config/preflight requires versioned timestamp standards + trust + revocation + legal-classification references;
 - [ ] RFC3161/qualified TSA + certificate/revocation + jurisdiction legal acceptance;
-- amendments;
+- [x] default-off contract amendment proposal + dual-party approval + immutable proposed-document hash foundation;
+- [ ] approved amendment → ContractVersion N+1 activation/signing + evidence binding + deterministic financial/schedule transition;
 - disputes;
 - data export/deletion;
 - staff JIT access.

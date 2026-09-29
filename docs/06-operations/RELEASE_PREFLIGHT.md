@@ -39,6 +39,7 @@ Command:
 - amount-based commission өшірулі екенін;
 - PII contact storage mode күйін;
 - contract signing/support mutation/API docs gates күйін;
+- contract amendments enabled болса legal/process acceptance manual екенін;
 - evidence cryptographic sealing provider gate күйін;
 - configured remote signer болса external KMS/HSM acceptance әлі manual екенін;
 - evidence sealing enabled болса versioned signer deployment/IAM/key-ceremony/key-lifecycle references толық екенін;
