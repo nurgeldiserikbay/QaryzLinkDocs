@@ -64,7 +64,9 @@ Bounded full binary archive v2 қосылды: тек immutable manifest-те fr
 
 QaryzLinkBack PR #188 merged at `d390b71`, QaryzLinkFront PR #58 merged at `253ff44`. CI runs `36470173599` және `36470182893` quality job құрғанымен runner step орындамады; automated verification pending.
 
-Pinned remote Ed25519 signer adapter қосылды: HTTPS-only endpoint, bearer secret, redirect/timeout/response-size bounds, pinned SPKI SHA-256 fingerprint және Backend local detached-signature verification. Seal payload ZIP v1/v2 үшін бөлек domain/purpose қолданады, сондықтан v1 signature v2 archive-ке replay болмайды. Бұл adapter actual KMS/HSM gateway-дің орнын баспайды.
+Pinned remote Ed25519 signer adapter қосылды: HTTPS-only endpoint, bearer secret, redirect/timeout/response-size bounds, pinned key ID/SPKI SHA-256 fingerprint және Backend local detached-signature verification. Seal payload ZIP v1/v2 үшін бөлек domain/purpose қолданады, сондықтан v1 signature v2 archive-ке replay болмайды.
+
+Application-side signing key trust registry енді configured identity-дің DB-де ACTIVE болуын талап етеді. Controlled one-shot commands жаңа key-ді activation жасайды, бұрынғы ACTIVE key-ді RETIRED күйге ауыстырады немесе explicit REVOKED етеді. Participant historical key status-ты contract-scoped endpoint арқылы оқи алады. Maintenance flag release preflight-та enabled қалса fail етеді. Бұл registry actual KMS/HSM gateway-дің орнын баспайды.
 
 QaryzLinkBack PR #189 merged at `ba3d1ea`, QaryzLinkFront PR #59 merged at `e68d354`. CI runs `36516530077` және `36516534678` quality job құрғанымен runner step орындамады; automated verification pending.
 
