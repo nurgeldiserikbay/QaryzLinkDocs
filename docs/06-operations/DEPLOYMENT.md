@@ -81,6 +81,12 @@ Command HTTP server ашпайды. Алдымен grace/retention hold қайт
 | PASSWORD_RESET_URL | MAIL_ENABLED=true кезінде HTTPS Front `/reset-password` URL |
 | NOTIFICATION_BATCH_SIZE | 1–100, әдепкісі 50 |
 | METRICS_ACCESS_TOKEN | Staging/production-та кемінде 32 таңба; metrics endpoint header token |
+| CONTRACT_PDF_ENABLED / CONTRACT_PDF_PROVIDER | Pinned-template PDF renderer gate/provider; legal template + staging acceptance дейін false/unavailable |
+| CONTRACT_PDF_REMOTE_URL / TOKEN | HTTPS-only signed renderer endpoint және server-side bearer credential |
+| CONTRACT_PDF_EXPECTED_RENDERER_ID / KEY_FINGERPRINT | Pinned renderer identity және Ed25519 SPKI SHA-256 |
+| CONTRACT_PDF_KK_TEMPLATE_ID / HASH | Жаңа ContractVersion-ға snapshot болатын KZ template identity |
+| CONTRACT_PDF_RU_TEMPLATE_ID / HASH | Жаңа ContractVersion-ға snapshot болатын RU template identity |
+| CONTRACT_PDF_REMOTE_TIMEOUT_MS / MAX_BYTES | Remote request timeout және bounded PDF artifact size |
 | EVIDENCE_STORAGE_ENABLED | Private evidence storage feature gate; staging/production ғана, [runbook](EVIDENCE_STORAGE.md) талаптарынсыз қоспау |
 | EVIDENCE_SEALING_ENABLED / EVIDENCE_SEAL_PROVIDER | Evidence archive signing gate/provider; remote signer + ACTIVE trust-registry acceptance талап етіледі |
 | EVIDENCE_TIMESTAMP_ENABLED / EVIDENCE_TIMESTAMP_PROVIDER | External signed time attestation gate/provider; sealing enabled болуы тиіс; RFC3161/qualified status-ты білдірмейді |

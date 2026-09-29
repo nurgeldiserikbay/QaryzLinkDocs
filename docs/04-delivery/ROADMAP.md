@@ -141,8 +141,10 @@ Open/public matching production-да қосылмас бұрын Қазақст�
 - [x] provider-neutral minimal L2 claim persistence/expiry/revocation core;
 - [x] participant-only immutable contract document source;
 - [x] deterministic KZ/RU technical preview + source/input/render hash integrity boundary;
-- [ ] approved KZ/RU contract template + deterministic PDF renderer;
-- [x] technical render hashes; final PDF artifact hash binding pending;
+- [x] immutable KZ/RU PDF template identity snapshot + signed documentHash binding + signed remote renderer boundary;
+- [ ] actual approved KZ/RU legal template content + visual/legal acceptance;
+- [x] participant verified PDF artifact download foundation;
+- [x] technical render hashes; final PDF artifact hash binding into evidence bundle pending;
 - [x] participant-only audited canonical JSON evidence export baseline;
 - [x] deterministic evidence bundle manifest + artifact path/size/hash contract;
 - [x] bounded deterministic metadata/text ZIP archive + archive SHA-256;
