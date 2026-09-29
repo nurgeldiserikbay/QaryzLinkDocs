@@ -108,7 +108,11 @@ Vendor-neutral signed L2 identity integration foundation қосылды: verific
 
 QaryzLinkBack PR #199 merged at `7e2adfc`, QaryzLinkDocs PR #124 merged at `b374b3e`. Back CI run `36602159162` conclusion=failure көрсеткенімен quality job-та `steps=[]`, `runner_id=0`; application code орындалмаған. Automated Prisma/typecheck/lint/test/build verification әлі pending.
 
-Бұл baseline court-ready package емес: vetted L2 KYC provider selection/provider-specific revocation mapping/KZ privacy-legal staging acceptance, actual approved KZ/RU legal template content/visual acceptance, actual KMS/HSM signer deployment/external IAM/key ceremony acceptance, RFC3161/qualified TSA legal acceptance, jurisdiction retention periods, external bucket lifecycle acceptance және production load acceptance әлі Phase 4 backlog-та.
+Signed identity revocation lifecycle қосылды: provider `QARYZLINK_IDENTITY_REVOCATION_V1` callback-ты deployment token + pinned Ed25519 key арқылы береді; raw provider reference product DB-ға сақталмай, provider namespace-пен SHA-256 tombstone ретінде persist болады. REVOKED event VERIFIED event-тен бұрын келсе кейінгі stale verification blocked, ал revocation-нан кейінгі жаңа `verifiedAt` re-verification-ға жол береді. VERIFIED/REVOKED concurrent mutation providerCode + referenceHash-derived PostgreSQL advisory transaction lock арқылы serialise болады. Same/older revocation retries idempotent; later revocation tombstone-ды алға жылжытып matching active claim-ды revoke етеді.
+
+QaryzLinkBack PR #200 merged at `791e8fb`, QaryzLinkDocs PR #126 merged at `ab89619`. Back CI run `36605492182` conclusion=failure көрсеткенімен quality job-та `steps=[]`, `runner_id=0`; application code орындалмаған. Automated Prisma/typecheck/lint/test/build verification әлі pending.
+
+Бұл baseline court-ready package емес: vetted L2 KYC provider selection/provider-specific API/event mapping/KZ privacy-legal staging acceptance, actual approved KZ/RU legal template content/visual acceptance, actual KMS/HSM signer deployment/external IAM/key ceremony acceptance, RFC3161/qualified TSA legal acceptance, jurisdiction retention periods, external bucket lifecycle acceptance және production load acceptance әлі Phase 4 backlog-та.
 
 ## Қазіргі backend slice
 
