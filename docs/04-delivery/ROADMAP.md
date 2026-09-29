@@ -151,7 +151,8 @@ Open/public matching production-да қосылмас бұрын Қазақст�
 - [x] provider-neutral Ed25519 seal payload + backend signature verification + default-off capability boundary;
 - [x] pinned HTTPS remote Ed25519 signer adapter + ZIP v1/v2 domain-separated seal;
 - [x] application signing key trust registry + controlled activation/retirement/revocation;
-- [ ] actual KMS/HSM gateway + external IAM/key ceremony acceptance;
+- [x] release config/preflight requires versioned KMS/HSM deployment + IAM + key ceremony + key lifecycle references;
+- [ ] actual KMS/HSM gateway + external IAM/key ceremony/provider lifecycle acceptance;
 - [x] application-level contract evidence legal-hold foundation;
 - [x] release-preflight/config boundary requires versioned retention + storage lifecycle policy references when evidence storage is enabled;
 - [ ] jurisdiction retention periods + external storage lifecycle provider/legal acceptance;
