@@ -96,6 +96,10 @@ Trusted timestamp governance release gate қосылды: production timestampin
 
 QaryzLinkBack PR #196 merged at `24a854e`, QaryzLinkDocs PR #118 merged at `ca87d85`. Back CI run `36581747405` conclusion=failure көрсеткенімен quality job-та `steps=[]`, `runner_id=0`; application code орындалмаған. Automated typecheck/lint/test/build verification әлі pending.
 
+Identity/KYC provider governance release gate қосылды: production identity verification енді vetted provider contract/profile, authenticated callback/replay policy, privacy/data-residency policy және Kazakhstan legal classification үшін төрт versioned non-secret reference талап етеді. Staging-та refs жоқ болса `identity_provider_governance=fail`; production-та refs жоқ enablement config fail-fast. References толық болса governance check `manual`, бірақ current adapter әлі `UnavailableIdentityVerificationProvider`, сондықтан жалпы identity verification `provider_adapter_unavailable` болып release-ті блоктайды. Actual provider adapter/callback/session correlation және privacy/legal staging acceptance әлі ашық.
+
+QaryzLinkBack PR #197 merged at `e179229`, QaryzLinkDocs PR #120 merged at `971ac80`. Back CI run `36588116059` conclusion=failure көрсеткенімен quality job-та `steps=[]`, `runner_id=0`; application code орындалмаған. Automated typecheck/lint/test/build verification әлі pending.
+
 Бұл baseline court-ready package емес: actual approved KZ/RU legal template content/visual acceptance, actual KMS/HSM signer deployment/external IAM/key ceremony acceptance, RFC3161/qualified TSA legal acceptance, jurisdiction retention periods, external bucket lifecycle acceptance және production load acceptance әлі Phase 4 backlog-та.
 
 ## Қазіргі backend slice
