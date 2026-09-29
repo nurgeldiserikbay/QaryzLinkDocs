@@ -72,7 +72,9 @@ QaryzLinkBack PR #189 merged at `ba3d1ea`, QaryzLinkFront PR #59 merged at `e68d
 
 QaryzLinkBack PR #190 merged at `6d9090d`, QaryzLinkFront PR #60 merged at `2f454c3`. CI runs `36520601061` және `36520607376` quality job құрғанымен runner step орындамады; automated verification pending.
 
-Бұл baseline court-ready package емес: approved contract PDF, actual KMS/HSM signer deployment/external IAM/key ceremony acceptance, trusted timestamp, jurisdiction retention periods, external bucket lifecycle acceptance және production load acceptance әлі Phase 4 backlog-та.
+External signed time attestation foundation қосылды: timestamp subject seal payload/archive/signer/signature hashes-ты байлайды; remote authority nonce, signed generatedAt/serial және pinned Ed25519 identity арқылы Backend-та қайта verify болады. Timestamp required режимде authority failure seal-ды audit-ке дейін fail-closed тоқтатады. Бұл RFC3161/qualified timestamp емес.
+
+Бұл baseline court-ready package емес: approved contract PDF, actual KMS/HSM signer deployment/external IAM/key ceremony acceptance, RFC3161/qualified TSA legal acceptance, jurisdiction retention periods, external bucket lifecycle acceptance және production load acceptance әлі Phase 4 backlog-та.
 
 ## Қазіргі backend slice
 
