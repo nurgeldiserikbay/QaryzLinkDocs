@@ -33,6 +33,22 @@ Allowed range: 500–10000 ms.
 
 Sealing тек staging/production environment-та enabled бола алады.
 
+## Production signer operations references
+
+Production sealing enabled кезде deployment тек remote URL/key pin-мен шектелмейді. Application config төрт opaque versioned reference-ті міндетті етеді:
+
+- `EVIDENCE_SIGNER_DEPLOYMENT_ID` — нақты KMS/HSM-backed signer deployment/configuration version;
+- `EVIDENCE_SIGNER_IAM_POLICY_ID` — approved least-privilege IAM policy version;
+- `EVIDENCE_SIGNER_KEY_CEREMONY_ID` — key creation/activation ceremony record version;
+- `EVIDENCE_SIGNER_KEY_LIFECYCLE_POLICY_ID` — rotation/revocation/old-key disable-delete policy version.
+
+Бұл мәндер secret, ARN, raw policy немесе private key емес. Олар approved external artifacts-қа opaque reference қана.
+
+Behavior:
+- staging-та sealing config references-терсіз parse бола алады, бірақ `release:preflight` `evidence_signer_operations=fail` береді;
+- production-та sealing enabled және төрт reference-тің бірі жоқ болса environment validation fail-fast;
+- төрт reference толық болса preflight `manual` күйін сақтайды, себебі Backend олардың IAM least privilege, ceremony independence немесе KMS/HSM deployment reality-сін өзі дәлелдей алмайды.
+
 ## Transport boundary
 
 Signer URL:
@@ -193,9 +209,10 @@ Adapter implementation нақты KMS/HSM production acceptance-ті автом�
 
 Әлі қажет:
 
-- нақты KMS/HSM-backed signer deployment;
-- least-privilege signer IAM;
-- key creation/rotation/revocation owner;
+- [x] production config/preflight requires versioned signer deployment/IAM/key-ceremony/key-lifecycle references;
+- нақты KMS/HSM-backed signer deployment provider-side acceptance;
+- least-privilege signer IAM policy review;
+- independent key creation/rotation/revocation ceremony acceptance;
 - provider-side old-key disable/delete acceptance;
 - incident ownership and external KMS compromise drill;
 - staging load/latency/error acceptance;

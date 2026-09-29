@@ -94,7 +94,8 @@
 - [ ] External L2 KYC provider adapter, authenticated callback/session correlation және KZ privacy/legal staging acceptance.
 - [x] Participant-only immutable contract document source (`CONTRACT_DOCUMENT_RENDERING.md`).
 - [x] Deterministic KZ/RU technical preview with source/input/content SHA-256 integrity boundary + Front TXT download.
-- [ ] Approved KZ/RU legal template + deterministic PDF renderer + final PDF artifact hash/source binding + staging visual acceptance.
+- [x] Deterministic verified PDF renderer + final PDF artifact hash/source/template binding implementation.
+- [ ] Approved KZ/RU legal template artifacts + visual/font/pagination/legal staging acceptance.
 - [x] Participant-only immutable evidence manifest + audited canonical JSON export with hash re-verification.
 - [x] Deterministic evidence bundle manifest: stable artifact paths, byte lengths, SHA-256, closure document hash binding және audited bundle hash.
 - [x] Bounded deterministic metadata/text ZIP archive with fixed timestamps, CRC32 compatibility және whole-archive SHA-256.
@@ -103,7 +104,8 @@
 - [x] Application signing key trust registry: one ACTIVE key, controlled activation/retirement/revocation, historical lifecycle lookup, maintenance preflight fail gate және sealing-enabled ACTIVE-registry preflight check.
 - [x] Contract PDF template identity snapshot + signed remote renderer fail-closed boundary.
 - [ ] Actual approved KZ/RU legal template artifacts, independent hashes, visual/font/pagination және legal acceptance.
-- [ ] Final verified PDF artifact hashes evidence bundle/ZIP v2-ге immutable binding.
+- [x] Final verified KZ/RU PDF artifact hashes/source/template/renderer metadata full evidence ZIP v2-ге immutable binding.
+- [x] Production config/preflight requires versioned KMS/HSM deployment/IAM/key-ceremony/key-lifecycle references.
 - [ ] Actual KMS/HSM signer deployment, approved external key IAM/ceremony, provider-side disable/delete policy және staging verification.
 - [x] Default-off external signed time attestation adapter: nonce, subject hash binding, pinned authority ID/key fingerprint, local verification және fail-closed required mode.
 - [ ] RFC3161/qualified TSA/provider selection, legal effect, certificate/revocation policy және staging acceptance.
