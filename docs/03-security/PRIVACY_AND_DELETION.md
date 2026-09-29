@@ -6,6 +6,14 @@ QaryzLink is closed by default. New profiles are not searchable by public ID or 
 
 The backend migration also disables public-ID discovery for existing profiles whose public profile is disabled. Profiles that are already explicitly public are not changed by that migration.
 
+## Own-data export
+
+Authenticated own-data export foundation is documented in [ACCOUNT_DATA_EXPORT.md](ACCOUNT_DATA_EXPORT.md).
+
+Current implementation is default-off and returns a bounded role-scoped JSON view of the user's own account/profile/privacy/contact values plus participant contract/payment summaries. It excludes password/session/token material, encrypted storage envelopes, evidence object keys and counterparty PII.
+
+Deletion request revokes active sessions immediately. Therefore current product ordering must let the user export before submitting a deletion request; the deletion flow must not promise that export remains available after session revocation.
+
 ## Account deletion lifecycle
 
 Account deletion is a retention-aware workflow rather than an immediate destructive delete:

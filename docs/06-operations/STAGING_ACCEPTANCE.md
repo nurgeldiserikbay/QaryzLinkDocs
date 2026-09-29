@@ -158,7 +158,25 @@
 - [ ] Actual post-payment N+1 activation әдейі unsupported; acceptance record earned/unearned interest/allocation cutover pending екенін көрсетеді.
 - [ ] Kazakhstan legal owner pre-payment rate/term amendment wording, retroactive funding-effectiveAt accrual және signature effect-ті бекітті.
 
-### 6.5 Identity/KYC provider
+### 6.5 Account own-data export
+
+- [ ] `ACCOUNT_DATA_EXPORT_ENABLED=true` тек approved staging config-та қосылған.
+- [ ] Release preflight `account_data_export=manual` / `privacy_export_scope_acceptance_required` көрсетеді.
+- [ ] `ACCOUNT_DATA_EXPORT_POLICY_ID` reviewed export/redaction/deletion-ordering policy version-ға сәйкес; missing policy production startup/preflight-та fail болады.
+- [ ] Authenticated user `POST /api/v1/profile/me/data-export` арқылы тек өзінің export-ын алады.
+- [ ] Encrypted-mode storage кезінде own email/phone PII protection layer арқылы дұрыс decrypt болады; ciphertext envelope response-та жоқ.
+- [ ] Wrong/missing PII key/decryption failure generic fail-closed болады және partial export/audit success жазылмайды.
+- [ ] Contract summary counterparty party ID шығармайды; тек own role BORROWER/LENDER көрсетеді.
+- [ ] Payment summary counterparty party ID шығармайды; тек own role PAYER/PAYEE көрсетеді.
+- [ ] Response-та userId/partyId/passwordHash/session/token/lookupHash/ciphertext/objectKey/signed URL/provider raw reference жоқ.
+- [ ] Same selected account state repeated export бірдей dataHash береді; generatedAt hash-ке кірмейді.
+- [ ] Export audit payload тек schemaVersion/dataHash/contractCount/paymentCount сақтайды; email/phone/full export body audit-қа көшірілмейді.
+- [ ] Account deletion request active sessions-ды revoke ететіндіктен Settings UX export-before-deletion ordering-ті анық көрсетеді.
+- [ ] Feature off болса endpoint generic unavailable response береді және export query/audit mutation жасалмайды.
+- [ ] Legal/privacy owner current v1 scope пен intentionally excluded categories-ті acceptance record-та бекітті.
+
+### 6.6 Identity/KYC provider
+
 
 - [ ] `IDENTITY_VERIFICATION_PROVIDER=remote-signed-l2` тек approved staging config-та қосылған.
 - [ ] `IDENTITY_PROVIDER_CONTRACT_ID` vetted L2 provider profile/contract version-ға сәйкес.

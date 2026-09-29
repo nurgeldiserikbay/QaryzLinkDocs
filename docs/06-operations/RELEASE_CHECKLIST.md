@@ -121,6 +121,9 @@
 - [ ] RFC3161/qualified TSA/provider selection, legal effect, certificate/revocation policy және staging acceptance.
 - [x] Application-level contract evidence legal hold: scoped support control, audit, one-active-hold invariant және cleanup exclusion.
 - [ ] Legal retention completion: Kazakhstan retention periods, consumed-evidence deletion policy, account-deletion interaction және external bucket lifecycle acceptance.
+- [x] Participant own-data export foundation: default-off, canonical dataHash, own contact decrypt, role-scoped contract/payment summaries және secret/counterparty-PII exclusions.
+- [x] Production config/preflight requires versioned `ACCOUNT_DATA_EXPORT_POLICY_ID` when own-data export is enabled.
+- [ ] Own-data export production acceptance: full legal scope, third-party redaction policy, Front downloadable UX, rate limits және deletion-ordering/privacy notice.
 - [x] Default-off bounded full evidence ZIP v2: frozen-manifest selection, consumed-intent binding, CLEAN verdict, storage byte SHA-256 verification және direct binary response.
 - [ ] Full binary ZIP staging/load acceptance: real bucket/scanner, max-size concurrency және memory/latency evidence.
 - [ ] Court/export package hardening: approved PDF artifact, KMS/HSM signature for ZIP v2 және trusted timestamp.
