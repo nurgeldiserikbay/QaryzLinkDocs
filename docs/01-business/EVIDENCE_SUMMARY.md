@@ -4,7 +4,7 @@
 
 Мақсат — contract history-дің қандай дәлелдері барын participant-ке түсінікті көрсету және қарыз толық жабылғаннан кейін сол күйдің verifiable immutable JSON manifest snapshot-ын бекіту.
 
-Бұл baseline court-ready evidence package емес. 2026-09-28 бастап Phase 4-тің алғашқы қадамы ретінде participant-only audited canonical JSON export қосылды; PDF/ZIP, manifest signature және trusted timestamp әлі Phase 4 scope-ында қалады.
+Бұл baseline court-ready evidence package емес. Phase 4 ішінде canonical JSON export, deterministic ZIP v1/v2, Ed25519 archive seal, signing-key trust registry және external signed time attestation foundation іске асты. Approved KZ/RU legal PDF, нақты KMS/HSM/TSA production acceptance және RFC3161/qualified timestamp legal classification әлі ашық.
 
 ## Екі бөлек ұғым
 
@@ -357,6 +357,8 @@ Back CI run `36461356114` және Front CI run `36461359027` quality job құр
 2026-09-29 remote signer extension: QaryzLinkBack PR #189 (`ba3d1ea`) pinned HTTPS remote Ed25519 adapter және ZIP v2 domain seal қосты; QaryzLinkFront PR #59 (`e68d354`) Full ZIP v2 seal UI қосты. Runs `36516530077` және `36516534678` runner 0-step күйінде қалды.
 
 Signing-key trust registry slice аяқталды: QaryzLinkBack PR #190 (`6d9090d`) configured signer identity-дің DB-де ACTIVE болуын, controlled rotation/revocation command-тарын, historical lifecycle lookup-ты және maintenance/ACTIVE-registry release-preflight fail boundary-ын қосты. QaryzLinkFront PR #60 (`2f454c3`) registry readiness пен activation metadata-ны UI/API contract-қа қосты. Runs `36520601061` және `36520607376` runner 0-step күйінде қалды. Бұл external KMS/HSM key ceremony/IAM acceptance-ті алмастырмайды.
+
+External timestamp attestation slice аяқталды: QaryzLinkBack PR #191 (`427d70d`) canonical timestamp subject, nonce + generatedAt + serial + subjectHash Ed25519 authority verification және fail-closed required mode қосты; QaryzLinkFront PR #61 (`48c4032`) verified authority metadata-ны көрсетеді. Runs `36523556368` және `36523562198` runner 0-step күйінде қалды. Бұл RFC3161/qualified legal timestamp емес; толық boundary: [External evidence timestamp attestation](../06-operations/EVIDENCE_EXTERNAL_TIMESTAMP.md).
 
 
 ## Phase 4 evidence legal-hold foundation
