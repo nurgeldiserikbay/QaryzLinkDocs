@@ -4,7 +4,7 @@
 
 Мақсат — contract history-дің қандай дәлелдері барын participant-ке түсінікті көрсету және қарыз толық жабылғаннан кейін сол күйдің verifiable immutable JSON manifest snapshot-ын бекіту.
 
-Бұл baseline court-ready evidence package емес. 2026-09-28 бастап Phase 4-тің алғашқы қадамы ретінде participant-only audited canonical JSON export қосылды; PDF/ZIP, manifest signature және trusted timestamp әлі Phase 4 scope-ында қалады.
+Бұл baseline court-ready evidence package емес. Phase 4 ішінде canonical JSON export, deterministic ZIP v1/v2, Ed25519 archive seal, signing-key trust registry және external signed time attestation foundation іске асты. Approved KZ/RU legal PDF, нақты KMS/HSM/TSA production acceptance және RFC3161/qualified timestamp legal classification әлі ашық.
 
 ## Екі бөлек ұғым
 
