@@ -88,6 +88,10 @@ Evidence retention/lifecycle release boundary қосылды: evidence storage �
 
 QaryzLinkBack PR #194 merged at `d5178cd`, QaryzLinkDocs PR #114 merged at `e4e1466`. Back CI run `36570269381` conclusion=failure көрсеткенімен quality job-та `steps=[]`, `runner_id=0`; application code орындалмаған. Automated typecheck/lint/test/build verification әлі pending.
 
+KMS/HSM signer operations release gate қосылды: production sealing енді approved signer deployment, least-privilege IAM policy, independent key ceremony және provider-side key lifecycle policy үшін төрт versioned non-secret reference талап етеді. Staging-та refs жоқ болса release preflight `evidence_signer_operations=fail`; production-та refs жоқ sealing config startup кезінде fail-fast. Төртеуі де configured болса check `manual` болып қалады, сондықтан actual KMS/HSM/IAM/ceremony/provider acceptance жалған green болмайды. Staging checklist rotation/revocation/compromise drill және old-key disable/delete timing acceptance-пен толықты.
+
+QaryzLinkBack PR #195 merged at `b0433fa`, QaryzLinkDocs PR #116 merged at `1e4d2e5`. Back CI run `36577193686` conclusion=failure көрсеткенімен quality job-та `steps=[]`, `runner_id=0`; application code орындалмаған. Automated typecheck/lint/test/build verification әлі pending.
+
 Бұл baseline court-ready package емес: actual approved KZ/RU legal template content/visual acceptance, actual KMS/HSM signer deployment/external IAM/key ceremony acceptance, RFC3161/qualified TSA legal acceptance, jurisdiction retention periods, external bucket lifecycle acceptance және production load acceptance әлі Phase 4 backlog-та.
 
 ## Қазіргі backend slice
