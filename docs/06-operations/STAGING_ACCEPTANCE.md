@@ -85,8 +85,13 @@
 - [ ] Changed attestation payload signature verification-нан өтпейді.
 - [ ] v1 metadata ZIP және v2 full ZIP seal verified external attestation алады.
 - [ ] Authority outage timestamp-required seal-ды audit/response-қа дейін fail-closed тоқтатады.
+- [ ] `EVIDENCE_TIMESTAMP_STANDARD_PROFILE_ID` reviewed protocol/standards profile artifact-ке сәйкес.
+- [ ] `EVIDENCE_TIMESTAMP_TRUST_POLICY_ID` authority certificate/path trust policy version-ға сәйкес.
+- [ ] `EVIDENCE_TIMESTAMP_REVOCATION_POLICY_ID` revocation/OCSP/CRL/long-term validation policy version-ға сәйкес.
+- [ ] `EVIDENCE_TIMESTAMP_LEGAL_CLASSIFICATION_ID` Kazakhstan legal classification record-қа сәйкес.
+- [ ] Release preflight `evidence_timestamp_governance=manual` көрсетеді; refs өзі standards/legal acceptance емес.
 - [ ] Acceptance record бұл foundation RFC3161/qualified legal timestamp емес екенін көрсетеді.
-- [ ] Егер legal gate RFC3161/qualified TSA талап етсе, standards-based provider acceptance бөлек орындалды.
+- [ ] Егер legal gate RFC3161/qualified TSA талап етсе, standards-based provider, certificate path/revocation және legal acceptance бөлек орындалды.
 
 ### 6.3 Contract PDF renderer
 

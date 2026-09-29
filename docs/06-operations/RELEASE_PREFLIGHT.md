@@ -43,6 +43,7 @@ Command:
 - configured remote signer болса external KMS/HSM acceptance әлі manual екенін;
 - evidence sealing enabled болса versioned signer deployment/IAM/key-ceremony/key-lifecycle references толық екенін;
 - external timestamp authority configured болса provider/legal acceptance manual екенін;
+- timestamping enabled болса standards profile/trust/revocation/legal-classification references толық екенін;
 - contract PDF enabled болса pinned KZ/RU template identity + remote signed renderer acceptance manual екенін;
 - signing key maintenance one-shot gate normal release кезінде disabled екенін;
 - evidence sealing enabled болса configured signing key DB trust registry-де ACTIVE екенін;
@@ -60,9 +61,10 @@ Command:
 - AMOUNT_BASED_COMMISSION_ENABLED=true;
 - EVIDENCE_SEALING_ENABLED=true, бірақ current KMS/HSM provider adapter әлі unavailable;
 - evidence storage enabled, бірақ `EVIDENCE_RETENTION_POLICY_ID` немесе `EVIDENCE_STORAGE_LIFECYCLE_POLICY_ID` жоқ;
-- evidence sealing enabled, бірақ `EVIDENCE_SIGNER_DEPLOYMENT_ID`, `EVIDENCE_SIGNER_IAM_POLICY_ID`, `EVIDENCE_SIGNER_KEY_CEREMONY_ID` немесе `EVIDENCE_SIGNER_KEY_LIFECYCLE_POLICY_ID` жоқ.
+- evidence sealing enabled, бірақ `EVIDENCE_SIGNER_DEPLOYMENT_ID`, `EVIDENCE_SIGNER_IAM_POLICY_ID`, `EVIDENCE_SIGNER_KEY_CEREMONY_ID` немесе `EVIDENCE_SIGNER_KEY_LIFECYCLE_POLICY_ID` жоқ;
+- timestamping enabled, бірақ `EVIDENCE_TIMESTAMP_STANDARD_PROFILE_ID`, `EVIDENCE_TIMESTAMP_TRUST_POLICY_ID`, `EVIDENCE_TIMESTAMP_REVOCATION_POLICY_ID` немесе `EVIDENCE_TIMESTAMP_LEGAL_CLASSIFICATION_ID` жоқ.
 
-Staging-та бұл жағдайлар command-тың structured `fail` snapshot-ында көрінеді. Production-та storage enabled болса retention/lifecycle references, ал sealing enabled болса signer operations references жоқ конфигурация application startup кезінде fail-fast тоқтайды.
+Staging-та бұл жағдайлар command-тың structured `fail` snapshot-ында көрінеді. Production-та storage enabled болса retention/lifecycle references, sealing enabled болса signer operations references, timestamping enabled болса timestamp governance references жоқ конфигурация application startup кезінде fail-fast тоқтайды.
 
 ## Manual checks
 
@@ -84,7 +86,7 @@ Command әдейі келесілерді автоматты pass деп бел�
 - enabled contract signing legal gate;
 - enabled support mutation operational gate, соның ішінде evidence legal hold owner/process және scoped staff access;
 - evidence signer TLS/private routing, configured deployment reference-тің нақты KMS/HSM deployment-қа сәйкестігі, least-privilege IAM review, independent key ceremony, provider-side key lifecycle policy, trust-registry rotation/revocation drill, pinned identity cutover және independent signature verification acceptance;
-- timestamp authority TLS/auth/nonce/clock-skew/signature failure drills және legal TSA classification;
+- timestamp authority TLS/auth/nonce/clock-skew/signature failure drills, configured standards profile/trust/revocation policy references-тің нақты provider controls-қа сәйкестігі және legal TSA classification;
 - contract PDF renderer TLS/auth/template pin/source hash/PDF hash/signature failure drills және KZ/RU legal/visual acceptance.
 
 Олар `manual` ретінде қалады.
