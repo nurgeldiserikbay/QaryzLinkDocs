@@ -87,7 +87,7 @@ QaryzLinkFront PR #54 merged at `d4ee270`: contract detail technical preview, in
 
 ## Pinned-template PDF foundation — 2026-09-29
 
-Contract PDF template identity енді deployment config-ке ғана тәуелді емес: feature enabled кезде жаңа ContractVersion KZ/RU template ID/hash-ті immutable snapshot ретінде сақтайды. Existing contract-тарға retroactive backfill жасалмайды.
+Contract PDF template identity енді deployment config-ке ғана тәуелді емес: feature enabled кезде жаңа ContractVersion KZ/RU template ID/hash-ті immutable snapshot ретінде сақтайды және сол identity signed `documentHash` canonical input-ына кіреді. Сондықтан party acknowledgements template identity-ді де бекітеді. Existing contract-тарға retroactive backfill жасалмайды.
 
 Remote signed renderer foundation source document + locale + pinned template identity-ді render-input hash-қа байлайды. Backend renderer response-тан PDF bytes/hash/size, source/template/render-input metadata және detached Ed25519 attestation-ді қайта verify етеді.
 
