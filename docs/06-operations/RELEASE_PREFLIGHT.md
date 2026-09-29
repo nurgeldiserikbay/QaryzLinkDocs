@@ -60,6 +60,8 @@ Command:
 - EVIDENCE_SEALING_ENABLED=true, бірақ current KMS/HSM provider adapter әлі unavailable;
 - evidence storage enabled, бірақ `EVIDENCE_RETENTION_POLICY_ID` немесе `EVIDENCE_STORAGE_LIFECYCLE_POLICY_ID` жоқ.
 
+Staging-та бұл жағдай command-тың structured `fail` snapshot-ында көрінеді. Production-та storage enabled конфигурация policy references жоқ болса application config fail-fast тоқтайды.
+
 ## Manual checks
 
 Command әдейі келесілерді автоматты pass деп белгілемейді:
