@@ -358,6 +358,8 @@ Back CI run `36461356114` және Front CI run `36461359027` quality job құр
 
 Signing-key trust registry slice аяқталды: QaryzLinkBack PR #190 (`6d9090d`) configured signer identity-дің DB-де ACTIVE болуын, controlled rotation/revocation command-тарын, historical lifecycle lookup-ты және maintenance/ACTIVE-registry release-preflight fail boundary-ын қосты. QaryzLinkFront PR #60 (`2f454c3`) registry readiness пен activation metadata-ны UI/API contract-қа қосты. Runs `36520601061` және `36520607376` runner 0-step күйінде қалды. Бұл external KMS/HSM key ceremony/IAM acceptance-ті алмастырмайды.
 
+External timestamp attestation slice evidence seal-ды тәуелсіз signed time source-пен байланыстырады: canonical timestamp subject package/payload/archive/signer/signature hashes-ты қамтиды, authority response nonce + generatedAt + serial + subjectHash-ты Ed25519 арқылы қол қояды, Backend pinned authority ID/SPKI fingerprint-пен қайта verify етеді. Timestamp required режимде authority failure seal-ды fail-closed тоқтатады. Бұл RFC3161/qualified legal timestamp емес; толық boundary: [External evidence timestamp attestation](../06-operations/EVIDENCE_EXTERNAL_TIMESTAMP.md).
+
 
 ## Phase 4 evidence legal-hold foundation
 
