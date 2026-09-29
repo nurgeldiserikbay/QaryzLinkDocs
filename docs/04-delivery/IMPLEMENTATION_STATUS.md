@@ -130,6 +130,14 @@ New evidence package creation financial amendment/schedule provenance үшін s
 
 QaryzLinkBack PR #203 merged at `c263e6b`, QaryzLinkDocs PR #132 merged at `128e1e3`. Back CI run `36619683267` conclusion=failure, бірақ quality job-та `steps=[]`, `runner_id=0`; Prisma/typecheck/lint/test/build орындалмаған. Container local clone да network/DNS қолжетімсіз болғандықтан орындалмады. Automated verification pending, source-level consistency review жасалды.
 
+Post-payment financial amendment accounting preview foundation қосылды. APPROVED current TERMS_CHANGE/SCHEDULE_CHANGE үшін ACTIVE + CONFIRMED funding contract participant immutable versioned accounting snapshot дайындай алады. Capture payment submit/confirm/reversal қолданатын contract row lock-пен serialise болады. Current one-item schedule paidMinor charge→interest→principal policy бойынша deterministic component split-ке реконструкцияланады; confirmed active payment total = schedule paidMinor + unallocated credit reconciliation бұзылса fail-closed. Exact same accounting state same stateHash/snapshot-ты қайтарады, payment/reversal/unresolved state өзгерсе жаңа snapshot version жасалады. Historical snapshots update/delete болмайды және participant-only history endpoint арқылы оқылады.
+
+Accounting snapshot source signed ContractVersion documentHash, latest ScheduleVersion inputHash, funding effectiveAt, scheduled/paid/outstanding component amounts, confirmed payment total, unallocated credit және payment/unresolved counts-ты bind етеді. Response explicit PREVIEW_ONLY, activationEligible=false және POST_PAYMENT_ACCOUNTING_POLICY_PENDING береді; ContractVersion/ScheduleVersion/PaymentAllocation/LedgerEntry/currentVersion mutation жоқ. Actual earned/unearned interest cutover және post-payment N+1 activation әлі pending accounting/legal slice.
+
+New evidence package creation accounting snapshot history үшін schema v4 қолданады; persisted v1/v2/v3 packages retroactive rewrite болмайды. Schedule docs/ADR runtime source current signed ContractVersion.termsSnapshot екенін нақтылап жаңартылды.
+
+QaryzLinkBack PR #204 merged at `5a52e27`, QaryzLinkDocs PR #134 merged at `f145da6`. Back CI run `36623766478` conclusion=failure, бірақ quality job-та `steps=[]`, `runner_id=0`; application code орындалмаған. Automated Prisma/typecheck/lint/test/build verification pending; source-level lint/schema/index-length/consistency review жасалды.
+
 Бұл baseline court-ready package емес: vetted L2 KYC provider selection/provider-specific API/event mapping/KZ privacy-legal staging acceptance, actual approved KZ/RU legal template content/visual acceptance, actual KMS/HSM signer deployment/external IAM/key ceremony acceptance, RFC3161/qualified TSA legal acceptance, jurisdiction retention periods, external bucket lifecycle acceptance және production load acceptance әлі Phase 4 backlog-та.
 
 ## Қазіргі backend slice
