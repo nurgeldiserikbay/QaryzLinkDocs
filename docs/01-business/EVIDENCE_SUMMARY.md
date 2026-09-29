@@ -287,54 +287,64 @@ Back CI run `36456180490` және Front CI run `36456185321` quality job құр
 
 ## Phase 4 cryptographic seal foundation
 
-Deterministic ZIP үстіне provider-neutral detached signature boundary қосылды.
+Evidence archives үшін detached Ed25519 seal versioned domain contract қолданады.
 
-Seal payload canonical JSON ретінде мыналарды байлайды:
+Signed canonical payload мыналарды байлайды:
 
-- fixed purpose: `QARYZLINK_EVIDENCE_ARCHIVE_SEAL_V1`;
 - EvidencePackage ID;
 - evidence manifest SHA-256;
 - bundle manifest SHA-256;
 - archive SHA-256;
-- archive format `ZIP_STORE_V1`;
+- archive format;
 - ZIP entry count;
 - ZIP byte size.
 
-Payload өзі бөлек SHA-256 `payloadHash` алады.
+Metadata ZIP v1:
 
-Production signature algorithm contract — `Ed25519`. External signer adapter:
+- purpose: `QARYZLINK_EVIDENCE_ARCHIVE_SEAL_V1`;
+- archive format: `ZIP_STORE_V1`;
+- schemaVersion: 1.
 
-1. canonical payload bytes алады;
-2. detached signature, opaque bounded key ID және SPKI public key қайтарады;
-3. Backend signature-ны Ed25519 public key арқылы қайта verify етеді;
-4. verification өтпесе seal result берілмейді;
-5. audit-ке raw payload/public key/signature емес, payload/archive hashes, key ID, key fingerprint және signature hash қана жазылады.
+Full binary ZIP v2:
 
-Public key fingerprint — SPKI DER bytes SHA-256.
+- purpose: `QARYZLINK_EVIDENCE_ARCHIVE_SEAL_V2`;
+- archive format: `ZIP_STORE_V2`;
+- schemaVersion: 2.
 
-Backend-side signature verification cryptographic consistency-ді тексереді, бірақ returned public key өздігінен trust anchor емес. Production KMS/HSM adapter approved key alias/version-ды pin етуі, IAM арқылы signing permission-ды шектеуі және unexpected key identity-ді fail-closed reject етуі тиіс.
+Бұл domain separation v1 signature-ны v2 payload үшін replay етуге жол бермейді.
+
+Production algorithm contract — `Ed25519`. Backend-та default-off HTTPS remote signer adapter бар:
+
+1. canonical payload bytes және SHA-256 signer gateway-ге жіберіледі;
+2. raw ZIP/evidence bytes signer-ге жіберілмейді;
+3. redirects disabled және timeout bounded;
+4. signer response 16 KiB-пен bounded;
+5. response key нақты Ed25519 SPKI болуы тиіс;
+6. SPKI SHA-256 fingerprint deployment-та pinned;
+7. unexpected fingerprint fail-closed;
+8. returned detached signature Backend ішінде canonical payload үстінен қайта verify болады.
 
 Endpoints:
 
 - `GET /api/v1/contracts/:contractId/evidence-package/seal-capability`;
-- `POST /api/v1/contracts/:contractId/evidence-package/seal`.
+- `POST /api/v1/contracts/:contractId/evidence-package/seal` — ZIP v1;
+- `POST /api/v1/contracts/:contractId/evidence-package/seal-v2` — ZIP v2.
 
-Capability contract participant access boundary арқылы өтеді.
+`EVIDENCE_SEALING_ENABLED=false` және `EVIDENCE_SEAL_PROVIDER=unavailable` default болып қалады.
 
-Current production provider — intentionally unavailable. `EVIDENCE_SEALING_ENABLED=false` default. Flag true болса current release preflight `seal_provider_adapter_unavailable` арқылы fail етеді. Осылайша private key application env/config-ке салынбайды және жалған "signed" state жасалмайды.
+Remote signer enabled болса release preflight automatic pass бермейді; нақты KMS/HSM gateway, key IAM, rotation/revocation және staging verification әлі manual acceptance gate.
 
 Front Evidence panel:
 
-- `Ed25519` capability status көрсетеді;
-- provider unavailable кезде seal action көрсетпейді;
-- provider enabled болғанда ғана explicit seal action ашады;
+- signer provider/algorithm capability көрсетеді;
+- disabled provider кезінде signing action көрсетпейді;
+- metadata ZIP v1 және full ZIP v2 seal action-дары бөлек;
 - successful detached seal JSON ретінде жүктеледі;
-- payload hash, key identity/fingerprint verification metadata сақталады.
+- key ID, archive hash және key fingerprint көрсетіледі.
 
 `trustedTimestamp` current seal response-та explicit `null`. App-generated timestamp trusted timestamp ретінде көрсетілмейді.
 
-Келесі external dependency: KMS/HSM немесе equivalent managed signing provider adapter, approved key lifecycle/IAM, rotation/revocation және independent staging verification. Trusted timestamp authority одан кейін бөлек layer.
-
+Толық operational boundary: [Remote Ed25519 signer](../06-operations/EVIDENCE_REMOTE_SIGNER.md).
 
 ## Cryptographic seal implementation evidence — 2026-09-28
 
