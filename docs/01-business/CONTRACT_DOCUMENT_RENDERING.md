@@ -92,3 +92,8 @@ Contract PDF template identity енді deployment config-ке ғана тәуе
 Remote signed renderer foundation source document + locale + pinned template identity-ді render-input hash-қа байлайды. Backend renderer response-тан PDF bytes/hash/size, source/template/render-input metadata және detached Ed25519 attestation-ді қайта verify етеді.
 
 Бұл actual legal template approval емес. Толық operational boundary: [Contract PDF renderer boundary](../06-operations/CONTRACT_PDF_RENDERER.md).
+
+
+## PDF renderer implementation evidence — 2026-09-29
+
+QaryzLinkBack PR #192 (`6218e73`) және QaryzLinkFront PR #62 (`e9dcd26`) pinned-template PDF foundation-ды main-ге енгізді. Legacy contract-тарда immutable template pins жоқ болса PDF capability disabled күйінде қалады. CI runs `36542155035` / `36536087948` runner 0-step болғандықтан automated verification pending.
