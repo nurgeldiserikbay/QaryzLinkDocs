@@ -99,8 +99,9 @@
 - [x] Deterministic evidence bundle manifest: stable artifact paths, byte lengths, SHA-256, closure document hash binding және audited bundle hash.
 - [x] Bounded deterministic metadata/text ZIP archive with fixed timestamps, CRC32 compatibility және whole-archive SHA-256.
 - [x] Provider-neutral Ed25519 seal payload + backend detached-signature verification + participant-scoped capability UI.
-- [x] Default-off HTTPS remote Ed25519 signer adapter: ZIP v1/v2 domain separation, pinned SPKI fingerprint, Backend local signature verification, redirect/timeout/response-size bounds.
-- [ ] Actual KMS/HSM signer deployment, approved key IAM/rotation/revocation, old-key trust registry және staging verification.
+- [x] Default-off HTTPS remote Ed25519 signer adapter: ZIP v1/v2 domain separation, pinned key ID/SPKI fingerprint, Backend local signature verification, redirect/timeout/response-size bounds.
+- [x] Application signing key trust registry: one ACTIVE key, controlled activation/retirement/revocation, historical lifecycle lookup, maintenance preflight fail gate.
+- [ ] Actual KMS/HSM signer deployment, approved external key IAM/ceremony, provider-side disable/delete policy және staging verification.
 - [x] Application-level contract evidence legal hold: scoped support control, audit, one-active-hold invariant және cleanup exclusion.
 - [ ] Legal retention completion: Kazakhstan retention periods, consumed-evidence deletion policy, account-deletion interaction және external bucket lifecycle acceptance.
 - [x] Default-off bounded full evidence ZIP v2: frozen-manifest selection, consumed-intent binding, CLEAN verdict, storage byte SHA-256 verification және direct binary response.
