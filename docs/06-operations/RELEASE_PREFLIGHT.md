@@ -42,6 +42,7 @@ Command:
 - evidence cryptographic sealing provider gate күйін;
 - configured remote signer болса external KMS/HSM acceptance әлі manual екенін;
 - signing key maintenance one-shot gate normal release кезінде disabled екенін;
+- evidence sealing enabled болса configured signing key DB trust registry-де ACTIVE екенін;
 - full evidence binary archive feature gate күйін
 
 санаттайды.
