@@ -62,7 +62,7 @@ Command:
 - evidence storage enabled, бірақ `EVIDENCE_RETENTION_POLICY_ID` немесе `EVIDENCE_STORAGE_LIFECYCLE_POLICY_ID` жоқ;
 - evidence sealing enabled, бірақ `EVIDENCE_SIGNER_DEPLOYMENT_ID`, `EVIDENCE_SIGNER_IAM_POLICY_ID`, `EVIDENCE_SIGNER_KEY_CEREMONY_ID` немесе `EVIDENCE_SIGNER_KEY_LIFECYCLE_POLICY_ID` жоқ.
 
-Staging-та бұл жағдай command-тың structured `fail` snapshot-ында көрінеді. Production-та storage enabled конфигурация policy references жоқ болса application config fail-fast тоқтайды.
+Staging-та бұл жағдайлар command-тың structured `fail` snapshot-ында көрінеді. Production-та storage enabled болса retention/lifecycle references, ал sealing enabled болса signer operations references жоқ конфигурация application startup кезінде fail-fast тоқтайды.
 
 ## Manual checks
 
