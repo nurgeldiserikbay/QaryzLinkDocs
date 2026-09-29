@@ -98,6 +98,11 @@
 - [ ] Approved KZ template artifact + independent SHA-256 recorded.
 - [ ] Approved RU template artifact + independent SHA-256 recorded.
 - [ ] Legal owner template IDs/hashes-ты sign-off етті.
+- [ ] `CONTRACT_PDF_TEMPLATE_APPROVAL_ID` reviewed KZ/RU template artifact set/version-ға сәйкес.
+- [ ] `CONTRACT_PDF_LEGAL_SIGNOFF_ID` Kazakhstan legal wording/sign-off record-қа сәйкес.
+- [ ] `CONTRACT_PDF_VISUAL_ACCEPTANCE_ID` KZ/RU pagination/layout visual acceptance record-қа сәйкес.
+- [ ] `CONTRACT_PDF_FONT_EMBEDDING_POLICY_ID` approved deterministic font/embedding policy version-ға сәйкес.
+- [ ] Release preflight `contract_pdf_governance=manual` көрсетеді; refs өзі acceptance емес.
 - [ ] Жаңа contract draft дәл сол pins-ті ContractVersion-ға snapshot етеді.
 - [ ] Signed documentHash template identity-ді қамтиды.
 - [ ] Legacy contract templatePinned=false және retroactive render жасалмайды.
@@ -111,7 +116,7 @@
 - [ ] KK және RU PDF fonts/pagination/line breaks visual approval өтті.
 - [ ] Same source + locale + pinned template deterministic PDF hash береді.
 - [ ] Audit PDF bytes/token/PII сақтамайды.
-- [ ] Final PDF evidence-bundle binding бөлек acceptance item ретінде ашық деп белгіленген.
+- [x] Final verified PDF bytes + metadata ZIP v2 evidence chain-ге bound; archive build source/hash binding қайта тексереді.
 
 ### 6.4 Identity/KYC provider
 
