@@ -104,7 +104,11 @@ Contract PDF governance release gate қосылды: production PDF rendering е
 
 QaryzLinkBack PR #198 merged at `7e647ca`, QaryzLinkDocs PR #122 merged at `7c63389`. Back CI run `36589322745` conclusion=failure көрсеткенімен quality job-та `steps=[]`, `runner_id=0`; application code орындалмаған. Automated typecheck/lint/test/build verification әлі pending.
 
-Бұл baseline court-ready package емес: actual approved KZ/RU legal template content/visual acceptance, actual KMS/HSM signer deployment/external IAM/key ceremony acceptance, RFC3161/qualified TSA legal acceptance, jurisdiction retention periods, external bucket lifecycle acceptance және production load acceptance әлі Phase 4 backlog-та.
+Vendor-neutral signed L2 identity integration foundation қосылды: verification start random 128-bit opaque subjectRef қолданады және provider-ге application user ID/profile PII жібермейді; DB session correlation raw subject орнына SHA-256 hash сақтайды. Remote session response configured provider code + pinned Ed25519 SPKI fingerprint + detached signature арқылы Backend-та verify болады. Internal callback deployment token және signed `QARYZLINK_IDENTITY_CALLBACK_V1` payload-ты бірге талап етеді; provider code/key, clock skew және session correlation fail-closed тексеріледі. VERIFIED claim write + one-time session completion бір transaction ішінде орындалады; exact signed replay idempotent, altered replay rejected. Бұл generic adapter нақты KYC vendor vetting емес: provider-specific API/revocation mapping, KZ privacy/legal және staging acceptance әлі ашық.
+
+QaryzLinkBack PR #199 merged at `7e2adfc`, QaryzLinkDocs PR #124 merged at `b374b3e`. Back CI run `36602159162` conclusion=failure көрсеткенімен quality job-та `steps=[]`, `runner_id=0`; application code орындалмаған. Automated Prisma/typecheck/lint/test/build verification әлі pending.
+
+Бұл baseline court-ready package емес: vetted L2 KYC provider selection/provider-specific revocation mapping/KZ privacy-legal staging acceptance, actual approved KZ/RU legal template content/visual acceptance, actual KMS/HSM signer deployment/external IAM/key ceremony acceptance, RFC3161/qualified TSA legal acceptance, jurisdiction retention periods, external bucket lifecycle acceptance және production load acceptance әлі Phase 4 backlog-та.
 
 ## Қазіргі backend slice
 
@@ -1175,7 +1179,7 @@ QaryzLinkBack PR #180 merged at `086893c`: provider-neutral authenticated identi
 
 Core start boundary provider-ге authenticated user-дың opaque subject reference-ын ғана береді; email/phone/IIN/BIN/document payload жібермейді. Provider redirect HTTPS, credential-free және future-expiry болуы тиіс, әйтпесе generic fail-closed 503.
 
-Provider-neutral minimal L2 claim persistence/expiry/revocation core қосылды. Raw provider reference сақталмайды: normalized provider namespace-пен SHA-256 hash қана сақталады. Authenticated user privacy-safe `UNVERIFIED/VERIFIED/EXPIRED/REVOKED` status оқи алады; provider claim write/revoke mutation browser-ге ашылмайды. Нақты L2 KYC provider adapter, authenticated callback/session correlation және KZ legal/privacy acceptance әлі Phase 4 backlog.
+Provider-neutral minimal L2 claim persistence/expiry/revocation core қосылды. Raw provider reference сақталмайды: normalized provider namespace-пен SHA-256 hash қана сақталады. Authenticated user privacy-safe `UNVERIFIED/VERIFIED/EXPIRED/REVOKED` status оқи алады; provider claim write/revoke mutation browser-ге ашылмайды. Кейінгі PR #199 generic signed remote session adapter + authenticated VERIFIED callback/session correlation foundation-ды қосты; нақты vetted provider mapping/revocation және KZ legal/privacy acceptance әлі Phase 4 backlog.
 
 QaryzLinkBack PR #182 merged at `d1da649`: minimal claim persistence/expiry/revocation core. CI run `36452180331` job құрғанымен runner step орындамады, сондықтан automated Prisma/typecheck/lint/test/build verification pending.
 
