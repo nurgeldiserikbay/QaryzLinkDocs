@@ -44,7 +44,7 @@ Command:
 - evidence sealing enabled болса versioned signer deployment/IAM/key-ceremony/key-lifecycle references толық екенін;
 - external timestamp authority configured болса provider/legal acceptance manual екенін;
 - timestamping enabled болса standards profile/trust/revocation/legal-classification references толық екенін;
-- identity verification enabled болса provider contract/callback-auth/privacy-residency/legal-classification references толық екенін;
+- identity verification enabled болса remote signed L2 adapter availability және provider contract/callback-auth/privacy-residency/legal-classification references толық екенін;
 - contract PDF enabled болса pinned KZ/RU template identity + remote signed renderer acceptance manual екенін;
 - signing key maintenance one-shot gate normal release кезінде disabled екенін;
 - evidence sealing enabled болса configured signing key DB trust registry-де ACTIVE екенін;
@@ -65,6 +65,7 @@ Command:
 - evidence sealing enabled, бірақ `EVIDENCE_SIGNER_DEPLOYMENT_ID`, `EVIDENCE_SIGNER_IAM_POLICY_ID`, `EVIDENCE_SIGNER_KEY_CEREMONY_ID` немесе `EVIDENCE_SIGNER_KEY_LIFECYCLE_POLICY_ID` жоқ;
 - timestamping enabled, бірақ `EVIDENCE_TIMESTAMP_STANDARD_PROFILE_ID`, `EVIDENCE_TIMESTAMP_TRUST_POLICY_ID`, `EVIDENCE_TIMESTAMP_REVOCATION_POLICY_ID` немесе `EVIDENCE_TIMESTAMP_LEGAL_CLASSIFICATION_ID` жоқ;
 - identity verification enabled, бірақ `IDENTITY_PROVIDER_CONTRACT_ID`, `IDENTITY_CALLBACK_AUTH_POLICY_ID`, `IDENTITY_PRIVACY_RESIDENCY_POLICY_ID` немесе `IDENTITY_LEGAL_CLASSIFICATION_ID` жоқ.
+- identity verification enabled, бірақ provider adapter `remote-signed-l2` емес.
 
 Staging-та бұл жағдайлар command-тың structured `fail` snapshot-ында көрінеді. Production-та storage enabled болса retention/lifecycle references, sealing enabled болса signer operations references, timestamping enabled болса timestamp governance references, identity verification enabled болса identity provider governance references жоқ конфигурация application startup кезінде fail-fast тоқтайды.
 
