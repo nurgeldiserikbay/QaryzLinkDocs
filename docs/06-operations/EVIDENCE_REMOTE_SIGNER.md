@@ -199,7 +199,7 @@ Adapter implementation нақты KMS/HSM production acceptance-ті автом�
 - provider-side old-key disable/delete acceptance;
 - incident ownership and external KMS compromise drill;
 - staging load/latency/error acceptance;
-- trusted timestamp;
+- RFC3161/qualified timestamp provider and legal acceptance; provider-neutral external signed time attestation foundation is documented separately in [External evidence timestamp attestation](EVIDENCE_EXTERNAL_TIMESTAMP.md);
 - jurisdiction/legal approval.
 
 
