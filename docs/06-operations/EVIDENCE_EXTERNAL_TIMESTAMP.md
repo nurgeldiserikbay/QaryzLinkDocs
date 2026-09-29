@@ -128,6 +128,23 @@ Bounds:
 
 Timestamping тек staging/production environment-та enabled болады.
 
+## Production timestamp governance references
+
+Production timestamping үшін current authority URL/key pin жеткіліксіз. Deployment төрт versioned non-secret reference береді:
+
+- `EVIDENCE_TIMESTAMP_STANDARD_PROFILE_ID` — approved timestamp protocol/standards profile reference;
+- `EVIDENCE_TIMESTAMP_TRUST_POLICY_ID` — authority trust/certificate-path policy reference;
+- `EVIDENCE_TIMESTAMP_REVOCATION_POLICY_ID` — revocation/OCSP/CRL/long-term validation policy reference;
+- `EVIDENCE_TIMESTAMP_LEGAL_CLASSIFICATION_ID` — Kazakhstan legal review/classification record reference.
+
+Бұл ID-лер current `remote-ed25519-attestation` adapter-ді RFC3161 немесе qualified timestamp-қа айналдырмайды. `STANDARD_PROFILE_ID` тек approved artifact-ке сілтеме; actual protocol/provider implementation бөлек gate.
+
+Behavior:
+- staging-та references-терсіз timestamp config parse бола алады, бірақ `release:preflight` `evidence_timestamp_governance=fail` береді;
+- production-та timestamp enabled және төрт reference-тің бірі жоқ болса config fail-fast;
+- references толық болса да preflight `manual` күйін сақтайды;
+- RFC3161/QTSA мәртебесі тек standards-based adapter + provider/certificate/legal acceptance аяқталғаннан кейін ғана бекітіледі.
+
 ## Fail-closed semantics
 
 Timestamp feature disabled:
@@ -234,9 +251,10 @@ Remote authority configured:
 
 Бұл foundation төмендегілерді жаппайды:
 
+- [x] production config/preflight requires versioned standards/trust/revocation/legal-classification references;
 - RFC3161 protocol integration;
 - nationally/eIDAS recognized TSA/QTSA selection;
-- authority certificate/path/revocation policy;
+- authority certificate/path/revocation policy provider-side acceptance;
 - qualified timestamp legal effect;
 - timestamp token long-term validation;
 - Kazakhstan legal opinion;
