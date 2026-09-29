@@ -22,6 +22,7 @@ Required when sealing enabled:
 
 - `EVIDENCE_SEAL_REMOTE_URL`;
 - `EVIDENCE_SEAL_REMOTE_TOKEN`;
+- `EVIDENCE_SEAL_EXPECTED_KEY_ID`;
 - `EVIDENCE_SEAL_EXPECTED_KEY_FINGERPRINT`.
 
 Optional bounded timeout:
@@ -84,10 +85,11 @@ Backend:
 
 1. response metadata/encoding-ті тексереді;
 2. SPKI key type нақты Ed25519 екенін тексереді;
-3. SPKI DER SHA-256 fingerprint есептейді;
-4. fingerprint deployed `EVIDENCE_SEAL_EXPECTED_KEY_FINGERPRINT` мәнімен дәл сәйкес болуы тиіс;
-5. detached signature-ны canonical payload bytes үстінен локалды verify етеді;
-6. mismatch болса seal бермейді.
+3. response key ID deployed `EVIDENCE_SEAL_EXPECTED_KEY_ID` мәнімен дәл сәйкес екенін тексереді;
+4. SPKI DER SHA-256 fingerprint есептейді;
+5. fingerprint deployed `EVIDENCE_SEAL_EXPECTED_KEY_FINGERPRINT` мәнімен дәл сәйкес болуы тиіс;
+6. detached signature-ны canonical payload bytes үстінен локалды verify етеді;
+7. mismatch болса seal бермейді.
 
 Сондықтан compromised DNS/service немесе wrong key configuration pinned key-ден ауытқыса fail-closed болады.
 
@@ -173,8 +175,9 @@ Enable алдында кемінде:
 5. oversized signer response rejected;
 6. malformed JSON rejected;
 7. non-Ed25519 key rejected;
-8. unexpected key fingerprint rejected;
-9. valid but wrong-payload signature Backend verification-нан өтпейді;
+8. unexpected key ID rejected;
+9. unexpected key fingerprint rejected;
+10. valid but wrong-payload signature Backend verification-нан өтпейді;
 10. v1 archive signature verify болады;
 11. v2 archive signature verify болады;
 12. v1 signature v2 payload-қа replay болмайды;
