@@ -76,7 +76,7 @@ External signed time attestation foundation қосылды: timestamp subject se
 
 QaryzLinkBack PR #191 merged at `427d70d`, QaryzLinkFront PR #61 merged at `48c4032`. CI runs `36523556368` және `36523562198` quality job құрғанымен runner step орындамады; automated verification pending.
 
-Contract PDF foundation immutable template snapshot пен signed remote renderer boundary-ға дейін кеңейді: жаңа contract version KZ/RU template ID/hash-ті creation кезінде pin етеді; legacy contracts retroactive template алмайды; Backend PDF bytes/hash/size/source/template/render-input және renderer Ed25519 attestation-ін independently verify етеді. Front participant current locale verified PDF жасай/жүктей алады. Actual legal wording/template approval және evidence bundle PDF binding әлі ашық.
+Contract PDF foundation immutable template snapshot пен signed remote renderer boundary-ға дейін кеңейді: жаңа contract version KZ/RU template ID/hash-ті creation кезінде pin етеді; legacy contracts retroactive template алмайды; Backend PDF bytes/hash/size/source/template/render-input және renderer Ed25519 attestation-ін independently verify етеді. Front participant current locale verified PDF жасай/жүктей алады. Actual legal wording/template approval және visual/legal acceptance әлі ашық.
 
 QaryzLinkBack PR #192 merged at `6218e73`, QaryzLinkFront PR #62 merged at `e9dcd26`. CI runs `36542155035` және `36536087948` quality job құрғанымен runner step орындамады; automated Prisma/typecheck/lint/test/build verification pending.
 
@@ -91,6 +91,10 @@ QaryzLinkBack PR #194 merged at `d5178cd`, QaryzLinkDocs PR #114 merged at `e4e1
 KMS/HSM signer operations release gate қосылды: production sealing енді approved signer deployment, least-privilege IAM policy, independent key ceremony және provider-side key lifecycle policy үшін төрт versioned non-secret reference талап етеді. Staging-та refs жоқ болса release preflight `evidence_signer_operations=fail`; production-та refs жоқ sealing config startup кезінде fail-fast. Төртеуі де configured болса check `manual` болып қалады, сондықтан actual KMS/HSM/IAM/ceremony/provider acceptance жалған green болмайды. Staging checklist rotation/revocation/compromise drill және old-key disable/delete timing acceptance-пен толықты.
 
 QaryzLinkBack PR #195 merged at `b0433fa`, QaryzLinkDocs PR #116 merged at `1e4d2e5`. Back CI run `36577193686` conclusion=failure көрсеткенімен quality job-та `steps=[]`, `runner_id=0`; application code орындалмаған. Automated typecheck/lint/test/build verification әлі pending.
+
+Trusted timestamp governance release gate қосылды: production timestamping standards profile, authority trust policy, revocation/long-term validation policy және Kazakhstan legal classification үшін төрт versioned non-secret reference талап етеді. Staging-та refs жоқ болса release preflight `evidence_timestamp_governance=fail`; production-та refs жоқ timestamp config startup кезінде fail-fast. References толық болса check `manual` болып қалады және current `remote-ed25519-attestation` adapter RFC3161/QTSA деп саналмайды. Actual standards-based adapter/provider/certificate/revocation/legal acceptance бөлек ашық gate.
+
+QaryzLinkBack PR #196 merged at `24a854e`, QaryzLinkDocs PR #118 merged at `ca87d85`. Back CI run `36581747405` conclusion=failure көрсеткенімен quality job-та `steps=[]`, `runner_id=0`; application code орындалмаған. Automated typecheck/lint/test/build verification әлі pending.
 
 Бұл baseline court-ready package емес: actual approved KZ/RU legal template content/visual acceptance, actual KMS/HSM signer deployment/external IAM/key ceremony acceptance, RFC3161/qualified TSA legal acceptance, jurisdiction retention periods, external bucket lifecycle acceptance және production load acceptance әлі Phase 4 backlog-та.
 
