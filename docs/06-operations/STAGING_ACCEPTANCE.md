@@ -73,6 +73,26 @@
 - [ ] Acceptance record бұл foundation RFC3161/qualified legal timestamp емес екенін көрсетеді.
 - [ ] Егер legal gate RFC3161/qualified TSA талап етсе, standards-based provider acceptance бөлек орындалды.
 
+### 6.2 Contract PDF renderer
+
+- [ ] Approved KZ template artifact + independent SHA-256 recorded.
+- [ ] Approved RU template artifact + independent SHA-256 recorded.
+- [ ] Legal owner template IDs/hashes-ты sign-off етті.
+- [ ] Жаңа contract draft дәл сол pins-ті ContractVersion-ға snapshot етеді.
+- [ ] Signed documentHash template identity-ді қамтиды.
+- [ ] Legacy contract templatePinned=false және retroactive render жасалмайды.
+- [ ] Renderer endpoint HTTPS және expected routing/TLS policy-ге сәйкес.
+- [ ] Wrong bearer token rejected.
+- [ ] Redirect/timeout/oversized response fail-closed.
+- [ ] Wrong renderer ID/key fingerprint rejected.
+- [ ] Wrong locale/template/source/renderInput binding rejected.
+- [ ] Malformed PDF/header/EOF/hash/size mismatch rejected.
+- [ ] Renderer detached signature independently verify болады.
+- [ ] KK және RU PDF fonts/pagination/line breaks visual approval өтті.
+- [ ] Same source + locale + pinned template deterministic PDF hash береді.
+- [ ] Audit PDF bytes/token/PII сақтамайды.
+- [ ] Final PDF evidence-bundle binding бөлек acceptance item ретінде ашық деп белгіленген.
+
 ## 7. Background jobs
 
 - [ ] notification CronJob immutable digest-пен іске қосылды.
