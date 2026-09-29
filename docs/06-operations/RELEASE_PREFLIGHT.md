@@ -41,6 +41,7 @@ Command:
 - contract signing/support mutation/API docs gates күйін;
 - evidence cryptographic sealing provider gate күйін;
 - configured remote signer болса external KMS/HSM acceptance әлі manual екенін;
+- evidence sealing enabled болса versioned signer deployment/IAM/key-ceremony/key-lifecycle references толық екенін;
 - external timestamp authority configured болса provider/legal acceptance manual екенін;
 - contract PDF enabled болса pinned KZ/RU template identity + remote signed renderer acceptance manual екенін;
 - signing key maintenance one-shot gate normal release кезінде disabled екенін;
@@ -58,7 +59,8 @@ Command:
 - PENALTY_ENABLED=true;
 - AMOUNT_BASED_COMMISSION_ENABLED=true;
 - EVIDENCE_SEALING_ENABLED=true, бірақ current KMS/HSM provider adapter әлі unavailable;
-- evidence storage enabled, бірақ `EVIDENCE_RETENTION_POLICY_ID` немесе `EVIDENCE_STORAGE_LIFECYCLE_POLICY_ID` жоқ.
+- evidence storage enabled, бірақ `EVIDENCE_RETENTION_POLICY_ID` немесе `EVIDENCE_STORAGE_LIFECYCLE_POLICY_ID` жоқ;
+- evidence sealing enabled, бірақ `EVIDENCE_SIGNER_DEPLOYMENT_ID`, `EVIDENCE_SIGNER_IAM_POLICY_ID`, `EVIDENCE_SIGNER_KEY_CEREMONY_ID` немесе `EVIDENCE_SIGNER_KEY_LIFECYCLE_POLICY_ID` жоқ.
 
 Staging-та бұл жағдай command-тың structured `fail` snapshot-ында көрінеді. Production-та storage enabled конфигурация policy references жоқ болса application config fail-fast тоқтайды.
 
@@ -81,7 +83,7 @@ Command әдейі келесілерді автоматты pass деп бел�
 - browser KZ/RU authenticated journey;
 - enabled contract signing legal gate;
 - enabled support mutation operational gate, соның ішінде evidence legal hold owner/process және scoped staff access;
-- evidence signer TLS/private routing, external key IAM/ceremony, trust-registry rotation/revocation drill, pinned identity cutover және independent signature verification acceptance;
+- evidence signer TLS/private routing, configured deployment reference-тің нақты KMS/HSM deployment-қа сәйкестігі, least-privilege IAM review, independent key ceremony, provider-side key lifecycle policy, trust-registry rotation/revocation drill, pinned identity cutover және independent signature verification acceptance;
 - timestamp authority TLS/auth/nonce/clock-skew/signature failure drills және legal TSA classification;
 - contract PDF renderer TLS/auth/template pin/source hash/PDF hash/signature failure drills және KZ/RU legal/visual acceptance.
 
