@@ -58,6 +58,21 @@
 - [ ] expired unconsumed cleanup CronJob.
 - [ ] storage/scanner outage кезінде fail-closed.
 
+### 6.1 External timestamp authority
+
+- [ ] Timestamp feature disabled немесе approved staging authority configured.
+- [ ] Authority endpoint HTTPS және expected routing/TLS policy-ге сәйкес.
+- [ ] Wrong bearer credential rejected.
+- [ ] Redirect/timeout/oversized/malformed response fail-closed.
+- [ ] Wrong authority ID және wrong Ed25519 key fingerprint rejected.
+- [ ] Nonce mismatch/replay rejected.
+- [ ] Authority time configured clock-skew шекарасынан шықса rejected.
+- [ ] Changed attestation payload signature verification-нан өтпейді.
+- [ ] v1 metadata ZIP және v2 full ZIP seal verified external attestation алады.
+- [ ] Authority outage timestamp-required seal-ды audit/response-қа дейін fail-closed тоқтатады.
+- [ ] Acceptance record бұл foundation RFC3161/qualified legal timestamp емес екенін көрсетеді.
+- [ ] Егер legal gate RFC3161/qualified TSA талап етсе, standards-based provider acceptance бөлек орындалды.
+
 ## 7. Background jobs
 
 - [ ] notification CronJob immutable digest-пен іске қосылды.
