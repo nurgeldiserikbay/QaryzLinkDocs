@@ -138,6 +138,12 @@ New evidence package creation accounting snapshot history үшін schema v4 қ�
 
 QaryzLinkBack PR #204 merged at `5a52e27`, QaryzLinkDocs PR #134 merged at `f145da6`. Back CI run `36623766478` conclusion=failure, бірақ quality job-та `steps=[]`, `runner_id=0`; application code орындалмаған. Automated Prisma/typecheck/lint/test/build verification pending; source-level lint/schema/index-length/consistency review жасалды.
 
+Participant own-data export foundation қосылды. `POST /api/v1/profile/me/data-export` default-off және REPEATABLE READ transaction ішінде account/profile/privacy/deletion + participant contract/payment summaries snapshot-ын шығарады. Own email/phone PII protection layer арқылы ғана ашылады; internal userId/partyId, counterparty party IDs/PII, password/session/token, ciphertext/lookup hashes, evidence objectKey/signed URL және provider raw references response-қа кірмейді. Contract/payment summaries own role-ды ғана көрсетеді. Canonical `dataHash` generatedAt-тан тәуелсіз, successful export audit payload тек schemaVersion/dataHash/counts сақтайды.
+
+Production enablement `ACCOUNT_DATA_EXPORT_POLICY_ID` versioned reviewed policy reference талап етеді; missing policy startup және release preflight-та fail болады. Enabled+configured feature preflight-та manual privacy/export scope acceptance болып қалады. Deletion request active sessions-ды immediately revoke ететіндіктен current documented UX ordering export-before-deletion. Full statutory scope, additional record categories, third-party redaction policy, Front downloadable UX/rate limits және Kazakhstan privacy/staging acceptance әлі pending.
+
+QaryzLinkBack PR #205 merged at `55f7811`, QaryzLinkDocs PR #136 merged at `ad56ab4`. Back CI run `36626198958` conclusion=failure, бірақ quality job-та `steps=[]`, `runner_id=0`; application code орындалмаған. Automated verification pending; source-level privacy/config/DI/lint consistency review жасалды.
+
 Бұл baseline court-ready package емес: vetted L2 KYC provider selection/provider-specific API/event mapping/KZ privacy-legal staging acceptance, actual approved KZ/RU legal template content/visual acceptance, actual KMS/HSM signer deployment/external IAM/key ceremony acceptance, RFC3161/qualified TSA legal acceptance, jurisdiction retention periods, external bucket lifecycle acceptance және production load acceptance әлі Phase 4 backlog-та.
 
 ## Қазіргі backend slice
