@@ -64,7 +64,9 @@ Bounded full binary archive v2 қосылды: тек immutable manifest-те fr
 
 QaryzLinkBack PR #188 merged at `d390b71`, QaryzLinkFront PR #58 merged at `253ff44`. CI runs `36470173599` және `36470182893` quality job құрғанымен runner step орындамады; automated verification pending.
 
-Бұл baseline court-ready package емес: approved contract PDF, production KMS/HSM signer/key lifecycle for v2, trusted timestamp, jurisdiction retention periods, external bucket lifecycle acceptance және production load acceptance әлі Phase 4 backlog-та.
+Pinned remote Ed25519 signer adapter қосылды: HTTPS-only endpoint, bearer secret, redirect/timeout/response-size bounds, pinned SPKI SHA-256 fingerprint және Backend local detached-signature verification. Seal payload ZIP v1/v2 үшін бөлек domain/purpose қолданады, сондықтан v1 signature v2 archive-ке replay болмайды. Бұл adapter actual KMS/HSM gateway-дің орнын баспайды.
+
+Бұл baseline court-ready package емес: approved contract PDF, actual KMS/HSM signer deployment/key IAM/rotation/revocation acceptance, trusted timestamp, jurisdiction retention periods, external bucket lifecycle acceptance және production load acceptance әлі Phase 4 backlog-та.
 
 ## Қазіргі backend slice
 
