@@ -100,6 +100,10 @@ Identity/KYC provider governance release gate қосылды: production identit
 
 QaryzLinkBack PR #197 merged at `e179229`, QaryzLinkDocs PR #120 merged at `971ac80`. Back CI run `36588116059` conclusion=failure көрсеткенімен quality job-та `steps=[]`, `runner_id=0`; application code орындалмаған. Automated typecheck/lint/test/build verification әлі pending.
 
+Contract PDF governance release gate қосылды: production PDF rendering енді approved KZ/RU template artifact set, Kazakhstan legal sign-off, visual/pagination acceptance және deterministic font embedding policy үшін төрт versioned non-secret reference талап етеді. Staging-та refs жоқ болса `contract_pdf_governance=fail`; production-та refs жоқ PDF config startup кезінде fail-fast. References толық болса governance check `manual` болып қалады, сондықтан template ID/hash өздігінен legal/visual approval болып саналмайды. Staging checklist final PDF→ZIP v2 binding already complete екенін де жаңартты.
+
+QaryzLinkBack PR #198 merged at `7e647ca`, QaryzLinkDocs PR #122 merged at `7c63389`. Back CI run `36589322745` conclusion=failure көрсеткенімен quality job-та `steps=[]`, `runner_id=0`; application code орындалмаған. Automated typecheck/lint/test/build verification әлі pending.
+
 Бұл baseline court-ready package емес: actual approved KZ/RU legal template content/visual acceptance, actual KMS/HSM signer deployment/external IAM/key ceremony acceptance, RFC3161/qualified TSA legal acceptance, jurisdiction retention periods, external bucket lifecycle acceptance және production load acceptance әлі Phase 4 backlog-та.
 
 ## Қазіргі backend slice
