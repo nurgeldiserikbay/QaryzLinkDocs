@@ -178,12 +178,12 @@ Enable алдында кемінде:
 8. unexpected key ID rejected;
 9. unexpected key fingerprint rejected;
 10. valid but wrong-payload signature Backend verification-нан өтпейді;
-10. v1 archive signature verify болады;
-11. v2 archive signature verify болады;
-12. v1 signature v2 payload-қа replay болмайды;
-13. signer outage seal endpoint-ті 503/fail-closed күйге әкеледі;
-14. audit secret/raw signature/archive bytes сақтамайды;
-15. key rotation drill орындалады.
+11. v1 archive signature verify болады;
+12. v2 archive signature verify болады;
+13. v1 signature v2 payload-қа replay болмайды;
+14. signer outage seal endpoint-ті 503/fail-closed күйге әкеледі;
+15. audit secret/raw signature/archive bytes сақтамайды;
+16. key rotation drill орындалады.
 
 ## Remaining production gates
 
