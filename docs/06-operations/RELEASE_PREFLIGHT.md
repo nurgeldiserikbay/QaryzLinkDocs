@@ -41,6 +41,7 @@ Command:
 - contract signing/support mutation/API docs gates күйін;
 - evidence cryptographic sealing provider gate күйін;
 - configured remote signer болса external KMS/HSM acceptance әлі manual екенін;
+- external timestamp authority configured болса provider/legal acceptance manual екенін;
 - signing key maintenance one-shot gate normal release кезінде disabled екенін;
 - evidence sealing enabled болса configured signing key DB trust registry-де ACTIVE екенін;
 - full evidence binary archive feature gate күйін
@@ -73,7 +74,8 @@ Command әдейі келесілерді автоматты pass деп бел�
 - browser KZ/RU authenticated journey;
 - enabled contract signing legal gate;
 - enabled support mutation operational gate, соның ішінде evidence legal hold owner/process және scoped staff access;
-- evidence signer TLS/private routing, external key IAM/ceremony, trust-registry rotation/revocation drill, pinned identity cutover және independent signature verification acceptance.
+- evidence signer TLS/private routing, external key IAM/ceremony, trust-registry rotation/revocation drill, pinned identity cutover және independent signature verification acceptance;
+- timestamp authority TLS/auth/nonce/clock-skew/signature failure drills және legal TSA classification.
 
 Олар `manual` ретінде қалады.
 
