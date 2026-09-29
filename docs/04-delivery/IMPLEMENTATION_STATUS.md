@@ -70,7 +70,9 @@ Application-side signing key trust registry енді configured identity-дің 
 
 QaryzLinkBack PR #189 merged at `ba3d1ea`, QaryzLinkFront PR #59 merged at `e68d354`. CI runs `36516530077` және `36516534678` quality job құрғанымен runner step орындамады; automated verification pending.
 
-Бұл baseline court-ready package емес: approved contract PDF, actual KMS/HSM signer deployment/key IAM/rotation/revocation acceptance, trusted timestamp, jurisdiction retention periods, external bucket lifecycle acceptance және production load acceptance әлі Phase 4 backlog-та.
+QaryzLinkBack PR #190 merged at `6d9090d`, QaryzLinkFront PR #60 merged at `2f454c3`. CI runs `36520601061` және `36520607376` quality job құрғанымен runner step орындамады; automated verification pending.
+
+Бұл baseline court-ready package емес: approved contract PDF, actual KMS/HSM signer deployment/external IAM/key ceremony acceptance, trusted timestamp, jurisdiction retention periods, external bucket lifecycle acceptance және production load acceptance әлі Phase 4 backlog-та.
 
 ## Қазіргі backend slice
 
