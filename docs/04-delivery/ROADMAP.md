@@ -159,7 +159,8 @@ Open/public matching production-да қосылмас бұрын Қазақст�
 - [x] bounded frozen-manifest evidence binary ZIP v2 + storage byte verification;
 - [ ] large archive true streaming/ZIP64 if load requirements demand it;
 - [x] external signed time attestation foundation;
-- [ ] RFC3161/qualified TSA + jurisdiction legal acceptance;
+- [x] release config/preflight requires versioned timestamp standards + trust + revocation + legal-classification references;
+- [ ] RFC3161/qualified TSA + certificate/revocation + jurisdiction legal acceptance;
 - amendments;
 - disputes;
 - data export/deletion;
