@@ -226,9 +226,9 @@ Current version міндетті түрде `SIGNED` және documentHash-bound
 
 ## Evidence and closure
 
-New evidence package creation — schema **v3**.
+New evidence package creation — schema **v4**.
 
-V3 amendment/schedule provenance:
+V4 amendment/schedule/accounting provenance:
 
 - ContractVersion `sourceAmendmentId`;
 - amendment purpose/document hash;
@@ -237,9 +237,13 @@ V3 amendment/schedule provenance:
 - activated version metadata;
 - ScheduleVersion `sourceContractVersion`;
 - ScheduleVersion `sourceAmendmentId`;
-- deterministic schedule inputHash.
+- deterministic schedule inputHash;
+- immutable post-payment accounting snapshot versions/stateHash;
+- snapshot source contract/schedule version + document/input hashes;
+- persisted paid/outstanding charge-interest-principal component split;
+- confirmed payment total, unallocated credit және unresolved/payment-event counts.
 
-Persisted schema v1/v2 packages retroactive rewrite жасамайды және stored schemaVersion бойынша read/export болады.
+Persisted schema v1/v2/v3 packages retroactive rewrite жасамайды және stored schemaVersion бойынша read/export болады.
 
 Closure exact `Contract.currentVersion` және latest schedule version-ды пайдаланады. Cancelled historical schedule versions evidence history-де қалады.
 
@@ -255,12 +259,61 @@ Response/audit:
 - audit proposed financial values-ті көшірмейді;
 - document/schedule provenance hash/id/version арқылы дәлелденеді.
 
+## Post-payment accounting preview foundation
+
+Repayment history бар approved financial amendment үшін actual activation әлі жабық, бірақ participant deterministic accounting state preview дайындай алады:
+
+- `POST /api/v1/contracts/:contractId/amendments/:amendmentId/accounting-preview`
+- `GET /api/v1/contracts/:contractId/amendments/:amendmentId/accounting-previews`
+
+Prepare endpoint contract және amendment row-ды lock етеді. Payment submit/confirm/reversal да contract lock қолданатындықтан snapshot capture payment mutation-мен race жасамайды.
+
+Snapshot тек `APPROVED` current `TERMS_CHANGE` немесе `SCHEDULE_CHANGE` үшін, ACTIVE + CONFIRMED funding contract-та жасалады.
+
+Current foundation тек қазіргі MVP one-item AT_MATURITY schedule policy-ін қолдайды. Multiple schedule item policy пайда болса, snapshot fail-closed.
+
+Snapshot immutable және versioned:
+
+- бірдей authoritative accounting state → same `stateHash`, existing snapshot қайтарылады;
+- кейін payment/reversal/unresolved state өзгерсе → жаңа stateHash және snapshot version;
+- old snapshots update/delete болмайды.
+
+Persisted snapshot binds:
+
+- base ContractVersion және exact signed documentHash;
+- base ScheduleVersion және inputHash;
+- funding effectiveAt/currency;
+- scheduled principal/interest/charge;
+- current `paidMinor`;
+- allocation policy бойынша reconstructed paid charge → interest → principal;
+- outstanding charge/interest/principal;
+- active CONFIRMED payment total;
+- unallocated credit;
+- confirmed/reversed payment event count;
+- unresolved payment count.
+
+Reconciliation invariant:
+
+`confirmed active payment total = schedule paidMinor + unallocated credit`
+
+Теңдік бұзылса snapshot жасалмайды.
+
+Current response explicitly:
+
+- `policyStatus=PREVIEW_ONLY`;
+- `activationEligible=false`;
+- `activationReason=POST_PAYMENT_ACCOUNTING_POLICY_PENDING`.
+
+Бұл preview historical PaymentAllocation, ScheduleItem, LedgerEntry, ContractVersion немесе Contract.currentVersion-ды өзгертпейді.
+
+Бұл foundation-ның мақсаты — келесі accounting/legal policy үшін deterministic opening-state evidence беру. Ол earned-vs-unearned interest reclassification немесе effective-date cutover шешімін өздігінен қабылдамайды.
+
 ## Intentionally pending
 
 Бұл slice:
 
-- repayment history бар contract terms-ін қайта есептемейді;
-- already-paid allocation migration жасамайды;
+- repayment history бар contract үшін actual N+1 activation жасамайды;
+- already-paid allocation reclassification/migration жасамайды;
 - principal/currency өзгерісін қолдамайды;
 - installment/multi-item rescheduling жасамайды;
 - effectiveAt-ты funding start-тан басқа датаға ауыстырмайды;
@@ -268,7 +321,7 @@ Response/audit:
 - amendment withdrawal/cancellation legal semantics-ын бекітпейді;
 - Kazakhstan legal effect/signature wording approval-ын алмастырмайды.
 
-Келесі кеңейту қажет болса, already-paid financial amendment бөлек accounting policy ретінде жасалуы тиіс: historical allocations immutable, opening balance snapshot, effective-date cutover, interest accrual split және ledger reconciliation.
+Келесі кеңейту бөлек accounting policy ретінде жасалуы тиіс: historical allocations immutable, latest accounting snapshot exact-state pin, effective-date cutover, earned/unearned interest split, opening principal balance және ledger reconciliation.
 
 ## Release boundary
 
