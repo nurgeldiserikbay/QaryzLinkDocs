@@ -73,6 +73,24 @@ Current adapter — `UnavailableIdentityVerificationProvider`. Ол verification
 
 Release preflight `IDENTITY_VERIFICATION_ENABLED=true` болса `provider_adapter_unavailable` fail береді. Сондықтан real vetted provider adapter орнатылмайынша staging/production release identity verification-ды кездейсоқ қосып жібере алмайды.
 
+## Production provider governance references
+
+Actual provider adapter орнатылмайынша identity verification бәрібір unavailable болып қалады. Бірақ production enablement үшін governance provenance алдын ала versioned reference арқылы бекітіледі:
+
+- `IDENTITY_PROVIDER_CONTRACT_ID` — vetted L2 provider contract/profile version;
+- `IDENTITY_CALLBACK_AUTH_POLICY_ID` — signed/authenticated callback verification policy version;
+- `IDENTITY_PRIVACY_RESIDENCY_POLICY_ID` — sensitive-data minimization, retention/residency және processor boundary policy version;
+- `IDENTITY_LEGAL_CLASSIFICATION_ID` — Kazakhstan L2 KYC legal/privacy classification record version.
+
+Бұл ID-лер provider secret, callback key, raw contract немесе user identity дерегі емес.
+
+Behavior:
+- staging-та refs жоқ болса `release:preflight` `identity_provider_governance=fail` береді;
+- production-та `IDENTITY_VERIFICATION_ENABLED=true` және refs толық емес болса config fail-fast;
+- refs толық болса governance check `manual` күйінде қалады;
+- current adapter әлі unavailable болғандықтан жалпы identity verification check бәрібір `provider_adapter_unavailable` fail береді;
+- actual vetted adapter, authenticated callback/session correlation және privacy/legal staging acceptance аяқталмайынша feature production-ready болып саналмайды.
+
 ## Бұл не емес
 
 Бұл foundation:
@@ -86,7 +104,7 @@ Release preflight `IDENTITY_VERIFICATION_ENABLED=true` болса `provider_adap
 
 ## Келесі implementation кезеңі
 
-Нақты L2 KYC provider таңдалғаннан кейін:
+Governance/config provenance boundary дайын. Нақты L2 KYC provider таңдалғаннан кейін:
 
 1. provider adapter;
 2. signed/authenticated callback boundary;

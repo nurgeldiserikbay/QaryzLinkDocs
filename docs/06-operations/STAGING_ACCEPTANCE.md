@@ -113,6 +113,20 @@
 - [ ] Audit PDF bytes/token/PII сақтамайды.
 - [ ] Final PDF evidence-bundle binding бөлек acceptance item ретінде ашық деп белгіленген.
 
+### 6.4 Identity/KYC provider
+
+- [ ] `IDENTITY_PROVIDER_CONTRACT_ID` vetted L2 provider profile/contract version-ға сәйкес.
+- [ ] `IDENTITY_CALLBACK_AUTH_POLICY_ID` callback signature/authentication және replay policy version-ға сәйкес.
+- [ ] Callback provider session/user correlation fail-closed.
+- [ ] Duplicate/replayed callback idempotent және unauthorized callback rejected.
+- [ ] Raw provider payload, document image, biometric/liveness payload product DB/log/audit-ке көшірілмейді.
+- [ ] `IDENTITY_PRIVACY_RESIDENCY_POLICY_ID` data minimization, processor/subprocessor, residency және retention policy version-ға сәйкес.
+- [ ] `IDENTITY_LEGAL_CLASSIFICATION_ID` Kazakhstan L2 KYC legal/privacy classification record-қа сәйкес.
+- [ ] Provider revocation webhook claim lifecycle-ге idempotent mapping жасайды.
+- [ ] Provider outage/start-session failure generic fail-closed behavior береді.
+- [ ] Release preflight governance refs-ті manual деп көрсетеді; actual adapter unavailable болса overall release fail болып қалуы тиіс.
+- [ ] KZ/RU UI email verification-ды KYC деп көрсетпейді және provider raw identifiers-ді шығармайды.
+
 ## 7. Background jobs
 
 - [ ] notification CronJob immutable digest-пен іске қосылды.

@@ -137,7 +137,8 @@ Open/public matching production-да қосылмас бұрын Қазақст�
 ## Phase 4 — Trust және Evidence
 
 - [x] provider-neutral default-off identity verification boundary;
-- [ ] vetted L2 KYC provider adapter + authenticated callback;
+- [x] release config/preflight requires versioned L2 provider contract + callback-auth + privacy/residency + legal-classification references;
+- [ ] vetted L2 KYC provider adapter + authenticated callback/session correlation + staging acceptance;
 - [x] provider-neutral minimal L2 claim persistence/expiry/revocation core;
 - [x] participant-only immutable contract document source;
 - [x] deterministic KZ/RU technical preview + source/input/render hash integrity boundary;
