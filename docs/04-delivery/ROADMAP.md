@@ -144,7 +144,7 @@ Open/public matching production-да қосылмас бұрын Қазақст�
 - [x] immutable KZ/RU PDF template identity snapshot + signed documentHash binding + signed remote renderer boundary;
 - [ ] actual approved KZ/RU legal template content + visual/legal acceptance;
 - [x] participant verified PDF artifact download foundation;
-- [x] technical render hashes; final PDF artifact hash binding into evidence bundle pending;
+- [x] technical render hashes + verified KZ/RU PDF artifact hash/source/template/renderer binding into full ZIP v2;
 - [x] participant-only audited canonical JSON evidence export baseline;
 - [x] deterministic evidence bundle manifest + artifact path/size/hash contract;
 - [x] bounded deterministic metadata/text ZIP archive + archive SHA-256;
