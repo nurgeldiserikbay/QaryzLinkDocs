@@ -65,7 +65,7 @@ PDF renderer legal text/template, font embedding, pagination, reproducibility ж
 4. [x] provider-neutral signed remote PDF renderer boundary;
 5. [x] participant verified PDF artifact download foundation;
 6. [ ] actual approved KZ/RU legal template content;
-7. [ ] rendered PDF artifact hash binding into evidence bundle/ZIP v2;
+7. [x] rendered PDF artifact hash/source/template/renderer attestation binding into full evidence ZIP v2;
 8. [ ] staging visual/font/pagination/legal acceptance.
 
 ## Қауіпсіздік
@@ -97,3 +97,17 @@ Remote signed renderer foundation source document + locale + pinned template ide
 ## PDF renderer implementation evidence — 2026-09-29
 
 QaryzLinkBack PR #192 (`6218e73`) және QaryzLinkFront PR #62 (`e9dcd26`) pinned-template PDF foundation-ды main-ге енгізді. Legacy contract-тарда immutable template pins жоқ болса PDF capability disabled күйінде қалады. CI runs `36542155035` / `36536087948` runner 0-step болғандықтан automated verification pending.
+
+
+## Evidence ZIP v2 PDF binding — 2026-09-29
+
+Full evidence `ZIP_STORE_V2` енді KZ және RU verified contract PDF artifact-терін archive assembly кезінде renderer арқылы қайта жасайды және Backend бұрынғы pinned-template/source/render-input checks-ті қайта қолданады. Archive standalone PDF export емес, сондықтан бұл internal build `CONTRACT_PDF_EXPORTED` audit event жасамайды.
+
+ZIP v2 құрамына:
+- `contract/contract.kk.pdf`;
+- `contract/contract.ru.pdf`;
+- `contract/pdf-artifacts.json`
+
+кіреді. `pdf-artifacts.json` әр locale үшін template ID/hash, immutable source document hash, render-input hash, PDF SHA-256/size, renderer ID/key fingerprint, attestation hash және detached signature hash-ты deterministic metadata ретінде бекітеді. PDF bytes және metadata екеуі де bundle artifact list арқылы `bundleManifestHash`-ке кіреді, ал whole ZIP `archiveHash` арқылы жабылады.
+
+ClosureCertificate `contractDocumentHash` пен әр PDF `sourceDocumentHash` дәл сәйкес келмесе archive fail-closed болады. Existing ZIP v1 өзгермейді. ZIP v2 Phase 4 capability болғандықтан approved-template renderer operational gate-і енді оның integrity dependency-і болып саналады.

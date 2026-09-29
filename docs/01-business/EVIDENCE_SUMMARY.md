@@ -247,7 +247,7 @@ Manifest signature және trusted timestamp әлі жоқ.
 
 Trust & Evidence кезеңінде осы manifest baseline үстіне:
 
-- contract rendered PDF;
+- [x] verified KZ/RU contract PDF bytes + renderer/template/source metadata bound into full ZIP v2;
 - selected evidence binaries;
 - manifest JSON;
 - [x] deterministic bundle artifact index + bundle manifest hash;
@@ -368,3 +368,12 @@ Contract-level legal hold destructive evidence cleanup-ты тоқтату үш�
 Active hold кезінде expired/unconsumed evidence upload cleanup query contract-ты таңдаудан алып тастайды, сондықтан object delete-ке дейін fail-safe protection бар.
 
 Бұл full legal retention емес: consumed evidence retention period, account deletion interaction және external object-store lifecycle acceptance әлі ашық. Толық boundary: [Evidence legal hold](../06-operations/EVIDENCE_LEGAL_HOLD.md).
+
+
+## Verified contract PDF binding in full ZIP v2 — 2026-09-29
+
+`ZIP_STORE_V2` full evidence archive енді immutable pinned-template contract PDF artifact-терін evidence chain-ге қосады. KZ/RU PDF bytes қайта verified renderer boundary арқылы алынады; source document hash ClosureCertificate hash-пен қайта тексеріледі.
+
+Archive-ке екі PDF және deterministic `contract/pdf-artifacts.json` кіреді. Metadata template identity, render-input hash, PDF hash/size және renderer attestation/signature identity-ін сақтайды. Осы файлдар `buildEvidenceBundleManifest` artifact hashes арқылы `bundleManifestHash`-ке, кейін ZIP bytes `archiveHash`-ке байланысады.
+
+Бұл approved legal wording/visual acceptance-ті білдірмейді. Renderer/template approval, staging font/pagination review және Kazakhstan legal acceptance бөлек release gate болып қалады.
