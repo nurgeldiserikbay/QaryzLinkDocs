@@ -91,6 +91,7 @@
 - [x] Provider-neutral fail-closed identity verification boundary (`IDENTITY_VERIFICATION.md`).
 - [x] Minimal L2 verified-claim persistence, expiry derivation, hashed provider reference және idempotent revocation core.
 - [x] Front KZ/RU privacy-safe identity status/capability UI; provider disabled болса start action hidden.
+- [x] Production config/preflight requires versioned L2 provider contract/callback-auth/privacy-residency/legal-classification references.
 - [ ] External L2 KYC provider adapter, authenticated callback/session correlation және KZ privacy/legal staging acceptance.
 - [x] Participant-only immutable contract document source (`CONTRACT_DOCUMENT_RENDERING.md`).
 - [x] Deterministic KZ/RU technical preview with source/input/content SHA-256 integrity boundary + Front TXT download.
