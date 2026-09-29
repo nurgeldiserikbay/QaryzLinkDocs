@@ -76,7 +76,9 @@ External signed time attestation foundation қосылды: timestamp subject se
 
 QaryzLinkBack PR #191 merged at `427d70d`, QaryzLinkFront PR #61 merged at `48c4032`. CI runs `36523556368` және `36523562198` quality job құрғанымен runner step орындамады; automated verification pending.
 
-Бұл baseline court-ready package емес: approved contract PDF, actual KMS/HSM signer deployment/external IAM/key ceremony acceptance, RFC3161/qualified TSA legal acceptance, jurisdiction retention periods, external bucket lifecycle acceptance және production load acceptance әлі Phase 4 backlog-та.
+Contract PDF foundation immutable template snapshot пен signed remote renderer boundary-ға дейін кеңейді: жаңа contract version KZ/RU template ID/hash-ті creation кезінде pin етеді; legacy contracts retroactive template алмайды; Backend PDF bytes/hash/size/source/template/render-input және renderer Ed25519 attestation-ін independently verify етеді. Front participant current locale verified PDF жасай/жүктей алады. Actual legal wording/template approval және evidence bundle PDF binding әлі ашық.
+
+Бұл baseline court-ready package емес: actual approved KZ/RU legal template content/visual acceptance, final PDF evidence binding, actual KMS/HSM signer deployment/external IAM/key ceremony acceptance, RFC3161/qualified TSA legal acceptance, jurisdiction retention periods, external bucket lifecycle acceptance және production load acceptance әлі Phase 4 backlog-та.
 
 ## Қазіргі backend slice
 
