@@ -354,6 +354,8 @@ QaryzLinkFront PR #57 merged at `aad8056`: Ed25519 seal capability UI, default-o
 
 Back CI run `36461356114` және Front CI run `36461359027` quality job құрды, бірақ runner step орындалмады. Сондықтан automated typecheck/lint/test/build verification pending; бұл run-дар application code-ты орындамаған.
 
+2026-09-29 remote signer extension: QaryzLinkBack PR #189 (`ba3d1ea`) pinned HTTPS remote Ed25519 adapter және ZIP v2 domain seal қосты; QaryzLinkFront PR #59 (`e68d354`) Full ZIP v2 seal UI қосты. Runs `36516530077` және `36516534678` runner 0-step күйінде қалды.
+
 
 ## Phase 4 evidence legal-hold foundation
 
