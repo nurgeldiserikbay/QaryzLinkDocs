@@ -10,6 +10,7 @@
 | Private object storage bucket/endpoint және least-privilege credential | Evidence staging алдында | Signed upload/download, HEAD verification және orphan cleanup |
 | Malware scanner/event integration және callback secret | Evidence staging алдында | CLEAN/INFECTED/FAILED verdict flow |
 | KMS/HSM signer deployment, least-privilege IAM, key ceremony және key lifecycle policy version-дері | Evidence sealing staging алдында | ZIP seal private-key custody, rotation/revocation және release acceptance |
+| Timestamp standards profile, authority trust/revocation policy және Kazakhstan legal classification version-дері | Trusted timestamp staging алдында | RFC3161/QTSA selection және timestamp legal/cryptographic acceptance |
 | SMTP провайдер және расталған sender | Email қосқанда | SMTP secrets және DNS |
 | Test mailbox | Staging verification кезінде | Өзіңіз бақылайтын қабылдаушы |
 | Backup retention және restore мақсаттары | Production алдында | Операциялық регламент |
