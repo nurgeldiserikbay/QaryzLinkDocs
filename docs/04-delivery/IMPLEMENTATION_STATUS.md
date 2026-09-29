@@ -66,6 +66,8 @@ QaryzLinkBack PR #188 merged at `d390b71`, QaryzLinkFront PR #58 merged at `253f
 
 Pinned remote Ed25519 signer adapter қосылды: HTTPS-only endpoint, bearer secret, redirect/timeout/response-size bounds, pinned SPKI SHA-256 fingerprint және Backend local detached-signature verification. Seal payload ZIP v1/v2 үшін бөлек domain/purpose қолданады, сондықтан v1 signature v2 archive-ке replay болмайды. Бұл adapter actual KMS/HSM gateway-дің орнын баспайды.
 
+QaryzLinkBack PR #189 merged at `ba3d1ea`, QaryzLinkFront PR #59 merged at `e68d354`. CI runs `36516530077` және `36516534678` quality job құрғанымен runner step орындамады; automated verification pending.
+
 Бұл baseline court-ready package емес: approved contract PDF, actual KMS/HSM signer deployment/key IAM/rotation/revocation acceptance, trusted timestamp, jurisdiction retention periods, external bucket lifecycle acceptance және production load acceptance әлі Phase 4 backlog-та.
 
 ## Қазіргі backend slice
