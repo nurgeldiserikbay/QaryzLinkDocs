@@ -103,7 +103,8 @@
 - [x] Application signing key trust registry: one ACTIVE key, controlled activation/retirement/revocation, historical lifecycle lookup, maintenance preflight fail gate және sealing-enabled ACTIVE-registry preflight check.
 - [x] Contract PDF template identity snapshot + signed remote renderer fail-closed boundary.
 - [ ] Actual approved KZ/RU legal template artifacts, independent hashes, visual/font/pagination және legal acceptance.
-- [ ] Final verified PDF artifact hashes evidence bundle/ZIP v2-ге immutable binding.
+- [x] Final verified KZ/RU PDF artifact hashes/source/template/renderer metadata full evidence ZIP v2-ге immutable binding.
+- [x] Production config/preflight requires versioned KMS/HSM deployment/IAM/key-ceremony/key-lifecycle references.
 - [ ] Actual KMS/HSM signer deployment, approved external key IAM/ceremony, provider-side disable/delete policy және staging verification.
 - [x] Default-off external signed time attestation adapter: nonce, subject hash binding, pinned authority ID/key fingerprint, local verification және fail-closed required mode.
 - [ ] RFC3161/qualified TSA/provider selection, legal effect, certificate/revocation policy және staging acceptance.
