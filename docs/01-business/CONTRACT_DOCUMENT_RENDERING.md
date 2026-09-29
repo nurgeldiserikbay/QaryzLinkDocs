@@ -61,11 +61,12 @@ PDF renderer legal text/template, font embedding, pagination, reproducibility ж
 
 1. [x] immutable document source;
 2. [x] deterministic technical renderer + source/input/content hash boundary;
-3. approved KZ/RU legal contract template;
-4. deterministic PDF renderer;
-5. rendered PDF hash/source binding;
-6. participant PDF download;
-7. staging visual/integrity acceptance.
+3. [x] immutable KZ/RU PDF template identity snapshot at contract creation;
+4. [x] provider-neutral signed remote PDF renderer boundary;
+5. [x] participant verified PDF artifact download foundation;
+6. [ ] actual approved KZ/RU legal template content;
+7. [ ] rendered PDF artifact hash binding into evidence bundle/ZIP v2;
+8. [ ] staging visual/font/pagination/legal acceptance.
 
 ## Қауіпсіздік
 
@@ -83,3 +84,11 @@ QaryzLinkBack PR #183 merged at `5f96c0e`: deterministic KZ/RU technical rendere
 QaryzLinkFront PR #54 merged at `d4ee270`: contract detail technical preview, integrity hashes және TXT download. CI run `36453978353` те quality job құрғанымен runner step орындалмады.
 
 Бұл legal PDF approval-ды айналып өтпейді.
+
+## Pinned-template PDF foundation — 2026-09-29
+
+Contract PDF template identity енді deployment config-ке ғана тәуелді емес: feature enabled кезде жаңа ContractVersion KZ/RU template ID/hash-ті immutable snapshot ретінде сақтайды. Existing contract-тарға retroactive backfill жасалмайды.
+
+Remote signed renderer foundation source document + locale + pinned template identity-ді render-input hash-қа байлайды. Backend renderer response-тан PDF bytes/hash/size, source/template/render-input metadata және detached Ed25519 attestation-ді қайта verify етеді.
+
+Бұл actual legal template approval емес. Толық operational boundary: [Contract PDF renderer boundary](../06-operations/CONTRACT_PDF_RENDERER.md).
