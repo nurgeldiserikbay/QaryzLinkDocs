@@ -58,7 +58,22 @@
 - [ ] expired unconsumed cleanup CronJob.
 - [ ] storage/scanner outage кезінде fail-closed.
 
-### 6.1 External timestamp authority
+### 6.1 Evidence KMS/HSM signer operations
+
+- [ ] `EVIDENCE_SIGNER_DEPLOYMENT_ID` reviewed deployment/IaC version-ға сәйкес.
+- [ ] `EVIDENCE_SIGNER_IAM_POLICY_ID` signer gateway үшін least-privilege policy version-ға сәйкес.
+- [ ] IAM signing permission нақты expected key scope-пен шектелген.
+- [ ] Runtime credential key create/delete/admin permission алмайды.
+- [ ] `EVIDENCE_SIGNER_KEY_CEREMONY_ID` independent key creation/activation record-қа сәйкес.
+- [ ] Ceremony кезінде public SPKI/fingerprint independent channel/tool арқылы тексерілген.
+- [ ] `EVIDENCE_SIGNER_KEY_LIFECYCLE_POLICY_ID` rotation/revocation/old-key disable-delete procedure version-ға сәйкес.
+- [ ] Active key compromise drill: provider signing permission тоқтайды, registry revoke болады, жаңа seal fail-closed.
+- [ ] Rotation drill: жаңа key accepted, previous ACTIVE → RETIRED, expected pin cutover және v1/v2 seal verify.
+- [ ] Old key disable/delete timing retention/legal policy-ге қайшы емес.
+- [ ] Signer audit/log acceptance secret/private key/raw evidence шығармайтынын тексереді.
+- [ ] Release preflight `evidence_signer_operations=manual` көрсетеді; бұл checklist owner+engineer review арқылы жабылады.
+
+### 6.2 External timestamp authority
 
 - [ ] Timestamp feature disabled немесе approved staging authority configured.
 - [ ] Authority endpoint HTTPS және expected routing/TLS policy-ге сәйкес.
@@ -73,7 +88,7 @@
 - [ ] Acceptance record бұл foundation RFC3161/qualified legal timestamp емес екенін көрсетеді.
 - [ ] Егер legal gate RFC3161/qualified TSA талап етсе, standards-based provider acceptance бөлек орындалды.
 
-### 6.2 Contract PDF renderer
+### 6.3 Contract PDF renderer
 
 - [ ] Approved KZ template artifact + independent SHA-256 recorded.
 - [ ] Approved RU template artifact + independent SHA-256 recorded.
