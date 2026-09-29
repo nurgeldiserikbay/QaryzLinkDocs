@@ -13,6 +13,7 @@
 | Timestamp standards profile, authority trust/revocation policy және Kazakhstan legal classification version-дері | Trusted timestamp staging алдында | RFC3161/QTSA selection және timestamp legal/cryptographic acceptance |
 | KZ/RU legal PDF template approval, legal sign-off, visual acceptance және font policy version-дері | Contract PDF production enablement алдында | Immutable template pins, renderer acceptance және court/export package |
 | L2 KYC provider contract/profile, callback-auth policy, privacy/residency policy және legal classification version-дері | Identity verification staging алдында | Provider adapter, callback trust және Kazakhstan privacy/legal acceptance |
+| L2 KYC staging session endpoint, bearer/callback credentials, provider signing-key fingerprint және test account | Identity provider integration staging алдында | Signed session/callback verification, correlation/replay және fail-closed drills |
 | SMTP провайдер және расталған sender | Email қосқанда | SMTP secrets және DNS |
 | Test mailbox | Staging verification кезінде | Өзіңіз бақылайтын қабылдаушы |
 | Backup retention және restore мақсаттары | Production алдында | Операциялық регламент |
