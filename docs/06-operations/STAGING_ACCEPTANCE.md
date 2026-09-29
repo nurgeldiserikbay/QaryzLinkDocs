@@ -118,7 +118,25 @@
 - [ ] Audit PDF bytes/token/PII сақтамайды.
 - [x] Final verified PDF bytes + metadata ZIP v2 evidence chain-ге bound; archive build source/hash binding қайта тексереді.
 
-### 6.4 Identity/KYC provider
+### 6.4 Contract amendment N+1 signing
+
+- [ ] `CONTRACT_AMENDMENTS_ENABLED=true` және `CONTRACT_SIGNING_ENABLED=true` тек approved staging config-та қосылды.
+- [ ] APPROVED `OTHER` amendment exact current signed baseVersion-ға ғана start-signing жасайды.
+- [ ] Start-signing N+1 `SIGNING` ContractVersion жасайды және base terms snapshot + calculation policy + pinned PDF templates-ті inherit етеді.
+- [ ] N+1 deterministic documentHash amendment proposedDocumentHash/baseDocumentHash/sourceAmendmentId provenance-ін bind етеді.
+- [ ] Default document-source/preview/PDF routes unsigned N+1-ді active document ретінде көрсетпейді; олар `Contract.currentVersion`-ды ғана қолданады.
+- [ ] Explicit `/versions/:version/*` routes participant-only signing candidate review береді.
+- [ ] Бірінші N+1 signature currentVersion/status/funding/schedule/payment/ledger-ді өзгертпейді.
+- [ ] Екінші participant signature N+1→SIGNED, base→SUPERSEDED, amendment→ACTIVATED және currentVersion→N+1 жасайды.
+- [ ] Activation жаңа Funding немесе ScheduleVersion row жасамайды.
+- [ ] TERMS_CHANGE және SCHEDULE_CHANGE start-signing кезінде fail-closed pending transition policy.
+- [ ] Closure statement unsigned newer version емес, exact currentVersion documentHash-ті қолданады.
+- [ ] New evidence package schema v2 amendment proposal hash, approvals, sourceAmendmentId және activated version metadata-ны қамтиды.
+- [ ] Existing persisted evidence schema v1 package export/retrieval retroactive rewrite жасамайды.
+- [ ] Audit payload raw amendment legal text/contact/identity data сақтамайды.
+- [ ] Kazakhstan legal owner non-financial amendment wording/signature/effective-time process-ті acceptance record-та бекітті.
+
+### 6.5 Identity/KYC provider
 
 - [ ] `IDENTITY_VERIFICATION_PROVIDER=remote-signed-l2` тек approved staging config-та қосылған.
 - [ ] `IDENTITY_PROVIDER_CONTRACT_ID` vetted L2 provider profile/contract version-ға сәйкес.
