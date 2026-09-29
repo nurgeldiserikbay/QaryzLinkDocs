@@ -356,7 +356,7 @@ Back CI run `36461356114` және Front CI run `36461359027` quality job құр
 
 2026-09-29 remote signer extension: QaryzLinkBack PR #189 (`ba3d1ea`) pinned HTTPS remote Ed25519 adapter және ZIP v2 domain seal қосты; QaryzLinkFront PR #59 (`e68d354`) Full ZIP v2 seal UI қосты. Runs `36516530077` және `36516534678` runner 0-step күйінде қалды.
 
-Келесі trust-registry slice configured signer identity-дің DB-де ACTIVE болуын талап етеді, controlled rotation/revocation command-тарын, historical key lifecycle lookup-ты және maintenance gate release-preflight fail boundary-ын қосады. Бұл external KMS/HSM key ceremony/IAM acceptance-ті алмастырмайды.
+Signing-key trust registry slice аяқталды: QaryzLinkBack PR #190 (`6d9090d`) configured signer identity-дің DB-де ACTIVE болуын, controlled rotation/revocation command-тарын, historical lifecycle lookup-ты және maintenance/ACTIVE-registry release-preflight fail boundary-ын қосты. QaryzLinkFront PR #60 (`2f454c3`) registry readiness пен activation metadata-ны UI/API contract-қа қосты. Runs `36520601061` және `36520607376` runner 0-step күйінде қалды. Бұл external KMS/HSM key ceremony/IAM acceptance-ті алмастырмайды.
 
 
 ## Phase 4 evidence legal-hold foundation
