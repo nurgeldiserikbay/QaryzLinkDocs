@@ -144,7 +144,18 @@
 - [ ] Schedule generation unsigned current version болса fail-closed.
 - [ ] New evidence package schema v3 proposed terms + schedule sourceContractVersion/sourceAmendmentId provenance-ін қамтиды.
 - [ ] Existing persisted evidence v1/v2 package retroactive rewrite болмайды.
-- [ ] Post-payment financial amendment әдейі unsupported; acceptance record осы limitation-ды көрсетеді.
+- [ ] Payment history бар APPROVED TERMS_CHANGE/SCHEDULE_CHANGE үшін accounting-preview participant-only жұмыс істейді.
+- [ ] Preview тек ACTIVE + CONFIRMED funding + exact current signed ContractVersion + one-item latest schedule кезінде жасалады.
+- [ ] Persisted paidMinor charge → interest → principal policy бойынша paid/outstanding component split-ке детерминистік реконструкцияланады.
+- [ ] Confirmed active payment total = schedule paidMinor + unallocated credit reconciliation бұзылса preview fail-closed.
+- [ ] Exact same accounting state retry жаңа row жасамайды және same stateHash/snapshot қайтарады.
+- [ ] Confirmed payment/reversal/unresolved state өзгергеннен кейін жаңа stateHash және snapshot version жасалады; prior snapshot immutable қалады.
+- [ ] GET accounting-previews тек borrower/lender participant-қа snapshot history береді.
+- [ ] Preview response policyStatus=PREVIEW_ONLY, activationEligible=false, activationReason=POST_PAYMENT_ACCOUNTING_POLICY_PENDING.
+- [ ] Accounting preview ContractVersion/ScheduleVersion/PaymentAllocation/LedgerEntry/currentVersion mutation жасамайды.
+- [ ] New evidence package schema v4 accounting snapshot history/source hashes/component split-ті canonical manifest-ке bind етеді.
+- [ ] Existing persisted evidence v1/v2/v3 package retroactive rewrite болмайды.
+- [ ] Actual post-payment N+1 activation әдейі unsupported; acceptance record earned/unearned interest/allocation cutover pending екенін көрсетеді.
 - [ ] Kazakhstan legal owner pre-payment rate/term amendment wording, retroactive funding-effectiveAt accrual және signature effect-ті бекітті.
 
 ### 6.5 Identity/KYC provider

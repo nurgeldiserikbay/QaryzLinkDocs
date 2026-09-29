@@ -14,7 +14,7 @@ stateDiagram-v2
 ~~~
 
 - Contract ACTIVE және Funding CONFIRMED болмаса, генерация қабылданбайды.
-- Кесте immutable proposal terms snapshot және Funding effectiveAt арқылы есептеледі.
+- Кесте exact signed `Contract.currentVersion -> ContractVersion.termsSnapshot` және Funding effectiveAt арқылы есептеледі.
 - Қайта шақыру сол inputHash үшін бұрынғы нұсқаны қайтарады.
 - Кестені оқу тек lender немесе borrower тараптарына ашық.
 
@@ -58,6 +58,8 @@ erDiagram
         int version
         string policyVersion
         string inputHash
+        int sourceContractVersion
+        uuid sourceAmendmentId
     }
     SCHEDULE_ITEM {
         int sequence
@@ -70,6 +72,14 @@ erDiagram
     }
 ~~~
 
+## Version source және amendment
+
+Schedule generation unsigned/draft contract version-нан terms алмайды. Current version міндетті түрде `SIGNED` және documentHash-bound.
+
+Financial amendment activation жаңа ScheduleVersion жасаса, ол `sourceContractVersion` және `sourceAmendmentId` provenance сақтайды. Same signed contract version + funding effectiveAt + financial terms + policy бірдей inputHash береді.
+
+Historical ScheduleVersion және PaymentAllocation rewrite болмайды.
+
 ## Келесі шекара
 
-Payment ledger енгізілгенде әрбір төлем жеке immutable event ретінде сақталып, schedule item-ге allocation арқылы байланысады. Overdue calculation background worker арқылы жасалады. Бұл schedule slice платформаның заңды шешімі немесе qualified electronic signature болып саналмайды.
+Post-payment financial amendment actual cutover earned/unearned interest және historical allocation semantics үшін бөлек accounting/legal policy талап етеді. Overdue calculation background worker арқылы жасалады. Бұл schedule slice платформаның заңды шешімі немесе qualified electronic signature болып саналмайды.

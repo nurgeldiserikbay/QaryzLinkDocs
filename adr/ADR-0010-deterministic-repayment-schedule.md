@@ -13,7 +13,7 @@ After funding is confirmed, both parties need the same deterministic view of wha
 
 1. A schedule can be generated only for an ACTIVE contract with Funding CONFIRMED.
 2. The MVP policy is ACT_365_FIXED_HALF_UP_V1: simple interest uses an ACT/365 fixed denominator and HALF_UP rounding to the smallest currency unit.
-3. Terms are read from the immutable proposal snapshot: principalMinor, annualRateBps, termDays, and funding effectiveAt.
+3. Terms are read from the exact signed `Contract.currentVersion -> ContractVersion.termsSnapshot`; funding effectiveAt remains the accrual start. The original accepted proposal is provenance for the initial ContractVersion, not the runtime schedule source after amendments.
 4. The first version creates one AT_MATURITY item. Installments and custom calendars are later policy versions.
 5. Each ScheduleVersion stores the policy version and a canonical inputHash. Repeating the same request is idempotent.
 6. Schedule reads are restricted to the two contract parties; no PII or storage object key is returned.
@@ -34,3 +34,12 @@ flowchart TD
 - Monetary arithmetic is integer-based and avoids floating-point drift.
 - A terms change requires a new contract/version; the existing schedule is not mutated.
 - A future payment ledger can consume schedule items without changing this calculation policy.
+
+
+## 2026-09-30 implementation clarification
+
+Contract amendments introduced multiple immutable ContractVersion records. Schedule generation therefore pins the current signed ContractVersion and its document hash into the canonical input hash.
+
+A pre-payment financial amendment can create a new ScheduleVersion with sourceContractVersion/sourceAmendmentId provenance. Historical schedules remain immutable.
+
+Repayment history plus later financial amendment is not silently recalculated. The first post-payment extension records versioned immutable accounting previews only; actual earned-interest/allocation cutover remains a separate policy decision.
