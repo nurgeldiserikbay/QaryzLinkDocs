@@ -43,6 +43,8 @@ Backend мыналарды орындайды:
 | EVIDENCE_STORAGE_ENABLED | Evidence storage feature gate |
 | EVIDENCE_RETENTION_POLICY_ID | Versioned legal/operational retention policy reference; duration емес |
 | EVIDENCE_STORAGE_LIFECYCLE_POLICY_ID | Applied private-bucket lifecycle configuration reference |
+
+Staging-та бұл policy ID-лерді уақытша бос қалдыруға болады, бірақ `release:preflight` `fail` береді. Production-та evidence storage enabled болса екі ID де config validation арқылы міндетті.
 | EVIDENCE_UPLOAD_INTENT_TTL_SECONDS | Single-use upload intent TTL; 60–3600 sec, default 600 |
 | EVIDENCE_MAX_UPLOAD_BYTES | Максималды upload size; default 10 MiB |
 | EVIDENCE_SIGNED_URL_TTL_SECONDS | Signed PUT/GET TTL; 60–900 sec, default 300 |
