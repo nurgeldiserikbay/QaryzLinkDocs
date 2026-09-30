@@ -49,6 +49,10 @@
 
 ## 6. Evidence storage
 
+- [ ] Manual `Evidence Archive Load Acceptance` workflow current deploy commit-пен configured payload/object/iteration + RSS/latency budget бойынша successful run береді.
+- [ ] Retained load artifact тек synthetic metadata/hash сақтайды; credentials, PII немесе user evidence bytes жоқ.
+- [ ] Budget бұзылса recommendation `STREAMING_OR_ZIP64_REVIEW_REQUIRED`; streaming/ZIP64 implementation decision measured evidence-ке сүйенеді.
+
 - [ ] private bucket және least-privilege credential.
 - [ ] signed PUT expected metadata/size шекарасымен жұмыс істейді.
 - [ ] CLEAN verdict evidence persistence-ке жол береді.
