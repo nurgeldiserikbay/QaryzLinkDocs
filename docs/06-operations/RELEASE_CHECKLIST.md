@@ -89,6 +89,7 @@
 - [x] Manual privacy-safe staging runtime smoke harness: HTTPS liveness/readiness/database + private auth boundary + 8 metrics auth/cache checks, metadata-only evidence (Back #221).
 - [x] Staging runtime smoke has network-free fake-curl regression coverage and repaired CI/test integration guards (Back #222/#223/#224).
 - [x] Staging runtime smoke verifies security headers + exact approved Front CORS + unapproved-origin deny without retaining origin/token/body data (Back #225).
+- [x] Kubernetes API release manifest readinessProbe exact `/api/v1/health/ready` path-іне pin жасалған және source/rendered bundle CI invariant-пен қорғалған; malformed duplicated CI tail алынып workflow parsing қалпына келтірілді (Back #233).
 - [ ] Staging ingress/orchestrator readiness probe нақты `/api/v1/health/ready` endpoint-іне қосылғаны тексерілді.
 - [ ] Kubernetes CronJob staging rollout, immutable image verification және job alerting.
 - [ ] Metrics endpoint internal ingress review және staging acceptance.
