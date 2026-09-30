@@ -23,7 +23,7 @@
 | Payment reversal | Дайын | Lender-authorized immutable reversal, signed allocation restore және opposite ledger entries |
 | Contract closure | Дайын | Zero-balance readiness, dual final-statement confirmation, stale-hash guard, immutable closure certificate және lifecycle notifications |
 | Evidence summary / manifest | Phase 4 export baseline басталды | Participant coverage summary, completed-contract immutable JSON manifest, deterministic SHA-256, audited canonical JSON download және export-time integrity recheck бар; PDF/ZIP/signature/trusted timestamp қалды |
-| Phase 2 critical E2E | Harness дайын, execution pending | Real PostgreSQL lifecycle + cross-user isolation spec кодта бар; Actions quota/billing gate салдарынан current run әлі орындалмады |
+| Phase 2 critical E2E | Harness + dedicated CI acceptance artifact дайын, execution pending | Real PostgreSQL lifecycle/evidence privacy/cross-user isolation/notification isolation suite жеке `test:phase2-critical` gate ретінде бар; metadata-only artifact жасалады. Actions runner current run-да әлі орындалмады |
 | KZ/RU user journey | KK + RU full two-party staging harness дайын, execution pending | Бір reusable request→invite→proposal→contract→dual signing→funding→schedule→repayment→dual closure→evidence manifest flow KK және RU үшін бөлек serialized staging test ретінде бар. Actual successful staging run әлі орындалмады |
 | Notifications/outbox | Базалық slice дайын | Payment/dispute/repayment және closure lifecycle оқиғалары, privacy-safe payload және idempotent outbox |
 | Notification claim/retry worker | Базалық slice дайын | SKIP LOCKED claim, 5 минут lease, exponential retry және terminal FAILED |
@@ -55,6 +55,8 @@ QaryzLinkFront authenticated staging browser smoke harness PR #66 арқылы `
 Private Debt MVP browser gap жабылды. Backend contract response participant identity-ді ашпай `viewerRole=BORROWER|LENDER` қайтарады (Back #213, `3c643db`). Front #67 (`ca09808`) exact immutable documentHash signing, lender funding evidence signed upload және borrower funding decision UI қосты. Front #68 (`070a1f7`) schedule generation, borrower full-current-outstanding repayment evidence және lender payment decision UI қосты. Front #69 (`f4890e2`) екі isolated browser context-пен request-тен immutable evidence manifest-ке дейін real-staging lifecycle harness қосты.
 
 Front CI runs `36710630674`, `36711186784`, `36711825055` quality job-тары `runner_id=0`, `steps=[]`/null күйінде тоқтады; application typecheck/lint/test/build орындалмаған. Front #70 (`69da13b`) full lifecycle-ды KK және RU-ға parameterize етті; CI `36712583763` та `steps=null` күйінде runner алмады. Front #71 (`6c6c1cd`) authenticated traces-ты өшіріп, metadata-only per-scenario acceptance artifact қосты; CI `36713175109` та runner step алмады. Сондықтан core browser flow implementation complete болғанымен formal Phase 2 green status нақты successful runner + staging execution шыққанша берілмейді.
+
+Backend Phase 2 formal acceptance evidence gate қосылды. Back #214 (`d520de0`) migrations-тан кейін focused real-PostgreSQL `test:phase2-critical` орындайды, lifecycle/privacy/isolation coverage-ті CI gate етеді және 14 күнге metadata-only acceptance artifact сақтайды. CI run `36713566757` quality job-қа runner бермеді (`steps=null`), сондықтан implementation ready, execution pending.
 
 ## Phase 4 Trust & Evidence басталуы — 2026-09-28
 
