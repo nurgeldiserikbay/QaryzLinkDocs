@@ -226,9 +226,9 @@ Current version міндетті түрде `SIGNED` және documentHash-bound
 
 ## Evidence and closure
 
-New evidence package creation — schema **v6**.
+New evidence package creation — schema **v7**.
 
-V6 amendment/schedule/accounting/cutover-signing provenance:
+V7 amendment/schedule/accounting/cutover-signing/activation-plan provenance:
 
 - ContractVersion `sourceAmendmentId`;
 - amendment purpose/document hash;
@@ -247,9 +247,14 @@ V6 amendment/schedule/accounting/cutover-signing provenance:
 - accrued/outstanding/reclassification/unearned interest projection;
 - opening principal, proposed maturity және projected future/remaining due;
 - ContractVersion `sourceCutoverPreviewId` exact signed N+1 → cutover preview relation;
-- N+1 calculationPolicy ішіндегі previewHash/accountingSnapshotId/accountingStateHash/policyVersion/referenceAt binding.
+- N+1 calculationPolicy ішіндегі previewHash/accountingSnapshotId/accountingStateHash/policyVersion/referenceAt binding;
+- immutable activation plan version/policyVersion/planHash;
+- activation plan exact signed N+1 documentHash + cutover previewHash + accounting stateHash binding;
+- planned replacement schedule principal/accrued-interest/future-interest/charge/total/due-date;
+- unapplied interest reclassification және existing unallocated credit;
+- requiresLedgerAdjustment explicit flag.
 
-Persisted schema v1/v2/v3/v4/v5 packages retroactive rewrite жасамайды және stored schemaVersion бойынша read/export болады.
+Persisted schema v1/v2/v3/v4/v5/v6 packages retroactive rewrite жасамайды және stored schemaVersion бойынша read/export болады.
 
 Closure exact `Contract.currentVersion` және latest schedule version-ды пайдаланады. Cancelled historical schedule versions evidence history-де қалады.
 
@@ -438,11 +443,61 @@ Post-payment N+1 үшін:
 
 Бұл state actual accounting activation-ға consent/document provenance береді, бірақ reclassification/opening-balance/ledger mutation жасамайды.
 
+## Post-payment activation plan foundation
+
+Fully signed post-payment amendment `SIGNED_PENDING_ACTIVATION` болғаннан кейін participant actual mutation жасамай deterministic activation plan дайындай алады:
+
+- `POST /api/v1/contracts/:contractId/amendments/:amendmentId/activation-plan`
+- `GET /api/v1/contracts/:contractId/amendments/:amendmentId/activation-plans`
+
+Prepare flow contract/amendment row-ды lock етеді және exact signed N+1 sourceCutoverPreview relation-ын пайдаланады. Selected preview/accounting snapshot current DB state-пен қайта verify болады; stale payment/schedule/accounting state plan creation-ды fail-closed тоқтатады.
+
+Current policy: `POST_PAYMENT_ACTIVATION_PLAN_V1`.
+
+Plan replacement schedule candidate-ін ғана бекітеді:
+
+- principal = cutover opening principal;
+- accrued interest = cutover outstanding accrued interest;
+- future interest = cutover projected future interest;
+- interest total = accrued + future;
+- charge = outstanding charge;
+- total due = principal + interest + charge;
+- due date = projected maturity date.
+
+Plan projectedRemainingDue-пен exact reconcile болмаса жасалмайды.
+
+Екі credit-like мән әдейі schedule-ға қолданылмайды:
+
+- `unappliedInterestReclassificationMinor`;
+- `unappliedCreditMinor`.
+
+Егер осы екеуінің кемінде бірі > 0 болса `requiresLedgerAdjustment=true`. Бұл flag қандай ledger entry жазу керегін шешпейді; тек actual activation алдында accounting policy қажет екенін көрсетеді.
+
+Plan immutable/versioned және `planHash` мыналарды bind етеді:
+
+- signed N+1 version + documentHash;
+- exact cutoverPreviewId + previewHash;
+- accountingSnapshotId + stateHash;
+- referenceAt;
+- replacement schedule components/date;
+- unapplied credit candidates;
+- ledger-adjustment-required flag.
+
+Same exact plan retry idempotent. History participant-only.
+
+Response explicitly:
+
+- `policyStatus=PLAN_ONLY`;
+- `activationEligible=false`;
+- `activationReason=POST_PAYMENT_ACTIVATION_POLICY_PENDING`.
+
+Activation plan Contract.currentVersion, base version status, ScheduleVersion, PaymentAllocation немесе LedgerEntry-ді өзгертпейді.
+
 ## Intentionally pending
 
 Бұл slice:
 
-- repayment history бар contract үшін signed N+1 candidate жасай алады, бірақ actual N+1 activation жасамайды;
+- repayment history бар contract үшін signed N+1 candidate және activation plan жасай алады, бірақ actual N+1 activation жасамайды;
 - already-paid allocation reclassification/migration жасамайды;
 - principal/currency өзгерісін қолдамайды;
 - installment/multi-item rescheduling жасамайды;

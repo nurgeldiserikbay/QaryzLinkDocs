@@ -178,6 +178,16 @@
 - [ ] First signature currentVersion/schedule/payment/ledger-ді өзгертпейді.
 - [ ] Second signature N+1→SIGNED және amendment→SIGNED_PENDING_ACTIVATION ғана жасайды.
 - [ ] SIGNED_PENDING_ACTIVATION кезінде base version SUPERSEDED болмайды, currentVersion өзгермейді, жаңа schedule/ledger entry жасалмайды.
+- [ ] SIGNED_PENDING_ACTIVATION amendment үшін POST activation-plan exact signed N+1 sourceCutoverPreview relation-ын қайта verify етеді.
+- [ ] Activation plan stale accounting/cutover state кезінде fail-closed.
+- [ ] Planned schedule principal + accrued interest + future interest + charge = planned total due және cutover projectedRemainingDue-пен exact.
+- [ ] Interest reclassification candidate және existing unallocated credit schedule total-дан автоматты шегерілмейді.
+- [ ] Осы credit candidates бар болса requiresLedgerAdjustment=true.
+- [ ] Same exact source state retry same planHash/row қайтарады; activation plan history immutable.
+- [ ] Activation plan response PLAN_ONLY / activationEligible=false / POST_PAYMENT_ACTIVATION_POLICY_PENDING береді.
+- [ ] Activation plan currentVersion/base version/schedule/payment allocations/ledger mutation жасамайды.
+- [ ] Evidence schema v7 activation plan source hashes, schedule candidate және unapplied credit flags-ті bind етеді.
+- [ ] Existing persisted evidence v1-v6 packages retroactive rewrite болмайды.
 - [ ] Actual post-payment N+1 activation әдейі unsupported; acceptance record reclassification/effective-date/ledger cutover pending екенін көрсетеді.
 - [ ] Kazakhstan legal owner pre-payment rate/term amendment wording, retroactive funding-effectiveAt accrual және signature effect-ті бекітті.
 
