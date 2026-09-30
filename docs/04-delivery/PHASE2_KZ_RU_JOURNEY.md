@@ -135,7 +135,7 @@ Real-staging private-debt browser harness implementation (Front #69):
 - dual closure;
 - immutable evidence manifest hash assertion.
 
-Critical controls locale-independent selectors қолданады. Current full lifecycle spec default KZ locale-мен жүреді; RU full mutation path келесі slice ретінде осы same flow-ға parameterize етіледі.
+Critical controls locale-independent selectors қолданады. Front #70 бір reusable full lifecycle flow-ды `kk` және `ru` үшін бөлек serialized staging test ретінде орындайды; mutation test retry өшірулі және Playwright staging worker саны 1.
 
 ## Нені бұл әлі дәлелдемейді
 
