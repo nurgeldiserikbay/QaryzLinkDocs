@@ -104,7 +104,7 @@
 
 ## Өнім мен құқықтық gate
 
-- [x] Production technical pilot-scope guard: only `kz-personal-private-debt-v1` profile accepted, versioned approval reference required, restricted marketplace/penalty/amount-commission flags fail-closed (Back #226).
+- [x] Production technical pilot-scope guard: only `kz-personal-private-debt-v1` profile accepted, versioned approval reference required; restricted marketplace/penalty/amount-commission flags fail both release preflight and production startup validation (Back #226/#229).
 - [x] Versioned pilot scope approval record template with exclusions, dependencies, change-control және owner/legal/privacy/security sign-off fields (`PILOT_SCOPE_APPROVAL.md`).
 - [ ] Жеке тұлғаларға арналған Қазақстан pilot scope-ы бекітілген.
 - [ ] Terms, privacy notice және сақтау мерзімдері тексерілген.
