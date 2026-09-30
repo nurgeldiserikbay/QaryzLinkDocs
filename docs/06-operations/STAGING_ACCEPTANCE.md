@@ -41,6 +41,7 @@
 - [ ] жаңа profile privacy-closed.
 - [ ] account deletion request active sessions-ды revoke етеді.
 - [ ] production Swagger/docs жабық.
+- [ ] Representative API/worker/CronJob log exports `pnpm logs:privacy:scan -- <file>` арқылы `status=pass`; retained evidence matched log content емес, category/count/line metadata ғана.
 
 ## 5. Email
 
