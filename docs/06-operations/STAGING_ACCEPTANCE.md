@@ -184,11 +184,21 @@
 - [ ] Interest reclassification candidate және existing unallocated credit schedule total-дан автоматты шегерілмейді.
 - [ ] Осы credit candidates бар болса requiresLedgerAdjustment=true.
 - [ ] Same exact source state retry same planHash/row қайтарады; activation plan history immutable.
-- [ ] Activation plan response PLAN_ONLY / activationEligible=false / POST_PAYMENT_ACTIVATION_POLICY_PENDING береді.
-- [ ] Activation plan currentVersion/base version/schedule/payment allocations/ledger mutation жасамайды.
-- [ ] Evidence schema v7 activation plan source hashes, schedule candidate және unapplied credit flags-ті bind етеді.
-- [ ] Existing persisted evidence v1-v6 packages retroactive rewrite болмайды.
-- [ ] Actual post-payment N+1 activation әдейі unsupported; acceptance record reclassification/effective-date/ledger cutover pending екенін көрсетеді.
+- [ ] Zero-adjustment activation plan activationEligible=true/reason=null; ledger-adjustment plan activationEligible=false/POST_PAYMENT_LEDGER_ADJUSTMENT_REQUIRED.
+- [ ] Activation plan preparation өзі currentVersion/base version/schedule/payment allocations/ledger mutation жасамайды.
+- [ ] `CONTRACT_POST_PAYMENT_AMENDMENT_ACTIVATION_ENABLED=false` default және parent gates өшірулі болса enablement rejected.
+- [ ] Release preflight `post_payment_amendment_activation=manual` / `post_payment_activation_accounting_legal_acceptance_required` көрсетеді.
+- [ ] activate-post-payment exact latest activationPlanId талап етеді және plan барлық persisted fields current rebuilt plan-пен exact болмаса rejected.
+- [ ] requiresLedgerAdjustment=true немесе unapplied reclassification/credit > 0 болса activation fail-closed.
+- [ ] Safe activation жаңа ScheduleVersion жасайды: sourceContractVersion=N+1, sourceAmendmentId және sourceActivationPlanId exact.
+- [ ] Historical schedule items, PaymentAllocation және LedgerEntry mutation жасалмайды.
+- [ ] Safe activation base→SUPERSEDED, currentVersion→N+1, amendment→ACTIVATED жасайды және ledgerAdjustmentApplied=false audit сақтайды.
+- [ ] generic schedule.generate activation-plan schedule-ды authoritative қайтарады; duplicate full-principal schedule жасамайды.
+- [ ] overdue worker тек latest ScheduleVersion-ды materialize етеді; superseded schedule status өзгермейді.
+- [ ] Old schedule allocation-ына байланған payment reversal fail-closed; new latest-schedule payment reversal қалыпты flow-да қалады.
+- [ ] Evidence schema v8 activated schedule sourceActivationPlanId provenance-ін bind етеді.
+- [ ] Existing persisted evidence v1-v7 packages retroactive rewrite болмайды.
+- [ ] Reclassification/unallocated-credit activation әлі unsupported; acceptance record ledger/effective-date policy pending екенін көрсетеді.
 - [ ] Kazakhstan legal owner pre-payment rate/term amendment wording, retroactive funding-effectiveAt accrual және signature effect-ті бекітті.
 
 ### 6.5 Account own-data export
