@@ -117,6 +117,36 @@ Integration fixture тек өзі жасаған party ID-лерге қатыс�
 
 Жалпы display name немесе global synthetic selector қолданылмайды. Бұл parallel PostgreSQL tests бір-бірінің fixture деректерін жоймауы үшін қажет.
 
+## Authenticated staging browser smoke
+
+QaryzLinkFront-та manual-only Playwright staging harness бар.
+
+Workflow:
+
+`.github/workflows/staging-browser-e2e.yml`
+
+Ол mock API емес, нақты deployed Front URL-ға жүреді және verified participant credentials қолданады.
+
+Required repository configuration:
+
+- variable `E2E_STAGING_BASE_URL`;
+- secret `E2E_STAGING_EMAIL`;
+- secret `E2E_STAGING_PASSWORD`.
+
+Current smoke:
+
+- real login form → authenticated dashboard;
+- verified participant private dashboard/session boundary;
+- Settings authenticated access;
+- RU locale persistence;
+- 390px mobile viewport horizontal-overflow guard.
+
+Credentials source code-қа жазылмайды және test output-қа әдейі шығарылмайды.
+
+Бұл harness full borrower↔lender debt lifecycle-ты алмастырмайды. Ол real deployed auth/session/browser path үшін first acceptance gate. Full two-party lifecycle бөлек scenario ретінде әлі pending.
+
+QaryzLinkFront PR #66 merged at `564a2ad`. CI run `36701747708` quality job-ты runner step-теріне жеткізбеді: `runner_id=0`, `steps=[]`; сондықтан staging smoke әлі actual successful execution evidence емес.
+
 ## Exit criteria interpretation
 
 Phase 2 үшін:
@@ -124,7 +154,8 @@ Phase 2 үшін:
 - **harness implemented** — yes;
 - **critical lifecycle successful run on current code** — pending Actions runner;
 - **cross-user backend isolation successful run** — pending Actions runner;
-- **full KZ/RU browser journey** — pending;
+- **authenticated staging browser smoke harness** — implemented, execution pending;
+- **full KZ/RU borrower↔lender browser journey** — pending;
 - **staging object storage/scanner acceptance** — pending.
 
 Сондықтан Phase 2 әлі formal түрде `critical E2E flows green` exit criterion-ін жапқан жоқ.
