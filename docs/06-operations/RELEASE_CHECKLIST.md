@@ -127,7 +127,8 @@
 - [ ] Legal retention completion: Kazakhstan retention periods, consumed-evidence deletion policy, account-deletion interaction және external bucket lifecycle acceptance.
 - [x] Participant own-data export foundation: default-off, canonical dataHash, own contact decrypt, role-scoped contract/payment summaries және secret/counterparty-PII exclusions.
 - [x] Production config/preflight requires versioned `ACCOUNT_DATA_EXPORT_POLICY_ID` when own-data export is enabled.
-- [ ] Own-data export production acceptance: full legal scope, third-party redaction policy, Front downloadable UX, rate limits және deletion-ordering/privacy notice.
+- [x] Own-data export dedicated authenticated-user throttling: 1/minute + 5/hour, HMAC-hashed bucket key, bounded 429 + Retry-After және Front explicit KZ/RU state.
+- [ ] Own-data export production acceptance: full legal scope, third-party redaction policy, deletion-ordering/privacy notice және Kazakhstan privacy/staging acceptance.
 - [x] Default-off bounded full evidence ZIP v2: frozen-manifest selection, consumed-intent binding, CLEAN verdict, storage byte SHA-256 verification және direct binary response.
 - [ ] Full binary ZIP staging/load acceptance: real bucket/scanner, max-size concurrency және memory/latency evidence.
 - [ ] Court/export package hardening: approved PDF artifact, KMS/HSM signature for ZIP v2 және trusted timestamp.
