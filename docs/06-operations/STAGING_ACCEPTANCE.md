@@ -215,6 +215,10 @@
 - [ ] Release preflight `account_data_export=manual` / `privacy_export_scope_acceptance_required` көрсетеді.
 - [ ] `ACCOUNT_DATA_EXPORT_POLICY_ID` reviewed export/redaction/deletion-ordering policy version-ға сәйкес; missing policy production startup/preflight-та fail болады.
 - [ ] Authenticated user `POST /api/v1/profile/me/data-export` арқылы тек өзінің export-ын алады.
+- [ ] Бір authenticated user 1 минут ішінде екінші export сұраса `429 ACCOUNT_DATA_EXPORT_RATE_LIMITED` және `Retry-After` алады.
+- [ ] Бір authenticated user 1 сағат ішінде 5 export-тан кейін келесі сұрауда bounded 429 алады; басқа user bucket-іне әсер етпейді.
+- [ ] Rate bucket key raw user ID-ды сақтамайды; HMAC-hashed identity scope қолданылады.
+- [ ] Front 429 state-ті generic error емес, KZ/RU explicit wait-and-retry copy ретінде көрсетеді.
 - [ ] Encrypted-mode storage кезінде own email/phone PII protection layer арқылы дұрыс decrypt болады; ciphertext envelope response-та жоқ.
 - [ ] Wrong/missing PII key/decryption failure generic fail-closed болады және partial export/audit success жазылмайды.
 - [ ] Contract summary counterparty party ID шығармайды; тек own role BORROWER/LENDER көрсетеді.
