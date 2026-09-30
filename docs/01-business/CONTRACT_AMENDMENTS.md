@@ -226,9 +226,9 @@ Current version міндетті түрде `SIGNED` және documentHash-bound
 
 ## Evidence and closure
 
-New evidence package creation — schema **v4**.
+New evidence package creation — schema **v5**.
 
-V4 amendment/schedule/accounting provenance:
+V5 amendment/schedule/accounting/cutover provenance:
 
 - ContractVersion `sourceAmendmentId`;
 - amendment purpose/document hash;
@@ -241,9 +241,13 @@ V4 amendment/schedule/accounting provenance:
 - immutable post-payment accounting snapshot versions/stateHash;
 - snapshot source contract/schedule version + document/input hashes;
 - persisted paid/outstanding charge-interest-principal component split;
-- confirmed payment total, unallocated credit және unresolved/payment-event counts.
+- confirmed payment total, unallocated credit және unresolved/payment-event counts;
+- immutable cutover preview version + exact `accountingSnapshotId`;
+- cutover `previewHash` + policyVersion + referenceAt;
+- accrued/outstanding/reclassification/unearned interest projection;
+- opening principal, proposed maturity және projected future/remaining due.
 
-Persisted schema v1/v2/v3 packages retroactive rewrite жасамайды және stored schemaVersion бойынша read/export болады.
+Persisted schema v1/v2/v3/v4 packages retroactive rewrite жасамайды және stored schemaVersion бойынша read/export болады.
 
 Closure exact `Contract.currentVersion` және latest schedule version-ды пайдаланады. Cancelled historical schedule versions evidence history-де қалады.
 
@@ -308,6 +312,73 @@ Current response explicitly:
 
 Бұл foundation-ның мақсаты — келесі accounting/legal policy үшін deterministic opening-state evidence беру. Ол earned-vs-unearned interest reclassification немесе effective-date cutover шешімін өздігінен қабылдамайды.
 
+## Post-payment cutover projection foundation
+
+Accounting snapshot review-дан кейін participant actual activation жасамай deterministic cutover projection дайындай алады:
+
+- `POST /api/v1/contracts/:contractId/amendments/:amendmentId/cutover-preview`
+- `GET /api/v1/contracts/:contractId/amendments/:amendmentId/cutover-previews`
+
+POST body:
+
+```json
+{
+  "accountingSnapshotId": "<exact latest snapshot UUID>"
+}
+```
+
+Caller effective/cutover date бермейді. Projection reference time exact accounting snapshot `capturedAt` болады. Бұл legal effective date емес.
+
+Prepare flow contract/amendment row-ды lock етеді және selected snapshot:
+
+- amendment-тің latest accounting snapshot-ы екенін;
+- current signed ContractVersion number/documentHash-пен exact екенін;
+- latest ScheduleVersion number/inputHash/items-пен exact екенін;
+- current paidMinor және charge→interest→principal reconstructed components-пен exact екенін;
+- confirmed payment total/unallocated credit/event counts/unresolved counts-пен exact екенін;
+- canonical accounting `stateHash` current DB state-тен қайта есептелген мәнмен exact екенін
+
+қайта тексереді.
+
+Payment/reversal/unresolved state snapshot-тан кейін өзгерсе stale snapshot rejected; алдымен жаңа accounting snapshot қажет.
+
+Current projection policy: `POST_PAYMENT_CUTOVER_PREVIEW_V1`.
+
+Technical calculation:
+
+- elapsed days = funding effective UTC day → snapshot reference UTC day, base termDays-пен capped;
+- base ACT/365 half-up formula бойынша accrued interest есептеледі;
+- persisted scheduled interest дәл сол base formula-ға сәйкес болмаса fail-closed;
+- `earnedInterestSettledMinor = min(paidInterest, accruedInterest)`;
+- `outstandingAccruedInterestMinor = max(accruedInterest - paidInterest, 0)`;
+- `interestReclassificationCandidateMinor = max(paidInterest - accruedInterest, 0)`;
+- `unearnedScheduledInterestMinor = scheduledInterest - accruedInterest`;
+- opening principal = accounting snapshot outstanding principal;
+- proposed maturity = original funding effective date + proposed total termDays;
+- remaining days snapshot reference day → proposed maturity;
+- projected future interest proposed rate бойынша тек opening principal-ға есептеледі;
+- projected remaining due = outstanding charge + outstanding accrued interest + opening principal + projected future interest.
+
+`interestReclassificationCandidateMinor` **автоматты refund/credit/principal allocation емес**. Existing unallocated credit те projection ішінде автоматты қолданылмайды. Екеуі response-та `creditsNotApplied` ретінде бөлек көрсетіледі.
+
+Projection:
+
+- immutable;
+- versioned;
+- one exact accounting snapshot → one projection;
+- retry idempotent;
+- amendment document hash + proposed terms + snapshot ID/stateHash + policy inputs/outputs-ты `previewHash` арқылы bind етеді.
+
+Response explicitly:
+
+- `policyStatus=PREVIEW_ONLY`;
+- `activationEligible=false`;
+- `activationReason=POST_PAYMENT_CUTOVER_POLICY_PENDING`.
+
+Бұл endpoint ContractVersion, ScheduleVersion, PaymentAllocation, LedgerEntry, currentVersion немесе payment state-ке mutation жасамайды.
+
+Толық architecture decision: [ADR-0027](../../adr/ADR-0027-post-payment-amendment-cutover-preview.md).
+
 ## Intentionally pending
 
 Бұл slice:
@@ -321,7 +392,7 @@ Current response explicitly:
 - amendment withdrawal/cancellation legal semantics-ын бекітпейді;
 - Kazakhstan legal effect/signature wording approval-ын алмастырмайды.
 
-Келесі кеңейту бөлек accounting policy ретінде жасалуы тиіс: historical allocations immutable, latest accounting snapshot exact-state pin, effective-date cutover, earned/unearned interest split, opening principal balance және ledger reconciliation.
+Келесі кеңейту бөлек accounting policy ретінде жасалуы тиіс: historical allocations immutable қалады, latest accounting snapshot + cutover preview exact-state pin болады, ал reclassification candidate-ті credit/refund/principal ретінде қолдану, legal effective-date semantics, opening-balance ledger transition және reconciliation explicit policy арқылы ғана жасалады.
 
 ## Release boundary
 
