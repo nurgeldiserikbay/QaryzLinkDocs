@@ -10,9 +10,11 @@ node dist/src/notification-scheduler.main.js
 
 Application image ішінде command HTTP server ашпайды. Ол AppModule context іске қосып, outbox claim/retry және delivery lifecycle-ін бір рет орындайды.
 
-Manifest template:
+Canonical release-bundle manifest QaryzLinkBack-та:
 
-[notification-scheduler-cronjob.yaml](kubernetes/notification-scheduler-cronjob.yaml)
+`ops/kubernetes/notification-scheduler-cronjob.yaml`
+
+Осы repository-дегі [notification-scheduler-cronjob.yaml](kubernetes/notification-scheduler-cronjob.yaml) — review/reference copy; ол Backend #220 (`196e55a`) source manifest-пен синхрондалған.
 
 ## Қауіпсіздік және overlap policy
 
@@ -29,7 +31,7 @@ PostgreSQL claim операциясындағы FOR UPDATE SKIP LOCKED multi-rep
 
 ## Secret contract
 
-qaryzlink-back-runtime Secret ішінде backend environment contract-іне сәйкес мәндер болуы керек:
+`qaryzlink-back` Secret ішінде backend environment contract-іне сәйкес secret мәндер болуы керек; non-secret runtime configuration `qaryzlink-back` ConfigMap арқылы беріледі:
 
 - DATABASE_URL;
 - REDIS_URL;
@@ -42,7 +44,7 @@ Secret-ті kubectl command history-ге немесе Git-ке ашық мәнм
 
 ## Image және migration тәртібі
 
-Manifest placeholder image-ін production registry-дегі тексерілген immutable digest-пен ауыстырыңыз. latest tag қолданбаңыз.
+Backend release renderer `registry.example.com/qaryzlink/back@sha256:REPLACE_WITH_RELEASE_DIGEST` placeholder-ін дәл бір approved immutable digest-пен ауыстырады. `latest` немесе басқа mutable tag қолданбаңыз.
 
 Notification CronJob migration job емес. Schema migration traffic ашылғанға дейін бөлек release job арқылы орындалады. Scheduler image-і migration-ға тәуелді schema дайын болғаннан кейін ғана іске қосылады.
 
