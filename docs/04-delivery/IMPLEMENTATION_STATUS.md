@@ -45,7 +45,7 @@
 Repository checklist interpretation:
 
 - Delivery Roadmap implementation checklist: **37/45 = 82.2%** complete.
-- Release checklist: **105/150 = 70.0%** checked.
+- Release checklist: **106/151 = 70.2%** checked.
 - Staging acceptance: **1/235** checked; бұл кодтың 0.4% ғана дайын дегенді білдірмейді — checklist нақты staging/provider/legal execution evidence-ін әдейі алдын ала green қылмайды.
 
 Roadmap-та қалған 8 тармақтың басым бөлігі external/legal acceptance: vetted KYC provider, approved legal templates, actual KMS/HSM, retention/lifecycle policy acceptance, RFC3161/qualified TSA, post-payment ledger application legal/accounting policy және full statutory data-export scope. Purely technical conditional item — large archive streaming/ZIP64, ол load evidence талап етсе ғана міндетті.
@@ -77,6 +77,8 @@ Notification scheduler deployment drift жабылды. Back #220 (`196e55a`) ca
 Real staging runtime smoke foundation қосылды. Back #221 (`f730f5c`) manual `Staging Runtime Smoke` workflow және `ops/staging-runtime-smoke.sh` қосты. Harness HTTPS liveness/readiness/database-ready, unauthenticated private discovery 401 boundary және 8 aggregate metrics endpoint үшін missing-token 401, wrong-token 401, valid-token 200 + `Cache-Control: no-store` contract-ын тексереді. Retained artifact URL/token/response body/PII сақтамайды; тек run metadata және aggregate pass/fail бар. Main CI real staging-ке бармайды, тек shell/static validation жасайды. Бұл implementation actual staging readiness/metrics acceptance-ті автоматты green қылмайды.
 
 Runtime-smoke integration hardening аяқталды. Back #222 (`5c2a702`) fake-`curl` арқылы network-free success/fail-closed regression tests қосты. Review барысында екі integration defect табылып түзетілді: Back #223 (`817fdf1`) malformed CI YAML validation block-ын қалпына келтірді, Back #224 (`5812cdb`) test fixture ішіндегі shell `${...}` expansions-ты TypeScript template literal үшін дұрыс escape етті. Back #225 (`c8cf263`) smoke gate-ті security headers + exact approved Front CORS + unapproved-origin deny checks-пен кеңейтті; `STAGING_ALLOWED_FRONT_ORIGIN` exact HTTPS origin болуы тиіс. Acceptance artifact Front origin-ді де сақтамайды. Actual ingress/proxy/runtime execution әлі staging evidence талап етеді.
+
+Production pilot scope fail-closed governance қосылды. Back #226 (`12ab1b1`) deployment profile-ды `kz-personal-private-debt-v1` enum-ына pin етеді; басқа profile environment validation-нан өтпейді. Production boot үшін versioned `PILOT_SCOPE_APPROVAL_ID` міндетті, ал release preflight approval reference бар болса да automatic green емес, `manual` acceptance береді. Existing public marketplace/penalty/amount-based commission flags true болса preflight әлі fail-closed. Бұл implementation pilot scope-ты өзі бекітпейді; owner/legal approval әлі ашық gate.
 
 ## Phase 4 Trust & Evidence басталуы — 2026-09-28
 
