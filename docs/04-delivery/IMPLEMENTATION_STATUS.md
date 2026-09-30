@@ -35,7 +35,7 @@
 | Notification scheduler command | Базалық slice дайын | `pnpm notifications:run`, validated AppModule context, aggregate counters және non-zero failure exit |
 | Notification email preference | Базалық slice дайын | PrivacySettings opt-out, profile API және enqueue-time EMAIL filtering |
 | Notification delivery metrics | Persistent aggregate slice дайын | PostgreSQL singleton counters, cross-process scheduler/API snapshot және staging/production token guard |
-| Notification Kubernetes scheduler | Deployment template дайын | CronJob Forbid policy, external Secret, immutable image және non-overlap contract |
+| Notification Kubernetes scheduler | Canonical release-bundle template дайын | Backend `ops/kubernetes/notification-scheduler-cronjob.yaml` immutable digest render-ге кіреді; Forbid overlap, start/active deadlines, external ConfigMap/Secret және hardened pod contract бар |
 | Deployment hardening | Template/CI + isolated rehearsal automation дайын | Immutable digest rendering, bounded migration job, privacy-safe release preflight, safe rollout, PDB/node spread, previous-app-on-release-schema rollback compatibility rehearsal және synthetic no-PII backup/restore rehearsal бар; нақты staging/provider execution әлі pending |
 | Provider/scheduler | Жоспарда | Push adapter, queue trigger, external metrics collector/alerting және organization routing |
 | Front/Admin UI | Front critical MVP interaction coverage кеңейді | Front-та auth/discovery/contract signing/funding/schedule/repayment/closure/evidence/dispute/notifications/settings/security/account lifecycle mutation/read flows және privacy-safe L2 identity status KZ/RU coverage бар; Admin aggregate operations cards бар; raw identity-level feeds өшірулі |
@@ -45,7 +45,7 @@
 Repository checklist interpretation:
 
 - Delivery Roadmap implementation checklist: **37/45 = 82.2%** complete.
-- Release checklist: **101/146 = 69.2%** checked.
+- Release checklist: **102/147 = 69.4%** checked.
 - Staging acceptance: **1/235** checked; бұл кодтың 0.4% ғана дайын дегенді білдірмейді — checklist нақты staging/provider/legal execution evidence-ін әдейі алдын ала green қылмайды.
 
 Roadmap-та қалған 8 тармақтың басым бөлігі external/legal acceptance: vetted KYC provider, approved legal templates, actual KMS/HSM, retention/lifecycle policy acceptance, RFC3161/qualified TSA, post-payment ledger application legal/accounting policy және full statutory data-export scope. Purely technical conditional item — large archive streaming/ZIP64, ол load evidence талап етсе ғана міндетті.
@@ -71,6 +71,8 @@ Backend Phase 2 formal acceptance evidence gate бұрыннан implementation-
 Dispute browser acceptance coverage қосылды. Front #77 (`83416c2`) existing two-user staging harness үстіне екі serialized scenario қосты: KK funding dispute borrower mandatory reason-пен `DISPUTED` күйіне өтіп contract activation/schedule action-дарын блоктайды; RU repayment dispute lender mandatory reason-пен payment-ті `DISPUTED` күйінде қалдырады, allocation жасамайды және further repayment/closure-ды блоктайды. Workflow metadata scenario suite осы екі case-пен кеңейді; trace әлі off және artifact metadata-only. CI run `36734508787` quality job `steps=null` күйінде runner алмады, сондықтан successful staging execution pending.
 
 Backend Phase 2 PostgreSQL gate dispute invariants-пен кеңейді. Back #219 (`34012f6`) reusable signed-contract/evidence-intent fixture қосып, funding dispute кезінде contract `DISPUTED`, scheduleCount=0 және ledgerCount=0 болуын; payment dispute кезінде allocations=[], ledgerCount=0, schedule paidMinor өзгермеуін және closure ready=false болуын нақты PostgreSQL үстінде тексереді. `test:phase2-critical` енді lifecycle және dispute integration specs-ті бірге орындайды; acceptance artifact coverage metadata-ға funding-dispute/payment-dispute қосылды. CI run `36735316221` quality job `steps=null` күйінде runner алмады, сондықтан successful current-main execution pending.
+
+Notification scheduler deployment drift жабылды. Back #220 (`196e55a`) canonical `ops/kubernetes/notification-scheduler-cronjob.yaml` manifest-ін release bundle-ға қосты: 5-minute engineering cadence, `concurrencyPolicy: Forbid`, bounded starting/active deadlines, `backoffLimit: 0`, no service-account token, read-only root filesystem және exact immutable release digest placeholder. Backend CI manifest invariants бұл contract-ты тексереді, ал `ops/render-release.sh` жаңа manifest-ті автоматты түрде release output-қа енгізеді. Docs reference copy canonical Backend manifest-пен синхрондалды. CI run `36736516498` runner алмады (`steps=null`); actual staging rollout/failed-Job alerting әлі pending.
 
 ## Phase 4 Trust & Evidence басталуы — 2026-09-28
 
