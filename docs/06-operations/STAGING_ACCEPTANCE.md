@@ -284,7 +284,7 @@ Canonical notification scheduler deployment template: QaryzLinkBack `ops/kuberne
 
 ## 9. Monitoring
 
-Back #221 manual `Staging Runtime Smoke` workflow configured internal HTTPS target-та readiness/private-boundary/metrics authorization smoke-ты орындай алады. Artifact URL/token/response body сақтамайды. Төмендегі alert checks-ті ол алмастырмайды: collector/provider, thresholds, paging және failed-Job routing нақты environment-та тексерілуі керек.
+Back #221/#225 manual `Staging Runtime Smoke` workflow configured internal HTTPS target-та liveness/readiness/database, security headers, exact approved Front CORS + deny case, private-boundary және metrics authorization smoke-ты орындай алады. Artifact URL/Front origin/token/response body сақтамайды. Back #222/#223/#224 regression/CI fixes smoke harness-тың offline test contract-ын бекітеді. Төмендегі alert checks-ті бұл workflow алмастырмайды: collector/provider, thresholds, paging және failed-Job routing нақты environment-та тексерілуі керек.
 
 Signal/alert contract: `MONITORING_ALERTING.md`.
 
