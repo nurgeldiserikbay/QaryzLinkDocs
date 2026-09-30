@@ -267,6 +267,8 @@
 
 ## 7. Background jobs
 
+Canonical notification scheduler deployment template: QaryzLinkBack `ops/kubernetes/notification-scheduler-cronjob.yaml` (Back #220). Repository template presence does **not** satisfy the checks below; rendered immutable digest, actual Job execution және monitoring evidence қажет.
+
 - [ ] notification CronJob immutable digest-пен іске қосылды.
 - [ ] account deletion CronJob immutable digest-пен іске қосылды.
 - [ ] evidence cleanup CronJob immutable digest-пен іске қосылды.
