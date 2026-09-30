@@ -101,6 +101,7 @@
 
 ## Өнім мен құқықтық gate
 
+- [x] Production technical pilot-scope guard: only `kz-personal-private-debt-v1` profile accepted, versioned approval reference required, restricted marketplace/penalty/amount-commission flags fail-closed (Back #226).
 - [ ] Жеке тұлғаларға арналған Қазақстан pilot scope-ы бекітілген.
 - [ ] Terms, privacy notice және сақтау мерзімдері тексерілген.
 - [ ] Public marketplace, penalty және amount-based commission false.
