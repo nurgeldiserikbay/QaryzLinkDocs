@@ -102,7 +102,8 @@
 - [x] Post-payment cutover projection: latest snapshot exact-state pin, technical accrued-vs-paid-interest split, reclassification candidate kept unapplied, opening principal/future-interest projection.
 - [x] Cutover-pinned post-payment N+1 signing: dedicated default-off gate, sourceCutoverPreviewId/documentHash binding және SIGNED_PENDING_ACTIVATION freeze.
 - [x] Immutable activation plan + zero-adjustment safe activation: separate default-off gate, exact plan revalidation, activation-plan-bound replacement schedule, historical schedule immutability және evidence v8.
-- [ ] Ledger-adjustment activation policy: explicit reclassification/unallocated-credit treatment, effective-date legal semantics және staging acceptance.
+- [x] Preview-only immutable ledger adjustment plan: exact activation/cutover/accounting provenance, separate reclassification/unallocated-credit components, deterministic adjustmentPlanHash, amount-minimized audit және evidence v9.
+- [ ] Actual ledger-adjustment application/activation policy: explicit refund/credit/principal/interest/charge treatment, effective-date legal semantics және staging acceptance.
 - [x] Participant-only immutable contract document source (`CONTRACT_DOCUMENT_RENDERING.md`).
 - [x] Deterministic KZ/RU technical preview with source/input/content SHA-256 integrity boundary + Front TXT download.
 - [x] Deterministic verified PDF renderer + final PDF artifact hash/source/template binding implementation.

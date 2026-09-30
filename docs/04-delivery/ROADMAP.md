@@ -173,7 +173,8 @@ Open/public matching production-да қосылмас бұрын Қазақст�
 - [x] cutover-pinned post-payment N+1 signing + SIGNED_PENDING_ACTIVATION freeze;
 - [x] immutable post-payment activation plan + replacement-schedule candidate + unapplied-credit flags;
 - [x] default-off zero-ledger-adjustment post-payment activation + immutable historical schedules + evidence schema v8;
-- [ ] post-payment activation requiring reclassification/unallocated-credit ledger policy + Kazakhstan legal/staging acceptance;
+- [x] preview-only immutable post-payment ledger adjustment plan + separate reclassification/unallocated-credit components + evidence schema v9;
+- [ ] actual post-payment ledger adjustment application/activation policy + Kazakhstan legal/staging acceptance;
 - disputes;
 - [x] default-off audited participant own-data export foundation (account/profile/privacy/contact + role-scoped contract/payment summaries);
 - [x] retention-aware account deletion/anonymization foundation;
