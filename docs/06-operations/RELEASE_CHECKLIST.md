@@ -30,6 +30,7 @@
 - [x] Payment reversal backend slice.
 - [x] Payment reversal participant correction path: completed-contract fail-closed guard + lender KZ/RU reversal UI + mandatory reason + KK/RU schedule-restore lifecycle coverage (Back #217, Front #74/#75).
 - [x] Funding/payment DISPUTE Front actions send Backend-required 3–1000 character reasons instead of invalid reasonless decisions (Front #76).
+- [x] Funding/payment DISPUTE real-staging browser harness: KK funding dispute blocks activation; RU repayment dispute keeps allocations empty and blocks closure (Front #77).
 - [x] Transactional notification outbox persistence backend slice.
 - [x] Notification outbox claim/retry worker backend slice.
 - [x] Provider-neutral notification delivery boundary backend slice.
