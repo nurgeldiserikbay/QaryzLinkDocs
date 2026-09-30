@@ -23,7 +23,7 @@
 | Payment reversal | Backend + Front correction path дайын | Lender-authorized immutable reversal, ACTIVE-only closure guard, signed allocation restore, opposite ledger entries, mandatory correction reason және KZ/RU participant UI бар |
 | Contract closure | Дайын | Zero-balance readiness, dual final-statement confirmation, stale-hash guard, immutable closure certificate және lifecycle notifications |
 | Evidence summary / manifest | Phase 4 export baseline басталды | Participant coverage summary, completed-contract immutable JSON manifest, deterministic SHA-256, audited canonical JSON download және export-time integrity recheck бар; PDF/ZIP/signature/trusted timestamp қалды |
-| Phase 2 critical E2E | Harness дайын, execution pending | Real PostgreSQL lifecycle + cross-user isolation spec кодта бар; Actions quota/billing gate салдарынан current run әлі орындалмады |
+| Phase 2 critical E2E | Harness + dedicated CI acceptance artifact дайын, execution pending | Real PostgreSQL lifecycle/evidence privacy/cross-user isolation/notification isolation suite жеке `test:phase2-critical` gate ретінде бар; metadata-only artifact жасалады. Actions runner current run-да әлі орындалмады |
 | KZ/RU user journey | KK + RU full two-party staging harness дайын, execution pending | Бір reusable request→invite→proposal→contract→dual signing→funding→schedule→partial repayment→remaining repayment→dual closure→evidence manifest flow KK және RU үшін бөлек serialized staging test ретінде бар. Actual successful staging run әлі орындалмады |
 | Notifications/outbox | Базалық slice дайын | Payment/dispute/repayment және closure lifecycle оқиғалары, privacy-safe payload және idempotent outbox |
 | Notification claim/retry worker | Базалық slice дайын | SKIP LOCKED claim, 5 минут lease, exponential retry және terminal FAILED |
@@ -45,7 +45,7 @@
 Repository checklist interpretation:
 
 - Delivery Roadmap implementation checklist: **37/45 = 82.2%** complete.
-- Release checklist: **98/143 = 68.5%** checked.
+- Release checklist: **99/144 = 68.8%** checked.
 - Staging acceptance: **1/235** checked; бұл кодтың 0.4% ғана дайын дегенді білдірмейді — checklist нақты staging/provider/legal execution evidence-ін әдейі алдын ала green қылмайды.
 
 Roadmap-та қалған 8 тармақтың басым бөлігі external/legal acceptance: vetted KYC provider, approved legal templates, actual KMS/HSM, retention/lifecycle policy acceptance, RFC3161/qualified TSA, post-payment ledger application legal/accounting policy және full statutory data-export scope. Purely technical conditional item — large archive streaming/ZIP64, ол load evidence талап етсе ғана міндетті.
@@ -65,6 +65,8 @@ Evidence ZIP production-load decision үшін synthetic bounded acceptance harn
 Payment correction/dispute path hardened. Back #217 (`ccdaeca`) payment reversal-ды тек `ACTIVE` contract-та рұқсат етеді, сондықтан `COMPLETED` contract-тың ClosureCertificate/schedule/ledger күйі кейіннен divergence жасамайды. Front #74 (`d695e98`) lender-only confirmed-payment reversal UI және mandatory 3–1000 character correction reason қосты; нақты bank refund автоматты емес екені explicit көрсетіледі. Front #75 (`e4e93d4`) KK/RU staging lifecycle ішінде partial confirm → reversal → exact outstanding restore → қайта partial/final repayment → closure және completed contract-та reversal control жоқ екенін тексереді. Front #76 (`eee7b28`) Funding және Payment DISPUTE action-дарын Backend policy-ге сәйкестендіріп, mandatory reason жіберетін етті. Related CI runs `36722287955`, `36722949425`, `36723254464`, `36723656898` runner step алмады (`steps=null`), сондықтан execution evidence pending.
 
 Admin browser acceptance privacy evidence Front-пен бірдей policy-ге келтірілді. Admin #33 (`22aea52`) Playwright trace retention-ды өшіріп, scenario title/status + repository/commit/run metadata ғана сақтайтын custom reporter және 14-day metadata-only artifact қосты. Credentials, token, response body, row identifiers немесе PII artifact-қа кірмейді. CI run `36730229712` quality job `steps=null` күйінде runner алмады; actual Admin browser execution pending.
+
+Backend Phase 2 formal acceptance evidence gate бұрыннан implementation-да бар және енді status-та да бекітілді. Back #214 (`d520de0`) migrations-тан кейін focused real-PostgreSQL `test:phase2-critical` орындайды, private-debt lifecycle/evidence privacy/cross-user isolation/notification isolation coverage-ті CI gate етеді және 14 күнге metadata-only acceptance artifact сақтайды. CI run `36713566757` runner алмады (`steps=null`), сондықтан implementation ready, successful current-main execution pending.
 
 ## Phase 4 Trust & Evidence басталуы — 2026-09-28
 
