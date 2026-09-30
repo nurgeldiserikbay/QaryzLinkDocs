@@ -58,6 +58,7 @@
 - [x] Front bounded partial repayment: exact KZT minor-unit parsing, over-outstanding guard, remaining-balance default және KK/RU partial→final staging lifecycle coverage (Front #72/#73).
 - [x] Full private-debt real-staging browser lifecycle harness implemented and parameterized for KK/RU: request → invite → proposal → contract → dual signing → funding → schedule → partial/final repayment → dual closure → evidence manifest (Front #69/#70/#73).
 - [x] Authenticated staging browser acceptance evidence is metadata-only/per-scenario; traces disabled, no credentials/PII, 14-day artifact retention (Front #71).
+- [x] Admin manual browser acceptance evidence is metadata-only/per-scenario; traces disabled, no credentials/tokens/row IDs/PII, 14-day artifact retention (Admin #33).
 - [ ] KZ authenticated borrower/lender full browser journey successful staging run.
 - [ ] RU authenticated borrower/lender full browser journey successful staging run.
 - [ ] Front/Admin actual browser E2E run және толық UI acceptance — Actions quota ашылғаннан кейін.

@@ -45,7 +45,7 @@
 Repository checklist interpretation:
 
 - Delivery Roadmap implementation checklist: **37/45 = 82.2%** complete.
-- Release checklist: **97/142 = 68.3%** checked.
+- Release checklist: **98/143 = 68.5%** checked.
 - Staging acceptance: **1/235** checked; бұл кодтың 0.4% ғана дайын дегенді білдірмейді — checklist нақты staging/provider/legal execution evidence-ін әдейі алдын ала green қылмайды.
 
 Roadmap-та қалған 8 тармақтың басым бөлігі external/legal acceptance: vetted KYC provider, approved legal templates, actual KMS/HSM, retention/lifecycle policy acceptance, RFC3161/qualified TSA, post-payment ledger application legal/accounting policy және full statutory data-export scope. Purely technical conditional item — large archive streaming/ZIP64, ол load evidence талап етсе ғана міндетті.
@@ -63,6 +63,8 @@ Repayment UX partial-payment capability-ге дейін кеңейді. Front #7
 Evidence ZIP production-load decision үшін synthetic bounded acceptance harness қосылды. Back #218 (`7584474`) deterministic ZIP_STORE_V2 үшін configurable payload/object/iteration profile, max RSS және max single-build latency budget өлшейді; нәтиже archive hash + aggregate measurement қана сақтайды. Manual workflow synthetic metadata-only artifact-ті 14 күн сақтайды және budget бұзылса `STREAMING_OR_ZIP64_REVIEW_REQUIRED` береді. CI run `36729385648` quality job `steps=null` күйінде runner алмады. Сондықтан harness implemented, actual load acceptance және streaming/ZIP64 decision pending.
 
 Payment correction/dispute path hardened. Back #217 (`ccdaeca`) payment reversal-ды тек `ACTIVE` contract-та рұқсат етеді, сондықтан `COMPLETED` contract-тың ClosureCertificate/schedule/ledger күйі кейіннен divergence жасамайды. Front #74 (`d695e98`) lender-only confirmed-payment reversal UI және mandatory 3–1000 character correction reason қосты; нақты bank refund автоматты емес екені explicit көрсетіледі. Front #75 (`e4e93d4`) KK/RU staging lifecycle ішінде partial confirm → reversal → exact outstanding restore → қайта partial/final repayment → closure және completed contract-та reversal control жоқ екенін тексереді. Front #76 (`eee7b28`) Funding және Payment DISPUTE action-дарын Backend policy-ге сәйкестендіріп, mandatory reason жіберетін етті. Related CI runs `36722287955`, `36722949425`, `36723254464`, `36723656898` runner step алмады (`steps=null`), сондықтан execution evidence pending.
+
+Admin browser acceptance privacy evidence Front-пен бірдей policy-ге келтірілді. Admin #33 (`22aea52`) Playwright trace retention-ды өшіріп, scenario title/status + repository/commit/run metadata ғана сақтайтын custom reporter және 14-day metadata-only artifact қосты. Credentials, token, response body, row identifiers немесе PII artifact-қа кірмейді. CI run `36730229712` quality job `steps=null` күйінде runner алмады; actual Admin browser execution pending.
 
 ## Phase 4 Trust & Evidence басталуы — 2026-09-28
 
