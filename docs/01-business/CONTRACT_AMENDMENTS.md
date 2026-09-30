@@ -226,9 +226,9 @@ Current version міндетті түрде `SIGNED` және documentHash-bound
 
 ## Evidence and closure
 
-New evidence package creation — schema **v7**.
+New evidence package creation — schema **v8**.
 
-V7 amendment/schedule/accounting/cutover-signing/activation-plan provenance:
+V8 amendment/schedule/accounting/cutover-signing/activation-plan/safe-activation provenance:
 
 - ContractVersion `sourceAmendmentId`;
 - amendment purpose/document hash;
@@ -252,9 +252,10 @@ V7 amendment/schedule/accounting/cutover-signing/activation-plan provenance:
 - activation plan exact signed N+1 documentHash + cutover previewHash + accounting stateHash binding;
 - planned replacement schedule principal/accrued-interest/future-interest/charge/total/due-date;
 - unapplied interest reclassification және existing unallocated credit;
-- requiresLedgerAdjustment explicit flag.
+- requiresLedgerAdjustment explicit flag;
+- activated ScheduleVersion exact `sourceActivationPlanId` relation.
 
-Persisted schema v1/v2/v3/v4/v5/v6 packages retroactive rewrite жасамайды және stored schemaVersion бойынша read/export болады.
+Persisted schema v1/v2/v3/v4/v5/v6/v7 packages retroactive rewrite жасамайды және stored schemaVersion бойынша read/export болады.
 
 Closure exact `Contract.currentVersion` және latest schedule version-ды пайдаланады. Cancelled historical schedule versions evidence history-де қалады.
 
@@ -488,16 +489,79 @@ Same exact plan retry idempotent. History participant-only.
 Response explicitly:
 
 - `policyStatus=PLAN_ONLY`;
-- `activationEligible=false`;
-- `activationReason=POST_PAYMENT_ACTIVATION_POLICY_PENDING`.
+- zero-adjustment plan үшін `activationEligible=true`, `activationReason=null`;
+- ledger adjustment қажет plan үшін `activationEligible=false`, `activationReason=POST_PAYMENT_LEDGER_ADJUSTMENT_REQUIRED`.
+
+Бұл eligibility accounting shape-ты ғана білдіреді. Actual endpoint availability бөлек default-off activation feature gate және legal/accounting acceptance-ке тәуелді.
 
 Activation plan Contract.currentVersion, base version status, ScheduleVersion, PaymentAllocation немесе LedgerEntry-ді өзгертпейді.
+
+## Safe post-payment activation — zero-adjustment subset
+
+Actual post-payment activation енді тек ең тар қауіпсіз subset үшін implementation деңгейінде бар.
+
+Dedicated gate:
+
+`CONTRACT_POST_PAYMENT_AMENDMENT_ACTIVATION_ENABLED=false`
+
+Gate тек amendments + contract signing + post-payment signing gates бірге enabled болғанда ғана қосыла алады. Release preflight enabled state-ті бөлек manual accounting/legal acceptance ретінде көрсетеді.
+
+Endpoint:
+
+`POST /api/v1/contracts/:contractId/amendments/:amendmentId/activate-post-payment`
+
+Body:
+
+```json
+{
+  "activationPlanId": "<exact latest immutable activation plan UUID>"
+}
+```
+
+Activation тек:
+
+- amendment `SIGNED_PENDING_ACTIVATION`;
+- N+1 exact signed version, екі participant signature бар;
+- exact latest activation plan;
+- plan exact signed documentHash/cutover preview/accounting snapshot/stateHash-пен қайта match;
+- current DB payment/schedule/accounting state selected cutover-мен әлі exact;
+- `requiresLedgerAdjustment=false`;
+- `unappliedInterestReclassificationMinor=0`;
+- `unappliedCreditMinor=0`
+
+болса жүреді.
+
+Plan row-дың тек planHash-і емес, барлық persisted source/schedule/credit fields deterministic rebuilt plan-пен exact салыстырылады. DB drift немесе stale plan fail-closed.
+
+Successful safe activation бір transaction ішінде:
+
+1. historical ScheduleVersion/PaymentAllocation/LedgerEntry rows-ты өзгертпейді;
+2. жаңа one-item ScheduleVersion activation plan schedule candidate-ынан жасалады;
+3. schedule `sourceContractVersion=N+1`, `sourceAmendmentId`, `sourceActivationPlanId` сақтайды;
+4. base ContractVersion → `SUPERSEDED`;
+5. `Contract.currentVersion=N+1`;
+6. amendment → `ACTIVATED`, activatedAt сақталады;
+7. ешқандай ledger adjustment entry жасалмайды;
+8. audit activationPlanId/planHash/scheduleVersion/inputHash және `ledgerAdjustmentApplied=false` сақтайды.
+
+Activation plan `referenceAt` schedule calculation provenance ретінде сақталады. Бұл timestamp өздігінен Қазақстан заңындағы effective date классификациясын бекітпейді; production enablement legal acceptance-ке тәуелді.
+
+Historical schedule immutable қалуы үшін:
+
+- payment confirmation жаңа/latest schedule-ға allocation жасайды;
+- reminder latest schedule-ды қолданады;
+- overdue worker енді тек latest ScheduleVersion item-дерін materialize етеді;
+- generic schedule.generate currentVersion-ға activation-plan-bound schedule бар болса соны authoritative қайтарады;
+- old/superseded schedule allocation-ына байланған confirmed payment reversal automatic түрде rejected.
+
+Осылай post-cutover payment/reversal бұрынғы opening balance-ты үнсіз өзгерте алмайды.
 
 ## Intentionally pending
 
 Бұл slice:
 
-- repayment history бар contract үшін signed N+1 candidate және activation plan жасай алады, бірақ actual N+1 activation жасамайды;
+- repayment history бар contract үшін zero-ledger-adjustment plan actual N+1 activation жасай алады;
+- reclassification немесе unallocated credit қажет plan actual activation жасамайды;
 - already-paid allocation reclassification/migration жасамайды;
 - principal/currency өзгерісін қолдамайды;
 - installment/multi-item rescheduling жасамайды;
@@ -512,6 +576,6 @@ Activation plan Contract.currentVersion, base version status, ScheduleVersion, P
 
 `CONTRACT_AMENDMENTS_ENABLED=true` release preflight-та manual legal/process acceptance болып қалады.
 
-N+1 signing үшін `CONTRACT_SIGNING_ENABLED=true` де қажет. Post-payment signing үшін бұларға қосымша `CONTRACT_POST_PAYMENT_AMENDMENT_SIGNING_ENABLED=true` керек және preflight оны бөлек manual accounting/legal acceptance ретінде көрсетеді.
+N+1 signing үшін `CONTRACT_SIGNING_ENABLED=true` де қажет. Post-payment signing үшін `CONTRACT_POST_PAYMENT_AMENDMENT_SIGNING_ENABLED=true`, ал actual safe activation үшін қосымша `CONTRACT_POST_PAYMENT_AMENDMENT_ACTIVATION_ENABLED=true` қажет. Екі post-payment gate те preflight-та бөлек manual accounting/legal acceptance болып қалады.
 
 Production enablement алдында staging acceptance financial amendment scenario-ларын нақты PostgreSQL data-мен тексеруі тиіс.
