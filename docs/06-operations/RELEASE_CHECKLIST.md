@@ -28,6 +28,8 @@
 - [x] Payment evidence, confirmation және ledger backend slice.
 - [x] Overdue status worker backend slice.
 - [x] Payment reversal backend slice.
+- [x] Payment reversal participant correction path: completed-contract fail-closed guard + lender KZ/RU reversal UI + mandatory reason + KK/RU schedule-restore lifecycle coverage (Back #217, Front #74/#75).
+- [x] Funding/payment DISPUTE Front actions send Backend-required 3–1000 character reasons instead of invalid reasonless decisions (Front #76).
 - [x] Transactional notification outbox persistence backend slice.
 - [x] Notification outbox claim/retry worker backend slice.
 - [x] Provider-neutral notification delivery boundary backend slice.
