@@ -51,6 +51,7 @@
 - [x] Backend compiled HTTP auth/security lifecycle smoke: register/login/refresh rotation/logout, authorization, rate-limit, metrics және CORS contracts.
 - [x] Phase 2 critical PostgreSQL lifecycle + cross-user isolation harness implementation merged (`QaryzLinkBack#165`).
 - [x] Phase 2 critical PostgreSQL suite has a dedicated CI gate + metadata-only 14-day acceptance artifact (Back #214).
+- [x] Phase 2 PostgreSQL acceptance includes funding/payment dispute fail-closed allocation/ledger/closure invariants (Back #219).
 - [ ] Phase 2 critical PostgreSQL harness current main commit-те successful CI runner арқылы green болғаны дәлелденді.
 - [x] Runtime/provider error persistence және maintenance CLI stderr PII-safe generic boundary.
 - [x] Front/Admin production server HTTP security-header/CSP runtime smoke.

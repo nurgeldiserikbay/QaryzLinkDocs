@@ -190,18 +190,22 @@ Focused command:
 
 `pnpm test:phase2-critical`
 
-Suite бір run ішінде:
+Suite бір focused gate ішінде:
 
 - private-debt lifecycle;
 - evidence privacy;
 - cross-user downstream isolation;
-- notification recipient/payload isolation
+- notification recipient/payload isolation;
+- funding dispute fail-closed activation/schedule/ledger invariants;
+- payment dispute zero-allocation/zero-ledger/schedule-balance/closure-not-ready invariants
 
 тексереді.
 
+Back #219 (`34012f6`) dispute assertions-ты бөлек қысқа `phase2-dispute.integration.spec.ts` spec-ке шығарып, `pnpm test:phase2-critical` командасына екі integration spec-ті де қосты.
+
 CI UTC timestamp, repository, commit SHA, workflow run ID/attempt, scenario және result қана сақтайтын metadata-only `phase2-critical-acceptance.txt` artifact жасайды; retention 14 күн. DATABASE_URL, credentials, user/party/contract/payment IDs немесе evidence contents artifact-ке көшірілмейді.
 
-CI run `36713566757` runner алмай `steps=null` күйінде тоқтады. Сондықтан artifact contract implemented, бірақ current main successful execution evidence әлі pending.
+CI runs `36713566757` және Back #219 үшін `36735316221` runner алмай `steps=null` күйінде тоқтады. Сондықтан artifact/test contract implemented, бірақ current main successful execution evidence әлі pending.
 
 ## Required acceptance evidence
 
