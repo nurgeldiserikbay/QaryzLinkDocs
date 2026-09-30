@@ -150,6 +150,12 @@ Revocation audit payload provider code-тан артық identity/provider refer
 - document upload/KYC evidence storage жасамайды;
 - face/liveness/document matching verdict шығармайды.
 
+## Provider-specific acceptance record
+
+Нақты vendor таңдалғанда [L2 KYC provider acceptance record](../06-operations/KYC_PROVIDER_ACCEPTANCE.md) толтырылады. Ол provider API/event mapping, VERIFIED/REVOKED semantics, callback/signature trust, key rotation/revocation, privacy/residency, retention, legal classification, incident ownership және staging evidence-ті бір versioned record-та байланыстырады.
+
+Бұл record approval толтырылмайынша generic adapter implementation provider production-ready дегенді білдірмейді.
+
 ## Келесі implementation кезеңі
 
 Generic signed session adapter, authenticated VERIFIED callback және opaque session correlation foundation дайын. Нақты L2 KYC provider таңдалғаннан кейін:
