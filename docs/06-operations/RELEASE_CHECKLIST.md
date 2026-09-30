@@ -83,6 +83,7 @@
 - [x] Immutable production migration Job template + isolated release-schema/previous-app rollback compatibility rehearsal implementation (Back #215).
 - [ ] Actual staging migration Job execution + previous known-good rollback rehearsal with environment evidence.
 - [x] Trusted proxy default-off bounded configuration және exact CORS allowlist code/CI contracts.
+- [x] Privacy-safe manual staging proxy-spoof acceptance harness + network-free bypass regression coverage; forwarded-header values/URL/email/response body retained artifact-қа кірмейді (Back #231).
 - [ ] Staging ingress proxy-hop/header sanitization acceptance — `STAGING_ACCEPTANCE.md` бойынша.
 - [x] Backend privacy-safe liveness/readiness contracts және PostgreSQL readiness check.
 - [x] Manual privacy-safe staging runtime smoke harness: HTTPS liveness/readiness/database + private auth boundary + 8 metrics auth/cache checks, metadata-only evidence (Back #221).
