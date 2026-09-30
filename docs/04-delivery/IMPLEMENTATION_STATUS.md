@@ -45,7 +45,7 @@
 Repository checklist interpretation:
 
 - Delivery Roadmap implementation checklist: **37/45 = 82.2%** complete.
-- Release checklist: **107/152 = 70.4%** checked.
+- Release checklist: **108/153 = 70.6%** checked.
 - Staging acceptance: **1/235** checked; бұл кодтың 0.4% ғана дайын дегенді білдірмейді — checklist нақты staging/provider/legal execution evidence-ін әдейі алдын ала green қылмайды.
 
 Roadmap-та қалған 8 тармақтың басым бөлігі external/legal acceptance: vetted KYC provider, approved legal templates, actual KMS/HSM, retention/lifecycle policy acceptance, RFC3161/qualified TSA, post-payment ledger application legal/accounting policy және full statutory data-export scope. Purely technical conditional item — large archive streaming/ZIP64, ол load evidence талап етсе ғана міндетті.
@@ -81,6 +81,8 @@ Runtime-smoke integration hardening аяқталды. Back #222 (`5c2a702`) fake
 Production pilot scope fail-closed governance қосылды. Back #226 (`12ab1b1`) deployment profile-ды `kz-personal-private-debt-v1` enum-ына pin етеді; басқа profile environment validation-нан өтпейді. Production boot үшін versioned `PILOT_SCOPE_APPROVAL_ID` міндетті, ал release preflight approval reference бар болса да automatic green емес, `manual` acceptance береді. Existing public marketplace/penalty/amount-based commission flags true болса preflight әлі fail-closed. Бұл implementation pilot scope-ты өзі бекітпейді; owner/legal approval әлі ашық gate.
 
 Front/Admin dependency reproducibility preparation да main-ға кірді. Front #78 (`f5540e9`) және Admin #34 (`1de24b8`) manual lockfile-candidate workflow қосты: exact Node 24 + `pnpm@12.4.2`, `pnpm install --lockfile-only`, кейін `--frozen-lockfile`, full `pnpm check`, lockfile SHA-256/toolchain metadata және 14-day review artifact. Workflow generated lockfile-ды әдейі auto-commit етпейді. CI runs `36743815440` және `36743823453` runner step алмады (`steps=null`). Сондықтан generation/review automation ready, бірақ actual committed `pnpm-lock.yaml` + frozen installs әлі pending.
+
+Pilot scope approval process үшін versioned record template қосылды: `docs/06-operations/PILOT_SCOPE_APPROVAL.md`. Ол proposed Kazakhstan natural-person private-debt boundary, explicit exclusions, provider/legal/privacy dependencies, deployment assertions, material-change versioning және product/legal/privacy/security sign-off fields береді. Құжаттың болуы approval емес; `Approval ID` және reviewer fields PENDING күйінде қалады, сондықтан product/legal release gate әлі жабылған жоқ.
 
 ## Phase 4 Trust & Evidence басталуы — 2026-09-28
 
