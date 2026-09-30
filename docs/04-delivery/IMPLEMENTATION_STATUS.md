@@ -45,7 +45,7 @@
 Repository checklist interpretation:
 
 - Delivery Roadmap implementation checklist: **37/45 = 82.2%** complete.
-- Release checklist: **94/139 = 67.6%** checked.
+- Release checklist: **95/140 = 67.9%** checked.
 - Staging acceptance: **1/235** checked; бұл кодтың 0.4% ғана дайын дегенді білдірмейді — checklist нақты staging/provider/legal execution evidence-ін әдейі алдын ала green қылмайды.
 
 Roadmap-та қалған 8 тармақтың басым бөлігі external/legal acceptance: vetted KYC provider, approved legal templates, actual KMS/HSM, retention/lifecycle policy acceptance, RFC3161/qualified TSA, post-payment ledger application legal/accounting policy және full statutory data-export scope. Purely technical conditional item — large archive streaming/ZIP64, ол load evidence талап етсе ғана міндетті.
@@ -59,6 +59,8 @@ Front CI runs `36710630674`, `36711186784`, `36711825055` quality job-тары `
 Deployment recovery automation да кеңейді. Back #215 (`1f82f74`) manual migration/rollback compatibility rehearsal қосты: selected release migrations isolated PostgreSQL-ға forward apply болады, previous known-good ref сол migrated schema үстінде build/start/readiness smoke өтеді; reverse migration жоқ. Back #216 (`0a6969c`) synthetic no-PII source DB → custom-format pg_dump → separate restore DB → exact bounded counters → current app readiness rehearsal қосты; dump bytes artifact retention алдында жойылады. CI runs `36719762124` және `36720220403` та `steps=null` болып runner алмады. Сондықтан automation implemented, real environment evidence pending.
 
 Repayment UX partial-payment capability-ге дейін кеңейді. Front #72 (`e39b936`) KZT input-ты floating-point қолданбай minor units-ке parse етеді, `0 < amount <= current outstanding` шегін evidence upload басталмай тұрып тексереді және full outstanding-ты default ретінде қояды. Front #73 (`abc6cb7`) KK/RU staging lifecycle-да 1 ₸ partial repayment → lender confirm → exact remaining balance → final repayment → closure жолын тексереді. CI runs `36721129983` және `36721497464` та `steps=null` болып runner алмады; implementation merged, execution evidence pending.
+
+Evidence ZIP production-load decision үшін synthetic bounded acceptance harness қосылды. Back #218 (`7584474`) deterministic ZIP_STORE_V2 үшін configurable payload/object/iteration profile, max RSS және max single-build latency budget өлшейді; нәтиже archive hash + aggregate measurement қана сақтайды. Manual workflow synthetic metadata-only artifact-ті 14 күн сақтайды және budget бұзылса `STREAMING_OR_ZIP64_REVIEW_REQUIRED` береді. CI run `36729385648` quality job `steps=null` күйінде runner алмады. Сондықтан harness implemented, actual load acceptance және streaming/ZIP64 decision pending.
 
 ## Phase 4 Trust & Evidence басталуы — 2026-09-28
 

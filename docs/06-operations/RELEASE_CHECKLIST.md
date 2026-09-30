@@ -136,6 +136,7 @@
 - [x] Own-data export dedicated authenticated-user throttling: 1/minute + 5/hour, HMAC-hashed bucket key, bounded 429 + Retry-After және Front explicit KZ/RU state.
 - [ ] Own-data export production acceptance: full legal scope, third-party redaction policy, deletion-ordering/privacy notice және Kazakhstan privacy/staging acceptance.
 - [x] Default-off bounded full evidence ZIP v2: frozen-manifest selection, consumed-intent binding, CLEAN verdict, storage byte SHA-256 verification және direct binary response.
+- [x] Synthetic ZIP v2 load harness: explicit payload/object/iteration profile, configurable RSS/latency budgets, archive hash және metadata-only 14-day acceptance artifact.
 - [ ] Full binary ZIP staging/load acceptance: real bucket/scanner, max-size concurrency және memory/latency evidence.
 - [ ] Court/export package hardening: approved PDF artifact, KMS/HSM signature for ZIP v2 және trusted timestamp.
 - [x] Participant-only neutral dispute intake/read backend + Front contract panel.

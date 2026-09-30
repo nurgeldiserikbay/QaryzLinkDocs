@@ -161,6 +161,7 @@ Open/public matching production-да қосылмас бұрын Қазақст�
 - [x] release-preflight/config boundary requires versioned retention + storage lifecycle policy references when evidence storage is enabled;
 - [ ] jurisdiction retention periods + external storage lifecycle provider/legal acceptance;
 - [x] bounded frozen-manifest evidence binary ZIP v2 + storage byte verification;
+- [x] bounded synthetic ZIP v2 load harness + configurable RSS/latency acceptance budgets + metadata-only evidence;
 - [ ] large archive true streaming/ZIP64 if load requirements demand it;
 - [x] external signed time attestation foundation;
 - [x] release config/preflight requires versioned timestamp standards + trust + revocation + legal-classification references;
