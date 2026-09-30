@@ -53,6 +53,7 @@
 - [x] Front KZ/RU presentation coverage critical Phase 2 routes және account lifecycle бойынша implementation-да бар (Front #41/#42/#43).
 - [x] Front participant core mutation UI: privacy-safe viewerRole, dual contract signing, funding signed upload/decision, schedule generation және repayment signed upload/decision (Back #213, Front #67/#68).
 - [x] Full private-debt real-staging browser lifecycle harness implemented and parameterized for KK/RU: request → invite → proposal → contract → dual signing → funding → schedule → repayment → dual closure → evidence manifest (Front #69/#70).
+- [x] Authenticated staging browser acceptance evidence is metadata-only/per-scenario; traces disabled, no credentials/PII, 14-day artifact retention (Front #71).
 - [ ] KZ authenticated borrower/lender full browser journey successful staging run.
 - [ ] RU authenticated borrower/lender full browser journey successful staging run.
 - [ ] Front/Admin actual browser E2E run және толық UI acceptance — Actions quota ашылғаннан кейін.

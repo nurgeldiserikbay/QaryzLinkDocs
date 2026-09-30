@@ -167,6 +167,8 @@ QaryzLinkFront PR #66 merged at `564a2ad` (authenticated smoke). Contract mutati
 
 CI runs `36701747708`, `36710630674`, `36711186784`, `36711825055` және `36712583763` runner step-теріне жетпеді (`runner_id=0`, `steps=[]`/null). Сондықтан browser lifecycle **implemented**, бірақ actual successful staging execution evidence әлі pending.
 
+Front #71 (`6c6c1cd`) staging acceptance evidence-ін privacy-safe етті: authenticated Playwright trace өшірулі; workflow UTC timestamp, repository, commit SHA, run ID/attempt және aggregate outcome ғана сақтайды. Custom reporter әр scenario үшін тек test title + status жазады. Credential, email/publicId, request/contract/payment ID, response body немесе bearer token acceptance artifact-ке кірмейді. Artifact retention — 14 күн. CI `36713175109` тағы да runner алмай `steps=null` болды.
+
 ## Exit criteria interpretation
 
 Phase 2 үшін:
