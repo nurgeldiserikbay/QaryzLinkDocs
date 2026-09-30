@@ -176,6 +176,12 @@ ActivationPlan response accounting eligibility-ді көрсетеді: zero-adj
 
 QaryzLinkBack PR #210 merged at `431c488`, QaryzLinkDocs PR #145 merged at `d25da87`. Back CI run `36671611175` conclusion=failure, бірақ quality job-та `steps=[]`, `runner_id=0`; Prisma/typecheck/lint/test/build орындалмаған. Automated verification pending; source-level schema/migration/config/preflight/DI/max-lines/idempotency/payment-reversal/schedule/evidence review жасалды.
 
+Post-payment ledger adjustment preview foundation қосылды. `requiresLedgerAdjustment=true` latest activation plan үшін participant immutable/versioned plan дайындай алады; source activationPlanId/planHash, signed ContractVersion/documentHash, cutover preview/hash, accounting snapshot/stateHash, currency, separate interest-reclassification және unallocated-credit components, replacement schedule және canonical adjustmentPlanHash bind болады. Same exact source state idempotent; stale accounting/cutover/activation state fail-closed.
+
+Бұл stage ешқандай LedgerEntry/PaymentAllocation/ScheduleVersion/currentVersion mutation жасамайды. Response `PREVIEW_ONLY`, `applicationEligible=false`, `POST_PAYMENT_LEDGER_ADJUSTMENT_POLICY_PENDING`. Audit adjustment amount-тарды қайталамайды; тек plan/source hashes және component-presence metadata сақтайды. New evidence packages schema v9 арқылы ledger-adjustment-plan provenance-ін bind етеді; persisted v1-v8 rewrite болмайды. Actual credit/refund/reclassification application әлі бөлек accounting/legal policy ретінде pending.
+
+QaryzLinkBack PR #211 merged at `35291e4`, QaryzLinkDocs ADR-0028 / PR #147 merged at `efa737c`. Back CI run `36698466387` conclusion=failure, бірақ quality job `runner_id=0`, `steps=[]`, execution ~2s және log blob жоқ; application quality steps басталмаған. Merge алдында source-level Prisma relation/migration, controller DI/tests, deterministic domain/view/service, participant scope, idempotency/stale-state, audit minimization және evidence v9 compatibility review жасалды.
+
 Бұл baseline court-ready package емес: vetted L2 KYC provider selection/provider-specific API/event mapping/KZ privacy-legal staging acceptance, actual approved KZ/RU legal template content/visual acceptance, actual KMS/HSM signer deployment/external IAM/key ceremony acceptance, RFC3161/qualified TSA legal acceptance, jurisdiction retention periods, external bucket lifecycle acceptance және production load acceptance әлі Phase 4 backlog-та.
 
 ## Қазіргі backend slice
