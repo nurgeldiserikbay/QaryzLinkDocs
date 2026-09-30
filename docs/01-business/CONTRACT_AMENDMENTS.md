@@ -226,9 +226,9 @@ Current version міндетті түрде `SIGNED` және documentHash-bound
 
 ## Evidence and closure
 
-New evidence package creation — schema **v8**.
+New evidence package creation — schema **v9**.
 
-V8 amendment/schedule/accounting/cutover-signing/activation-plan/safe-activation provenance:
+V9 amendment/schedule/accounting/cutover-signing/activation-plan/safe-activation/ledger-adjustment-plan provenance:
 
 - ContractVersion `sourceAmendmentId`;
 - amendment purpose/document hash;
@@ -254,8 +254,12 @@ V8 amendment/schedule/accounting/cutover-signing/activation-plan/safe-activation
 - unapplied interest reclassification және existing unallocated credit;
 - requiresLedgerAdjustment explicit flag;
 - activated ScheduleVersion exact `sourceActivationPlanId` relation.
+- immutable ledger adjustment plan version/policyVersion/`adjustmentPlanHash`;
+- exact source activationPlanId/planHash + signed ContractVersion/cutover/accounting provenance;
+- interest reclassification candidate және unallocated credit бөлек компоненттері + total adjustment candidate;
+- explicit `policyStatus=PREVIEW_ONLY`, `applicationEligible=false`, `POST_PAYMENT_LEDGER_ADJUSTMENT_POLICY_PENDING` state.
 
-Persisted schema v1/v2/v3/v4/v5/v6/v7 packages retroactive rewrite жасамайды және stored schemaVersion бойынша read/export болады.
+Persisted schema v1/v2/v3/v4/v5/v6/v7/v8 packages retroactive rewrite жасамайды және stored schemaVersion бойынша read/export болады.
 
 Closure exact `Contract.currentVersion` және latest schedule version-ды пайдаланады. Cancelled historical schedule versions evidence history-де қалады.
 
@@ -556,12 +560,58 @@ Historical schedule immutable қалуы үшін:
 
 Осылай post-cutover payment/reversal бұрынғы opening balance-ты үнсіз өзгерте алмайды.
 
+## Post-payment ledger adjustment plan — preview-only foundation
+
+`requiresLedgerAdjustment=true` activation plan үшін actual ledger application жасамай immutable review plan дайындауға болады:
+
+- `POST /api/v1/contracts/:contractId/amendments/:amendmentId/ledger-adjustment-plan`
+- `GET /api/v1/contracts/:contractId/amendments/:amendmentId/ledger-adjustment-plans`
+
+Prepare flow contract және amendment row-ды lock етеді. Amendment `SIGNED_PENDING_ACTIVATION` болуы, exact latest activation plan ledger adjustment талап етуі және signed N+1/cutover/accounting state әлі current болуы тиіс.
+
+Current policy: `POST_PAYMENT_LEDGER_ADJUSTMENT_PLAN_V1`.
+
+Plan immutable/versioned және `adjustmentPlanHash` мыналарды bind етеді:
+
+- exact source activationPlanId + planHash;
+- signed ContractVersion number + documentHash;
+- cutoverPreviewId + previewHash;
+- accountingSnapshotId + stateHash;
+- referenceAt және currency;
+- `INTEREST_RECLASSIFICATION_CANDIDATE` ретінде сақталатын interest reclassification amount;
+- `UNALLOCATED_CREDIT` ретінде бөлек сақталатын existing credit;
+- total adjustment candidate;
+- activation plan-дағы replacement schedule components/date.
+
+Same exact source state retry idempotent. Accounting/cutover/activation-plan drift болса prepare fail-closed.
+
+Response explicit:
+
+- `policyStatus=PREVIEW_ONLY`;
+- `applicationEligible=false`;
+- `applicationReason=POST_PAYMENT_LEDGER_ADJUSTMENT_POLICY_PENDING`.
+
+Prepare/list flow:
+
+- `Contract.currentVersion` өзгертпейді;
+- ContractVersion/amendment status өзгертпейді;
+- ScheduleVersion/ScheduleItem жасамайды немесе өзгертпейді;
+- Payment/PaymentAllocation өзгертпейді;
+- LedgerEntry жазбайды;
+- funding state өзгертпейді.
+
+Audit plan hash/source provenance және component-presence booleans сақтайды; adjustment amount-тарды audit payload-қа көшірмейді.
+
+Actual refund/credit/principal/interest/charge application semantics бұл foundation-да жоқ. Ол үшін бөлек versioned accounting/legal policy, default-off application gate және Kazakhstan legal/staging acceptance қажет.
+
+Толық decision: [ADR-0028](../../adr/ADR-0028-post-payment-ledger-adjustment-plan.md).
+
 ## Intentionally pending
 
 Бұл slice:
 
 - repayment history бар contract үшін zero-ledger-adjustment plan actual N+1 activation жасай алады;
-- reclassification немесе unallocated credit қажет plan actual activation жасамайды;
+- reclassification немесе unallocated credit қажет plan үшін immutable preview-only ledger adjustment plan бар, бірақ actual application/activation жасалмайды;
 - already-paid allocation reclassification/migration жасамайды;
 - principal/currency өзгерісін қолдамайды;
 - installment/multi-item rescheduling жасамайды;
@@ -577,5 +627,7 @@ Historical schedule immutable қалуы үшін:
 `CONTRACT_AMENDMENTS_ENABLED=true` release preflight-та manual legal/process acceptance болып қалады.
 
 N+1 signing үшін `CONTRACT_SIGNING_ENABLED=true` де қажет. Post-payment signing үшін `CONTRACT_POST_PAYMENT_AMENDMENT_SIGNING_ENABLED=true`, ал actual safe activation үшін қосымша `CONTRACT_POST_PAYMENT_AMENDMENT_ACTIVATION_ENABLED=true` қажет. Екі post-payment gate те preflight-та бөлек manual accounting/legal acceptance болып қалады.
+
+Ledger-adjustment plan preview existing amendment boundary ішінде mutation-free жұмыс істейді. Actual ledger application endpoint/gate әдейі жоқ; оны қосу алдында бөлек accounting/legal policy және release acceptance қажет.
 
 Production enablement алдында staging acceptance financial amendment scenario-ларын нақты PostgreSQL data-мен тексеруі тиіс.
