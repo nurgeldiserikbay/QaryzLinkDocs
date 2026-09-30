@@ -266,6 +266,12 @@ Feature enabled + provider unavailable:
 
 Environment startup validation толық template/renderer pins жоқ болса fail етеді.
 
+## Versioned template acceptance record
+
+Actual KZ/RU artifacts and governance sign-off are recorded in [KZ/RU contract template acceptance record](CONTRACT_TEMPLATE_ACCEPTANCE.md). It binds exact template IDs/hashes, legal wording review, font/embedding policy, visual/pagination evidence, renderer identity/key and evidence-chain verification.
+
+The record must remain `PENDING` until independent review is complete; configuring template hashes alone is not approval.
+
 ## Staging acceptance
 
 Enable алдында кемінде:
