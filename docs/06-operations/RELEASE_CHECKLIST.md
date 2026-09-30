@@ -6,6 +6,7 @@
 
 - [ ] Нақты deploy commit-тің CI-ы жасыл.
 - [x] Privacy-safe `pnpm release:preflight` command implementation + CI smoke contract бар.
+- [x] Canonical in-cluster release-preflight Kubernetes Job same immutable release digest + `qaryzlink-back` ConfigMap/Secret contract-пен release bundle-ға кіреді (Back #227).
 - [ ] Нақты staging image/config ішінде release preflight орындалып, `fail` емес result acceptance evidence-ке жазылды.
 - [ ] Жеке staging database және credentials.
 - [ ] Migration сәтті; production дерегіне test орындалмайды.
