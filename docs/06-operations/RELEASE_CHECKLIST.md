@@ -75,6 +75,7 @@
 - [x] PII key rotation operational runbook (`PII_KEY_ROTATION.md`).
 - [ ] Contract/payment/ledger/evidence/audit/session legal retention periods owner/legal review арқылы бекітілген.
 - [x] Backend reproducible lockfile, container build және runtime smoke test.
+- [x] Front/Admin manual lockfile-candidate workflows: exact pnpm 12.4.2, generated lockfile, frozen install, full quality check және review artifact (Front #78, Admin #34).
 - [ ] Front/Admin committed pnpm lockfile және `--frozen-lockfile` install.
 - [x] Immutable production migration Job template + isolated release-schema/previous-app rollback compatibility rehearsal implementation (Back #215).
 - [ ] Actual staging migration Job execution + previous known-good rollback rehearsal with environment evidence.
