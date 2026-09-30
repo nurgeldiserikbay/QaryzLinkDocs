@@ -45,7 +45,7 @@
 Repository checklist interpretation:
 
 - Delivery Roadmap implementation checklist: **37/45 = 82.2%** complete.
-- Release checklist: **102/147 = 69.4%** checked.
+- Release checklist: **103/148 = 69.6%** checked.
 - Staging acceptance: **1/235** checked; бұл кодтың 0.4% ғана дайын дегенді білдірмейді — checklist нақты staging/provider/legal execution evidence-ін әдейі алдын ала green қылмайды.
 
 Roadmap-та қалған 8 тармақтың басым бөлігі external/legal acceptance: vetted KYC provider, approved legal templates, actual KMS/HSM, retention/lifecycle policy acceptance, RFC3161/qualified TSA, post-payment ledger application legal/accounting policy және full statutory data-export scope. Purely technical conditional item — large archive streaming/ZIP64, ол load evidence талап етсе ғана міндетті.
@@ -73,6 +73,8 @@ Dispute browser acceptance coverage қосылды. Front #77 (`83416c2`) existi
 Backend Phase 2 PostgreSQL gate dispute invariants-пен кеңейді. Back #219 (`34012f6`) reusable signed-contract/evidence-intent fixture қосып, funding dispute кезінде contract `DISPUTED`, scheduleCount=0 және ledgerCount=0 болуын; payment dispute кезінде allocations=[], ledgerCount=0, schedule paidMinor өзгермеуін және closure ready=false болуын нақты PostgreSQL үстінде тексереді. `test:phase2-critical` енді lifecycle және dispute integration specs-ті бірге орындайды; acceptance artifact coverage metadata-ға funding-dispute/payment-dispute қосылды. CI run `36735316221` quality job `steps=null` күйінде runner алмады, сондықтан successful current-main execution pending.
 
 Notification scheduler deployment drift жабылды. Back #220 (`196e55a`) canonical `ops/kubernetes/notification-scheduler-cronjob.yaml` manifest-ін release bundle-ға қосты: 5-minute engineering cadence, `concurrencyPolicy: Forbid`, bounded starting/active deadlines, `backoffLimit: 0`, no service-account token, read-only root filesystem және exact immutable release digest placeholder. Backend CI manifest invariants бұл contract-ты тексереді, ал `ops/render-release.sh` жаңа manifest-ті автоматты түрде release output-қа енгізеді. Docs reference copy canonical Backend manifest-пен синхрондалды. CI run `36736516498` runner алмады (`steps=null`); actual staging rollout/failed-Job alerting әлі pending.
+
+Real staging runtime smoke foundation қосылды. Back #221 (`f730f5c`) manual `Staging Runtime Smoke` workflow және `ops/staging-runtime-smoke.sh` қосты. Harness HTTPS liveness/readiness/database-ready, unauthenticated private discovery 401 boundary және 8 aggregate metrics endpoint үшін missing-token 401, wrong-token 401, valid-token 200 + `Cache-Control: no-store` contract-ын тексереді. Retained artifact URL/token/response body/PII сақтамайды; тек run metadata және aggregate pass/fail бар. Main CI real staging-ке бармайды, тек shell/static validation жасайды. Бұл implementation actual staging readiness/metrics acceptance-ті автоматты green қылмайды.
 
 ## Phase 4 Trust & Evidence басталуы — 2026-09-28
 

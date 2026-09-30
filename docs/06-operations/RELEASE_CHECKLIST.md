@@ -81,6 +81,7 @@
 - [x] Trusted proxy default-off bounded configuration және exact CORS allowlist code/CI contracts.
 - [ ] Staging ingress proxy-hop/header sanitization acceptance — `STAGING_ACCEPTANCE.md` бойынша.
 - [x] Backend privacy-safe liveness/readiness contracts және PostgreSQL readiness check.
+- [x] Manual privacy-safe staging runtime smoke harness: HTTPS liveness/readiness/database + private auth boundary + 8 metrics auth/cache checks, metadata-only evidence (Back #221).
 - [ ] Staging ingress/orchestrator readiness probe нақты `/api/v1/health/ready` endpoint-іне қосылғаны тексерілді.
 - [ ] Kubernetes CronJob staging rollout, immutable image verification және job alerting.
 - [ ] Metrics endpoint internal ingress review және staging acceptance.
