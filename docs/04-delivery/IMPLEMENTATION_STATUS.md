@@ -154,6 +154,14 @@ New evidence package creation cutover projection provenance үшін schema v5 �
 
 QaryzLinkBack PR #207 merged at `43ef5ad`, QaryzLinkDocs PR #139 merged at `7ab68da`. Back CI run `36664145914` conclusion=failure, бірақ quality job-та `steps=[]`, `runner_id=0`; Prisma/typecheck/lint/test/build орындалмаған. Automated verification pending; source-level schema/relation/index-bound/line-limit/evidence compatibility review жасалды.
 
+Post-payment cutover-pinned N+1 signing foundation қосылды. Dedicated `CONTRACT_POST_PAYMENT_AMENDMENT_SIGNING_ENABLED=false` gate amendments/signing gates-ке тәуелді және release preflight enabled state-ті manual accounting/legal acceptance ретінде көрсетеді. `POST /api/v1/contracts/:contractId/amendments/:amendmentId/start-post-payment-signing` exact latest cutoverPreviewId талап етеді. Start contract/amendment row lock ішінде cutover preview-дің latest accounting snapshot/current signed ContractVersion/latest schedule/payment state/canonical stateHash-пен әлі exact екенін және deterministic previewHash/policyVersion-ды қайта verify етеді.
+
+Successful start ContractVersion N+1 `SIGNING` жасайды және `sourceCutoverPreviewId` сақтайды. N+1 calculationPolicy + documentHash selected previewHash, accountingSnapshotId, accountingStateHash, cutover policyVersion және referenceAt-ты bind етеді. Same exact preview retry idempotent, басқа preview retry conflict. Financial amendment `SIGNING` немесе `SIGNED_PENDING_ACTIVATION` кезінде repayment evidence, lender confirm/dispute және reversal толық frozen болады.
+
+Post-payment N+1 first signature currentVersion/schedule/payment/ledger-ді өзгертпейді. Екінші signature N+1→SIGNED және amendment→SIGNED_PENDING_ACTIVATION ғана жасайды. Base ContractVersion signed күйде қалады, currentVersion ауыспайды, жаңа ScheduleVersion/PaymentAllocation/LedgerEntry жасалмайды. Actual reclassification/opening-balance/ledger activation әлі бөлек pending slice. New evidence package creation cutover-pinned ContractVersion provenance үшін schema v6 қолданады; persisted v1-v5 packages retroactive rewrite болмайды.
+
+QaryzLinkBack PR #208 merged at `c713e5a`, QaryzLinkDocs PR #141 merged at `655ef7a`. Back CI run `36667322058` conclusion=failure, бірақ quality job-та `steps=[]`, `runner_id=0`; Prisma/typecheck/lint/test/build орындалмаған. Automated verification pending; source-level schema/migration/DI/line-limit/idempotency/evidence compatibility review жасалды.
+
 Бұл baseline court-ready package емес: vetted L2 KYC provider selection/provider-specific API/event mapping/KZ privacy-legal staging acceptance, actual approved KZ/RU legal template content/visual acceptance, actual KMS/HSM signer deployment/external IAM/key ceremony acceptance, RFC3161/qualified TSA legal acceptance, jurisdiction retention periods, external bucket lifecycle acceptance және production load acceptance әлі Phase 4 backlog-та.
 
 ## Қазіргі backend slice
