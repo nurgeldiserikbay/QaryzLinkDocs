@@ -45,7 +45,7 @@
 Repository checklist interpretation:
 
 - Delivery Roadmap implementation checklist: **37/45 = 82.2%** complete.
-- Release checklist: **119/164 = 72.6%** checked.
+- Release checklist: **120/165 = 72.7%** checked.
 - Staging acceptance: **1/235** checked; бұл кодтың 0.4% ғана дайын дегенді білдірмейді — checklist нақты staging/provider/legal execution evidence-ін әдейі алдын ала green қылмайды.
 
 Roadmap-та қалған 8 тармақтың басым бөлігі external/legal acceptance: vetted KYC provider, approved legal templates, actual KMS/HSM, retention/lifecycle policy acceptance, RFC3161/qualified TSA, post-payment ledger application legal/accounting policy және full statutory data-export scope. Purely technical conditional item — large archive streaming/ZIP64, ол load evidence талап етсе ғана міндетті.
@@ -87,6 +87,8 @@ Runtime-smoke integration hardening аяқталды. Back #222 (`5c2a702`) fake
 Production pilot scope fail-closed governance қосылды. Back #226 (`12ab1b1`) deployment profile-ды `kz-personal-private-debt-v1` enum-ына pin етеді; басқа profile environment validation-нан өтпейді. Production boot үшін versioned `PILOT_SCOPE_APPROVAL_ID` міндетті, ал release preflight approval reference бар болса да automatic green емес, `manual` acceptance береді. Back #229 (`48341b0`) defense-in-depth ретінде `PUBLIC_MARKETPLACE_ENABLED`, `PENALTY_ENABLED` немесе `AMOUNT_BASED_COMMISSION_ENABLED=true` болса production environment validation-ның өзін fail-fast етті; staging-та controlled testing рұқсат. Бұл implementation pilot scope-ты өзі бекітпейді және deployed values acceptance-ін алмастырмайды; owner/legal approval әлі ашық gate.
 
 Release config drift guard қосылды. Back #232 (`f10f4ff`) deployment env snapshot-ты source етпей оқитын privacy-safe checker қосты: exact `PILOT_SCOPE_PROFILE=kz-personal-private-debt-v1`, present versioned `PILOT_SCOPE_APPROVAL_ID` және marketplace/penalty/amount-based-commission flags=false болуы міндетті. Duplicate governance keys немесе unsupported profile fail-closed. Output approval ID value-ін шығармайды, aggregate pass metadata ғана береді. Vitest және CI safe/fail smoke coverage бар. Бұл actual deployed ConfigMap/Secret acceptance-ін алмастырмайды.
+
+Staging forwarded-header spoof acceptance harness main-ға кірді. Back #231 (`6412a9b`) manual `Staging Proxy Spoof Smoke` workflow қосты: бір random nonexistent email үшін caller-controlled `X-Forwarded-For`, `X-Real-IP` және `Forwarded` мәндерін әр attempt-та ауыстырып, password-reset pair rate-limit budget бөлінбейтінін тексереді; алғашқы 3 request 202, төртіншісі 429 + `Retry-After` болуы тиіс. Retained artifact URL/email/header values/response body сақтамайды, тек metadata-only outcome береді. Fake-curl regression test bypass жағдайында fail-closed болады. Бұл harness implementation ғана; нақты ingress/header sanitization staging execution әлі pending.
 
 Front/Admin dependency reproducibility preparation да main-ға кірді. Front #78 (`f5540e9`) және Admin #34 (`1de24b8`) manual lockfile-candidate workflow қосты: exact Node 24 + `pnpm@12.4.2`, `pnpm install --lockfile-only`, кейін `--frozen-lockfile`, full `pnpm check`, lockfile SHA-256/toolchain metadata және 14-day review artifact. Workflow generated lockfile-ды әдейі auto-commit етпейді. CI runs `36743815440` және `36743823453` runner step алмады (`steps=null`). Сондықтан generation/review automation ready, бірақ actual committed `pnpm-lock.yaml` + frozen installs әлі pending.
 
