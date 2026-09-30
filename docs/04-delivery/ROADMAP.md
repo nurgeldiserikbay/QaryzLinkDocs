@@ -174,6 +174,7 @@ Open/public matching production-да қосылмас бұрын Қазақст�
 - [x] immutable post-payment activation plan + replacement-schedule candidate + unapplied-credit flags;
 - [x] default-off zero-ledger-adjustment post-payment activation + immutable historical schedules + evidence schema v8;
 - [x] preview-only immutable post-payment ledger adjustment plan + separate reclassification/unallocated-credit components + evidence schema v9;
+- [x] Front participant review for current ledger-adjustment preview + exact activation-plan provenance + no-application UX;
 - [ ] actual post-payment ledger adjustment application/activation policy + Kazakhstan legal/staging acceptance;
 - disputes;
 - [x] default-off audited participant own-data export foundation (account/profile/privacy/contact + role-scoped contract/payment summaries);
