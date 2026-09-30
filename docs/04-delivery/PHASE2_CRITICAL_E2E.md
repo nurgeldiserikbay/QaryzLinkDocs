@@ -117,7 +117,7 @@ Integration fixture тек өзі жасаған party ID-лерге қатыс�
 
 Жалпы display name немесе global synthetic selector қолданылмайды. Бұл parallel PostgreSQL tests бір-бірінің fixture деректерін жоймауы үшін қажет.
 
-## Authenticated staging browser smoke
+## Authenticated staging browser acceptance harness
 
 QaryzLinkFront-та manual-only Playwright staging harness бар.
 
@@ -125,15 +125,18 @@ Workflow:
 
 `.github/workflows/staging-browser-e2e.yml`
 
-Ол mock API емес, нақты deployed Front URL-ға жүреді және verified participant credentials қолданады.
+Ол mock API емес, нақты deployed Front/API/storage path-қа жүреді және екі verified participant үшін бөлек browser context қолданады.
 
 Required repository configuration:
 
 - variable `E2E_STAGING_BASE_URL`;
-- secret `E2E_STAGING_EMAIL`;
-- secret `E2E_STAGING_PASSWORD`.
+- secret `E2E_STAGING_BORROWER_EMAIL`;
+- secret `E2E_STAGING_BORROWER_PASSWORD`;
+- secret `E2E_STAGING_LENDER_EMAIL`;
+- secret `E2E_STAGING_LENDER_PASSWORD`;
+- variable `E2E_STAGING_LENDER_PUBLIC_ID`.
 
-Current smoke:
+Baseline smoke:
 
 - real login form → authenticated dashboard;
 - verified participant private dashboard/session boundary;
@@ -141,11 +144,28 @@ Current smoke:
 - RU locale persistence;
 - 390px mobile viewport horizontal-overflow guard.
 
-Credentials source code-қа жазылмайды және test output-қа әдейі шығарылмайды.
+Full private-debt staging journey implementation:
 
-Бұл harness full borrower↔lender debt lifecycle-ты алмастырмайды. Ол real deployed auth/session/browser path үшін first acceptance gate. Full two-party lifecycle бөлек scenario ретінде әлі pending.
+1. borrower private request;
+2. exact lender Public ID invite;
+3. lender proposal;
+4. borrower proposal acceptance;
+5. immutable contract draft;
+6. borrower + lender dual signing;
+7. lender funding evidence browser SHA-256 + scoped upload intent + signed private PUT;
+8. borrower funding confirmation;
+9. deterministic schedule generation;
+10. borrower full-current-outstanding repayment evidence + signed private PUT;
+11. lender repayment confirmation;
+12. lender + borrower dual closure confirmation;
+13. ClosureCertificate;
+14. immutable EvidencePackage manifest + SHA-256 assertion.
 
-QaryzLinkFront PR #66 merged at `564a2ad`. CI run `36701747708` quality job-ты runner step-теріне жеткізбеді: `runner_id=0`, `steps=[]`; сондықтан staging smoke әлі actual successful execution evidence емес.
+Critical actions locale-independent `data-testid` selectors қолданады, бірақ product copy/state KZ/RU каталогынан қалады. Credentials source code-қа жазылмайды және test output-қа әдейі шығарылмайды.
+
+QaryzLinkFront PR #66 merged at `564a2ad` (authenticated smoke). Contract mutation UI үшін Back #213 / Front #67 / Front #68 viewerRole, dual signing, funding evidence/decision, schedule generation және repayment evidence/decision action-дарын қосты. Full two-party browser harness Front #69 арқылы `f4890e2` commit-ке merge болды.
+
+CI runs `36701747708`, `36710630674`, `36711186784` және `36711825055` runner step-теріне жетпеді (`runner_id=0`, `steps=[]`/null). Сондықтан browser lifecycle **implemented**, бірақ actual successful staging execution evidence әлі pending.
 
 ## Exit criteria interpretation
 
