@@ -6,6 +6,7 @@ metadata:
     app.kubernetes.io/name: qaryzlink-notification-scheduler
     app.kubernetes.io/component: worker
 spec:
+  # Engineering default only. Staging owner must validate cadence and alerting.
   schedule: "*/5 * * * *"
   concurrencyPolicy: Forbid
   startingDeadlineSeconds: 120
@@ -14,6 +15,7 @@ spec:
   jobTemplate:
     spec:
       backoffLimit: 0
+      activeDeadlineSeconds: 240
       ttlSecondsAfterFinished: 86400
       template:
         metadata:
@@ -21,25 +23,24 @@ spec:
             app.kubernetes.io/name: qaryzlink-notification-scheduler
             app.kubernetes.io/component: worker
         spec:
-          restartPolicy: Never
           automountServiceAccountToken: false
+          restartPolicy: Never
           securityContext:
             runAsNonRoot: true
             seccompProfile:
               type: RuntimeDefault
           containers:
-            - name: scheduler
-              image: registry.example.invalid/qaryzlink-back:replace-with-immutable-digest
+            - name: notification-scheduler
+              image: registry.example.com/qaryzlink/back@sha256:REPLACE_WITH_RELEASE_DIGEST
               imagePullPolicy: IfNotPresent
               command:
                 - node
                 - dist/src/notification-scheduler.main.js
-              env:
-                - name: NODE_ENV
-                  value: staging
               envFrom:
+                - configMapRef:
+                    name: qaryzlink-back
                 - secretRef:
-                    name: qaryzlink-back-runtime
+                    name: qaryzlink-back
               securityContext:
                 allowPrivilegeEscalation: false
                 readOnlyRootFilesystem: true
