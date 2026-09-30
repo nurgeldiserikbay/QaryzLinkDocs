@@ -54,7 +54,7 @@ QaryzLinkFront authenticated staging browser smoke harness PR #66 арқылы `
 
 Private Debt MVP browser gap жабылды. Backend contract response participant identity-ді ашпай `viewerRole=BORROWER|LENDER` қайтарады (Back #213, `3c643db`). Front #67 (`ca09808`) exact immutable documentHash signing, lender funding evidence signed upload және borrower funding decision UI қосты. Front #68 (`070a1f7`) schedule generation, borrower full-current-outstanding repayment evidence және lender payment decision UI қосты. Front #69 (`f4890e2`) екі isolated browser context-пен request-тен immutable evidence manifest-ке дейін real-staging lifecycle harness қосты.
 
-Front CI runs `36710630674`, `36711186784`, `36711825055` quality job-тары `runner_id=0`, `steps=[]`/null күйінде тоқтады; application typecheck/lint/test/build орындалмаған. Front #70 (`69da13b`) full lifecycle-ды KK және RU-ға parameterize етті; CI `36712583763` та `steps=null` күйінде runner алмады. Сондықтан core browser flow implementation complete болғанымен formal Phase 2 green status нақты successful runner + staging execution шыққанша берілмейді.
+Front CI runs `36710630674`, `36711186784`, `36711825055` quality job-тары `runner_id=0`, `steps=[]`/null күйінде тоқтады; application typecheck/lint/test/build орындалмаған. Front #70 (`69da13b`) full lifecycle-ды KK және RU-ға parameterize етті; CI `36712583763` та `steps=null` күйінде runner алмады. Front #71 (`6c6c1cd`) authenticated traces-ты өшіріп, metadata-only per-scenario acceptance artifact қосты; CI `36713175109` та runner step алмады. Сондықтан core browser flow implementation complete болғанымен formal Phase 2 green status нақты successful runner + staging execution шыққанша берілмейді.
 
 ## Phase 4 Trust & Evidence басталуы — 2026-09-28
 
