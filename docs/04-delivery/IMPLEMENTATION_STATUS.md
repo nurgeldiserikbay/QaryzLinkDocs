@@ -182,6 +182,10 @@ Post-payment ledger adjustment preview foundation қосылды. `requiresLedge
 
 QaryzLinkBack PR #211 merged at `35291e4`, QaryzLinkDocs ADR-0028 / PR #147 merged at `efa737c`. Back CI run `36698466387` conclusion=failure, бірақ quality job `runner_id=0`, `steps=[]`, execution ~2s және log blob жоқ; application quality steps басталмаған. Merge алдында source-level Prisma relation/migration, controller DI/tests, deterministic domain/view/service, participant scope, idempotency/stale-state, audit minimization және evidence v9 compatibility review жасалды.
 
+Front-та post-payment ledger adjustment review UI қосылды. Contract detail current `SIGNED_PENDING_ACTIVATION` amendment-ті ғана қарайды, latest activation plan `requiresLedgerAdjustment=true` болса panel ашады және existing ledger preview-ды exact activationPlanId + planHash бойынша ғана қабылдайды. Preview жоқ болса participant immutable preview жасай алады; бұл financial application емес. UI interest reclassification candidate пен unallocated credit-ті бөлек, replacement schedule және provenance hashes-пен көрсетеді; `PREVIEW ONLY / қолданылмаған` boundary KZ/RU мәтінінде анық берілген.
+
+QaryzLinkFront PR #63 merged at `71aa8c7`. Front CI run `36699905667` conclusion=failure, бірақ quality job `runner_id=0`, `steps=[]`, execution ~3s; typecheck/lint/test/build басталмаған. Merge алдында API route contract, locale-key parity, current-plan provenance filter, default-off hidden state, auth/error/loading states және no-application UX source-level review жасалды.
+
 Бұл baseline court-ready package емес: vetted L2 KYC provider selection/provider-specific API/event mapping/KZ privacy-legal staging acceptance, actual approved KZ/RU legal template content/visual acceptance, actual KMS/HSM signer deployment/external IAM/key ceremony acceptance, RFC3161/qualified TSA legal acceptance, jurisdiction retention periods, external bucket lifecycle acceptance және production load acceptance әлі Phase 4 backlog-та.
 
 ## Қазіргі backend slice
