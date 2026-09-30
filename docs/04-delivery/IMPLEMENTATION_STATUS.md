@@ -45,7 +45,7 @@
 Repository checklist interpretation:
 
 - Delivery Roadmap implementation checklist: **37/45 = 82.2%** complete.
-- Release checklist: **99/144 = 68.8%** checked.
+- Release checklist: **100/145 = 69.0%** checked.
 - Staging acceptance: **1/235** checked; бұл кодтың 0.4% ғана дайын дегенді білдірмейді — checklist нақты staging/provider/legal execution evidence-ін әдейі алдын ала green қылмайды.
 
 Roadmap-та қалған 8 тармақтың басым бөлігі external/legal acceptance: vetted KYC provider, approved legal templates, actual KMS/HSM, retention/lifecycle policy acceptance, RFC3161/qualified TSA, post-payment ledger application legal/accounting policy және full statutory data-export scope. Purely technical conditional item — large archive streaming/ZIP64, ол load evidence талап етсе ғана міндетті.
@@ -67,6 +67,8 @@ Payment correction/dispute path hardened. Back #217 (`ccdaeca`) payment reversal
 Admin browser acceptance privacy evidence Front-пен бірдей policy-ге келтірілді. Admin #33 (`22aea52`) Playwright trace retention-ды өшіріп, scenario title/status + repository/commit/run metadata ғана сақтайтын custom reporter және 14-day metadata-only artifact қосты. Credentials, token, response body, row identifiers немесе PII artifact-қа кірмейді. CI run `36730229712` quality job `steps=null` күйінде runner алмады; actual Admin browser execution pending.
 
 Backend Phase 2 formal acceptance evidence gate бұрыннан implementation-да бар және енді status-та да бекітілді. Back #214 (`d520de0`) migrations-тан кейін focused real-PostgreSQL `test:phase2-critical` орындайды, private-debt lifecycle/evidence privacy/cross-user isolation/notification isolation coverage-ті CI gate етеді және 14 күнге metadata-only acceptance artifact сақтайды. CI run `36713566757` runner алмады (`steps=null`), сондықтан implementation ready, successful current-main execution pending.
+
+Dispute browser acceptance coverage қосылды. Front #77 (`83416c2`) existing two-user staging harness үстіне екі serialized scenario қосты: KK funding dispute borrower mandatory reason-пен `DISPUTED` күйіне өтіп contract activation/schedule action-дарын блоктайды; RU repayment dispute lender mandatory reason-пен payment-ті `DISPUTED` күйінде қалдырады, allocation жасамайды және further repayment/closure-ды блоктайды. Workflow metadata scenario suite осы екі case-пен кеңейді; trace әлі off және artifact metadata-only. CI run `36734508787` quality job `steps=null` күйінде runner алмады, сондықтан successful staging execution pending.
 
 ## Phase 4 Trust & Evidence басталуы — 2026-09-28
 

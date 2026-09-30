@@ -137,6 +137,13 @@ Real-staging private-debt browser harness implementation (Front #69):
 
 Critical controls locale-independent selectors қолданады. Front #70 бір reusable full lifecycle flow-ды `kk` және `ru` үшін бөлек serialized staging test ретінде орындайды; mutation test retry өшірулі және Playwright staging worker саны 1.
 
+Dispute-path browser acceptance (Front #77):
+
+- KK: signed contract → lender funding evidence → borrower reasoned funding DISPUTE → funding `DISPUTED` → activation/schedule unavailable;
+- RU: confirmed funding → schedule → borrower repayment evidence → lender reasoned payment DISPUTE → payment `DISPUTED`, allocations empty, new repayment/closure unavailable.
+
+Бұл scenarios success lifecycle-тан бөлек fresh contracts қолданады және same metadata-only acceptance reporter-ге түседі.
+
 ## Нені бұл әлі дәлелдемейді
 
 Static/unit/browser harness implementation actual successful staging run-ды өздігінен дәлелдемейді.
