@@ -182,6 +182,27 @@ Phase 2 үшін:
 
 Сондықтан Phase 2 әлі formal түрде `critical E2E flows green` exit criterion-ін жапқан жоқ.
 
+## Backend CI acceptance artifact
+
+QaryzLinkBack PR #214 (`d520de0`) existing real-PostgreSQL `phase2-critical.integration.spec.ts` suite-ін жеке CI gate ретінде бекітті.
+
+Focused command:
+
+`pnpm test:phase2-critical`
+
+Suite бір run ішінде:
+
+- private-debt lifecycle;
+- evidence privacy;
+- cross-user downstream isolation;
+- notification recipient/payload isolation
+
+тексереді.
+
+CI UTC timestamp, repository, commit SHA, workflow run ID/attempt, scenario және result қана сақтайтын metadata-only `phase2-critical-acceptance.txt` artifact жасайды; retention 14 күн. DATABASE_URL, credentials, user/party/contract/payment IDs немесе evidence contents artifact-ке көшірілмейді.
+
+CI run `36713566757` runner алмай `steps=null` күйінде тоқтады. Сондықтан artifact contract implemented, бірақ current main successful execution evidence әлі pending.
+
 ## Required acceptance evidence
 
 Quota/billing gate шешілгеннен кейін кемінде:
