@@ -36,8 +36,8 @@
 
 ## 4. Auth және privacy smoke
 
-- [ ] register/login/refresh rotation/logout.
-- [ ] replayed refresh token 401.
+- [ ] Manual `Staging Auth Session Smoke` dedicated verified account-пен login/session inventory/refresh rotation/replayed-refresh 401/logout access+refresh revocation lifecycle-ын successful орындайды; artifact metadata-only.
+- [ ] register + email verification нақты SMTP/test mailbox flow-ымен бөлек successful өтеді.
 - [ ] forged forwarded IP rate-limit budget-ті айналып өтпейді.
 - [ ] жаңа profile privacy-closed.
 - [ ] account deletion request active sessions-ды revoke етеді.
