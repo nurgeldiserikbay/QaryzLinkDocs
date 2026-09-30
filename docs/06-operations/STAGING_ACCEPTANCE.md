@@ -14,6 +14,7 @@
 - [ ] `PILOT_SCOPE_PROFILE=kz-personal-private-debt-v1` exact; unsupported/wider profile жоқ.
 - [ ] Versioned `PILOT_SCOPE_APPROVAL_ID` deployed config-та бар және approved `PILOT_SCOPE_APPROVAL.md` record/version-пен сәйкес.
 - [ ] `PUBLIC_MARKETPLACE_ENABLED=false`, `PENALTY_ENABLED=false`, `AMOUNT_BASED_COMMISSION_ENABLED=false` deployed config/preflight арқылы расталды.
+  Production environment validation бұл flag-тардың кез келгені `true` болса process startup-ты да fail-closed тоқтатады; staging evidence nonetheless exact deployed false values-ды растауы тиіс.
 
 ## 2. Network және TLS
 
