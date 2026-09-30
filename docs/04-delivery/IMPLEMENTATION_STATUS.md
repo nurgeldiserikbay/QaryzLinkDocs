@@ -45,7 +45,7 @@
 Repository checklist interpretation:
 
 - Delivery Roadmap implementation checklist: **37/45 = 82.2%** complete.
-- Release checklist: **117/162 = 72.2%** checked.
+- Release checklist: **118/163 = 72.4%** checked.
 - Staging acceptance: **1/235** checked; бұл кодтың 0.4% ғана дайын дегенді білдірмейді — checklist нақты staging/provider/legal execution evidence-ін әдейі алдын ала green қылмайды.
 
 Roadmap-та қалған 8 тармақтың басым бөлігі external/legal acceptance: vetted KYC provider, approved legal templates, actual KMS/HSM, retention/lifecycle policy acceptance, RFC3161/qualified TSA, post-payment ledger application legal/accounting policy және full statutory data-export scope. Purely technical conditional item — large archive streaming/ZIP64, ол load evidence талап етсе ғана міндетті.
@@ -61,6 +61,8 @@ Deployment recovery automation да кеңейді. Back #215 (`1f82f74`) manual
 Release preflight staging execution contract та release bundle-ға қосылды. Back #227 (`c26a3ac`) `qaryzlink-release-preflight` Kubernetes Job manifest-ін қосты: API/migration-мен exact same immutable image digest, same ConfigMap/Secret, `backoffLimit=0`, 300s deadline, 24h TTL, no service-account token, read-only root filesystem. Existing release renderer оны автоматты түрде render етеді, CI manifest invariants тексереді. Actual staging Job execution және `manual` checks owner evidence әлі release acceptance ретінде ашық.
 
 Staging log privacy acceptance tooling қосылды. Back #228 (`4ff3ac1`) line-streaming scanner арқылы auth/session secrets, password, email, signed URL credential, evidence object key/URL, SMTP response field, raw document/evidence content және private-key markers-ді fail-closed анықтайды. Output matched content-ті қайтармайды: category/count/line number metadata ғана. Unit tests және CI smoke secret value output-қа шықпайтынын тексереді. Actual staging API/worker/CronJob logs scan + manual review әлі acceptance ретінде ашық.
+
+Staging auth/session acceptance harness қосылды. Back #230 (`e07a287`) dedicated verified account-пен login → privacy-safe session inventory → refresh rotation → old refresh replay 401 → rotated access check → logout → access/refresh revoke жолын manual workflow арқылы тексереді. Credential/token/response temp files mode-700 directory ішінде ғана болып, run соңында жойылады; retained artifact URL/email/password/token/body сақтамайды. Network-free fake-curl regression test replay қабылданса fail етеді. Register/email verification осы harness-тан бөлек SMTP inbox acceptance ретінде ашық.
 
 Repayment UX partial-payment capability-ге дейін кеңейді. Front #72 (`e39b936`) KZT input-ты floating-point қолданбай minor units-ке parse етеді, `0 < amount <= current outstanding` шегін evidence upload басталмай тұрып тексереді және full outstanding-ты default ретінде қояды. Front #73 (`abc6cb7`) KK/RU staging lifecycle-да 1 ₸ partial repayment → lender confirm → exact remaining balance → final repayment → closure жолын тексереді. CI runs `36721129983` және `36721497464` та `steps=null` болып runner алмады; implementation merged, execution evidence pending.
 
