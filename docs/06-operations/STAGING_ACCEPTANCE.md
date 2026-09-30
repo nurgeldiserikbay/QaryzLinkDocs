@@ -142,8 +142,8 @@
 - [ ] New Funding row жасалмайды; original funding effectiveAt сақталады.
 - [ ] Generic schedule generation Proposal terms емес, exact signed Contract.currentVersion termsSnapshot қолданады.
 - [ ] Schedule generation unsigned current version болса fail-closed.
-- [ ] New evidence package schema v5 proposed terms + schedule provenance + accounting snapshot/cutover projection history-ді canonical manifest-ке bind етеді.
-- [ ] Existing persisted evidence v1/v2/v3/v4 package retroactive rewrite болмайды.
+- [ ] New evidence package schema v6 proposed terms + schedule provenance + accounting snapshot/cutover history + ContractVersion sourceCutoverPreviewId binding-ті canonical manifest-ке bind етеді.
+- [ ] Existing persisted evidence v1/v2/v3/v4/v5 package retroactive rewrite болмайды.
 - [ ] Payment history бар APPROVED TERMS_CHANGE/SCHEDULE_CHANGE үшін accounting-preview participant-only жұмыс істейді.
 - [ ] Preview тек ACTIVE + CONFIRMED funding + exact current signed ContractVersion + one-item latest schedule кезінде жасалады.
 - [ ] Persisted paidMinor charge → interest → principal policy бойынша paid/outstanding component split-ке детерминистік реконструкцияланады.
@@ -167,7 +167,17 @@
 - [ ] GET cutover-previews тек contract participant-қа versioned history береді.
 - [ ] Cutover response policyStatus=PREVIEW_ONLY, activationEligible=false, activationReason=POST_PAYMENT_CUTOVER_POLICY_PENDING.
 - [ ] Cutover preview ContractVersion/ScheduleVersion/PaymentAllocation/LedgerEntry/currentVersion mutation жасамайды.
-- [ ] Evidence v5 exact accountingSnapshotId, state/preview hashes, policy version және projection amounts/dates-ті қамтиды.
+- [ ] Evidence v6 exact accountingSnapshotId, state/preview hashes, policy version, projection amounts/dates және sourceCutoverPreviewId-ті қамтиды.
+- [ ] `CONTRACT_POST_PAYMENT_AMENDMENT_SIGNING_ENABLED` default false; amendments/signing gates off болса enable validation fail болады.
+- [ ] Release preflight post_payment_amendment_signing=manual / post_payment_accounting_legal_acceptance_required көрсетеді.
+- [ ] POST start-post-payment-signing exact latest cutoverPreviewId талап етеді және stale preview/stateHash rejected.
+- [ ] N+1 sourceCutoverPreviewId exact selected preview-ге тең; calculationPolicy previewHash/accountingSnapshotId/accountingStateHash/policyVersion/referenceAt сақтайды.
+- [ ] Cutover preview hash немесе accounting state hash өзгерсе N+1 documentHash та өзгереді.
+- [ ] Same preview start retry idempotent; different preview retry conflict.
+- [ ] Post-payment SIGNING/SIGNED_PENDING_ACTIVATION кезінде repayment submit/confirm/dispute/reversal blocked.
+- [ ] First signature currentVersion/schedule/payment/ledger-ді өзгертпейді.
+- [ ] Second signature N+1→SIGNED және amendment→SIGNED_PENDING_ACTIVATION ғана жасайды.
+- [ ] SIGNED_PENDING_ACTIVATION кезінде base version SUPERSEDED болмайды, currentVersion өзгермейді, жаңа schedule/ledger entry жасалмайды.
 - [ ] Actual post-payment N+1 activation әдейі unsupported; acceptance record reclassification/effective-date/ledger cutover pending екенін көрсетеді.
 - [ ] Kazakhstan legal owner pre-payment rate/term amendment wording, retroactive funding-effectiveAt accrual және signature effect-ті бекітті.
 
