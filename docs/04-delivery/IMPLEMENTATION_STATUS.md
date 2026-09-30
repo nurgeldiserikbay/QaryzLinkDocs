@@ -45,7 +45,7 @@
 Repository checklist interpretation:
 
 - Delivery Roadmap implementation checklist: **37/45 = 82.2%** complete.
-- Release checklist: **115/160 = 71.9%** checked.
+- Release checklist: **116/161 = 72.0%** checked.
 - Staging acceptance: **1/235** checked; бұл кодтың 0.4% ғана дайын дегенді білдірмейді — checklist нақты staging/provider/legal execution evidence-ін әдейі алдын ала green қылмайды.
 
 Roadmap-та қалған 8 тармақтың басым бөлігі external/legal acceptance: vetted KYC provider, approved legal templates, actual KMS/HSM, retention/lifecycle policy acceptance, RFC3161/qualified TSA, post-payment ledger application legal/accounting policy және full statutory data-export scope. Purely technical conditional item — large archive streaming/ZIP64, ол load evidence талап етсе ғана міндетті.
@@ -57,6 +57,8 @@ Private Debt MVP browser gap жабылды. Backend contract response participa
 Front CI runs `36710630674`, `36711186784`, `36711825055` quality job-тары `runner_id=0`, `steps=[]`/null күйінде тоқтады; application typecheck/lint/test/build орындалмаған. Front #70 (`69da13b`) full lifecycle-ды KK және RU-ға parameterize етті; CI `36712583763` та `steps=null` күйінде runner алмады. Front #71 (`6c6c1cd`) authenticated traces-ты өшіріп, metadata-only per-scenario acceptance artifact қосты; CI `36713175109` та runner step алмады. Сондықтан core browser flow implementation complete болғанымен formal Phase 2 green status нақты successful runner + staging execution шыққанша берілмейді.
 
 Deployment recovery automation да кеңейді. Back #215 (`1f82f74`) manual migration/rollback compatibility rehearsal қосты: selected release migrations isolated PostgreSQL-ға forward apply болады, previous known-good ref сол migrated schema үстінде build/start/readiness smoke өтеді; reverse migration жоқ. Back #216 (`0a6969c`) synthetic no-PII source DB → custom-format pg_dump → separate restore DB → exact bounded counters → current app readiness rehearsal қосты; dump bytes artifact retention алдында жойылады. CI runs `36719762124` және `36720220403` та `steps=null` болып runner алмады. Сондықтан automation implemented, real environment evidence pending.
+
+Release preflight staging execution contract та release bundle-ға қосылды. Back #227 (`c26a3ac`) `qaryzlink-release-preflight` Kubernetes Job manifest-ін қосты: API/migration-мен exact same immutable image digest, same ConfigMap/Secret, `backoffLimit=0`, 300s deadline, 24h TTL, no service-account token, read-only root filesystem. Existing release renderer оны автоматты түрде render етеді, CI manifest invariants тексереді. Actual staging Job execution және `manual` checks owner evidence әлі release acceptance ретінде ашық.
 
 Repayment UX partial-payment capability-ге дейін кеңейді. Front #72 (`e39b936`) KZT input-ты floating-point қолданбай minor units-ке parse етеді, `0 < amount <= current outstanding` шегін evidence upload басталмай тұрып тексереді және full outstanding-ты default ретінде қояды. Front #73 (`abc6cb7`) KK/RU staging lifecycle-да 1 ₸ partial repayment → lender confirm → exact remaining balance → final repayment → closure жолын тексереді. CI runs `36721129983` және `36721497464` та `steps=null` болып runner алмады; implementation merged, execution evidence pending.
 

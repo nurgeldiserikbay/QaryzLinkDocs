@@ -10,7 +10,7 @@
 - [ ] API/worker/CronJob image бір immutable digest қолданады.
 - [ ] CI және supply-chain checks green.
 - [ ] Migration Job сол digest-пен аяқталды.
-- [ ] Сол image/config ішінде `pnpm release:preflight` іске қосылды; overall status `fail` емес және JSON evidence secret-free сақталды.
+- [ ] Rendered `qaryzlink-release-preflight` Job дәл сол immutable image digest + `qaryzlink-back` ConfigMap/Secret-пен migration-нан кейін орындалды; overall status `fail` емес және JSON evidence secret-free сақталды.
 - [ ] `PILOT_SCOPE_PROFILE=kz-personal-private-debt-v1` exact; unsupported/wider profile жоқ.
 - [ ] Versioned `PILOT_SCOPE_APPROVAL_ID` deployed config-та бар және approved `PILOT_SCOPE_APPROVAL.md` record/version-пен сәйкес.
 - [ ] `PUBLIC_MARKETPLACE_ENABLED=false`, `PENALTY_ENABLED=false`, `AMOUNT_BASED_COMMISSION_ENABLED=false` deployed config/preflight арқылы расталды.
