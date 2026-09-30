@@ -45,7 +45,7 @@
 Repository checklist interpretation:
 
 - Delivery Roadmap implementation checklist: **37/45 = 82.2%** complete.
-- Release checklist: **109/154 = 70.8%** checked.
+- Release checklist: **110/155 = 71.0%** checked.
 - Staging acceptance: **1/235** checked; бұл кодтың 0.4% ғана дайын дегенді білдірмейді — checklist нақты staging/provider/legal execution evidence-ін әдейі алдын ала green қылмайды.
 
 Roadmap-та қалған 8 тармақтың басым бөлігі external/legal acceptance: vetted KYC provider, approved legal templates, actual KMS/HSM, retention/lifecycle policy acceptance, RFC3161/qualified TSA, post-payment ledger application legal/accounting policy және full statutory data-export scope. Purely technical conditional item — large archive streaming/ZIP64, ол load evidence талап етсе ғана міндетті.
@@ -85,6 +85,8 @@ Front/Admin dependency reproducibility preparation да main-ға кірді. Fr
 Pilot scope approval process үшін versioned record template қосылды: `docs/06-operations/PILOT_SCOPE_APPROVAL.md`. Ол proposed Kazakhstan natural-person private-debt boundary, explicit exclusions, provider/legal/privacy dependencies, deployment assertions, material-change versioning және product/legal/privacy/security sign-off fields береді. Құжаттың болуы approval емес; `Approval ID` және reviewer fields PENDING күйінде қалады, сондықтан product/legal release gate әлі жабылған жоқ.
 
 KYC provider selection жұмысы үшін `docs/06-operations/KYC_PROVIDER_ACCEPTANCE.md` versioned acceptance record қосылды. Template нақты vendor-дың session API, VERIFIED/REVOKED event mapping, callback/signature trust, key rotation/revocation, data minimization/residency, retention, legal/privacy classification, incident ownership және staging scenarios-ын generic `remote-signed-l2` boundary-ға байланыстырады. Provider decision/governance IDs/key fingerprint/reviewer fields әдейі PENDING; vetted vendor selection release gate әлі жабылған жоқ.
+
+KZ/RU legal contract PDF approval process үшін `docs/06-operations/CONTRACT_TEMPLATE_ACCEPTANCE.md` қосылды. Record exact template IDs/hashes, independent SHA-256, legal wording review, deterministic font/embedding policy, visual/pagination fixtures, renderer identity/key және ZIP v2 evidence-chain assertions-ын байланыстырады. Governance IDs/reviewers/staging references PENDING; actual approved legal artifacts release gate әлі ашық.
 
 ## Phase 4 Trust & Evidence басталуы — 2026-09-28
 
