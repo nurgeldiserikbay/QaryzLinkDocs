@@ -16,6 +16,7 @@
 - [x] Provider-neutral isolated CI backup/restore rehearsal implementation: synthetic no-PII fixture → pg_dump → separate DB restore → integrity counters → application readiness (Back #216).
 - [ ] Actual staging/provider backup restore drill: encrypted provider backup/PITR, isolated restore, measured RTO/RPO және retained operator evidence.
 - [ ] Private object storage, signed URLs, malware scan және retention policy.
+- [x] Metadata-only staging log privacy scanner + unit/CI smoke tooling бар; matched secret/PII content output-қа шықпайды (Back #228).
 - [ ] Логтарда password, token, email, SMTP response және құжат деректері жоқ.
 
 ## Public pilot алдында инженерлік жұмыстар
