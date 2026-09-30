@@ -179,7 +179,8 @@ Open/public matching production-да қосылмас бұрын Қазақст�
 - disputes;
 - [x] default-off audited participant own-data export foundation (account/profile/privacy/contact + role-scoped contract/payment summaries);
 - [x] retention-aware account deletion/anonymization foundation;
-- [ ] full legal data-subject export scope + Front downloadable UX + Kazakhstan privacy/staging acceptance;
+- [x] Front downloadable own-data export UX + privacy-safe summary + export-before-deletion ordering;
+- [ ] full legal data-subject export scope + dedicated rate limits + Kazakhstan privacy/staging acceptance;
 - staff JIT access.
 
 2026-09-28: Phase 4 басталды. Existing immutable schema v1 manifest үшін participant-only canonical JSON export қосылды. Export persisted manifest hash-ін қайта тексереді, mismatch кезінде fail-closed болады және successful export audit event жасайды. Бұл әлі PDF/ZIP, external signature немесе trusted timestamp емес.
