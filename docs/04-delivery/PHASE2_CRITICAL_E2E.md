@@ -161,11 +161,11 @@ Full private-debt staging journey implementation:
 13. ClosureCertificate;
 14. immutable EvidencePackage manifest + SHA-256 assertion.
 
-Critical actions locale-independent `data-testid` selectors қолданады, бірақ product copy/state KZ/RU каталогынан қалады. Credentials source code-қа жазылмайды және test output-қа әдейі шығарылмайды.
+Critical actions locale-independent `data-testid` selectors қолданады. Бір reusable flow бөлек serialized test ретінде `kk` және `ru` locale-дарында толық lifecycle-ды орындайды және route/reload барысында `<html lang>` persistence-ін тексереді. Credentials source code-қа жазылмайды және test output-қа әдейі шығарылмайды.
 
-QaryzLinkFront PR #66 merged at `564a2ad` (authenticated smoke). Contract mutation UI үшін Back #213 / Front #67 / Front #68 viewerRole, dual signing, funding evidence/decision, schedule generation және repayment evidence/decision action-дарын қосты. Full two-party browser harness Front #69 арқылы `f4890e2` commit-ке merge болды.
+QaryzLinkFront PR #66 merged at `564a2ad` (authenticated smoke). Contract mutation UI үшін Back #213 / Front #67 / Front #68 viewerRole, dual signing, funding evidence/decision, schedule generation және repayment evidence/decision action-дарын қосты. Full two-party browser harness Front #69 арқылы `f4890e2` commit-ке merge болды. Front #70 арқылы сол lifecycle KK және RU екі бөлек staging run-ға parameterize етіліп, `69da13b` commit-ке merge болды.
 
-CI runs `36701747708`, `36710630674`, `36711186784` және `36711825055` runner step-теріне жетпеді (`runner_id=0`, `steps=[]`/null). Сондықтан browser lifecycle **implemented**, бірақ actual successful staging execution evidence әлі pending.
+CI runs `36701747708`, `36710630674`, `36711186784`, `36711825055` және `36712583763` runner step-теріне жетпеді (`runner_id=0`, `steps=[]`/null). Сондықтан browser lifecycle **implemented**, бірақ actual successful staging execution evidence әлі pending.
 
 ## Exit criteria interpretation
 
