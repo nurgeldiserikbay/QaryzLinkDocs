@@ -129,6 +129,29 @@ Current v1 export response intentionally does NOT contain:
 
 Бұл exclusions export scope-тың privacy boundary бөлігі.
 
+## Abuse/rate-limit boundary
+
+Own-data export authenticated болса да relatively expensive privacy snapshot болғандықтан dedicated per-user rate limit қолданылады:
+
+- 1 request / 60 seconds;
+- 3 requests / 60 minutes.
+
+Rate key raw user ID ретінде сақталмайды. Backend `JWT_ACCESS_SECRET` арқылы scoped HMAC key жасайды:
+
+`qaryzlink:account-data-export-rate:v1:<window>:<userId>`
+
+және existing bounded `auth_rate_buckets` storage-ында тек resulting digest сақтайды.
+
+Limit асса:
+
+- HTTP `429 Too Many Requests`;
+- stable code `ACCOUNT_DATA_EXPORT_RATE_LIMITED`;
+- `Retry-After` header
+
+қайтарылады.
+
+Rate-limit export response/dataHash-ты сақтамайды және successful-export audit event жасамайды. Bucket expiry өткеннен кейін қалыпты request қайта allowed болады.
+
 ## Audit
 
 Successful export:
@@ -166,8 +189,7 @@ V1 әдейі толық data-subject archive емес. Келесі legal/produ
 - dispute/report/support records scope;
 - evidence file export немесе exclusion rationale;
 - audit-log subject-access scope;
-- machine-readable downloadable file delivery UX;
-- rate-limit/abuse limits;
+- broader machine-readable/statutory archive delivery beyond current Front JSON download;
 - retention/deletion/export ordering;
 - Kazakhstan privacy notice және response-time obligations;
 - cross-user records-та third-party data redaction policy.
