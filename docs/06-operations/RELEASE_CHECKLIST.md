@@ -11,7 +11,8 @@
 - [ ] Жеке staging database және credentials.
 - [ ] Migration сәтті; production дерегіне test орындалмайды.
 - [ ] HTTPS және restricted ingress.
-- [ ] Register/login/refresh/logout smoke test.
+- [x] Privacy-safe verified-account staging auth/session smoke harness + replay/logout revocation regression tests implementation (Back #230).
+- [ ] Verified staging account login/session inventory/refresh rotation/replay rejection/logout smoke successful run.
 - [ ] MAIL_ENABLED=false немесе толық бапталған SMTP + Front verification page.
 - [x] Provider-neutral isolated CI backup/restore rehearsal implementation: synthetic no-PII fixture → pg_dump → separate DB restore → integrity counters → application readiness (Back #216).
 - [ ] Actual staging/provider backup restore drill: encrypted provider backup/PITR, isolated restore, measured RTO/RPO және retained operator evidence.
