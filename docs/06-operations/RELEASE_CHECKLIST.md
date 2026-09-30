@@ -82,6 +82,8 @@
 - [ ] Staging ingress proxy-hop/header sanitization acceptance — `STAGING_ACCEPTANCE.md` бойынша.
 - [x] Backend privacy-safe liveness/readiness contracts және PostgreSQL readiness check.
 - [x] Manual privacy-safe staging runtime smoke harness: HTTPS liveness/readiness/database + private auth boundary + 8 metrics auth/cache checks, metadata-only evidence (Back #221).
+- [x] Staging runtime smoke has network-free fake-curl regression coverage and repaired CI/test integration guards (Back #222/#223/#224).
+- [x] Staging runtime smoke verifies security headers + exact approved Front CORS + unapproved-origin deny without retaining origin/token/body data (Back #225).
 - [ ] Staging ingress/orchestrator readiness probe нақты `/api/v1/health/ready` endpoint-іне қосылғаны тексерілді.
 - [ ] Kubernetes CronJob staging rollout, immutable image verification және job alerting.
 - [ ] Metrics endpoint internal ingress review және staging acceptance.
