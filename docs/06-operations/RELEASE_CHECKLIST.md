@@ -12,7 +12,8 @@
 - [ ] HTTPS және restricted ingress.
 - [ ] Register/login/refresh/logout smoke test.
 - [ ] MAIL_ENABLED=false немесе толық бапталған SMTP + Front verification page.
-- [ ] Backup және restore rehearsal.
+- [x] Provider-neutral isolated CI backup/restore rehearsal implementation: synthetic no-PII fixture → pg_dump → separate DB restore → integrity counters → application readiness (Back #216).
+- [ ] Actual staging/provider backup restore drill: encrypted provider backup/PITR, isolated restore, measured RTO/RPO және retained operator evidence.
 - [ ] Private object storage, signed URLs, malware scan және retention policy.
 - [ ] Логтарда password, token, email, SMTP response және құжат деректері жоқ.
 
@@ -67,7 +68,8 @@
 - [ ] Contract/payment/ledger/evidence/audit/session legal retention periods owner/legal review арқылы бекітілген.
 - [x] Backend reproducible lockfile, container build және runtime smoke test.
 - [ ] Front/Admin committed pnpm lockfile және `--frozen-lockfile` install.
-- [ ] Production migration job және rollback rehearsal.
+- [x] Immutable production migration Job template + isolated release-schema/previous-app rollback compatibility rehearsal implementation (Back #215).
+- [ ] Actual staging migration Job execution + previous known-good rollback rehearsal with environment evidence.
 - [x] Trusted proxy default-off bounded configuration және exact CORS allowlist code/CI contracts.
 - [ ] Staging ingress proxy-hop/header sanitization acceptance — `STAGING_ACCEPTANCE.md` бойынша.
 - [x] Backend privacy-safe liveness/readiness contracts және PostgreSQL readiness check.
