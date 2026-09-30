@@ -142,8 +142,8 @@
 - [ ] New Funding row жасалмайды; original funding effectiveAt сақталады.
 - [ ] Generic schedule generation Proposal terms емес, exact signed Contract.currentVersion termsSnapshot қолданады.
 - [ ] Schedule generation unsigned current version болса fail-closed.
-- [ ] New evidence package schema v3 proposed terms + schedule sourceContractVersion/sourceAmendmentId provenance-ін қамтиды.
-- [ ] Existing persisted evidence v1/v2 package retroactive rewrite болмайды.
+- [ ] New evidence package schema v4 proposed terms + schedule provenance + accounting snapshot history-ді canonical manifest-ке bind етеді.
+- [ ] Existing persisted evidence v1/v2/v3 package retroactive rewrite болмайды.
 - [ ] Payment history бар APPROVED TERMS_CHANGE/SCHEDULE_CHANGE үшін accounting-preview participant-only жұмыс істейді.
 - [ ] Preview тек ACTIVE + CONFIRMED funding + exact current signed ContractVersion + one-item latest schedule кезінде жасалады.
 - [ ] Persisted paidMinor charge → interest → principal policy бойынша paid/outstanding component split-ке детерминистік реконструкцияланады.
@@ -153,8 +153,7 @@
 - [ ] GET accounting-previews тек borrower/lender participant-қа snapshot history береді.
 - [ ] Preview response policyStatus=PREVIEW_ONLY, activationEligible=false, activationReason=POST_PAYMENT_ACCOUNTING_POLICY_PENDING.
 - [ ] Accounting preview ContractVersion/ScheduleVersion/PaymentAllocation/LedgerEntry/currentVersion mutation жасамайды.
-- [ ] New evidence package schema v4 accounting snapshot history/source hashes/component split-ті canonical manifest-ке bind етеді.
-- [ ] Existing persisted evidence v1/v2/v3 package retroactive rewrite болмайды.
+- [ ] Accounting snapshot history source contract/schedule hashes, component split, reconciliation totals және stateHash-пен evidence v4 ішінде бар.
 - [ ] Actual post-payment N+1 activation әдейі unsupported; acceptance record earned/unearned interest/allocation cutover pending екенін көрсетеді.
 - [ ] Kazakhstan legal owner pre-payment rate/term amendment wording, retroactive funding-effectiveAt accrual және signature effect-ті бекітті.
 
