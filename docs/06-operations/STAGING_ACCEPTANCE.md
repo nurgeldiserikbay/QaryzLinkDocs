@@ -296,6 +296,7 @@ Signal/alert contract: `MONITORING_ALERTING.md`.
 Әр scenario үшін тек environment, UTC timestamp, commit/image digest, scenario name және pass/fail сақталады. Password, token, full email/phone, IIN/BIN, signed URL, raw document немесе database dump acceptance evidence-ке кірмейді.
 
 Front browser workflow implementation осы contract-тың application-side бөлігін орындайды: commit/run metadata + scenario title/status artifact; authenticated Playwright trace әдейі өшірулі. Deployment image digest нақты staging orchestrator/deploy evidence-тен бөлек bind болуы тиіс.
+Admin manual browser workflow та осы metadata-only contract-ты қолданады: trace өшірулі, scenario title/status + commit/run metadata ғана сақталады; support/metrics credentials, row identifiers және response bodies retention-ға кірмейді.
 
 Acceptance-ті owner және кемінде бір инженер review етеді.
 
