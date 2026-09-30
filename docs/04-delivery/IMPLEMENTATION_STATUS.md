@@ -1,6 +1,6 @@
 # Implementation status
 
-Жаңартылған күні: 2026-09-28
+Жаңартылған күні: 2026-09-30
 
 Бұл құжат specification мен нақты код арасындағы қысқа бақылау нүктесі. Толық талаптар өзгермейді; мұнда тек орындалу күйі көрсетіледі.
 
@@ -24,7 +24,7 @@
 | Contract closure | Дайын | Zero-balance readiness, dual final-statement confirmation, stale-hash guard, immutable closure certificate және lifecycle notifications |
 | Evidence summary / manifest | Phase 4 export baseline басталды | Participant coverage summary, completed-contract immutable JSON manifest, deterministic SHA-256, audited canonical JSON download және export-time integrity recheck бар; PDF/ZIP/signature/trusted timestamp қалды |
 | Phase 2 critical E2E | Harness дайын, execution pending | Real PostgreSQL lifecycle + cross-user isolation spec кодта бар; Actions quota/billing gate салдарынан current run әлі орындалмады |
-| KZ/RU user journey | Presentation coverage дайын, browser execution pending | Landing/auth/discovery/contract/lifecycle/closure/evidence/dispute/notifications/settings/account lifecycle KZ/RU; real authenticated two-party browser acceptance әлі орындалмады |
+| KZ/RU user journey | Presentation coverage + staging auth smoke harness дайын, execution pending | Landing/auth/discovery/contract/lifecycle/closure/evidence/dispute/notifications/settings/account lifecycle KZ/RU; real staging login/settings/mobile RU smoke workflow бар, бірақ actual successful run және two-party browser acceptance әлі орындалмады |
 | Notifications/outbox | Базалық slice дайын | Payment/dispute/repayment және closure lifecycle оқиғалары, privacy-safe payload және idempotent outbox |
 | Notification claim/retry worker | Базалық slice дайын | SKIP LOCKED claim, 5 минут lease, exponential retry және terminal FAILED |
 | Delivery adapter boundary | Базалық slice дайын | Provider-neutral port, dispatch service және safe unavailable default |
@@ -39,6 +39,18 @@
 | Deployment hardening | Template/CI дайын | Immutable digest rendering, bounded migration job, privacy-safe release preflight, safe rollout, PDB, node spread, rollback және restore runbooks |
 | Provider/scheduler | Жоспарда | Push adapter, queue trigger, external metrics collector/alerting және organization routing |
 | Front/Admin UI | Front critical MVP presentation кеңейді | Front-та auth/discovery/contract/lifecycle/closure/evidence/dispute/notifications/settings/security/account lifecycle және privacy-safe L2 identity status KZ/RU coverage бар; Admin-та liveness, database readiness, evidence-storage, notification-delivery, audit және account-deletion aggregate operations cards бар; raw identity-level feeds өшірулі |
+
+## 2026-09-30 completion snapshot
+
+Repository checklist interpretation:
+
+- Delivery Roadmap implementation checklist: **37/45 = 82.2%** complete.
+- Release checklist: **88/133 = 66.2%** checked.
+- Staging acceptance: **1/235** checked; бұл кодтың 0.4% ғана дайын дегенді білдірмейді — checklist нақты staging/provider/legal execution evidence-ін әдейі алдын ала green қылмайды.
+
+Roadmap-та қалған 8 тармақтың басым бөлігі external/legal acceptance: vetted KYC provider, approved legal templates, actual KMS/HSM, retention/lifecycle policy acceptance, RFC3161/qualified TSA, post-payment ledger application legal/accounting policy және full statutory data-export scope. Purely technical conditional item — large archive streaming/ZIP64, ол load evidence талап етсе ғана міндетті.
+
+QaryzLinkFront authenticated staging browser smoke harness PR #66 арқылы `564a2ad` commit-ке merge болды. Real login/dashboard/settings + RU mobile overflow smoke дайын, бірақ Actions runner/quota мәселесі себебінен actual staging execution pending.
 
 ## Phase 4 Trust & Evidence басталуы — 2026-09-28
 
