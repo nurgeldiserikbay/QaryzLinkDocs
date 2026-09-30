@@ -203,6 +203,8 @@ Enable алдында кемінде:
 15. audit secret/raw signature/archive bytes сақтамайды;
 16. key rotation drill орындалады.
 
+Before closing these gates, complete [Evidence KMS/HSM signer acceptance record](EVIDENCE_SIGNER_ACCEPTANCE.md).
+
 ## Remaining production gates
 
 Adapter implementation нақты KMS/HSM production acceptance-ті автоматты түрде жаппайды.
