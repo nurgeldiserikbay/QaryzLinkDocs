@@ -247,6 +247,8 @@ Remote authority configured:
 15. v2 full ZIP seal timestamp алады;
 16. timestamp-disabled deployment бұрынғы seal behavior-ды сақтайды.
 
+Before any RFC3161/qualified/legal timestamp claim, complete [Timestamp authority acceptance record](TIMESTAMP_AUTHORITY_ACCEPTANCE.md).
+
 ## Remaining legal/production gates
 
 Бұл foundation төмендегілерді жаппайды:
