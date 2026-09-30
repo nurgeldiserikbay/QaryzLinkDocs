@@ -226,9 +226,9 @@ Current version міндетті түрде `SIGNED` және documentHash-bound
 
 ## Evidence and closure
 
-New evidence package creation — schema **v5**.
+New evidence package creation — schema **v6**.
 
-V5 amendment/schedule/accounting/cutover provenance:
+V6 amendment/schedule/accounting/cutover-signing provenance:
 
 - ContractVersion `sourceAmendmentId`;
 - amendment purpose/document hash;
@@ -245,9 +245,11 @@ V5 amendment/schedule/accounting/cutover provenance:
 - immutable cutover preview version + exact `accountingSnapshotId`;
 - cutover `previewHash` + policyVersion + referenceAt;
 - accrued/outstanding/reclassification/unearned interest projection;
-- opening principal, proposed maturity және projected future/remaining due.
+- opening principal, proposed maturity және projected future/remaining due;
+- ContractVersion `sourceCutoverPreviewId` exact signed N+1 → cutover preview relation;
+- N+1 calculationPolicy ішіндегі previewHash/accountingSnapshotId/accountingStateHash/policyVersion/referenceAt binding.
 
-Persisted schema v1/v2/v3/v4 packages retroactive rewrite жасамайды және stored schemaVersion бойынша read/export болады.
+Persisted schema v1/v2/v3/v4/v5 packages retroactive rewrite жасамайды және stored schemaVersion бойынша read/export болады.
 
 Closure exact `Contract.currentVersion` және latest schedule version-ды пайдаланады. Cancelled historical schedule versions evidence history-де қалады.
 
@@ -379,11 +381,68 @@ Response explicitly:
 
 Толық architecture decision: [ADR-0027](../../adr/ADR-0027-post-payment-amendment-cutover-preview.md).
 
+## Post-payment cutover-pinned signing foundation
+
+Actual post-payment activation әлі жабық, бірақ reviewed cutover projection-нан N+1 signing candidate жасауға болады.
+
+Dedicated gate:
+
+`CONTRACT_POST_PAYMENT_AMENDMENT_SIGNING_ENABLED=false`
+
+Ол тек `CONTRACT_AMENDMENTS_ENABLED=true` және `CONTRACT_SIGNING_ENABLED=true` болса ғана қосыла алады. Release preflight enabled state-ті manual accounting/legal acceptance ретінде көрсетеді.
+
+Endpoint:
+
+`POST /api/v1/contracts/:contractId/amendments/:amendmentId/start-post-payment-signing`
+
+Body:
+
+```json
+{
+  "cutoverPreviewId": "<exact latest cutover preview UUID>"
+}
+```
+
+Start flow contract + amendment row-ды lock етеді және selected preview:
+
+- exact amendment-ке тиесілі;
+- latest cutover preview;
+- latest accounting snapshot-қа bound;
+- current signed ContractVersion/documentHash-пен exact;
+- latest schedule/payment component state-пен exact;
+- recomputed accounting stateHash-пен exact;
+- recomputed cutover previewHash/policyVersion-пен exact
+
+екенін қайта тексереді.
+
+Successful start:
+
+- ContractVersion N+1 `SIGNING`;
+- `sourceAmendmentId=<amendment id>`;
+- `sourceCutoverPreviewId=<exact cutover preview id>`;
+- N+1 calculationPolicy previewHash + accountingSnapshotId + accountingStateHash + cutover policyVersion + referenceAt-ты bind етеді;
+- N+1 documentHash осы cutover provenance-ті де bind етеді.
+
+Same exact preview retry idempotent. Басқа preview ID-мен retry `CONTRACT_CONFLICT`.
+
+Financial amendment `SIGNING` немесе `SIGNED_PENDING_ACTIVATION` кезінде repayment evidence, lender confirm/dispute және reversal `PAYMENT_CONFLICT` арқылы frozen болады. Бұл pinned accounting state-ті signing арасында өзгермеу үшін қажет.
+
+Post-payment N+1 үшін:
+
+- first signature — тек signature;
+- second signature — N+1 → `SIGNED`, amendment → `SIGNED_PENDING_ACTIVATION`;
+- base ContractVersion `SIGNED` күйінде қалады;
+- `Contract.currentVersion` өзгермейді;
+- ScheduleVersion/PaymentAllocation/LedgerEntry өзгермейді;
+- activation audit емес, `CONTRACT_AMENDMENT_POST_PAYMENT_FULLY_SIGNED` audit жазылады.
+
+Бұл state actual accounting activation-ға consent/document provenance береді, бірақ reclassification/opening-balance/ledger mutation жасамайды.
+
 ## Intentionally pending
 
 Бұл slice:
 
-- repayment history бар contract үшін actual N+1 activation жасамайды;
+- repayment history бар contract үшін signed N+1 candidate жасай алады, бірақ actual N+1 activation жасамайды;
 - already-paid allocation reclassification/migration жасамайды;
 - principal/currency өзгерісін қолдамайды;
 - installment/multi-item rescheduling жасамайды;
@@ -398,6 +457,6 @@ Response explicitly:
 
 `CONTRACT_AMENDMENTS_ENABLED=true` release preflight-та manual legal/process acceptance болып қалады.
 
-N+1 signing үшін `CONTRACT_SIGNING_ENABLED=true` де қажет.
+N+1 signing үшін `CONTRACT_SIGNING_ENABLED=true` де қажет. Post-payment signing үшін бұларға қосымша `CONTRACT_POST_PAYMENT_AMENDMENT_SIGNING_ENABLED=true` керек және preflight оны бөлек manual accounting/legal acceptance ретінде көрсетеді.
 
 Production enablement алдында staging acceptance financial amendment scenario-ларын нақты PostgreSQL data-мен тексеруі тиіс.
