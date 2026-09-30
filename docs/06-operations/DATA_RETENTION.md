@@ -92,3 +92,8 @@ Release preflight:
 - екі reference бар болса да `manual` болып қалады, өйткені application config policy-дің legal approval-ын немесе provider lifecycle-дың нақты applied күйін дәлелдей алмайды.
 
 External lifecycle rule persisted/consumed evidence немесе active legal hold object-ін application cleanup-тан тәуелсіз жоймауы тиіс. Бұл provider-side acceptance staging checklist арқылы тексеріледі.
+
+
+## 9. Production acceptance record
+
+Jurisdiction periods, account-deletion interaction және provider-side bucket lifecycle нақты бекіту үшін [Retention and storage lifecycle acceptance record](RETENTION_LIFECYCLE_ACCEPTANCE.md) толтырылады. Template-тің болуы approval емес; policy IDs мен reviewer fields approved болғанша production gate ашық қалады.

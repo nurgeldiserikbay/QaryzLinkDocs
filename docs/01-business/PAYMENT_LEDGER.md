@@ -122,3 +122,8 @@ erDiagram
 ## Келесі шекара
 
 Келесі slice overdue worker, due-status materialization, notifications және reversal payment болады. Банк интеграциясы, custody және заңды өндіріп алу бөлек legal/operations gate арқылы ғана қосылады.
+
+
+## Post-payment adjustment policy boundary
+
+Post-payment amendment preview non-zero ledger adjustment талап етсе, нақты application policy бөлек review gate арқылы ғана ашылады. Decision matrix, effective-date semantics, compensating-entry rules және staging acceptance үшін [Post-payment ledger adjustment policy acceptance record](../06-operations/LEDGER_ADJUSTMENT_POLICY_ACCEPTANCE.md) authoritative review packet болып саналады. Current implementation preview-only және historical ledger/payment allocation rewrite жасамайды.

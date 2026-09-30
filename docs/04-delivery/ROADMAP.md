@@ -156,15 +156,18 @@ Open/public matching production-да қосылмас бұрын Қазақст�
 - [x] pinned HTTPS remote Ed25519 signer adapter + ZIP v1/v2 domain-separated seal;
 - [x] application signing key trust registry + controlled activation/retirement/revocation;
 - [x] release config/preflight requires versioned KMS/HSM deployment + IAM + key ceremony + key lifecycle references;
+- [x] versioned KMS/HSM signer acceptance record template (`EVIDENCE_SIGNER_ACCEPTANCE.md`);
 - [ ] actual KMS/HSM gateway + external IAM/key ceremony/provider lifecycle acceptance;
 - [x] application-level contract evidence legal-hold foundation;
 - [x] release-preflight/config boundary requires versioned retention + storage lifecycle policy references when evidence storage is enabled;
+- [x] versioned retention/storage-lifecycle acceptance record template (`RETENTION_LIFECYCLE_ACCEPTANCE.md`);
 - [ ] jurisdiction retention periods + external storage lifecycle provider/legal acceptance;
 - [x] bounded frozen-manifest evidence binary ZIP v2 + storage byte verification;
 - [x] bounded synthetic ZIP v2 load harness + configurable RSS/latency acceptance budgets + metadata-only evidence;
 - [ ] large archive true streaming/ZIP64 if load requirements demand it;
 - [x] external signed time attestation foundation;
 - [x] release config/preflight requires versioned timestamp standards + trust + revocation + legal-classification references;
+- [x] versioned TSA/trust/revocation/legal-classification acceptance record template (`TIMESTAMP_AUTHORITY_ACCEPTANCE.md`);
 - [ ] RFC3161/qualified TSA + certificate/revocation + jurisdiction legal acceptance;
 - [x] default-off contract amendment proposal + dual-party approval + immutable proposed-document hash foundation;
 - [x] approved non-financial `OTHER` amendment → ContractVersion N+1 signing/currentVersion activation;
@@ -176,12 +179,14 @@ Open/public matching production-да қосылмас бұрын Қазақст�
 - [x] default-off zero-ledger-adjustment post-payment activation + immutable historical schedules + evidence schema v8;
 - [x] preview-only immutable post-payment ledger adjustment plan + separate reclassification/unallocated-credit components + evidence schema v9;
 - [x] Front participant review for current ledger-adjustment preview + exact activation-plan provenance + no-application UX;
+- [x] versioned post-payment ledger-adjustment accounting/legal acceptance record template (`LEDGER_ADJUSTMENT_POLICY_ACCEPTANCE.md`);
 - [ ] actual post-payment ledger adjustment application/activation policy + Kazakhstan legal/staging acceptance;
 - disputes;
 - [x] default-off audited participant own-data export foundation (account/profile/privacy/contact + role-scoped contract/payment summaries);
 - [x] retention-aware account deletion/anonymization foundation;
 - [x] Front downloadable own-data export UX + privacy-safe summary + export-before-deletion ordering;
 - [x] dedicated authenticated-user own-data export rate limiting + bounded 429/Retry-After Front handling;
+- [x] versioned own-data export privacy/legal acceptance record template (`ACCOUNT_DATA_EXPORT_ACCEPTANCE.md`);
 - [ ] full legal data-subject export scope + Kazakhstan privacy/staging acceptance;
 - staff JIT access.
 

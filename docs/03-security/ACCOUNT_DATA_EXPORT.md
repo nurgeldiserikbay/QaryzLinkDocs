@@ -179,6 +179,8 @@ Current deletion request flow request accepted болған сәтте active se
 
 Бұл technical foundation statutory timing/right-to-access interpretation емес; legal/privacy owner production procedure-ны бөлек бекітеді.
 
+Production privacy/legal scope review [Account data export privacy acceptance record](../06-operations/ACCOUNT_DATA_EXPORT_ACCEPTANCE.md) арқылы versioned түрде бекітіледі.
+
 ## Still pending
 
 V1 әдейі толық data-subject archive емес. Келесі legal/product review қажет:

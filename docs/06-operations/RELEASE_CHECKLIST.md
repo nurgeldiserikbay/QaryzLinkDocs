@@ -123,6 +123,7 @@
 - [x] Cutover-pinned post-payment N+1 signing: dedicated default-off gate, sourceCutoverPreviewId/documentHash binding және SIGNED_PENDING_ACTIVATION freeze.
 - [x] Immutable activation plan + zero-adjustment safe activation: separate default-off gate, exact plan revalidation, activation-plan-bound replacement schedule, historical schedule immutability және evidence v8.
 - [x] Preview-only immutable ledger adjustment plan: exact activation/cutover/accounting provenance, separate reclassification/unallocated-credit components, deterministic adjustmentPlanHash, amount-minimized audit және evidence v9.
+- [x] Versioned post-payment ledger-adjustment policy acceptance record template with accounting/legal/application/staging fields (`LEDGER_ADJUSTMENT_POLICY_ACCEPTANCE.md`).
 - [ ] Actual ledger-adjustment application/activation policy: explicit refund/credit/principal/interest/charge treatment, effective-date legal semantics және staging acceptance.
 - [x] Participant-only immutable contract document source (`CONTRACT_DOCUMENT_RENDERING.md`).
 - [x] Deterministic KZ/RU technical preview with source/input/content SHA-256 integrity boundary + Front TXT download.
@@ -140,15 +141,19 @@
 - [ ] Actual approved KZ/RU legal template artifacts, independent hashes, visual/font/pagination және legal acceptance.
 - [x] Final verified KZ/RU PDF artifact hashes/source/template/renderer metadata full evidence ZIP v2-ге immutable binding.
 - [x] Production config/preflight requires versioned KMS/HSM deployment/IAM/key-ceremony/key-lifecycle references.
+- [x] Versioned KMS/HSM signer acceptance record template with deployment/IAM/ceremony/lifecycle/staging evidence fields (`EVIDENCE_SIGNER_ACCEPTANCE.md`).
 - [ ] Actual KMS/HSM signer deployment, approved external key IAM/ceremony, provider-side disable/delete policy және staging verification.
 - [x] Default-off external signed time attestation adapter: nonce, subject hash binding, pinned authority ID/key fingerprint, local verification және fail-closed required mode.
 - [x] Production config/preflight requires versioned timestamp standards/trust/revocation/legal-classification references.
+- [x] Versioned timestamp-authority acceptance record template with standards/trust/revocation/legal/staging fields (`TIMESTAMP_AUTHORITY_ACCEPTANCE.md`).
 - [ ] RFC3161/qualified TSA/provider selection, legal effect, certificate/revocation policy және staging acceptance.
 - [x] Application-level contract evidence legal hold: scoped support control, audit, one-active-hold invariant және cleanup exclusion.
+- [x] Versioned retention/storage-lifecycle acceptance record template with data-category/account-deletion/provider lifecycle fields (`RETENTION_LIFECYCLE_ACCEPTANCE.md`).
 - [ ] Legal retention completion: Kazakhstan retention periods, consumed-evidence deletion policy, account-deletion interaction және external bucket lifecycle acceptance.
 - [x] Participant own-data export foundation: default-off, canonical dataHash, own contact decrypt, role-scoped contract/payment summaries және secret/counterparty-PII exclusions.
 - [x] Production config/preflight requires versioned `ACCOUNT_DATA_EXPORT_POLICY_ID` when own-data export is enabled.
 - [x] Own-data export dedicated authenticated-user throttling: 1/minute + 5/hour, HMAC-hashed bucket key, bounded 429 + Retry-After және Front explicit KZ/RU state.
+- [x] Versioned own-data export legal/privacy acceptance record template with scope/redaction/deletion-ordering/staging fields (`ACCOUNT_DATA_EXPORT_ACCEPTANCE.md`).
 - [ ] Own-data export production acceptance: full legal scope, third-party redaction policy, deletion-ordering/privacy notice және Kazakhstan privacy/staging acceptance.
 - [x] Default-off bounded full evidence ZIP v2: frozen-manifest selection, consumed-intent binding, CLEAN verdict, storage byte SHA-256 verification және direct binary response.
 - [x] Synthetic ZIP v2 load harness: explicit payload/object/iteration profile, configurable RSS/latency budgets, archive hash және metadata-only 14-day acceptance artifact.
