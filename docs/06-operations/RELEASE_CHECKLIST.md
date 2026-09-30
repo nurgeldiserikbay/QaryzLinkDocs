@@ -113,6 +113,7 @@
 - [x] Production config/preflight requires versioned L2 provider contract/callback-auth/privacy-residency/legal-classification references.
 - [x] Vendor-neutral signed remote L2 session adapter + authenticated correlated VERIFIED callback foundation.
 - [x] Vendor-neutral signed REVOKED callback + hashed revocation tombstone/out-of-order protection.
+- [x] Versioned L2 KYC provider acceptance record template: API/event mapping, signing trust, privacy/residency, legal/operations және staging evidence (`KYC_PROVIDER_ACCEPTANCE.md`).
 - [ ] Vetted L2 KYC provider selection, provider-specific API/event mapping және KZ privacy/legal staging acceptance.
 - [x] Contract amendment proposal + dual-party approval + immutable proposed-document hash foundation (`CONTRACT_AMENDMENTS.md`).
 - [x] Approved non-financial `OTHER` amendment → ContractVersion N+1 signing/currentVersion activation.
