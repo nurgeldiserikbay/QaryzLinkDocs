@@ -124,18 +124,32 @@ Manual-only Playwright suite implementation:
 8. RU settings unauthenticated state;
 9. 390px account lifecycle horizontal overflow smoke.
 
+Real-staging private-debt browser harness implementation (Front #69):
+
+- two isolated verified participant browser contexts;
+- private request → invite → proposal → accept → contract;
+- dual signing;
+- real signed funding evidence upload + borrower confirmation;
+- schedule generation;
+- real signed repayment evidence upload + lender confirmation;
+- dual closure;
+- immutable evidence manifest hash assertion.
+
+Critical controls locale-independent selectors қолданады. Current full lifecycle spec default KZ locale-мен жүреді; RU full mutation path келесі slice ретінде осы same flow-ға parameterize етіледі.
+
 ## Нені бұл әлі дәлелдемейді
 
-Static/unit/browser-smoke implementation:
+Static/unit/browser harness implementation actual successful staging run-ды өздігінен дәлелдемейді.
 
-- two real users-дың бір browser acceptance session-ында толық borrower/lender journey жасағанын;
-- email inbox-та нақты verification/reset delivery келгенін;
-- production evidence upload provider-мен UI journey жүргенін;
-- KZ және RU екі режимде барлық mutation successful-path нақты staging API-мен орындалғанын
+Қазір full two-user integrated browser scenario кодта бар, бірақ Actions runner/quota мәселесі салдарынан ол нақты staging-та successful орындалған жоқ. Сондықтан әлі дәлелденбегені:
 
-дәлелдемейді.
+- current deployed Front/Back/storage build-та lifecycle толық green екені;
+- signed upload URL/CORS/object-storage path нақты staging provider-де green екені;
+- email inbox-та нақты verification/reset delivery келгені;
+- KZ full mutation journey successful run;
+- RU full mutation journey successful run.
 
-Бұл үшін integrated staging browser test қажет.
+Formal acceptance үшін implementation емес, нақты run evidence керек.
 
 ## Formal Phase 2 locale acceptance
 
