@@ -45,7 +45,7 @@
 Repository checklist interpretation:
 
 - Delivery Roadmap implementation checklist: **37/45 = 82.2%** complete.
-- Release checklist: **110/155 = 71.0%** checked.
+- Release checklist: **115/160 = 71.9%** checked.
 - Staging acceptance: **1/235** checked; бұл кодтың 0.4% ғана дайын дегенді білдірмейді — checklist нақты staging/provider/legal execution evidence-ін әдейі алдын ала green қылмайды.
 
 Roadmap-та қалған 8 тармақтың басым бөлігі external/legal acceptance: vetted KYC provider, approved legal templates, actual KMS/HSM, retention/lifecycle policy acceptance, RFC3161/qualified TSA, post-payment ledger application legal/accounting policy және full statutory data-export scope. Purely technical conditional item — large archive streaming/ZIP64, ол load evidence талап етсе ғана міндетті.
@@ -87,6 +87,10 @@ Pilot scope approval process үшін versioned record template қосылды: 
 KYC provider selection жұмысы үшін `docs/06-operations/KYC_PROVIDER_ACCEPTANCE.md` versioned acceptance record қосылды. Template нақты vendor-дың session API, VERIFIED/REVOKED event mapping, callback/signature trust, key rotation/revocation, data minimization/residency, retention, legal/privacy classification, incident ownership және staging scenarios-ын generic `remote-signed-l2` boundary-ға байланыстырады. Provider decision/governance IDs/key fingerprint/reviewer fields әдейі PENDING; vetted vendor selection release gate әлі жабылған жоқ.
 
 KZ/RU legal contract PDF approval process үшін `docs/06-operations/CONTRACT_TEMPLATE_ACCEPTANCE.md` қосылды. Record exact template IDs/hashes, independent SHA-256, legal wording review, deterministic font/embedding policy, visual/pagination fixtures, renderer identity/key және ZIP v2 evidence-chain assertions-ын байланыстырады. Governance IDs/reviewers/staging references PENDING; actual approved legal artifacts release gate әлі ашық.
+
+
+Remaining Phase 4 external/legal decisions үшін бес versioned review packet дайындалды: `EVIDENCE_SIGNER_ACCEPTANCE.md`, `TIMESTAMP_AUTHORITY_ACCEPTANCE.md`, `RETENTION_LIFECYCLE_ACCEPTANCE.md`, `ACCOUNT_DATA_EXPORT_ACCEPTANCE.md`, `LEDGER_ADJUSTMENT_POLICY_ACCEPTANCE.md`. Олар current config/preflight references, provider/accounting/privacy decision matrix, staging scenarios және reviewer sign-off fields-ті бір жерге жинайды. Барлық нақты provider/policy/reviewer мәндері `PENDING`; template presence approval немесе production acceptance емес.
+
 
 ## Phase 4 Trust & Evidence басталуы — 2026-09-28
 
