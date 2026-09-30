@@ -90,3 +90,5 @@ Actual alert delivery screenshot/record ішінде secret немесе PII б�
 ## 7. Current status
 
 Application-level aggregate sources дайын. External collector/provider, threshold tuning және paging/escalation integration environment owner-ға тәуелді және әлі release gate болып қалады.
+
+Back #221 manual staging runtime smoke aggregate metrics endpoint-тердің missing/wrong/valid token және no-store HTTP contract-ын deployed internal HTTPS target-та тексеруге арналған. Бұл collector/alert delivery емес және actual provider alert acceptance-ті жаппайды.
