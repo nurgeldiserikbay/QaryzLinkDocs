@@ -20,7 +20,7 @@
 | Payment evidence/confirmation/ledger | Backend + Front participant flow дайын, operational rollout толық емес | Borrower evidence, bounded partial/full repayment amount, lender decision, allocation/ledger, PARTIALLY_PAID→PAID transition, size-bound replay protection және verified CLEAN-object gate бар |
 | Overdue status worker | Дайын | UTC due/overdue materialization, ACTIVE + CONFIRMED guard, idempotent transaction |
 | Repayment reminders | Дайын | Latest schedule due/overdue borrower reminders, per-event/channel idempotency, IN_APP + email preference boundary |
-| Payment reversal | Дайын | Lender-authorized immutable reversal, signed allocation restore және opposite ledger entries |
+| Payment reversal | Backend + Front correction path дайын | Lender-authorized immutable reversal, ACTIVE-only closure guard, signed allocation restore, opposite ledger entries, mandatory correction reason және KZ/RU participant UI бар |
 | Contract closure | Дайын | Zero-balance readiness, dual final-statement confirmation, stale-hash guard, immutable closure certificate және lifecycle notifications |
 | Evidence summary / manifest | Phase 4 export baseline басталды | Participant coverage summary, completed-contract immutable JSON manifest, deterministic SHA-256, audited canonical JSON download және export-time integrity recheck бар; PDF/ZIP/signature/trusted timestamp қалды |
 | Phase 2 critical E2E | Harness дайын, execution pending | Real PostgreSQL lifecycle + cross-user isolation spec кодта бар; Actions quota/billing gate салдарынан current run әлі орындалмады |
@@ -45,7 +45,7 @@
 Repository checklist interpretation:
 
 - Delivery Roadmap implementation checklist: **37/45 = 82.2%** complete.
-- Release checklist: **95/140 = 67.9%** checked.
+- Release checklist: **97/142 = 68.3%** checked.
 - Staging acceptance: **1/235** checked; бұл кодтың 0.4% ғана дайын дегенді білдірмейді — checklist нақты staging/provider/legal execution evidence-ін әдейі алдын ала green қылмайды.
 
 Roadmap-та қалған 8 тармақтың басым бөлігі external/legal acceptance: vetted KYC provider, approved legal templates, actual KMS/HSM, retention/lifecycle policy acceptance, RFC3161/qualified TSA, post-payment ledger application legal/accounting policy және full statutory data-export scope. Purely technical conditional item — large archive streaming/ZIP64, ол load evidence талап етсе ғана міндетті.
@@ -61,6 +61,8 @@ Deployment recovery automation да кеңейді. Back #215 (`1f82f74`) manual
 Repayment UX partial-payment capability-ге дейін кеңейді. Front #72 (`e39b936`) KZT input-ты floating-point қолданбай minor units-ке parse етеді, `0 < amount <= current outstanding` шегін evidence upload басталмай тұрып тексереді және full outstanding-ты default ретінде қояды. Front #73 (`abc6cb7`) KK/RU staging lifecycle-да 1 ₸ partial repayment → lender confirm → exact remaining balance → final repayment → closure жолын тексереді. CI runs `36721129983` және `36721497464` та `steps=null` болып runner алмады; implementation merged, execution evidence pending.
 
 Evidence ZIP production-load decision үшін synthetic bounded acceptance harness қосылды. Back #218 (`7584474`) deterministic ZIP_STORE_V2 үшін configurable payload/object/iteration profile, max RSS және max single-build latency budget өлшейді; нәтиже archive hash + aggregate measurement қана сақтайды. Manual workflow synthetic metadata-only artifact-ті 14 күн сақтайды және budget бұзылса `STREAMING_OR_ZIP64_REVIEW_REQUIRED` береді. CI run `36729385648` quality job `steps=null` күйінде runner алмады. Сондықтан harness implemented, actual load acceptance және streaming/ZIP64 decision pending.
+
+Payment correction/dispute path hardened. Back #217 (`ccdaeca`) payment reversal-ды тек `ACTIVE` contract-та рұқсат етеді, сондықтан `COMPLETED` contract-тың ClosureCertificate/schedule/ledger күйі кейіннен divergence жасамайды. Front #74 (`d695e98`) lender-only confirmed-payment reversal UI және mandatory 3–1000 character correction reason қосты; нақты bank refund автоматты емес екені explicit көрсетіледі. Front #75 (`e4e93d4`) KK/RU staging lifecycle ішінде partial confirm → reversal → exact outstanding restore → қайта partial/final repayment → closure және completed contract-та reversal control жоқ екенін тексереді. Front #76 (`eee7b28`) Funding және Payment DISPUTE action-дарын Backend policy-ге сәйкестендіріп, mandatory reason жіберетін етті. Related CI runs `36722287955`, `36722949425`, `36723254464`, `36723656898` runner step алмады (`steps=null`), сондықтан execution evidence pending.
 
 ## Phase 4 Trust & Evidence басталуы — 2026-09-28
 
