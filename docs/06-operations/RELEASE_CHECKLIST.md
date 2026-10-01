@@ -79,7 +79,7 @@
 - [ ] Contract/payment/ledger/evidence/audit/session legal retention periods owner/legal review арқылы бекітілген.
 - [x] Backend reproducible lockfile, container build және runtime smoke test.
 - [x] Front/Admin manual lockfile-candidate workflows: exact pnpm 12.4.2, generated lockfile, frozen install, full quality check және review artifact (Front #78, Admin #34).
-- [ ] Front/Admin committed pnpm lockfile және `--frozen-lockfile` install.
+- [x] Front/Admin reviewed `pnpm-lock.yaml` main-ге committed және CI exact pnpm 12.4.2-пен `--frozen-lockfile` install + successful quality checks орындайды (Front #79, Admin #35).
 - [x] Immutable production migration Job template + isolated release-schema/previous-app rollback compatibility rehearsal implementation (Back #215).
 - [ ] Actual staging migration Job execution + previous known-good rollback rehearsal with environment evidence.
 - [x] Trusted proxy default-off bounded configuration және exact CORS allowlist code/CI contracts.
