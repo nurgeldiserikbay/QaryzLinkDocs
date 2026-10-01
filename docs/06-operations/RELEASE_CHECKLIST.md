@@ -68,7 +68,7 @@
 - [x] Admin manual browser acceptance evidence is metadata-only/per-scenario; traces disabled, no credentials/tokens/row IDs/PII, 14-day artifact retention (Admin #33).
 - [ ] KZ authenticated borrower/lender full browser journey successful staging run.
 - [ ] RU authenticated borrower/lender full browser journey successful staging run.
-- [ ] Front/Admin actual browser E2E run және толық UI acceptance — Actions quota ашылғаннан кейін.
+- [ ] Front/Admin actual authenticated browser E2E run және толық UI acceptance — Actions runner қайта қолжетімді, бірақ real staging URL/credentials-пен manual execution әлі pending.
 - [x] Privacy/consent defaults және ephemeral auth/evidence retention baseline.
 - [ ] PII encrypted-mode staging acceptance.
 - [x] PII plaintext-retirement aggregate readiness gate (`PII_PLAINTEXT_RETIREMENT.md`).
