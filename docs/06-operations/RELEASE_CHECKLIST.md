@@ -56,7 +56,7 @@
 - [x] Phase 2 critical PostgreSQL lifecycle + cross-user isolation harness implementation merged (`QaryzLinkBack#165`).
 - [x] Phase 2 critical PostgreSQL suite has a dedicated CI gate + metadata-only 14-day acceptance artifact (Back #214).
 - [x] Phase 2 PostgreSQL acceptance includes funding/payment dispute fail-closed allocation/ledger/closure invariants (Back #219).
-- [x] Phase 2 critical PostgreSQL harness current Backend main commit `8e1ca4f`-те successful CI run `36849677702` арқылы green; metadata-only acceptance artifact retained.
+- [x] Phase 2 critical PostgreSQL harness current Backend main commit `ff0dc09`-да successful CI run `36851783467` арқылы green; metadata-only acceptance artifact retained.
 - [x] Runtime/provider error persistence және maintenance CLI stderr PII-safe generic boundary.
 - [x] Front/Admin production server HTTP security-header/CSP runtime smoke.
 - [x] Front/Admin manual-only Chromium E2E harness дайын.
@@ -65,7 +65,9 @@
 - [x] Front bounded partial repayment: exact KZT minor-unit parsing, over-outstanding guard, remaining-balance default және KK/RU partial→final staging lifecycle coverage (Front #72/#73).
 - [x] Full private-debt real-staging browser lifecycle harness implemented and parameterized for KK/RU: request → invite → proposal → contract → dual signing → funding → schedule → partial/final repayment → dual closure → evidence manifest (Front #69/#70/#73).
 - [x] Authenticated staging browser acceptance evidence is metadata-only/per-scenario; traces disabled, frozen lockfile install, 14-day artifact retention және operator-provided Front/Backend commit + Backend image digest binding бар (Front #71/#81/#82).
+- [x] Front/Admin browser acceptance workflow contracts main/PR CI invariants-пен қорғалған: frozen install, trace-off, metadata-only retention; Front staging exact HTTPS origin/release binding, Admin manual reporter retention (Front #83, Admin #39).
 - [x] Admin manual browser acceptance evidence is metadata-only/per-scenario; traces disabled, frozen lockfile install және reporter artifact workflow арқылы 14 күнге retained; no credentials/tokens/row IDs/PII (Admin #33/#37/#38).
+- [x] Admin read-only real-staging browser acceptance harness implementation: exact HTTPS Admin origin, Admin/Backend commit + immutable Backend image digest binding, explicit non-production acknowledgement, liveness/readiness/aggregate-card/mobile-overflow scenarios, no support mutation, trace-off және metadata-only 14-day evidence (Admin #40).
 - [ ] KZ authenticated borrower/lender full browser journey successful staging run.
 - [ ] RU authenticated borrower/lender full browser journey successful staging run.
 - [ ] Front/Admin actual authenticated browser E2E run және толық UI acceptance — Actions runner қайта қолжетімді, бірақ real staging URL/credentials-пен manual execution әлі pending.
@@ -90,6 +92,8 @@
 - [x] Staging runtime smoke has network-free fake-curl regression coverage and repaired CI/test integration guards (Back #222/#223/#224).
 - [x] Staging runtime smoke verifies security headers + exact approved Front CORS + unapproved-origin deny without retaining origin/token/body data (Back #225).
 - [x] Unified manual `Staging Core Acceptance` gate exact selected Backend commit + operator-provided immutable image digest + non-production acknowledgement-ке bind болып runtime/auth-session/proxy-spoof suites-ті бірге орындайды және metadata-only 14-day evidence сақтайды (Back #238).
+- [x] Synthetic Evidence Archive Load workflow explicit release commit binding-пен қорғалған және main CI оның frozen-install/14-day metadata-only contract-ын тексереді (Back #239).
+- [x] Migration rollback және backup/restore rehearsal workflow contracts main CI invariants-пен қорғалған: frozen installs, previous-app-on-release-schema, no reverse migration, pg_dump/pg_restore, backup-byte deletion, readiness, metadata-only retention (Back #240).
 - [x] Kubernetes API release manifest readinessProbe exact `/api/v1/health/ready` path-іне pin жасалған және source/rendered bundle CI invariant-пен қорғалған; malformed duplicated CI tail алынып workflow parsing қалпына келтірілді (Back #233).
 - [ ] Staging ingress/orchestrator readiness probe нақты `/api/v1/health/ready` endpoint-іне қосылғаны тексерілді.
 - [ ] Kubernetes CronJob staging rollout, immutable image verification және job alerting.
