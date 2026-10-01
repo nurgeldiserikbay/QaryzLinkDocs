@@ -297,7 +297,7 @@ Back #241 `ops/staging-background-jobs-smoke.sh` notification scheduler, account
 
 ## 9. Monitoring
 
-Back #221/#225 manual `Staging Runtime Smoke` workflow configured internal HTTPS target-та liveness/readiness/database, security headers, exact approved Front CORS + deny case, private-boundary және metrics authorization smoke-ты орындай алады. Artifact URL/Front origin/token/response body сақтамайды. Back #222/#223/#224 regression/CI fixes smoke harness-тың offline test contract-ын бекітеді. Төмендегі alert checks-ті бұл workflow алмастырмайды: collector/provider, thresholds, paging және failed-Job routing нақты environment-та тексерілуі керек.
+Back #221/#225 manual `Staging Runtime Smoke` workflow configured internal HTTPS target-та liveness/readiness/database, security headers, exact approved Front CORS + deny case, private-boundary және metrics authorization smoke-ты орындай алады. Back #243 runtime coverage-ті барлық 10 current aggregate metrics endpoint-ке дейін кеңейтеді және dedicated public/internal ingress isolation harness қосады: public route 403/404, internal route missing-token 401 және valid-token 200 + no-store болуы тиіс. Artifact URL/Front origin/token/response body сақтамайды. Back #222/#223/#224 regression/CI fixes smoke harness-тың offline test contract-ын бекітеді. Төмендегі alert checks-ті бұл workflow алмастырмайды: collector/provider, thresholds, paging және failed-Job routing нақты environment-та тексерілуі керек.
 
 Signal/alert contract: `MONITORING_ALERTING.md`.
 
