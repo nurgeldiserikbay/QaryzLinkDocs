@@ -51,6 +51,7 @@
 - [x] Front private notifications inbox + unread count/mark-read UX.
 - [ ] Нақты SMTP/push provider және queue trigger.
 - [x] Provider-neutral monitoring/alert signal contract (`MONITORING_ALERTING.md`).
+- [x] Versioned monitoring provider acceptance record template: collector boundary, required alert classes, threshold ownership, privacy-safe payload, routing/escalation және staging test evidence (`MONITORING_PROVIDER_ACCEPTANCE.md`).
 - [ ] External collector/provider, tuned thresholds, paging және escalation acceptance.
 - [x] Backend compiled HTTP auth/security lifecycle smoke: register/login/refresh rotation/logout, authorization, rate-limit, metrics және CORS contracts.
 - [x] Phase 2 critical PostgreSQL lifecycle + cross-user isolation harness implementation merged (`QaryzLinkBack#165`).
@@ -97,7 +98,9 @@
 - [x] Synthetic Evidence Archive Load workflow explicit release commit binding-пен қорғалған және main CI оның frozen-install/14-day metadata-only contract-ын тексереді (Back #239).
 - [x] Migration rollback және backup/restore rehearsal workflow contracts main CI invariants-пен қорғалған: frozen installs, previous-app-on-release-schema, no reverse migration, pg_dump/pg_restore, backup-byte deletion, readiness, metadata-only retention (Back #240).
 - [x] Kubernetes API release manifest readinessProbe exact `/api/v1/health/ready` path-іне pin жасалған және source/rendered bundle CI invariant-пен қорғалған; malformed duplicated CI tail алынып workflow parsing қалпына келтірілді (Back #233).
+- [x] Privacy-safe read-only staging orchestrator rollout smoke implementation: live Deployment immutable digest, controller generation, updated/available replicas, RollingUpdate policy, exact startup/readiness/liveness probes және bounded rollout status тексеріледі (Back #242).
 - [ ] Staging ingress/orchestrator readiness probe нақты `/api/v1/health/ready` endpoint-іне қосылғаны тексерілді.
+- [x] Privacy-safe read-only staging background CronJob rollout smoke implementation: 4 CronJob immutable digest, enabled schedule, concurrency/deadline/backoff/runtime command және optional observed `lastSuccessfulTime` тексеріледі (Back #241).
 - [ ] Kubernetes CronJob staging rollout, immutable image verification және job alerting.
 - [ ] Metrics endpoint internal ingress review және staging acceptance.
 - [ ] Нақты SMTP delivery және пайдаланушының email растау flow-ы.
