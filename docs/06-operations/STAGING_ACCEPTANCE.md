@@ -1,8 +1,10 @@
 # Staging acceptance checklist
 
-Жаңартылған күні: 2026-09-26.
+Жаңартылған күні: 2026-10-01.
 
 Бұл checklist QaryzLink-ті public pilot-қа дейін нақты staging environment-те тексеруге арналған. Code/CI green болуы staging acceptance орнына жүрмейді.
+
+Back #238 `Staging Core Acceptance` manual workflow release identity metadata-ны бір run-ға біріктіреді: selected workflow commit exact deployed Backend commit-пен сәйкестендіріледі, immutable Backend image digest форматы тексеріледі, explicit non-production acknowledgement талап етіледі, кейін runtime/auth-session/proxy-spoof suites орындалады. Бұл operator-provided binding; cluster/image identity-дің independent verification-ін, migration/preflight/log/browser/provider/legal checks-ті алмастырмайды.
 
 ## 1. Release identity
 
@@ -304,8 +306,8 @@ Signal/alert contract: `MONITORING_ALERTING.md`.
 
 Әр scenario үшін тек environment, UTC timestamp, commit/image digest, scenario name және pass/fail сақталады. Password, token, full email/phone, IIN/BIN, signed URL, raw document немесе database dump acceptance evidence-ке кірмейді.
 
-Front browser workflow implementation осы contract-тың application-side бөлігін орындайды: commit/run metadata + scenario title/status artifact; authenticated Playwright trace әдейі өшірулі. Deployment image digest нақты staging orchestrator/deploy evidence-тен бөлек bind болуы тиіс.
-Admin manual browser workflow та осы metadata-only contract-ты қолданады: trace өшірулі, scenario title/status + commit/run metadata ғана сақталады; support/metrics credentials, row identifiers және response bodies retention-ға кірмейді.
+Front #82 authenticated staging browser workflow осы contract-тың application-side бөлігін release identity-ге bind етеді: selected Front workflow SHA exact deployed Front commit-пен тең болуы тиіс, operator Backend commit + immutable Backend image digest береді; commit/run/scenario metadata artifact-те сақталады, authenticated Playwright trace әдейі өшірулі. Бұл operator-provided binding actual cluster/deploy identity verification-ін алмастырмайды.
+Admin #38 manual browser workflow privacy-safe reporter жасаған scenario title/status + repository/commit/run metadata JSON-ды нақты 14-day artifact ретінде retain етеді; trace өшірулі, support/metrics credentials, row identifiers және response bodies retention-ға кірмейді. Admin #37 browser install-ды committed frozen lockfile-ға pin етеді.
 
 Acceptance-ті owner және кемінде бір инженер review етеді.
 

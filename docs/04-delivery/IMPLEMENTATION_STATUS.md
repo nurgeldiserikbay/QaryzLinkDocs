@@ -1,6 +1,6 @@
 # Implementation status
 
-Жаңартылған күні: 2026-09-30
+Жаңартылған күні: 2026-10-01
 
 Бұл құжат specification мен нақты код арасындағы қысқа бақылау нүктесі. Толық талаптар өзгермейді; мұнда тек орындалу күйі көрсетіледі.
 
@@ -45,7 +45,7 @@
 Repository checklist interpretation:
 
 - Delivery Roadmap implementation checklist: **37/45 = 82.2%** complete.
-- Release checklist: **125/167 = 74.9%** checked.
+- Release checklist: **126/168 = 75.0%** checked.
 - Staging acceptance: **1/235** checked; бұл кодтың 0.4% ғана дайын дегенді білдірмейді — checklist нақты staging/provider/legal execution evidence-ін әдейі алдын ала green қылмайды.
 
 Roadmap-та қалған 8 тармақтың басым бөлігі external/legal acceptance: vetted KYC provider, approved legal templates, actual KMS/HSM, retention/lifecycle policy acceptance, RFC3161/qualified TSA, post-payment ledger application legal/accounting policy және full statutory data-export scope. Purely technical conditional item — large archive streaming/ZIP64, ол load evidence талап етсе ғана міндетті.
@@ -70,7 +70,7 @@ Evidence ZIP production-load decision үшін synthetic bounded acceptance harn
 
 Payment correction/dispute path hardened. Back #217 (`ccdaeca`) payment reversal-ды тек `ACTIVE` contract-та рұқсат етеді, сондықтан `COMPLETED` contract-тың ClosureCertificate/schedule/ledger күйі кейіннен divergence жасамайды. Front #74 (`d695e98`) lender-only confirmed-payment reversal UI және mandatory 3–1000 character correction reason қосты; нақты bank refund автоматты емес екені explicit көрсетіледі. Front #75 (`e4e93d4`) KK/RU staging lifecycle ішінде partial confirm → reversal → exact outstanding restore → қайта partial/final repayment → closure және completed contract-та reversal control жоқ екенін тексереді. Front #76 (`eee7b28`) Funding және Payment DISPUTE action-дарын Backend policy-ге сәйкестендіріп, mandatory reason жіберетін етті. Related CI runs `36722287955`, `36722949425`, `36723254464`, `36723656898` runner step алмады (`steps=null`), сондықтан execution evidence pending.
 
-Admin browser acceptance privacy evidence Front-пен бірдей policy-ге келтірілді. Admin #33 (`22aea52`) Playwright trace retention-ды өшіріп, scenario title/status + repository/commit/run metadata ғана сақтайтын custom reporter және 14-day metadata-only artifact қосты. Credentials, token, response body, row identifiers немесе PII artifact-қа кірмейді. CI run `36730229712` quality job `steps=null` күйінде runner алмады; actual Admin browser execution pending.
+Admin browser acceptance privacy evidence Front-пен бірдей policy-ге келтірілді. Admin #33 (`22aea52`) Playwright trace retention-ды өшіріп, scenario title/status + repository/commit/run metadata ғана жазатын custom reporter қосты. Кейін review кезінде workflow reporter файлын upload етпейтіні табылды: Admin #38 (`ab4377f`) `admin-browser-scenarios.json` artifact-ін 14 күнге нақты retain ететін gate қосты; current-main CI `36850183051` successful. Credentials, token, response body, row identifiers немесе PII artifact-қа кірмейді. Actual Admin browser execution әлі pending.
 
 Backend Phase 2 formal acceptance evidence gate бұрыннан implementation-да бар және енді status-та да бекітілді. Back #214 (`d520de0`) migrations-тан кейін focused real-PostgreSQL `test:phase2-critical` орындайды, private-debt lifecycle/evidence privacy/cross-user isolation/notification isolation coverage-ті CI gate етеді және 14 күнге metadata-only acceptance artifact сақтайды. CI run `36713566757` runner алмады (`steps=null`), сондықтан implementation ready, successful current-main execution pending.
 
@@ -99,6 +99,10 @@ Court/export technical fail-closed guard main-ға кірді. Back #234 (`4c73a
 SBOM retention acceptance жабылды. Current main supply-chain runs Back `36841447314` (`0340cf8`), Front `36841540997` (`0fdd155`) және Admin `36841502025` (`1ecf1da`) successful: secret scan + CycloneDX generation green, commit-bound SBOM artifacts 2026-10-15-ке дейін retained. Backend #235 (`4f41449`) оған дейін Gitleaks generic-api-key false-positive берген non-secret test ceremony reference-ті қауіпсіз test reference-ке ауыстырды.
 
 Merged-main quality verification үш repo-ға да қосылды. Back #237 (`0340cf8`), Front #80 (`0fdd155`) және Admin #36 (`1ecf1da`) quality workflow-тарын `main` push-қа қосты. Main runs: Back `36841447349` толық SUCCESS — migrations, Phase 2 PostgreSQL acceptance, `pnpm check`, operational/privacy/staging-script/Kubernetes/release-render/compiled-app smoke; Front `36841541302` SUCCESS; Admin `36841501797` SUCCESS. Осы evidence Phase 2 current-main CI gate-ін жабады, бірақ real staging browser/provider acceptance-ті алмастырмайды.
+
+Staging acceptance orchestration hardening аяқталды. Back #238 (`8e1ca4f`) manual `Staging Core Acceptance` workflow қосты: explicit non-production acknowledgement талап етеді, operator-provided deployed Backend commit-ті selected workflow SHA-мен exact салыстырады, immutable `sha256:...` image digest форматын тексереді және existing runtime + verified-account auth/session + forwarded-header spoof suites-ті бір run ішінде орындайды. 14-day artifact тек environment/time/repository/commit/image/run/scenario/result metadata сақтайды; URL/origin/email/password/token/header values/response body/PII сақталмайды. Current-main CI `36849677702` және supply-chain `36849677677` successful. Бұл implementation actual staging execution емес.
+
+Browser acceptance reproducibility және release identity де harden етілді. Front #81 (`24228c4`) және Admin #37 (`a84d8af`) manual Playwright workflows-ты committed `pnpm-lock.yaml` + `--frozen-lockfile` режиміне көшірді. Front #82 (`d719d8c`) authenticated staging browser run үшін exact deployed Front commit, Backend commit, immutable Backend image digest және non-production acknowledgement талап етеді; retained evidence осы release identity-ді metadata-only түрде bind етеді. Front current-main CI `36850300325`/supply-chain `36850300315`, Admin current-main CI `36850183051`/supply-chain `36850183043` green. Real KZ/RU staging browser run әлі pending.
 
 Pilot scope approval process үшін versioned record template қосылды: `docs/06-operations/PILOT_SCOPE_APPROVAL.md`. Ол proposed Kazakhstan natural-person private-debt boundary, explicit exclusions, provider/legal/privacy dependencies, deployment assertions, material-change versioning және product/legal/privacy/security sign-off fields береді. Құжаттың болуы approval емес; `Approval ID` және reviewer fields PENDING күйінде қалады, сондықтан product/legal release gate әлі жабылған жоқ.
 
