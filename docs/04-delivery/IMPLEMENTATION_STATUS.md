@@ -45,12 +45,14 @@
 Repository checklist interpretation:
 
 - Delivery Roadmap implementation checklist: **37/45 = 82.2%** complete.
-- Release checklist: **135/177 = 76.3%** checked.
+- Release checklist: **136/178 = 76.4%** checked.
 - Staging acceptance: **1/242 = 0.4%** checked; бұл кодтың 0.4% ғана дайын дегенді білдірмейді — checklist нақты staging/provider/legal execution evidence-ін әдейі алдын ала green қылмайды.
 
 Back #241 live background-job rollout acceptance tooling қосты: staging namespace-та notification scheduler, account deletion, evidence cleanup және auth retention CronJob-тарының exact immutable release digest, enabled schedule, `concurrencyPolicy: Forbid`, runtime command/deadline/backoff policy және optional `lastSuccessfulTime` state-ін read-only тексереді. PR CI толық green, merge commit `517ca50` current-main CI `36865554878` және Supply Chain Security `36865554752` арқылы successful. Actual staging run және failed-Job paging бөлек acceptance болып қалады.
 
 Back #242 live API orchestrator acceptance tooling қосты: `qaryzlink-back` Deployment exact immutable digest, controller observed generation, all desired updated/available replicas, `maxUnavailable=0`/`maxSurge=1`, exact `/api/v1/health/ready` readinessProbe және bounded `kubectl rollout status` contract-ын тексереді. Merge commit `4bb4f4d` current-main CI `36866462060` және Supply Chain Security `36866461923` арқылы successful; actual staging run бөлек evidence талап етеді.
+
+Back #243 staging metrics ingress isolation tooling қосты: separate public/internal exact HTTPS origin талап етеді, public ingress-та `/api/v1/metrics/*` application-ға жетпей 403/404 болуы тиіс, internal origin token-protected 200 + `Cache-Control: no-store` береді. Existing runtime smoke барлық 10 aggregate metrics endpoint-ке дейін кеңейді және metrics ingress scenario release-bound `Staging Core Acceptance` workflow-қа төртінші gate ретінде кірді. Actual staging firewall/ingress review әлі open acceptance болып қалады.
 
 Monitoring externalization үшін `MONITORING_PROVIDER_ACCEPTANCE.md` versioned template қосылды. Ол collector/network boundary, required alert classes, threshold ownership, privacy-safe alert payload, on-call routing/escalation және real staging test alert evidence-ін нақты provider таңдалмай тұрып құрылымдайды; template өзі approval емес.
 
