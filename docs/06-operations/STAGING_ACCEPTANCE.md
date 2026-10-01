@@ -20,6 +20,8 @@ Back #238 `Staging Core Acceptance` manual workflow release identity metadata-н
 
 ## 2. Network және TLS
 
+Front #84 және Admin #41 application configuration-да production outbound API origin-ді exact HTTPS origin-ға fail-closed pin етеді: Front CSP/browser API client ортақ validator қолданады, Admin server-only readiness/metrics/support calls ортақ validator қолданады. Бұл code guard нақты certificate/ingress/restricted-network staging acceptance-ін алмастырмайды.
+
 - [ ] HTTPS certificate valid.
 - [ ] API ingress restricted.
 - [ ] Database/Redis/object storage management ports public емес.
