@@ -282,6 +282,8 @@ Canonical notification scheduler deployment template: QaryzLinkBack `ops/kuberne
 
 Back #241 `ops/staging-background-jobs-smoke.sh` notification scheduler, account deletion, evidence cleanup және auth retention CronJob-тарын live staging namespace-та read-only тексереді. Exact immutable digest, enabled schedule, concurrency/deadline/backoff/runtime command және strict mode-та observed `lastSuccessfulTime` талап етіледі. Harness pass actual failed-Job alert routing-ті жаппайды.
 
+Back #244 `ops/staging-job-failure-alert-source.sh` explicit `STAGING_SYNTHETIC_FAILURE_ACK=true` арқылы one-shot synthetic failed Job жасайды. Probe exact live Backend immutable digest-ті қолданады, Secret/ConfigMap/envFrom алмайды, service-account token-ды өшіреді, deterministic `exit 42` және Kubernetes `Failed=True` condition-ын тексереді, bounded TTL арқылы автоматты тазарады. Бұл Kubernetes alert source-тың бар екенін дәлелдейді, бірақ external collector/paging destination delivery-ін дәлелдемейді.
+
 - [ ] notification CronJob immutable digest-пен іске қосылды.
 - [ ] account deletion CronJob immutable digest-пен іске қосылды.
 - [ ] evidence cleanup CronJob immutable digest-пен іске қосылды.
