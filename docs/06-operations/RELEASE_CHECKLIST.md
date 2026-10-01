@@ -94,7 +94,7 @@
 - [x] Manual privacy-safe staging runtime smoke harness: HTTPS liveness/readiness/database + private auth boundary + 8 metrics auth/cache checks, metadata-only evidence (Back #221).
 - [x] Staging runtime smoke has network-free fake-curl regression coverage and repaired CI/test integration guards (Back #222/#223/#224).
 - [x] Staging runtime smoke verifies security headers + exact approved Front CORS + unapproved-origin deny without retaining origin/token/body data (Back #225).
-- [x] Unified manual `Staging Core Acceptance` gate exact selected Backend commit + operator-provided immutable image digest + non-production acknowledgement-ке bind болып runtime/auth-session/proxy-spoof suites-ті бірге орындайды және metadata-only 14-day evidence сақтайды (Back #238).
+- [x] Unified manual `Staging Core Acceptance` gate exact selected Backend commit + operator-provided immutable image digest + non-production acknowledgement-ке bind болып runtime/metrics-ingress/auth-session/proxy-spoof suites-ті бірге орындайды және metadata-only 14-day evidence сақтайды (Back #238/#243).
 - [x] Synthetic Evidence Archive Load workflow explicit release commit binding-пен қорғалған және main CI оның frozen-install/14-day metadata-only contract-ын тексереді (Back #239).
 - [x] Migration rollback және backup/restore rehearsal workflow contracts main CI invariants-пен қорғалған: frozen installs, previous-app-on-release-schema, no reverse migration, pg_dump/pg_restore, backup-byte deletion, readiness, metadata-only retention (Back #240).
 - [x] Kubernetes API release manifest readinessProbe exact `/api/v1/health/ready` path-іне pin жасалған және source/rendered bundle CI invariant-пен қорғалған; malformed duplicated CI tail алынып workflow parsing қалпына келтірілді (Back #233).
@@ -102,6 +102,7 @@
 - [ ] Staging ingress/orchestrator readiness probe нақты `/api/v1/health/ready` endpoint-іне қосылғаны тексерілді.
 - [x] Privacy-safe read-only staging background CronJob rollout smoke implementation: 4 CronJob immutable digest, enabled schedule, concurrency/deadline/backoff/runtime command және optional observed `lastSuccessfulTime` тексеріледі (Back #241).
 - [ ] Kubernetes CronJob staging rollout, immutable image verification және job alerting.
+- [x] Privacy-safe staging metrics ingress isolation harness implementation: separate public/internal exact HTTPS origins, public `/api/v1/metrics/*` 403/404 block, internal token-protected reads + `Cache-Control: no-store`, all 10 current aggregate endpoints және unified core-workflow binding (Back #243).
 - [ ] Metrics endpoint internal ingress review және staging acceptance.
 - [ ] Нақты SMTP delivery және пайдаланушының email растау flow-ы.
 - [x] Password reset backend/Front flow: enumeration-safe request, one-time token, session revoke, HTTPS reset URL және retention cleanup.
