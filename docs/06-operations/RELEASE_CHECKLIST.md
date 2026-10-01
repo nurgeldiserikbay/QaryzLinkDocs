@@ -59,6 +59,8 @@
 - [x] Phase 2 critical PostgreSQL harness current Backend main commit `ff0dc09`-да successful CI run `36851783467` арқылы green; metadata-only acceptance artifact retained.
 - [x] Runtime/provider error persistence және maintenance CLI stderr PII-safe generic boundary.
 - [x] Front/Admin production server HTTP security-header/CSP runtime smoke.
+- [x] Front production public API origin fail-closed: `NEXT_PUBLIC_API_BASE_URL` міндетті exact HTTPS origin, CSP және browser API client бір validator қолданады; localhost fallback тек development/test (Front #84).
+- [x] Admin production server-only Backend origin fail-closed: `QARYZLINK_API_BASE_URL` exact HTTPS origin, credentials/path/query/fragment/HTTP rejected; readiness/metrics/support server calls бір validator қолданады (Admin #41).
 - [x] Front/Admin manual-only Chromium E2E harness дайын.
 - [x] Front KZ/RU presentation coverage critical Phase 2 routes және account lifecycle бойынша implementation-да бар (Front #41/#42/#43).
 - [x] Front participant core mutation UI: privacy-safe viewerRole, dual contract signing, funding signed upload/decision, schedule generation және repayment signed upload/decision (Back #213, Front #67/#68).
@@ -106,7 +108,7 @@
 - [ ] Password reset нақты SMTP inbox delivery және browser acceptance.
 - [x] Production dependency high/critical audit gate Back/Front/Admin CI ішінде.
 - [x] Full-history secret scanning және CycloneDX SBOM generation Back/Front/Admin CI ішінде.
-- [x] SBOM artifact retention/access policy documented in `SBOM_POLICY.md`; current Back/Front/Admin main supply-chain runs successful және commit-bound CycloneDX artifacts 14 күнге retained (Back `36851783389`, Front `36851482743`, Admin `36855331141`).
+- [x] SBOM artifact retention/access policy documented in `SBOM_POLICY.md`; current Back/Front/Admin main supply-chain runs successful және commit-bound CycloneDX artifacts 14 күнге retained (Back `36851783389`, Front `36856766952`, Admin `36856384256`).
 - [x] Container image HIGH/CRITICAL vulnerability scanning CI gate.
 - [ ] Operational security review және нақты staging/container acceptance — `SECURITY_REVIEW.md` + `STAGING_ACCEPTANCE.md` бойынша орындалады.
 
