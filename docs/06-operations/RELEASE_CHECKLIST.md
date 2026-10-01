@@ -101,6 +101,7 @@
 - [x] Privacy-safe read-only staging orchestrator rollout smoke implementation: live Deployment immutable digest, controller generation, updated/available replicas, RollingUpdate policy, exact startup/readiness/liveness probes және bounded rollout status тексеріледі (Back #242).
 - [ ] Staging ingress/orchestrator readiness probe нақты `/api/v1/health/ready` endpoint-іне қосылғаны тексерілді.
 - [x] Privacy-safe read-only staging background CronJob rollout smoke implementation: 4 CronJob immutable digest, enabled schedule, concurrency/deadline/backoff/runtime command және optional observed `lastSuccessfulTime` тексеріледі (Back #241).
+- [x] Bounded synthetic failed-Job alert-source probe implementation: exact live release image digest, no application Secret/ConfigMap, no service-account token, backoffLimit=0, bounded TTL, deterministic exit 42 және Kubernetes Failed=True verification (Back #244).
 - [ ] Kubernetes CronJob staging rollout, immutable image verification және job alerting.
 - [x] Privacy-safe staging metrics ingress isolation harness implementation: separate public/internal exact HTTPS origins, public `/api/v1/metrics/*` 403/404 block, internal token-protected reads + `Cache-Control: no-store`, all 10 current aggregate endpoints және unified core-workflow binding (Back #243).
 - [ ] Metrics endpoint internal ingress review және staging acceptance.
