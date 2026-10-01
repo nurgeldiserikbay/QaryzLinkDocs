@@ -32,6 +32,8 @@ Front #84 және Admin #41 application configuration-да production outbound 
 
 ## 3. Health және rollout
 
+Back #242 `ops/staging-orchestrator-smoke.sh` live `qaryzlink-back` Deployment-ті read-only тексереді: exact immutable digest, controller observed generation, desired=updated=available replica state, RollingUpdate safety, exact startup/readiness/liveness probes және bounded rollout completion. Harness pass болуы төмендегі нақты environment checks-ті автоматты түрде checked етпейді; retained result namespace/digest/Secret/ConfigMap/pod name немесе response body шығармайды.
+
 - [ ] /api/v1/health 200.
 - [ ] /api/v1/health/ready 200 және database=up.
 - [ ] Kubernetes readiness probe дәл ready endpoint-ті қолданады.
@@ -277,6 +279,8 @@ Front #84 және Admin #41 application configuration-да production outbound 
 ## 7. Background jobs
 
 Canonical notification scheduler deployment template: QaryzLinkBack `ops/kubernetes/notification-scheduler-cronjob.yaml` (Back #220). Repository template presence does **not** satisfy the checks below; rendered immutable digest, actual Job execution және monitoring evidence қажет.
+
+Back #241 `ops/staging-background-jobs-smoke.sh` notification scheduler, account deletion, evidence cleanup және auth retention CronJob-тарын live staging namespace-та read-only тексереді. Exact immutable digest, enabled schedule, concurrency/deadline/backoff/runtime command және strict mode-та observed `lastSuccessfulTime` талап етіледі. Harness pass actual failed-Job alert routing-ті жаппайды.
 
 - [ ] notification CronJob immutable digest-пен іске қосылды.
 - [ ] account deletion CronJob immutable digest-пен іске қосылды.

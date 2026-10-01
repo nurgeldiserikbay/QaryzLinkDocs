@@ -35,9 +35,9 @@
 | Notification scheduler command | Базалық slice дайын | `pnpm notifications:run`, validated AppModule context, aggregate counters және non-zero failure exit |
 | Notification email preference | Базалық slice дайын | PrivacySettings opt-out, profile API және enqueue-time EMAIL filtering |
 | Notification delivery metrics | Persistent aggregate slice дайын | PostgreSQL singleton counters, cross-process scheduler/API snapshot және staging/production token guard |
-| Notification Kubernetes scheduler | Canonical release-bundle template дайын | Backend `ops/kubernetes/notification-scheduler-cronjob.yaml` immutable digest render-ге кіреді; Forbid overlap, start/active deadlines, external ConfigMap/Secret және hardened pod contract бар |
-| Deployment hardening | Template/CI + isolated rehearsal automation дайын | Immutable digest rendering, bounded migration job, privacy-safe release preflight, safe rollout, PDB/node spread, previous-app-on-release-schema rollback compatibility rehearsal және synthetic no-PII backup/restore rehearsal бар; нақты staging/provider execution әлі pending |
-| Provider/scheduler | Жоспарда | Push adapter, queue trigger, external metrics collector/alerting және organization routing |
+| Notification Kubernetes scheduler | Canonical template + live-cluster acceptance tooling дайын | Backend `ops/kubernetes/notification-scheduler-cronjob.yaml` immutable digest render-ге кіреді; Forbid overlap, start/active deadlines, external ConfigMap/Secret және hardened pod contract бар. Back #241 read-only staging harness 4 CronJob rollout/runtime policy және optional observed success-ты тексереді |
+| Deployment hardening | Template/CI + rehearsal + live-cluster acceptance tooling дайын | Immutable digest rendering, bounded migration job, privacy-safe release preflight, safe rollout, PDB/node spread, previous-app-on-release-schema rollback compatibility rehearsal және synthetic no-PII backup/restore rehearsal бар. Back #242 live Deployment digest/probe/replica/rollout policy-ін read-only тексереді; нақты staging/provider execution әлі pending |
+| Provider/scheduler | Acceptance contract/template дайын, provider pending | Push adapter/queue trigger және нақты external metrics collector әлі pending; monitoring signal contract пен versioned provider acceptance record threshold/routing/privacy/staging evidence талаптарын бекітеді |
 | Front/Admin UI | Front critical MVP interaction coverage кеңейді | Front-та auth/discovery/contract signing/funding/schedule/repayment/closure/evidence/dispute/notifications/settings/security/account lifecycle mutation/read flows және privacy-safe L2 identity status KZ/RU coverage бар; Admin aggregate operations cards бар; raw identity-level feeds өшірулі |
 
 ## 2026-10-01 completion snapshot
@@ -45,8 +45,14 @@
 Repository checklist interpretation:
 
 - Delivery Roadmap implementation checklist: **37/45 = 82.2%** complete.
-- Release checklist: **132/174 = 75.9%** checked.
-- Staging acceptance: **1/235** checked; бұл кодтың 0.4% ғана дайын дегенді білдірмейді — checklist нақты staging/provider/legal execution evidence-ін әдейі алдын ала green қылмайды.
+- Release checklist: **135/177 = 76.3%** checked.
+- Staging acceptance: **1/242 = 0.4%** checked; бұл кодтың 0.4% ғана дайын дегенді білдірмейді — checklist нақты staging/provider/legal execution evidence-ін әдейі алдын ала green қылмайды.
+
+Back #241 live background-job rollout acceptance tooling қосты: staging namespace-та notification scheduler, account deletion, evidence cleanup және auth retention CronJob-тарының exact immutable release digest, enabled schedule, `concurrencyPolicy: Forbid`, runtime command/deadline/backoff policy және optional `lastSuccessfulTime` state-ін read-only тексереді. PR CI толық green, merge commit `517ca50` current-main CI `36865554878` және Supply Chain Security `36865554752` арқылы successful. Actual staging run және failed-Job paging бөлек acceptance болып қалады.
+
+Back #242 live API orchestrator acceptance tooling қосты: `qaryzlink-back` Deployment exact immutable digest, controller observed generation, all desired updated/available replicas, `maxUnavailable=0`/`maxSurge=1`, exact `/api/v1/health/ready` readinessProbe және bounded `kubectl rollout status` contract-ын тексереді. Merge commit `4bb4f4d` current-main CI `36866462060` және Supply Chain Security `36866461923` арқылы successful; actual staging run бөлек evidence талап етеді.
+
+Monitoring externalization үшін `MONITORING_PROVIDER_ACCEPTANCE.md` versioned template қосылды. Ол collector/network boundary, required alert classes, threshold ownership, privacy-safe alert payload, on-call routing/escalation және real staging test alert evidence-ін нақты provider таңдалмай тұрып құрылымдайды; template өзі approval емес.
 
 Roadmap-та қалған 8 тармақтың басым бөлігі external/legal acceptance: vetted KYC provider, approved legal templates, actual KMS/HSM, retention/lifecycle policy acceptance, RFC3161/qualified TSA, post-payment ledger application legal/accounting policy және full statutory data-export scope. Purely technical conditional item — large archive streaming/ZIP64, ол load evidence талап етсе ғана міндетті.
 

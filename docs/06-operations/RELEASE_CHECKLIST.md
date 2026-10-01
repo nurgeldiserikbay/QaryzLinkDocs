@@ -51,12 +51,13 @@
 - [x] Front private notifications inbox + unread count/mark-read UX.
 - [ ] Нақты SMTP/push provider және queue trigger.
 - [x] Provider-neutral monitoring/alert signal contract (`MONITORING_ALERTING.md`).
+- [x] Versioned monitoring provider acceptance record template: collector boundary, required alert classes, threshold ownership, privacy-safe payload, routing/escalation және staging test evidence (`MONITORING_PROVIDER_ACCEPTANCE.md`).
 - [ ] External collector/provider, tuned thresholds, paging және escalation acceptance.
 - [x] Backend compiled HTTP auth/security lifecycle smoke: register/login/refresh rotation/logout, authorization, rate-limit, metrics және CORS contracts.
 - [x] Phase 2 critical PostgreSQL lifecycle + cross-user isolation harness implementation merged (`QaryzLinkBack#165`).
 - [x] Phase 2 critical PostgreSQL suite has a dedicated CI gate + metadata-only 14-day acceptance artifact (Back #214).
 - [x] Phase 2 PostgreSQL acceptance includes funding/payment dispute fail-closed allocation/ledger/closure invariants (Back #219).
-- [x] Phase 2 critical PostgreSQL harness current Backend main commit `ff0dc09`-да successful CI run `36851783467` арқылы green; metadata-only acceptance artifact retained.
+- [x] Phase 2 critical PostgreSQL harness current Backend main commit `4bb4f4d`-да successful CI run `36866462060` арқылы green; metadata-only acceptance artifact retained.
 - [x] Runtime/provider error persistence және maintenance CLI stderr PII-safe generic boundary.
 - [x] Front/Admin production server HTTP security-header/CSP runtime smoke.
 - [x] Front production public API origin fail-closed: `NEXT_PUBLIC_API_BASE_URL` міндетті exact HTTPS origin, CSP және browser API client бір validator қолданады; localhost fallback тек development/test (Front #84).
@@ -97,7 +98,9 @@
 - [x] Synthetic Evidence Archive Load workflow explicit release commit binding-пен қорғалған және main CI оның frozen-install/14-day metadata-only contract-ын тексереді (Back #239).
 - [x] Migration rollback және backup/restore rehearsal workflow contracts main CI invariants-пен қорғалған: frozen installs, previous-app-on-release-schema, no reverse migration, pg_dump/pg_restore, backup-byte deletion, readiness, metadata-only retention (Back #240).
 - [x] Kubernetes API release manifest readinessProbe exact `/api/v1/health/ready` path-іне pin жасалған және source/rendered bundle CI invariant-пен қорғалған; malformed duplicated CI tail алынып workflow parsing қалпына келтірілді (Back #233).
+- [x] Privacy-safe read-only staging orchestrator rollout smoke implementation: live Deployment immutable digest, controller generation, updated/available replicas, RollingUpdate policy, exact startup/readiness/liveness probes және bounded rollout status тексеріледі (Back #242).
 - [ ] Staging ingress/orchestrator readiness probe нақты `/api/v1/health/ready` endpoint-іне қосылғаны тексерілді.
+- [x] Privacy-safe read-only staging background CronJob rollout smoke implementation: 4 CronJob immutable digest, enabled schedule, concurrency/deadline/backoff/runtime command және optional observed `lastSuccessfulTime` тексеріледі (Back #241).
 - [ ] Kubernetes CronJob staging rollout, immutable image verification және job alerting.
 - [ ] Metrics endpoint internal ingress review және staging acceptance.
 - [ ] Нақты SMTP delivery және пайдаланушының email растау flow-ы.
@@ -108,7 +111,7 @@
 - [ ] Password reset нақты SMTP inbox delivery және browser acceptance.
 - [x] Production dependency high/critical audit gate Back/Front/Admin CI ішінде.
 - [x] Full-history secret scanning және CycloneDX SBOM generation Back/Front/Admin CI ішінде.
-- [x] SBOM artifact retention/access policy documented in `SBOM_POLICY.md`; current Back/Front/Admin main supply-chain runs successful және commit-bound CycloneDX artifacts 14 күнге retained (Back `36851783389`, Front `36856766952`, Admin `36856384256`).
+- [x] SBOM artifact retention/access policy documented in `SBOM_POLICY.md`; current Back/Front/Admin main supply-chain runs successful және commit-bound CycloneDX artifacts 14 күнге retained (Back `36866461923`, Front `36856766952`, Admin `36856384256`).
 - [x] Container image HIGH/CRITICAL vulnerability scanning CI gate.
 - [ ] Operational security review және нақты staging/container acceptance — `SECURITY_REVIEW.md` + `STAGING_ACCEPTANCE.md` бойынша орындалады.
 
