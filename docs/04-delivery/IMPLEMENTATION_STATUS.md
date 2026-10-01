@@ -23,7 +23,7 @@
 | Payment reversal | Backend + Front correction path дайын | Lender-authorized immutable reversal, ACTIVE-only closure guard, signed allocation restore, opposite ledger entries, mandatory correction reason және KZ/RU participant UI бар |
 | Contract closure | Дайын | Zero-balance readiness, dual final-statement confirmation, stale-hash guard, immutable closure certificate және lifecycle notifications |
 | Evidence summary / manifest | Phase 4 technical export baseline кеңейді | Immutable JSON + deterministic ZIP v1/v2, bounded binary archive, detached seal v1/v2 және participant-only court-export readiness/seal guard бар; approved legal PDF, actual KMS/HSM, trusted TSA және retention/storage staging acceptance әлі pending |
-| Phase 2 critical E2E | Harness + dedicated CI acceptance artifact дайын, execution pending | Real PostgreSQL lifecycle/evidence privacy/cross-user isolation/notification isolation suite жеке `test:phase2-critical` gate ретінде бар; metadata-only artifact жасалады. Actions runner current run-да әлі орындалмады |
+| Phase 2 critical E2E | Current-main CI green | Real PostgreSQL lifecycle/evidence privacy/cross-user isolation/notification isolation + funding/payment dispute invariants dedicated `test:phase2-critical` gate арқылы current Backend main commit-те successful; metadata-only acceptance artifact retained |
 | KZ/RU user journey | KK + RU full two-party staging harness дайын, execution pending | Бір reusable request→invite→proposal→contract→dual signing→funding→schedule→partial repayment→remaining repayment→dual closure→evidence manifest flow KK және RU үшін бөлек serialized staging test ретінде бар. Actual successful staging run әлі орындалмады |
 | Notifications/outbox | Базалық slice дайын | Payment/dispute/repayment және closure lifecycle оқиғалары, privacy-safe payload және idempotent outbox |
 | Notification claim/retry worker | Базалық slice дайын | SKIP LOCKED claim, 5 минут lease, exponential retry және terminal FAILED |
@@ -45,7 +45,7 @@
 Repository checklist interpretation:
 
 - Delivery Roadmap implementation checklist: **37/45 = 82.2%** complete.
-- Release checklist: **124/167 = 74.3%** checked.
+- Release checklist: **125/167 = 74.9%** checked.
 - Staging acceptance: **1/235** checked; бұл кодтың 0.4% ғана дайын дегенді білдірмейді — checklist нақты staging/provider/legal execution evidence-ін әдейі алдын ала green қылмайды.
 
 Roadmap-та қалған 8 тармақтың басым бөлігі external/legal acceptance: vetted KYC provider, approved legal templates, actual KMS/HSM, retention/lifecycle policy acceptance, RFC3161/qualified TSA, post-payment ledger application legal/accounting policy және full statutory data-export scope. Purely technical conditional item — large archive streaming/ZIP64, ол load evidence талап етсе ғана міндетті.
@@ -97,6 +97,8 @@ Front/Admin dependency reproducibility gate жабылды. Front #78 (`f5540e9`
 Court/export technical fail-closed guard main-ға кірді. Back #234 (`4c73a4f`) participant-only capability және `court-export-seal` endpoint қосты: ZIP v2 binary archive support, remote-signed PDF provider, PDF template/legal/visual/font approval refs, evidence signer deployment/IAM/key-ceremony/lifecycle refs, trusted timestamp + timestamp governance және retention/storage lifecycle refs толық болмаса operation unavailable/503 болып қалады. Бұл technical readiness guard actual approved PDF, KMS/HSM немесе TSA/legal acceptance-ті green деп есептемейді. #234 quality run `36821578344` толық green болды.
 
 SBOM retention acceptance жабылды. Front main supply-chain run `36815673008` (`9305434`) және Admin run `36815639699` (`90710d7`) successful болып, commit-bound CycloneDX artifacts 14 күнге retained болды. Backend #235 (`4f41449`) false-positive secret-shaped test ceremony reference-ті алмастырды; main supply-chain run `36840826261` secret scan + SBOM generation-ды green өткізіп, `sbom-4f41449...` artifact-ін 2026-10-15-ке дейін retained етті.
+
+Merged-main quality verification үш repo-ға да қосылды. Back #237 (`0340cf8`), Front #80 (`0fdd155`) және Admin #36 (`1ecf1da`) quality workflow-тарын `main` push-қа қосты. Main runs: Back `36841447349` толық SUCCESS — migrations, Phase 2 PostgreSQL acceptance, `pnpm check`, operational/privacy/staging-script/Kubernetes/release-render/compiled-app smoke; Front `36841541302` SUCCESS; Admin `36841501797` SUCCESS. Осы evidence Phase 2 current-main CI gate-ін жабады, бірақ real staging browser/provider acceptance-ті алмастырмайды.
 
 Pilot scope approval process үшін versioned record template қосылды: `docs/06-operations/PILOT_SCOPE_APPROVAL.md`. Ол proposed Kazakhstan natural-person private-debt boundary, explicit exclusions, provider/legal/privacy dependencies, deployment assertions, material-change versioning және product/legal/privacy/security sign-off fields береді. Құжаттың болуы approval емес; `Approval ID` және reviewer fields PENDING күйінде қалады, сондықтан product/legal release gate әлі жабылған жоқ.
 
