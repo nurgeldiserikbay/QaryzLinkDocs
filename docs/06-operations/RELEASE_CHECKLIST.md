@@ -56,7 +56,7 @@
 - [x] Phase 2 critical PostgreSQL lifecycle + cross-user isolation harness implementation merged (`QaryzLinkBack#165`).
 - [x] Phase 2 critical PostgreSQL suite has a dedicated CI gate + metadata-only 14-day acceptance artifact (Back #214).
 - [x] Phase 2 PostgreSQL acceptance includes funding/payment dispute fail-closed allocation/ledger/closure invariants (Back #219).
-- [ ] Phase 2 critical PostgreSQL harness current main commit-те successful CI runner арқылы green болғаны дәлелденді.
+- [x] Phase 2 critical PostgreSQL harness current Backend main commit `0340cf8`-те successful CI run `36841447349` арқылы green; metadata-only acceptance artifact retained.
 - [x] Runtime/provider error persistence және maintenance CLI stderr PII-safe generic boundary.
 - [x] Front/Admin production server HTTP security-header/CSP runtime smoke.
 - [x] Front/Admin manual-only Chromium E2E harness дайын.
@@ -68,7 +68,7 @@
 - [x] Admin manual browser acceptance evidence is metadata-only/per-scenario; traces disabled, no credentials/tokens/row IDs/PII, 14-day artifact retention (Admin #33).
 - [ ] KZ authenticated borrower/lender full browser journey successful staging run.
 - [ ] RU authenticated borrower/lender full browser journey successful staging run.
-- [ ] Front/Admin actual browser E2E run және толық UI acceptance — Actions quota ашылғаннан кейін.
+- [ ] Front/Admin actual authenticated browser E2E run және толық UI acceptance — Actions runner қайта қолжетімді, бірақ real staging URL/credentials-пен manual execution әлі pending.
 - [x] Privacy/consent defaults және ephemeral auth/evidence retention baseline.
 - [ ] PII encrypted-mode staging acceptance.
 - [x] PII plaintext-retirement aggregate readiness gate (`PII_PLAINTEXT_RETIREMENT.md`).
@@ -101,7 +101,7 @@
 - [ ] Password reset нақты SMTP inbox delivery және browser acceptance.
 - [x] Production dependency high/critical audit gate Back/Front/Admin CI ішінде.
 - [x] Full-history secret scanning және CycloneDX SBOM generation Back/Front/Admin CI ішінде.
-- [ ] SBOM artifact retention/access policy documented in `SBOM_POLICY.md`; Back/Front/Admin retention workflow-тары main-ге merged, бірақ billing/quota gate шешілгеннен кейін бір successful run-мен acceptance жабылады.
+- [x] SBOM artifact retention/access policy documented in `SBOM_POLICY.md`; current Back/Front/Admin main supply-chain runs successful және commit-bound CycloneDX artifacts 14 күнге retained (Back `36841447314`, Front `36841540997`, Admin `36841502025`).
 - [x] Container image HIGH/CRITICAL vulnerability scanning CI gate.
 - [ ] Operational security review және нақты staging/container acceptance — `SECURITY_REVIEW.md` + `STAGING_ACCEPTANCE.md` бойынша орындалады.
 
@@ -164,6 +164,7 @@
 - [x] Default-off bounded full evidence ZIP v2: frozen-manifest selection, consumed-intent binding, CLEAN verdict, storage byte SHA-256 verification және direct binary response.
 - [x] Synthetic ZIP v2 load harness: explicit payload/object/iteration profile, configurable RSS/latency budgets, archive hash және metadata-only 14-day acceptance artifact.
 - [ ] Full binary ZIP staging/load acceptance: real bucket/scanner, max-size concurrency және memory/latency evidence.
+- [x] Court/export technical fail-closed readiness/seal guard: participant-only ZIP v2 operation approved PDF governance refs, signer deployment/IAM/key ceremony/lifecycle refs, trusted timestamp governance және retention/storage refs толық болмаса unavailable болады (Back #234).
 - [ ] Court/export package hardening: approved PDF artifact, KMS/HSM signature for ZIP v2 және trusted timestamp.
 - [x] Participant-only neutral dispute intake/read backend + Front contract panel.
 - [x] Privacy-safe aggregate dispute backlog metrics + Admin read-only operations card.
