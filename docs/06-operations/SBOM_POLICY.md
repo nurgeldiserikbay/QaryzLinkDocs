@@ -44,4 +44,10 @@ Security/release review кезінде SBOM commit/image identity-мен сал�
 
 ## Current rollout
 
-Back/Front/Admin үшін 14-day artifact retention CI өзгерістері бөлек PR-ларда тексеріледі. Олар green болып merge болғанша release checklist implementation gate жабық қалады.
+14-day SBOM retention rollout acceptance жабылды:
+
+- Back main run `36840826261` — secret scan + SBOM generation successful, `sbom-4f41449...` artifact 2026-10-15 дейін retained.
+- Front main run `36815673008` — successful, `sbom-9305434...` artifact 2026-10-15 дейін retained.
+- Admin main run `36815639699` — successful, `sbom-90710d7...` artifact 2026-10-15 дейін retained.
+
+Artifacts commit SHA-ға байланған және жоғарыдағы retention/access/data-classification policy-ге сәйкес сақталады.
