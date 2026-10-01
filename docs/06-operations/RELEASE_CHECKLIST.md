@@ -101,7 +101,7 @@
 - [ ] Password reset нақты SMTP inbox delivery және browser acceptance.
 - [x] Production dependency high/critical audit gate Back/Front/Admin CI ішінде.
 - [x] Full-history secret scanning және CycloneDX SBOM generation Back/Front/Admin CI ішінде.
-- [ ] SBOM artifact retention/access policy documented in `SBOM_POLICY.md`; Back/Front/Admin retention workflow-тары main-ге merged, бірақ billing/quota gate шешілгеннен кейін бір successful run-мен acceptance жабылады.
+- [x] SBOM artifact retention/access policy documented in `SBOM_POLICY.md`; Back/Front/Admin main supply-chain runs successful және commit-bound CycloneDX artifacts 14 күнге retained (Back `36840826261`, Front `36815673008`, Admin `36815639699`).
 - [x] Container image HIGH/CRITICAL vulnerability scanning CI gate.
 - [ ] Operational security review және нақты staging/container acceptance — `SECURITY_REVIEW.md` + `STAGING_ACCEPTANCE.md` бойынша орындалады.
 
@@ -164,6 +164,7 @@
 - [x] Default-off bounded full evidence ZIP v2: frozen-manifest selection, consumed-intent binding, CLEAN verdict, storage byte SHA-256 verification және direct binary response.
 - [x] Synthetic ZIP v2 load harness: explicit payload/object/iteration profile, configurable RSS/latency budgets, archive hash және metadata-only 14-day acceptance artifact.
 - [ ] Full binary ZIP staging/load acceptance: real bucket/scanner, max-size concurrency және memory/latency evidence.
+- [x] Court/export technical fail-closed readiness/seal guard: participant-only ZIP v2 operation approved PDF governance refs, signer deployment/IAM/key ceremony/lifecycle refs, trusted timestamp governance және retention/storage refs толық болмаса unavailable болады (Back #234).
 - [ ] Court/export package hardening: approved PDF artifact, KMS/HSM signature for ZIP v2 және trusted timestamp.
 - [x] Participant-only neutral dispute intake/read backend + Front contract panel.
 - [x] Privacy-safe aggregate dispute backlog metrics + Admin read-only operations card.
