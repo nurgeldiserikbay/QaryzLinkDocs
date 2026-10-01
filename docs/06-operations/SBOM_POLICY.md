@@ -47,7 +47,7 @@ Security/release review кезінде SBOM commit/image identity-мен сал�
 14-day SBOM retention rollout acceptance жабылды:
 
 - Back current-main run `36851783389` (`ff0dc09`) — secret scan + SBOM generation successful, `sbom-ff0dc09...` artifact 2026-10-15 дейін retained.
-- Front current-main run `36851482743` (`ddeb685`) — secret scan + SBOM generation successful, `sbom-ddeb685...` artifact 2026-10-15 дейін retained.
-- Admin current-main run `36855331141` (`b06ef0f`) — secret scan + SBOM generation successful, `sbom-b06ef0f...` artifact 2026-10-15 дейін retained.
+- Front current-main run `36856766952` (`2c8e6b6`) — secret scan + SBOM generation successful, `sbom-2c8e6b6...` artifact 2026-10-15 дейін retained.
+- Admin current-main run `36856384256` (`0582abe`) — secret scan + SBOM generation successful, `sbom-0582abe...` artifact 2026-10-15 дейін retained.
 
 Artifacts commit SHA-ға байланған және жоғарыдағы retention/access/data-classification policy-ге сәйкес сақталады.
