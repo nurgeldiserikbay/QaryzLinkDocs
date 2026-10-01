@@ -45,6 +45,8 @@ QaryzLink — Қазақстандағы жеке тұлғалар арасын�
 | [Release preflight](docs/06-operations/RELEASE_PREFLIGHT.md) | Secret-free deploy config/database readiness gate |
 | [Backup and restore](docs/06-operations/BACKUP_RESTORE.md) | Backup, restore drill және rollback тәртібі |
 | [Monitoring](docs/06-operations/MONITORING.md) | Privacy-safe сигналдар, log hygiene және incident flow |
+| [Monitoring alerting contract](docs/06-operations/MONITORING_ALERTING.md) | Provider-neutral signal, threshold және routing contract |
+| [Monitoring provider acceptance](docs/06-operations/MONITORING_PROVIDER_ACCEPTANCE.md) | Collector/provider, alert routing және staging test approval record |
 | [Notification preferences](docs/01-business/NOTIFICATION_PREFERENCES.md) | User-controlled optional email channel |
 | [State machines](docs/01-business/STATE_MACHINES.md) | Негізгі объектілердің күйлері |
 | [Calculation model](docs/01-business/CALCULATION_MODEL.md) | Пайыз, кесте, төлем және баланс есебі |
