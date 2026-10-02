@@ -142,6 +142,9 @@ Metrics token browser bundle-ге немесе public telemetry-ге беріл�
 
 ## 7. Staging acceptance
 
+Backend #248 `ops/staging-evidence-storage-scanner-smoke.sh` provider-neutral real-integration probe қосты. Ол scanner callback-ты өзі шақырмайды: verified participant upload intent алып, exact SHA/size/media headers-пен signed PUT жасайды және aggregate evidence metrics-та external CLEAN немесе INFECTED verdict counter-ының өсуін күтеді. INFECTED probe standardized EICAR antivirus test signature үшін explicit acknowledgement талап етеді. Contract evidence commit жасалмайды, сондықтан probe contract state-ті өзгертпейді; expired unconsumed intent normal cleanup job-қа қалады. Aggregate counter correlation себепті бұл run isolated/quiet staging window-та орындалуы тиіс.
+
+
 `EVIDENCE_STORAGE_ENABLED=true` жасау алдында және жасағаннан кейін кемінде мына сценарийлер тексеріледі:
 
 1. verified lender funding upload intent ала алады;
