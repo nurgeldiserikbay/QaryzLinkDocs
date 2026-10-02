@@ -43,7 +43,7 @@ Back #242 `ops/staging-orchestrator-smoke.sh` live `qaryzlink-back` Deployment-�
 ## 4. Auth және privacy smoke
 
 - [ ] Manual `Staging Auth Session Smoke` dedicated verified account-пен login/session inventory/refresh rotation/replayed-refresh 401/logout access+refresh revocation lifecycle-ын successful орындайды; artifact metadata-only.
-- [ ] register + email verification нақты SMTP/test mailbox flow-ымен бөлек successful өтеді.
+- [ ] register + email verification нақты SMTP/test mailbox flow-ымен бөлек successful өтеді. Back #245 `ops/staging-email-verification-smoke.sh` request/confirm phases осы evidence-ті privacy-safe жинауға дайын, бірақ real controlled mailbox execution жасалмайынша checkbox ашық қалады.
 - [ ] Manual `Staging Proxy Spoof Smoke` successful: caller-supplied X-Forwarded-For/X-Real-IP/Forwarded values password-reset pair rate-limit budget-ті бөлмейді; алғашқы 3 synthetic attempt 202, 4-шісі 429 + Retry-After (Back #231 harness).
 - [ ] жаңа profile privacy-closed.
 - [ ] account deletion request active sessions-ды revoke етеді.
@@ -55,6 +55,7 @@ Back #242 `ops/staging-orchestrator-smoke.sh` live `qaryzlink-back` Deployment-�
 - [ ] MAIL_ENABLED=false немесе verified sender толық дайын.
 - [ ] SPF/DKIM/DMARC provider жағында тексерілген.
 - [ ] verification email test mailbox-қа жетті.
+- [ ] Back #245 request phase unverified staging account үшін email request HTTP 204 береді; confirm phase controlled mailbox token-мен `verified=true`, consumed-token replay HTTP 400 және session cleanup-ты successful көрсетеді.
 - [ ] expired/reused verification token fail-closed.
 - [ ] log-та email body/token/SMTP secret жоқ.
 
