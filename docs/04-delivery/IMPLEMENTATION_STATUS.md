@@ -45,7 +45,7 @@
 Repository checklist interpretation:
 
 - Delivery Roadmap implementation checklist: **37/45 = 82.2%** complete.
-- Release checklist: **148/190 = 77.9%** checked.
+- Release checklist: **149/191 = 78.0%** checked.
 - Staging acceptance: **1/246 = 0.4%** checked; бұл кодтың 0.4% ғана дайын дегенді білдірмейді — checklist нақты staging/provider/legal execution evidence-ін әдейі алдын ала green қылмайды.
 
 Back #241 live background-job rollout acceptance tooling қосты: staging namespace-та notification scheduler, account deletion, evidence cleanup және auth retention CronJob-тарының exact immutable release digest, enabled schedule, `concurrencyPolicy: Forbid`, runtime command/deadline/backoff policy және optional `lastSuccessfulTime` state-ін read-only тексереді. PR CI толық green, merge commit `517ca50` current-main CI `36865554878` және Supply Chain Security `36865554752` арқылы successful. Actual staging run және failed-Job paging бөлек acceptance болып қалады.
@@ -79,6 +79,8 @@ Back #255 staging log privacy collection harness қосты: explicit acknowledg
 Back #256 live Kubernetes container-security/readiness acceptance tooling қосты: exact deployed image digest, replicas/rolling-update strategy, disabled service-account token, non-root + RuntimeDefault seccomp, no host namespaces, no privilege escalation, read-only rootfs, all capabilities dropped, canonical resources/env refs, `/api/v1/health/ready` readiness wiring, Service 80→3000, PDB, default-deny + namespace-label-restricted ingress policy және all current Backend pods Ready күйі тексеріледі. Ingress-controller namespace `qaryzlink.network/ingress=true` label-імен explicit bind болады. Merge commit `d0c2782` current-main CI `37011718193` және Supply Chain Security `37011718125` арқылы successful; CNI enforcement пен actual staging execution бөлек open.
 
 Back #258 active NetworkPolicy CNI enforcement tooling қосты: explicit acknowledgement-пен екі temporary namespace жасалады; allowed namespace ғана `qaryzlink.network/ingress=true` label алады. Immutable hardened probe Pods internal Backend health endpoint-іне бірдей request жасайды; allowed path success, unlabeled path network denial болуы міндетті. Pod logs/response bodies оқылмайды, temporary namespaces барлық exit path-та жойылады, stdout metadata-only. Merge commit `a2a294e` current-main CI `37033943075` және Supply Chain Security `37033943097` арқылы successful. Actual staging CNI run бөлек open.
+
+Back #259 real CronJob rollout acceptance tooling қосты: live API Deployment және account-deletion/auth-retention/evidence-cleanup/notification-scheduler CronJob-тары exact release digest-пен bind болады; schedule enabled, `concurrencyPolicy=Forbid`, bounded history/deadline/backoff, hardened pod/container security және canonical ConfigMap/Secret refs талап етіледі. Әр CronJob үшін `lastScheduleTime` және `lastSuccessfulTime` болуы, capture кезінде active Job болмауы қажет. Сол run existing bounded synthetic failed-Job alert-source probe-ты да орындайды. External collector/paging delivery бөлек provider gate болып қалады.
 
 Monitoring externalization үшін `MONITORING_PROVIDER_ACCEPTANCE.md` versioned template қосылды. Ол collector/network boundary, required alert classes, threshold ownership, privacy-safe alert payload, on-call routing/escalation және real staging test alert evidence-ін нақты provider таңдалмай тұрып құрылымдайды; template өзі approval емес.
 
