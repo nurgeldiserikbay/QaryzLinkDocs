@@ -45,7 +45,7 @@
 Repository checklist interpretation:
 
 - Delivery Roadmap implementation checklist: **37/45 = 82.2%** complete.
-- Release checklist: **144/186 = 77.4%** checked.
+- Release checklist: **145/187 = 77.5%** checked.
 - Staging acceptance: **1/246 = 0.4%** checked; бұл кодтың 0.4% ғана дайын дегенді білдірмейді — checklist нақты staging/provider/legal execution evidence-ін әдейі алдын ала green қылмайды.
 
 Back #241 live background-job rollout acceptance tooling қосты: staging namespace-та notification scheduler, account deletion, evidence cleanup және auth retention CronJob-тарының exact immutable release digest, enabled schedule, `concurrencyPolicy: Forbid`, runtime command/deadline/backoff policy және optional `lastSuccessfulTime` state-ін read-only тексереді. PR CI толық green, merge commit `517ca50` current-main CI `36865554878` және Supply Chain Security `36865554752` арқылы successful. Actual staging run және failed-Job paging бөлек acceptance болып қалады.
@@ -71,6 +71,8 @@ Back #250 migration rollback rehearsal-ды encrypted PII contract-пен күш
 Back #251 full evidence ZIP v2 staging/load tooling қосты: synthetic ZIP builder орнына actual participant-only `archive-with-binaries` endpoint concurrent шақырылады, сондықтан persisted evidence loader real consumed-intent + trusted CLEAN scanner boundary арқылы өтеді. Harness ZIP content type, size, entry count, deterministic SHA-256, latency және client RSS budgets-ті тексереді; Kubernetes wrapper live `qaryzlink-back` Deployment-ті exact immutable digest-ке bind етіп API container memory telemetry-ін load кезінде sampling жасайды. Merge commit `4b8d132` current-main CI `36980398040` және Supply Chain Security `36980397919` арқылы successful. Actual near-limit real staging profile орындалмайынша production load acceptance open қалады.
 
 Back #252 real binary ZIP staging load-ты release-bound manual GitHub workflow-пен operationalized етті: exact deployed commit, immutable image digest және explicit non-production acknowledgement талап етіледі; staging URL repository variable-дан, dedicated participant/password/disposable contract ID secrets-тен алынады. 14-day artifact тек release binding, configured budgets және aggregate harness result сақтайды; URL/email/password/token/contract ID/response body/PII сақталмайды. Merge commit `20cd9cc` current-main CI `36994309587` және Supply Chain Security `36994309564` арқылы successful. Kubernetes server-memory wrapper evidence әлі operator cluster boundary-де бөлек орындалады.
+
+Back #253 real staging migration Job acceptance tooling қосты: explicit `STAGING_MIGRATION_JOB_ACK=true`, live `qaryzlink-back` Deployment exact immutable digest binding, unique one-shot `prisma migrate deploy`, canonical ConfigMap/Secret references, disabled service-account token, `backoffLimit=0`, bounded deadline/TTL және exactly one successful pod/exit code 0 талап етіледі. Harness migration logs, namespace, pod name, image digest, DB identifiers немесе Secret values шығармайды. Merge commit `cd084ec` current-main CI `36994894484` және Supply Chain Security `36994894573` арқылы successful. Actual environment run бөлек open және same-release Migration Rollback Rehearsal evidence-пен жұпталуы тиіс.
 
 Monitoring externalization үшін `MONITORING_PROVIDER_ACCEPTANCE.md` versioned template қосылды. Ол collector/network boundary, required alert classes, threshold ownership, privacy-safe alert payload, on-call routing/escalation және real staging test alert evidence-ін нақты provider таңдалмай тұрып құрылымдайды; template өзі approval емес.
 

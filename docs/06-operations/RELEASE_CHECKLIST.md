@@ -60,7 +60,7 @@
 - [x] Phase 2 critical PostgreSQL lifecycle + cross-user isolation harness implementation merged (`QaryzLinkBack#165`).
 - [x] Phase 2 critical PostgreSQL suite has a dedicated CI gate + metadata-only 14-day acceptance artifact (Back #214).
 - [x] Phase 2 PostgreSQL acceptance includes funding/payment dispute fail-closed allocation/ledger/closure invariants (Back #219).
-- [x] Phase 2 critical PostgreSQL harness current Backend main commit `20cd9cc`-да successful CI run `36994309587` арқылы green; metadata-only acceptance artifact retained.
+- [x] Phase 2 critical PostgreSQL harness current Backend main commit `cd084ec`-да successful CI run `36994894484` арқылы green; metadata-only acceptance artifact retained.
 - [x] Runtime/provider error persistence және maintenance CLI stderr PII-safe generic boundary.
 - [x] Front/Admin production server HTTP security-header/CSP runtime smoke.
 - [x] Front production public API origin fail-closed: `NEXT_PUBLIC_API_BASE_URL` міндетті exact HTTPS origin, CSP және browser API client бір validator қолданады; localhost fallback тек development/test (Front #84).
@@ -90,6 +90,7 @@
 - [x] Front/Admin manual lockfile-candidate workflows: exact pnpm 12.4.2, generated lockfile, frozen install, full quality check және review artifact (Front #78, Admin #34).
 - [x] Front/Admin reviewed `pnpm-lock.yaml` main-ге committed және CI exact pnpm 12.4.2-пен `--frozen-lockfile` install + successful quality checks орындайды (Front #79, Admin #35).
 - [x] Immutable production migration Job template + isolated release-schema/previous-app rollback compatibility rehearsal implementation (Back #215).
+- [x] Privacy-safe real staging migration Job execution harness implementation: explicit staging acknowledgement, exact live release digest binding, one-shot `prisma migrate deploy`, canonical ConfigMap/Secret boundary, service-account token disabled, bounded deadline/TTL, Job success + exit code 0 verification, no migration-log retention (Back #253).
 - [ ] Actual staging migration Job execution + previous known-good rollback rehearsal with environment evidence.
 - [x] Trusted proxy default-off bounded configuration және exact CORS allowlist code/CI contracts.
 - [x] Privacy-safe manual staging proxy-spoof acceptance harness + network-free bypass regression coverage; forwarded-header values/URL/email/response body retained artifact-қа кірмейді (Back #231).
@@ -119,7 +120,7 @@
 - [ ] Password reset нақты SMTP inbox delivery және browser acceptance.
 - [x] Production dependency high/critical audit gate Back/Front/Admin CI ішінде.
 - [x] Full-history secret scanning және CycloneDX SBOM generation Back/Front/Admin CI ішінде.
-- [x] SBOM artifact retention/access policy documented in `SBOM_POLICY.md`; current Back/Front/Admin main supply-chain runs successful және commit-bound CycloneDX artifacts 14 күнге retained (Back `36994309564`, Front `36856766952`, Admin `36856384256`).
+- [x] SBOM artifact retention/access policy documented in `SBOM_POLICY.md`; current Back/Front/Admin main supply-chain runs successful және commit-bound CycloneDX artifacts 14 күнге retained (Back `36994894573`, Front `36856766952`, Admin `36856384256`).
 - [x] Container image HIGH/CRITICAL vulnerability scanning CI gate.
 - [ ] Operational security review және нақты staging/container acceptance — `SECURITY_REVIEW.md` + `STAGING_ACCEPTANCE.md` бойынша орындалады.
 

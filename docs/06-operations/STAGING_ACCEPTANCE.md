@@ -38,7 +38,7 @@ Back #242 `ops/staging-orchestrator-smoke.sh` live `qaryzlink-back` Deployment-�
 - [ ] /api/v1/health/ready 200 және database=up.
 - [ ] Kubernetes readiness probe дәл ready endpoint-ті қолданады.
 - [ ] Rolling update кезінде available replica нөлге түспейді.
-- [ ] Last-known-good digest rollback rehearsal орындалды.
+- [ ] Last-known-good digest rollback rehearsal орындалды. Back #253 `ops/staging-migration-job-smoke.sh` exact release digest-пен real one-shot migration execution evidence-ін жинауға дайын; actual cluster run жасалмайынша open.
 
 ## 4. Auth және privacy smoke
 
