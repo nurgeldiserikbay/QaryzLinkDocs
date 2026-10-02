@@ -53,3 +53,13 @@ Adapter тек бекітілген event type-терге generic мәтін қ�
 - `NotificationDeliveryRouter` — EMAIL-ді SMTP-ге, IN_APP-ты fail-closed adapter-ге бағыттайды;
 - `NotificationEmailRenderer` — event type бойынша generic template;
 - `NotificationRecipientResolver` — verified destination boundary.
+
+## Staging email-verification mailbox acceptance
+
+Back #245 `ops/staging-email-verification-smoke.sh` арқылы provider-neutral екі фазалы acceptance flow береді.
+
+**Request phase** dedicated unverified staging account-пен login жасайды, verification status `false` екенін тексереді, verification email request үшін HTTP 204 талап етеді және session-ды revoke етеді. Бұл SMTP adapter/provider request-ті қабылдағанын көрсетеді; нақты mailbox delivery-ді operator controlled mailbox-та бөлек тексереді.
+
+**Confirm phase** controlled mailbox-тағы link fragment-тен алынған 43-character token-ды қабылдайды, status `true` болғанын тексереді және consumed token replay HTTP 400 болуын талап етеді. Token/email/password/base URL/response body retained output-қа жазылмайды; temporary files mode 600/700 және run соңында жойылады.
+
+Бұл implementation SPF/DKIM/DMARC, production sender/domain ownership, SMTP provider SLA немесе production recipient policy-ін approve етпейді.

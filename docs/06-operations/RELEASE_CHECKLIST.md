@@ -41,6 +41,7 @@
 - [x] One-shot notification scheduler/orchestrator backend slice.
 - [x] Notification runtime batch configuration backend slice.
 - [x] Fail-closed SMTP notification adapter backend slice.
+- [x] Provider-neutral two-phase staging email-verification/SMTP mailbox acceptance harness: unverified-account request → SMTP/API 204, controlled-mailbox token confirm → verified=true, consumed-token replay 400, privacy-safe temp/session cleanup (Back #245).
 - [x] One-shot notification scheduler executable backend slice.
 - [x] Optional email notification preference backend slice.
 - [x] Privacy-safe notification delivery metrics backend slice.
@@ -57,7 +58,7 @@
 - [x] Phase 2 critical PostgreSQL lifecycle + cross-user isolation harness implementation merged (`QaryzLinkBack#165`).
 - [x] Phase 2 critical PostgreSQL suite has a dedicated CI gate + metadata-only 14-day acceptance artifact (Back #214).
 - [x] Phase 2 PostgreSQL acceptance includes funding/payment dispute fail-closed allocation/ledger/closure invariants (Back #219).
-- [x] Phase 2 critical PostgreSQL harness current Backend main commit `24fa552`-да successful CI run `36891674238` арқылы green; metadata-only acceptance artifact retained.
+- [x] Phase 2 critical PostgreSQL harness current Backend main commit `5250108`-да successful CI run `36893771287` арқылы green; metadata-only acceptance artifact retained.
 - [x] Runtime/provider error persistence және maintenance CLI stderr PII-safe generic boundary.
 - [x] Front/Admin production server HTTP security-header/CSP runtime smoke.
 - [x] Front production public API origin fail-closed: `NEXT_PUBLIC_API_BASE_URL` міндетті exact HTTPS origin, CSP және browser API client бір validator қолданады; localhost fallback тек development/test (Front #84).
@@ -113,7 +114,7 @@
 - [ ] Password reset нақты SMTP inbox delivery және browser acceptance.
 - [x] Production dependency high/critical audit gate Back/Front/Admin CI ішінде.
 - [x] Full-history secret scanning және CycloneDX SBOM generation Back/Front/Admin CI ішінде.
-- [x] SBOM artifact retention/access policy documented in `SBOM_POLICY.md`; current Back/Front/Admin main supply-chain runs successful және commit-bound CycloneDX artifacts 14 күнге retained (Back `36891674422`, Front `36856766952`, Admin `36856384256`).
+- [x] SBOM artifact retention/access policy documented in `SBOM_POLICY.md`; current Back/Front/Admin main supply-chain runs successful және commit-bound CycloneDX artifacts 14 күнге retained (Back `36893771226`, Front `36856766952`, Admin `36856384256`).
 - [x] Container image HIGH/CRITICAL vulnerability scanning CI gate.
 - [ ] Operational security review және нақты staging/container acceptance — `SECURITY_REVIEW.md` + `STAGING_ACCEPTANCE.md` бойынша орындалады.
 
