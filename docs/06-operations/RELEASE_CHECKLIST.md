@@ -59,7 +59,7 @@
 - [x] Phase 2 critical PostgreSQL lifecycle + cross-user isolation harness implementation merged (`QaryzLinkBack#165`).
 - [x] Phase 2 critical PostgreSQL suite has a dedicated CI gate + metadata-only 14-day acceptance artifact (Back #214).
 - [x] Phase 2 PostgreSQL acceptance includes funding/payment dispute fail-closed allocation/ledger/closure invariants (Back #219).
-- [x] Phase 2 critical PostgreSQL harness current Backend main commit `0fbe56e`-да successful CI run `36971188826` арқылы green; metadata-only acceptance artifact retained.
+- [x] Phase 2 critical PostgreSQL harness current Backend main commit `ec8478f`-да successful CI run `36972686187` арқылы green; metadata-only acceptance artifact retained.
 - [x] Runtime/provider error persistence және maintenance CLI stderr PII-safe generic boundary.
 - [x] Front/Admin production server HTTP security-header/CSP runtime smoke.
 - [x] Front production public API origin fail-closed: `NEXT_PUBLIC_API_BASE_URL` міндетті exact HTTPS origin, CSP және browser API client бір validator қолданады; localhost fallback тек development/test (Front #84).
