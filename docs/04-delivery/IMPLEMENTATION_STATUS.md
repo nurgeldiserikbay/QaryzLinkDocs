@@ -45,7 +45,7 @@
 Repository checklist interpretation:
 
 - Delivery Roadmap implementation checklist: **37/45 = 82.2%** complete.
-- Release checklist: **146/188 = 77.7%** checked.
+- Release checklist: **147/189 = 77.8%** checked.
 - Staging acceptance: **1/246 = 0.4%** checked; бұл кодтың 0.4% ғана дайын дегенді білдірмейді — checklist нақты staging/provider/legal execution evidence-ін әдейі алдын ала green қылмайды.
 
 Back #241 live background-job rollout acceptance tooling қосты: staging namespace-та notification scheduler, account deletion, evidence cleanup және auth retention CronJob-тарының exact immutable release digest, enabled schedule, `concurrencyPolicy: Forbid`, runtime command/deadline/backoff policy және optional `lastSuccessfulTime` state-ін read-only тексереді. PR CI толық green, merge commit `517ca50` current-main CI `36865554878` және Supply Chain Security `36865554752` арқылы successful. Actual staging run және failed-Job paging бөлек acceptance болып қалады.
@@ -75,6 +75,8 @@ Back #252 real binary ZIP staging load-ты release-bound manual GitHub workflow
 Back #253 real staging migration Job acceptance tooling қосты: explicit `STAGING_MIGRATION_JOB_ACK=true`, live `qaryzlink-back` Deployment exact immutable digest binding, unique one-shot `prisma migrate deploy`, canonical ConfigMap/Secret references, disabled service-account token, `backoffLimit=0`, bounded deadline/TTL және exactly one successful pod/exit code 0 талап етіледі. Harness migration logs, namespace, pod name, image digest, DB identifiers немесе Secret values шығармайды. Merge commit `cd084ec` current-main CI `36994894484` және Supply Chain Security `36994894573` арқылы successful. Actual environment run бөлек open және same-release Migration Rollback Rehearsal evidence-пен жұпталуы тиіс.
 
 Back #255 staging log privacy collection harness қосты: explicit acknowledgement және exact live release digest binding-пен барлық current `app=qaryzlink-back` pod/all-container logs bounded `--since` window үшін temp-only directory-ға жиналады; partial/unreadable pod coverage fail-closed. Existing privacy scanner matched content-ті шығармай category/count/line-number metadata ғана береді, raw logs exit кезінде жойылады және retained artifact-қа кірмейді. Merge commit `e58bcca` current-main CI `36995593789` және Supply Chain Security `36995593764` арқылы successful. Actual staging scan pass бөлек open.
+
+Back #256 live Kubernetes container-security/readiness acceptance tooling қосты: exact deployed image digest, replicas/rolling-update strategy, disabled service-account token, non-root + RuntimeDefault seccomp, no host namespaces, no privilege escalation, read-only rootfs, all capabilities dropped, canonical resources/env refs, `/api/v1/health/ready` readiness wiring, Service 80→3000, PDB, default-deny + namespace-label-restricted ingress policy және all current Backend pods Ready күйі тексеріледі. Ingress-controller namespace `qaryzlink.network/ingress=true` label-імен explicit bind болады. Merge commit `d0c2782` current-main CI `37011718193` және Supply Chain Security `37011718125` арқылы successful; CNI enforcement пен actual staging execution бөлек open.
 
 Monitoring externalization үшін `MONITORING_PROVIDER_ACCEPTANCE.md` versioned template қосылды. Ол collector/network boundary, required alert classes, threshold ownership, privacy-safe alert payload, on-call routing/escalation және real staging test alert evidence-ін нақты provider таңдалмай тұрып құрылымдайды; template өзі approval емес.
 
