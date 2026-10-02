@@ -61,7 +61,7 @@
 - [x] Phase 2 critical PostgreSQL lifecycle + cross-user isolation harness implementation merged (`QaryzLinkBack#165`).
 - [x] Phase 2 critical PostgreSQL suite has a dedicated CI gate + metadata-only 14-day acceptance artifact (Back #214).
 - [x] Phase 2 PostgreSQL acceptance includes funding/payment dispute fail-closed allocation/ledger/closure invariants (Back #219).
-- [x] Phase 2 critical PostgreSQL harness current Backend main commit `d0c2782`-да successful CI run `37011718193` арқылы green; metadata-only acceptance artifact retained.
+- [x] Phase 2 critical PostgreSQL harness current Backend main commit `a2a294e`-да successful CI run `37033943075` арқылы green; metadata-only acceptance artifact retained.
 - [x] Runtime/provider error persistence және maintenance CLI stderr PII-safe generic boundary.
 - [x] Front/Admin production server HTTP security-header/CSP runtime smoke.
 - [x] Front production public API origin fail-closed: `NEXT_PUBLIC_API_BASE_URL` міндетті exact HTTPS origin, CSP және browser API client бір validator қолданады; localhost fallback тек development/test (Front #84).
@@ -123,7 +123,7 @@
 - [ ] Password reset нақты SMTP inbox delivery және browser acceptance.
 - [x] Production dependency high/critical audit gate Back/Front/Admin CI ішінде.
 - [x] Full-history secret scanning және CycloneDX SBOM generation Back/Front/Admin CI ішінде.
-- [x] SBOM artifact retention/access policy documented in `SBOM_POLICY.md`; current Back/Front/Admin main supply-chain runs successful және commit-bound CycloneDX artifacts 14 күнге retained (Back `37011718125`, Front `36856766952`, Admin `36856384256`).
+- [x] SBOM artifact retention/access policy documented in `SBOM_POLICY.md`; current Back/Front/Admin main supply-chain runs successful және commit-bound CycloneDX artifacts 14 күнге retained (Back `37033943097`, Front `36856766952`, Admin `36856384256`).
 - [x] Container image HIGH/CRITICAL vulnerability scanning CI gate.
 - [ ] Operational security review және нақты staging/container acceptance — `SECURITY_REVIEW.md` + `STAGING_ACCEPTANCE.md` бойынша орындалады.
 
