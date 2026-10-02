@@ -49,7 +49,7 @@ Back #242 `ops/staging-orchestrator-smoke.sh` live `qaryzlink-back` Deployment-�
 - [ ] жаңа profile privacy-closed.
 - [ ] account deletion request active sessions-ды revoke етеді.
 - [ ] production Swagger/docs жабық.
-- [ ] Representative API/worker/CronJob log exports `pnpm logs:privacy:scan -- <file>` арқылы `status=pass`; retained evidence matched log content емес, category/count/line metadata ғана.
+- [ ] Representative API/worker/CronJob log exports `pnpm logs:privacy:scan -- <file>` арқылы `status=pass`; retained evidence matched log content емес, category/count/line metadata ғана. Back #255 `ops/staging-log-privacy-smoke.sh` exact release digest-пен барлық current Backend pod logs-ты bounded window үшін metadata-only scan етуге дайын; actual cluster run successful болмайынша open.
 
 - [ ] Private evidence storage/scanner provider acceptance successful: Back #248 `ops/staging-evidence-storage-scanner-smoke.sh` real signed PUT пен external CLEAN/INFECTED scanner verdict signal-ын isolated/quiet staging window-та дәлелдейді; нақты provider run жасалмайынша open.
 
