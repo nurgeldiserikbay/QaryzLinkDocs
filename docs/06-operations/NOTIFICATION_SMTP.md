@@ -63,3 +63,14 @@ Back #245 `ops/staging-email-verification-smoke.sh` арқылы provider-neutra
 **Confirm phase** controlled mailbox-тағы link fragment-тен алынған 43-character token-ды қабылдайды, status `true` болғанын тексереді және consumed token replay HTTP 400 болуын талап етеді. Token/email/password/base URL/response body retained output-қа жазылмайды; temporary files mode 600/700 және run соңында жойылады.
 
 Бұл implementation SPF/DKIM/DMARC, production sender/domain ownership, SMTP provider SLA немесе production recipient policy-ін approve етпейді.
+
+
+## Staging password-reset mailbox acceptance
+
+Back #246 `ops/staging-password-reset-smoke.sh` арқылы password-reset үшін provider-neutral екі фазалы acceptance береді.
+
+**Request phase** dedicated account-тың current password-ын login арқылы тексереді, public reset request үшін HTTP 202 + `accepted=true` талап етеді және request-phase session-ды revoke етеді. Password-reset request endpoint account enumeration-ды болдырмау үшін SMTP provider failure-ды сыртқа шығармайтындықтан, бұл phase нақты delivery-ді дәлелдемейді; controlled mailbox-ты operator бөлек тексереді.
+
+**Confirm phase** controlled mailbox link fragment-тен алынған 43-character token-ды explicit acknowledgement-пен қолданады. Harness pre-reset access session 401, old password 401, temporary new password 200, consumed-token replay 400 болуын талап етеді. Содан кейін dedicated staging account original password-ын authenticated password-change flow арқылы қайта қалпына келтіреді, temporary password-тың қайта 401 болуын тексереді және final session-ды revoke етеді.
+
+Email/password/token/base URL/response body retained output-қа жазылмайды; temporary files mode 600/700 және run соңында жойылады. SPF/DKIM/DMARC, provider SLA, production sender/domain ownership және actual browser mailbox execution бөлек approval болып қалады.
