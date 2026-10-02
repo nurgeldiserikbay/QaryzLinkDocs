@@ -45,7 +45,7 @@
 Repository checklist interpretation:
 
 - Delivery Roadmap implementation checklist: **37/45 = 82.2%** complete.
-- Release checklist: **142/184 = 77.2%** checked.
+- Release checklist: **143/185 = 77.3%** checked.
 - Staging acceptance: **1/246 = 0.4%** checked; бұл кодтың 0.4% ғана дайын дегенді білдірмейді — checklist нақты staging/provider/legal execution evidence-ін әдейі алдын ала green қылмайды.
 
 Back #241 live background-job rollout acceptance tooling қосты: staging namespace-та notification scheduler, account deletion, evidence cleanup және auth retention CronJob-тарының exact immutable release digest, enabled schedule, `concurrencyPolicy: Forbid`, runtime command/deadline/backoff policy және optional `lastSuccessfulTime` state-ін read-only тексереді. PR CI толық green, merge commit `517ca50` current-main CI `36865554878` және Supply Chain Security `36865554752` арқылы successful. Actual staging run және failed-Job paging бөлек acceptance болып қалады.
@@ -65,6 +65,8 @@ Back #247 PII encrypted-mode staging gate қосты: internal aggregate metrics
 Back #248 private evidence storage/scanner provider acceptance tooling қосты: dedicated verified staging participant upload intent алады, signed PUT authorization exact SHA-256/media type/size metadata-мен bind екенін тексереді, real private object upload жасайды және callback token-ды өзі қолданбай external scanner/event/callback path aggregate CLEAN немесе INFECTED verdict counter-ын өсіргенін күтеді. INFECTED acceptance standardized non-malicious EICAR test signature үшін explicit acknowledgement талап етеді. Probe contract evidence-ті commit етпейді, сондықтан contract state өзгермейді; expired unconsumed intent normal cleanup-қа қалады. Merge commit `ec8478f` current-main CI `36972686187` (47/47 steps) және Supply Chain Security `36972686129` арқылы successful. Actual bucket IAM/lifecycle, persisted download, infected-object physical deletion latency және full browser evidence journey әлі open.
 
 Back #249 isolated backup/restore rehearsal-ды encrypted PII-мен күшейтті: әр run сайын synthetic encryption/lookup key және password жасалады; fixture plaintext email сақтамайды, тек AES-256-GCM ciphertext + blind index + valid scrypt hash сақтайды. pg_dump/restore кейін current app `PII_CONTACT_STORAGE_MODE=encrypted` күйінде blind-index email login және `/profile/me` ciphertext decrypt flow-ын тексереді. Merge commit `3c131e8` current-main CI `36978034232` және Supply Chain Security `36978034274` арқылы successful. Retained artifact email/password/key/ciphertext/backup bytes сақтамайды. Бұл real provider backup/PITR немесе RTO/RPO acceptance емес; олар әлі open.
+
+Back #250 migration rollback rehearsal-ды encrypted PII contract-пен күшейтеді: release migrations isolated PostgreSQL-ға қолданылады, release helper synthetic encrypted contact row жасайды, previous known-good app сол release schema-да `PII_CONTACT_STORAGE_MODE=encrypted` күйінде іске қосылып blind-index email login және `/profile/me` decrypt smoke-ты өтуі тиіс. Reverse database migration әлі әдейі орындалмайды. Бұл tooling actual staging migration Job/rollback execution evidence-ін алмастырмайды.
 
 Monitoring externalization үшін `MONITORING_PROVIDER_ACCEPTANCE.md` versioned template қосылды. Ол collector/network boundary, required alert classes, threshold ownership, privacy-safe alert payload, on-call routing/escalation және real staging test alert evidence-ін нақты provider таңдалмай тұрып құрылымдайды; template өзі approval емес.
 
