@@ -108,6 +108,7 @@
 - [ ] Metrics endpoint internal ingress review және staging acceptance.
 - [ ] Нақты SMTP delivery және пайдаланушының email растау flow-ы.
 - [x] Password reset backend/Front flow: enumeration-safe request, one-time token, session revoke, HTTPS reset URL және retention cleanup.
+- [x] Provider-neutral two-phase password-reset staging acceptance harness: request 202/accepted, controlled-mailbox token confirm, pre-reset session revoke, old/new password transition, consumed-token replay rejection және dedicated account password restoration (Back #246).
 - [x] Self-service logout-all sessions backend + Front security control + audit.
 - [x] Authenticated current-password-confirmed password change backend + Front flow; success revokes all sessions.
 - [x] Privacy-safe active session inventory + selective owned-session revoke backend/Front controls.
