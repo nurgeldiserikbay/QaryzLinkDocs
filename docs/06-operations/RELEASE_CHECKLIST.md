@@ -90,6 +90,7 @@
 - [x] Front/Admin manual lockfile-candidate workflows: exact pnpm 12.4.2, generated lockfile, frozen install, full quality check және review artifact (Front #78, Admin #34).
 - [x] Front/Admin reviewed `pnpm-lock.yaml` main-ге committed және CI exact pnpm 12.4.2-пен `--frozen-lockfile` install + successful quality checks орындайды (Front #79, Admin #35).
 - [x] Immutable production migration Job template + isolated release-schema/previous-app rollback compatibility rehearsal implementation (Back #215).
+- [x] Privacy-safe real staging migration Job execution harness implementation: explicit staging acknowledgement, exact live release digest binding, one-shot `prisma migrate deploy`, canonical ConfigMap/Secret boundary, service-account token disabled, bounded deadline/TTL, Job success + exit code 0 verification, no migration-log retention (Back #253).
 - [ ] Actual staging migration Job execution + previous known-good rollback rehearsal with environment evidence.
 - [x] Trusted proxy default-off bounded configuration және exact CORS allowlist code/CI contracts.
 - [x] Privacy-safe manual staging proxy-spoof acceptance harness + network-free bypass regression coverage; forwarded-header values/URL/email/response body retained artifact-қа кірмейді (Back #231).
