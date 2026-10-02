@@ -68,3 +68,10 @@
 | Reviewer | owner/reviewer |
 
 RPO және RTO нақты бизнес талабымен бекітілмейінше бос күйде қалады. Backup бар деген белгі restore drill-сыз жеткілікті acceptance болып саналмайды.
+
+
+## Encrypted contact restore rehearsal
+
+Back #249 isolated CI restore rehearsal-ды encrypted contact fixture-пен кеңейтеді. Rehearsal әр run сайын synthetic AES/HMAC key material және synthetic password жасайды; source row-да plaintext email `NULL`, ал `emailCiphertext` және `emailLookupHash` populated болады. Logical dump isolated database-қа restore болғаннан кейін application `PII_CONTACT_STORAGE_MODE=encrypted` күйінде іске қосылады, exact email blind-index login орындалады және authenticated `/api/v1/profile/me` restored ciphertext-ті дұрыс decrypt ететіні тексеріледі.
+
+Key material, synthetic email/password, ciphertext және backup bytes retained evidence-ке кірмейді. Бұл provider-side encrypted backups, PITR, retention/custody және measured RTO/RPO evidence-ті алмастырмайды.
