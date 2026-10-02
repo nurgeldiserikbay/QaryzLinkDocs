@@ -15,6 +15,7 @@
 - [ ] Verified staging account login/session inventory/refresh rotation/replay rejection/logout smoke successful run.
 - [ ] MAIL_ENABLED=false немесе толық бапталған SMTP + Front verification page.
 - [x] Provider-neutral isolated CI backup/restore rehearsal implementation: synthetic no-PII fixture → pg_dump → separate DB restore → integrity counters → application readiness (Back #216).
+- [x] Encrypted-PII backup/restore rehearsal hardening: per-run synthetic key material, encrypted email ciphertext + blind index + scrypt credential fixture, pg_dump/restore preservation, restored encrypted-mode email login және profile decrypt smoke, metadata-only evidence (Back #249).
 - [ ] Actual staging/provider backup restore drill: encrypted provider backup/PITR, isolated restore, measured RTO/RPO және retained operator evidence.
 - [x] Provider-neutral private evidence storage/scanner staging harness implementation: verified participant upload intent, exact signed PUT metadata binding, real private upload, external CLEAN/INFECTED verdict observation, EICAR explicit-ack gate және metadata-only output (Back #248).
 - [ ] Private object storage, signed URLs, malware scan және retention policy.
