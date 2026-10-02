@@ -65,7 +65,7 @@ Back #242 `ops/staging-orchestrator-smoke.sh` live `qaryzlink-back` Deployment-�
 
 ## 6. Evidence storage
 
-- [ ] Manual `Evidence Archive Load Acceptance` workflow current deploy commit-пен configured payload/object/iteration + RSS/latency budget бойынша successful run береді. Back #251 actual archive endpoint + Kubernetes API-memory harness осы evidence-ті жинауға дайын; real near-limit staging run successful болмайынша open.
+- [ ] Manual real binary archive load acceptance current deploy commit/image digest-пен configured concurrency/iteration + ZIP size/entry + RSS/latency budget бойынша successful run береді. Back #252 `.github/workflows/staging-binary-archive-load.yml` exact release binding және metadata-only artifact береді; Back #251 Kubernetes wrapper API-container memory telemetry-ін бөлек жинайды. Real near-limit staging run successful болмайынша open.
 - [ ] Retained load artifact тек synthetic metadata/hash сақтайды; credentials, PII немесе user evidence bytes жоқ.
 - [ ] Budget бұзылса recommendation `STREAMING_OR_ZIP64_REVIEW_REQUIRED`; streaming/ZIP64 implementation decision measured evidence-ке сүйенеді.
 
