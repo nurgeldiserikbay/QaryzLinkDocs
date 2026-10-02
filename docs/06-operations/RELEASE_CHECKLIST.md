@@ -61,7 +61,7 @@
 - [x] Phase 2 critical PostgreSQL lifecycle + cross-user isolation harness implementation merged (`QaryzLinkBack#165`).
 - [x] Phase 2 critical PostgreSQL suite has a dedicated CI gate + metadata-only 14-day acceptance artifact (Back #214).
 - [x] Phase 2 PostgreSQL acceptance includes funding/payment dispute fail-closed allocation/ledger/closure invariants (Back #219).
-- [x] Phase 2 critical PostgreSQL harness current Backend main commit `a2a294e`-да successful CI run `37033943075` арқылы green; metadata-only acceptance artifact retained.
+- [x] Phase 2 critical PostgreSQL harness current Backend main commit `b69733a`-да successful CI run `37035066695` арқылы green; metadata-only acceptance artifact retained.
 - [x] Runtime/provider error persistence және maintenance CLI stderr PII-safe generic boundary.
 - [x] Front/Admin production server HTTP security-header/CSP runtime smoke.
 - [x] Front production public API origin fail-closed: `NEXT_PUBLIC_API_BASE_URL` міндетті exact HTTPS origin, CSP және browser API client бір validator қолданады; localhost fallback тек development/test (Front #84).
@@ -110,6 +110,7 @@
 - [x] Active NetworkPolicy CNI enforcement harness implementation: temporary allowed namespace labeled `qaryzlink.network/ingress=true` must reach internal health; identical unlabeled namespace must be blocked; immutable probe image, hardened Pods, no response/log retention және automatic namespace cleanup (Back #258).
 - [ ] Staging ingress/orchestrator readiness probe нақты `/api/v1/health/ready` endpoint-іне қосылғаны тексерілді.
 - [x] Privacy-safe read-only staging background CronJob rollout smoke implementation: 4 CronJob immutable digest, enabled schedule, concurrency/deadline/backoff/runtime command және optional observed `lastSuccessfulTime` тексеріледі (Back #241).
+- [x] Real CronJob rollout acceptance harness implementation: all four live CronJobs exact release digest, hardened runtime, canonical ConfigMap/Secret refs, required `lastScheduleTime` + `lastSuccessfulTime`, no active run және synthetic failed-Job alert-source probe metadata (Back #259).
 - [x] Bounded synthetic failed-Job alert-source probe implementation: exact live release image digest, no application Secret/ConfigMap, no service-account token, backoffLimit=0, bounded TTL, deterministic exit 42 және Kubernetes Failed=True verification (Back #244).
 - [ ] Kubernetes CronJob staging rollout, immutable image verification және job alerting.
 - [x] Privacy-safe staging metrics ingress isolation harness implementation: separate public/internal exact HTTPS origins, public `/api/v1/metrics/*` 403/404 block, internal token-protected reads + `Cache-Control: no-store`, all 10 current aggregate endpoints және unified core-workflow binding (Back #243).
@@ -123,7 +124,7 @@
 - [ ] Password reset нақты SMTP inbox delivery және browser acceptance.
 - [x] Production dependency high/critical audit gate Back/Front/Admin CI ішінде.
 - [x] Full-history secret scanning және CycloneDX SBOM generation Back/Front/Admin CI ішінде.
-- [x] SBOM artifact retention/access policy documented in `SBOM_POLICY.md`; current Back/Front/Admin main supply-chain runs successful және commit-bound CycloneDX artifacts 14 күнге retained (Back `37033943097`, Front `36856766952`, Admin `36856384256`).
+- [x] SBOM artifact retention/access policy documented in `SBOM_POLICY.md`; current Back/Front/Admin main supply-chain runs successful және commit-bound CycloneDX artifacts 14 күнге retained (Back `37035066642`, Front `36856766952`, Admin `36856384256`).
 - [x] Container image HIGH/CRITICAL vulnerability scanning CI gate.
 - [ ] Operational security review және нақты staging/container acceptance — `SECURITY_REVIEW.md` + `STAGING_ACCEPTANCE.md` бойынша орындалады.
 
