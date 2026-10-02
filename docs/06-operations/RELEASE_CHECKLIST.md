@@ -20,6 +20,7 @@
 - [x] Provider-neutral private evidence storage/scanner staging harness implementation: verified participant upload intent, exact signed PUT metadata binding, real private upload, external CLEAN/INFECTED verdict observation, EICAR explicit-ack gate және metadata-only output (Back #248).
 - [ ] Private object storage, signed URLs, malware scan және retention policy.
 - [x] Metadata-only staging log privacy scanner + unit/CI smoke tooling бар; matched secret/PII content output-қа шықпайды (Back #228).
+- [x] Kubernetes staging log privacy collection harness implementation: exact live release digest binding, all `app=qaryzlink-back` pod/all-container bounded log window, mode-700 temp-only raw storage, fail-closed partial coverage және category/count/line-number metadata-only output (Back #255).
 - [ ] Логтарда password, token, email, SMTP response және құжат деректері жоқ.
 
 ## Public pilot алдында инженерлік жұмыстар
@@ -60,7 +61,7 @@
 - [x] Phase 2 critical PostgreSQL lifecycle + cross-user isolation harness implementation merged (`QaryzLinkBack#165`).
 - [x] Phase 2 critical PostgreSQL suite has a dedicated CI gate + metadata-only 14-day acceptance artifact (Back #214).
 - [x] Phase 2 PostgreSQL acceptance includes funding/payment dispute fail-closed allocation/ledger/closure invariants (Back #219).
-- [x] Phase 2 critical PostgreSQL harness current Backend main commit `cd084ec`-да successful CI run `36994894484` арқылы green; metadata-only acceptance artifact retained.
+- [x] Phase 2 critical PostgreSQL harness current Backend main commit `e58bcca`-да successful CI run `36995593789` арқылы green; metadata-only acceptance artifact retained.
 - [x] Runtime/provider error persistence және maintenance CLI stderr PII-safe generic boundary.
 - [x] Front/Admin production server HTTP security-header/CSP runtime smoke.
 - [x] Front production public API origin fail-closed: `NEXT_PUBLIC_API_BASE_URL` міндетті exact HTTPS origin, CSP және browser API client бір validator қолданады; localhost fallback тек development/test (Front #84).
@@ -120,7 +121,7 @@
 - [ ] Password reset нақты SMTP inbox delivery және browser acceptance.
 - [x] Production dependency high/critical audit gate Back/Front/Admin CI ішінде.
 - [x] Full-history secret scanning және CycloneDX SBOM generation Back/Front/Admin CI ішінде.
-- [x] SBOM artifact retention/access policy documented in `SBOM_POLICY.md`; current Back/Front/Admin main supply-chain runs successful және commit-bound CycloneDX artifacts 14 күнге retained (Back `36994894573`, Front `36856766952`, Admin `36856384256`).
+- [x] SBOM artifact retention/access policy documented in `SBOM_POLICY.md`; current Back/Front/Admin main supply-chain runs successful және commit-bound CycloneDX artifacts 14 күнге retained (Back `36995593764`, Front `36856766952`, Admin `36856384256`).
 - [x] Container image HIGH/CRITICAL vulnerability scanning CI gate.
 - [ ] Operational security review және нақты staging/container acceptance — `SECURITY_REVIEW.md` + `STAGING_ACCEPTANCE.md` бойынша орындалады.
 
