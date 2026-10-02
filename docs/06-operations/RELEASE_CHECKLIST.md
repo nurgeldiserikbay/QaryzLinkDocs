@@ -20,6 +20,7 @@
 - [x] Provider-neutral private evidence storage/scanner staging harness implementation: verified participant upload intent, exact signed PUT metadata binding, real private upload, external CLEAN/INFECTED verdict observation, EICAR explicit-ack gate және metadata-only output (Back #248).
 - [ ] Private object storage, signed URLs, malware scan және retention policy.
 - [x] Metadata-only staging log privacy scanner + unit/CI smoke tooling бар; matched secret/PII content output-қа шықпайды (Back #228).
+- [x] Kubernetes staging log privacy collection harness implementation: exact live release digest binding, all `app=qaryzlink-back` pod/all-container bounded log window, mode-700 temp-only raw storage, fail-closed partial coverage және category/count/line-number metadata-only output (Back #255).
 - [ ] Логтарда password, token, email, SMTP response және құжат деректері жоқ.
 
 ## Public pilot алдында инженерлік жұмыстар
