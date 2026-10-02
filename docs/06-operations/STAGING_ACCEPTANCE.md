@@ -289,6 +289,8 @@ Back #241 `ops/staging-background-jobs-smoke.sh` notification scheduler, account
 
 Back #244 `ops/staging-job-failure-alert-source.sh` explicit `STAGING_SYNTHETIC_FAILURE_ACK=true` арқылы one-shot synthetic failed Job жасайды. Probe exact live Backend immutable digest-ті қолданады, Secret/ConfigMap/envFrom алмайды, service-account token-ды өшіреді, deterministic `exit 42` және Kubernetes `Failed=True` condition-ын тексереді, bounded TTL арқылы автоматты тазарады. Бұл Kubernetes alert source-тың бар екенін дәлелдейді, бірақ external collector/paging destination delivery-ін дәлелдемейді.
 
+Back #259 `ops/staging-cronjob-rollout-smoke.sh` осы төрт CronJob-ты бір real rollout acceptance run-да тексереді: exact release digest, hardened runtime, canonical config/secret refs, `lastScheduleTime` + `lastSuccessfulTime`, no active run және existing synthetic failed-Job alert-source probe. External collector/paging delivery бөлек open gate болып қалады.
+
 - [ ] notification CronJob immutable digest-пен іске қосылды.
 - [ ] account deletion CronJob immutable digest-пен іске қосылды.
 - [ ] evidence cleanup CronJob immutable digest-пен іске қосылды.
