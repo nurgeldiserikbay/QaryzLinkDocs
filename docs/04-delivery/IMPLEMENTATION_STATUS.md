@@ -10,7 +10,7 @@
 |---|---|---|
 | Product және business specification | Дайын | MVP шекарасы, state machine, privacy және calculation rules бекітілді |
 | Backend foundation | Дайын | NestJS/Fastify modular monolith, Prisma/PostgreSQL, Docker, CI |
-| IAM | Базалық нұсқа дайын | Register, login, refresh token rotation, current-session logout, email verification |
+| IAM | Базалық нұсқа + staging email-verification tooling дайын | Register, login, refresh token rotation, current-session logout, email verification; Back #245 controlled mailbox-пен request/confirm/replay acceptance flow-ын privacy-safe түрде тексереді |
 | Profile, privacy және deletion request | Базалық нұсқа дайын | Өз профилін/ privacy баптауларын басқару және retention-aware account deletion request жіберу |
 | Database migration | Дайын | Бастапқы schema versioned SQL migration ретінде бекітілді |
 | Discovery | Private slice дайын + Phase 3 dark workspace | Private request/invite/proposal/acceptance + immutable borrower counter negotiation; default-off public offer lifecycle/version history + compatibility explanation + application → concrete Proposal + bounded reporting + support-gated human review |
@@ -31,7 +31,7 @@
 | Notification recipient resolution | Базалық slice дайын | Party ID → in-app ID or active verified email, no PII in outbox |
 | Notification scheduler/orchestrator | Базалық slice дайын | One-shot claim → sequential dispatch → result counters |
 | Notification runtime configuration | Базалық slice дайын | Validated NOTIFICATION_BATCH_SIZE, DI options, deployment guide |
-| Notification SMTP adapter | Базалық slice дайын | MAIL_ENABLED gate, generic PII-safe templates, fail-closed router |
+| Notification SMTP adapter | Базалық slice + mailbox acceptance tooling дайын | MAIL_ENABLED gate, generic PII-safe templates, fail-closed router; Back #245 нақты controlled staging mailbox delivery/verification evidence үшін provider-neutral two-phase harness береді |
 | Notification scheduler command | Базалық slice дайын | `pnpm notifications:run`, validated AppModule context, aggregate counters және non-zero failure exit |
 | Notification email preference | Базалық slice дайын | PrivacySettings opt-out, profile API және enqueue-time EMAIL filtering |
 | Notification delivery metrics | Persistent aggregate slice дайын | PostgreSQL singleton counters, cross-process scheduler/API snapshot және staging/production token guard |
@@ -45,7 +45,7 @@
 Repository checklist interpretation:
 
 - Delivery Roadmap implementation checklist: **37/45 = 82.2%** complete.
-- Release checklist: **137/179 = 76.5%** checked.
+- Release checklist: **138/180 = 76.7%** checked.
 - Staging acceptance: **1/242 = 0.4%** checked; бұл кодтың 0.4% ғана дайын дегенді білдірмейді — checklist нақты staging/provider/legal execution evidence-ін әдейі алдын ала green қылмайды.
 
 Back #241 live background-job rollout acceptance tooling қосты: staging namespace-та notification scheduler, account deletion, evidence cleanup және auth retention CronJob-тарының exact immutable release digest, enabled schedule, `concurrencyPolicy: Forbid`, runtime command/deadline/backoff policy және optional `lastSuccessfulTime` state-ін read-only тексереді. PR CI толық green, merge commit `517ca50` current-main CI `36865554878` және Supply Chain Security `36865554752` арқылы successful. Actual staging run және failed-Job paging бөлек acceptance болып қалады.
@@ -55,6 +55,8 @@ Back #242 live API orchestrator acceptance tooling қосты: `qaryzlink-back` 
 Back #243 staging metrics ingress isolation tooling қосты: separate public/internal exact HTTPS origin талап етеді, public ingress-та `/api/v1/metrics/*` application-ға жетпей 403/404 болуы тиіс, internal origin token-protected 200 + `Cache-Control: no-store` береді. Existing runtime smoke барлық 10 aggregate metrics endpoint-ке дейін кеңейді және metrics ingress scenario release-bound `Staging Core Acceptance` workflow-қа төртінші gate ретінде кірді. Merge commit `4fc48b6` current-main CI `36887226608` және Supply Chain Security `36887226599` арқылы successful. Actual staging firewall/ingress review әлі open acceptance болып қалады.
 
 Back #244 bounded synthetic failed-Job alert-source probe қосты: operator explicit acknowledgement береді, probe live `qaryzlink-back` immutable image digest-ке bind болады, application Secret/ConfigMap немесе service-account token алмайды, `backoffLimit=0`, 60s active deadline, bounded TTL және deterministic `exit 42` арқылы Kubernetes `Failed=True` source signal-ын тексереді. Merge commit `24fa552` current-main CI `36891674238` және Supply Chain Security `36891674422` арқылы successful. External provider alert delivery/paging бұл probe pass болғанмен автоматты green болмайды; нақты staging destination evidence бөлек қажет.
+
+Back #245 SMTP/email-verification staging acceptance tooling қосты: request phase dedicated unverified staging account-пен `verified=false` тексереді және verification email request үшін HTTP 204 талап етеді; operator controlled mailbox delivery-ді тексереді; confirm phase mailbox-тен алынған exact 43-character token-ды қабылдатып `verified=true` және consumed-token replay HTTP 400 болуын талап етеді. Session cleanup және temp secret files privacy-safe, retained output email/password/token/base URL/response body шығармайды. Merge commit `5250108` current-main CI `36893771287` және Supply Chain Security `36893771226` арқылы successful. SPF/DKIM/DMARC, production sender ownership және нақты provider SLA әлі external acceptance.
 
 Monitoring externalization үшін `MONITORING_PROVIDER_ACCEPTANCE.md` versioned template қосылды. Ол collector/network boundary, required alert classes, threshold ownership, privacy-safe alert payload, on-call routing/escalation және real staging test alert evidence-ін нақты provider таңдалмай тұрып құрылымдайды; template өзі approval емес.
 
