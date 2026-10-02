@@ -16,6 +16,7 @@
 - [ ] MAIL_ENABLED=false немесе толық бапталған SMTP + Front verification page.
 - [x] Provider-neutral isolated CI backup/restore rehearsal implementation: synthetic no-PII fixture → pg_dump → separate DB restore → integrity counters → application readiness (Back #216).
 - [ ] Actual staging/provider backup restore drill: encrypted provider backup/PITR, isolated restore, measured RTO/RPO және retained operator evidence.
+- [x] Provider-neutral private evidence storage/scanner staging harness implementation: verified participant upload intent, exact signed PUT metadata binding, real private upload, external CLEAN/INFECTED verdict observation, EICAR explicit-ack gate және metadata-only output (Back #248).
 - [ ] Private object storage, signed URLs, malware scan және retention policy.
 - [x] Metadata-only staging log privacy scanner + unit/CI smoke tooling бар; matched secret/PII content output-қа шықпайды (Back #228).
 - [ ] Логтарда password, token, email, SMTP response және құжат деректері жоқ.
