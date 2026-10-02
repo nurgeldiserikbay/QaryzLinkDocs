@@ -76,6 +76,7 @@
 - [ ] RU authenticated borrower/lender full browser journey successful staging run.
 - [ ] Front/Admin actual authenticated browser E2E run және толық UI acceptance — Actions runner қайта қолжетімді, бірақ real staging URL/credentials-пен manual execution әлі pending.
 - [x] Privacy/consent defaults және ephemeral auth/evidence retention baseline.
+- [x] Provider-neutral PII encrypted-mode staging acceptance harness implementation: migration backlog 0/0, key-rotation backlog 0/0, plaintext-retirement readiness, exact aggregate metrics privacy shape, no-store headers және encrypted email lookup auth smoke unified release-bound gate-ке қосылған (Back #247).
 - [ ] PII encrypted-mode staging acceptance.
 - [x] PII plaintext-retirement aggregate readiness gate (`PII_PLAINTEXT_RETIREMENT.md`).
 - [x] Gated bounded plaintext scrub tooling implementation.
