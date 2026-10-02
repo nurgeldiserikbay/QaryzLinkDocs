@@ -51,6 +51,8 @@ Back #242 `ops/staging-orchestrator-smoke.sh` live `qaryzlink-back` Deployment-�
 - [ ] production Swagger/docs жабық.
 - [ ] Representative API/worker/CronJob log exports `pnpm logs:privacy:scan -- <file>` арқылы `status=pass`; retained evidence matched log content емес, category/count/line metadata ғана.
 
+- [ ] Private evidence storage/scanner provider acceptance successful: Back #248 `ops/staging-evidence-storage-scanner-smoke.sh` real signed PUT пен external CLEAN/INFECTED scanner verdict signal-ын isolated/quiet staging window-та дәлелдейді; нақты provider run жасалмайынша open.
+
 ## 5. Email
 
 - [ ] MAIL_ENABLED=false немесе verified sender толық дайын.
