@@ -45,8 +45,8 @@
 Repository checklist interpretation:
 
 - Delivery Roadmap implementation checklist: **37/45 = 82.2%** complete.
-- Release checklist: **139/181 = 76.8%** checked.
-- Staging acceptance: **1/244 = 0.4%** checked; бұл кодтың 0.4% ғана дайын дегенді білдірмейді — checklist нақты staging/provider/legal execution evidence-ін әдейі алдын ала green қылмайды.
+- Release checklist: **140/182 = 76.9%** checked.
+- Staging acceptance: **1/245 = 0.4%** checked; бұл кодтың 0.4% ғана дайын дегенді білдірмейді — checklist нақты staging/provider/legal execution evidence-ін әдейі алдын ала green қылмайды.
 
 Back #241 live background-job rollout acceptance tooling қосты: staging namespace-та notification scheduler, account deletion, evidence cleanup және auth retention CronJob-тарының exact immutable release digest, enabled schedule, `concurrencyPolicy: Forbid`, runtime command/deadline/backoff policy және optional `lastSuccessfulTime` state-ін read-only тексереді. PR CI толық green, merge commit `517ca50` current-main CI `36865554878` және Supply Chain Security `36865554752` арқылы successful. Actual staging run және failed-Job paging бөлек acceptance болып қалады.
 
@@ -59,6 +59,8 @@ Back #244 bounded synthetic failed-Job alert-source probe қосты: operator e
 Back #245 SMTP/email-verification staging acceptance tooling қосты: request phase dedicated unverified staging account-пен `verified=false` тексереді және verification email request үшін HTTP 204 талап етеді; operator controlled mailbox delivery-ді тексереді; confirm phase mailbox-тен алынған exact 43-character token-ды қабылдатып `verified=true` және consumed-token replay HTTP 400 болуын талап етеді. Session cleanup және temp secret files privacy-safe, retained output email/password/token/base URL/response body шығармайды. Merge commit `5250108` current-main CI `36893771287` және Supply Chain Security `36893771226` арқылы successful. SPF/DKIM/DMARC, production sender ownership және нақты provider SLA әлі external acceptance.
 
 Back #246 password-reset SMTP/mailbox staging tooling қосты: request phase dedicated account current password-ын дәлелдеп reset request үшін HTTP 202 + accepted=true талап етеді; confirm phase controlled mailbox token-мен reset жасап pre-reset session revoke, old password reject, temporary new password accept, consumed-token replay reject және original staging password restoration-ды тексереді. Temporary password restore-дан кейін жарамсыз болуы және final session revoke та тексеріледі. Бірінші CI run-да static secret-leak grep false-positive болды; guard variable-output pattern-ге тарылтылып қайта тексерілді. Merge commit `ac2f666` current-main CI `36964643329` және Supply Chain Security `36964643425` арқылы successful. Actual mailbox/browser execution, SPF/DKIM/DMARC және provider SLA бөлек acceptance болып қалады.
+
+Back #247 PII encrypted-mode staging gate қосты: internal aggregate metrics арқылы migration `mode=encrypted` + backlog 0/0, key-rotation enabled + old-key backlog 0/0, plaintext-retirement missing encrypted copies 0/0 + `readyToScrub=true`, exact privacy-safe response shape және `Cache-Control: no-store` талап етіледі. Harness staging encrypted mode-та dedicated account email lookup/login/session smoke-ты да орындайды және unified release-bound `Staging Core Acceptance` workflow-қа жеке scenario ретінде қосылған. Merge commit `0fbe56e` current-main CI `36971188826` және Supply Chain Security `36971188783` арқылы successful. Бұл tooling destructive plaintext scrub/drop-қа approval бермейді; actual encrypted-mode staging execution әлі open.
 
 Monitoring externalization үшін `MONITORING_PROVIDER_ACCEPTANCE.md` versioned template қосылды. Ол collector/network boundary, required alert classes, threshold ownership, privacy-safe alert payload, on-call routing/escalation және real staging test alert evidence-ін нақты provider таңдалмай тұрып құрылымдайды; template өзі approval емес.
 
