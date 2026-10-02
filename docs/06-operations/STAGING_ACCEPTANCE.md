@@ -23,7 +23,7 @@ Back #238 `Staging Core Acceptance` manual workflow release identity metadata-н
 Front #84 және Admin #41 application configuration-да production outbound API origin-ді exact HTTPS origin-ға fail-closed pin етеді: Front CSP/browser API client ортақ validator қолданады, Admin server-only readiness/metrics/support calls ортақ validator қолданады. Бұл code guard нақты certificate/ingress/restricted-network staging acceptance-ін алмастырмайды.
 
 - [ ] HTTPS certificate valid.
-- [ ] API ingress restricted.
+- [ ] API ingress restricted. Back #256 live policy/ingress-namespace contract-ты тексереді; Back #258 active allowed-vs-denied namespace probe арқылы CNI enforcement evidence жинауға дайын. Нақты staging run successful болмайынша open.
 - [ ] Database/Redis/object storage management ports public емес.
 - [ ] TRUST_PROXY_HOPS нақты ingress topology-ге сәйкес.
 - [ ] Ingress caller-supplied Forwarded/X-Forwarded-* headers-ді overwrite/sanitize етеді.
