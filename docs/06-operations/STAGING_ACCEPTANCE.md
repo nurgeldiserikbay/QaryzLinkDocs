@@ -55,6 +55,7 @@ Back #242 `ops/staging-orchestrator-smoke.sh` live `qaryzlink-back` Deployment-�
 - [ ] MAIL_ENABLED=false немесе verified sender толық дайын.
 - [ ] SPF/DKIM/DMARC provider жағында тексерілген.
 - [ ] verification email test mailbox-қа жетті.
+- [ ] password reset email controlled test mailbox-қа жетті; Back #246 request/confirm harness pre-reset session revoke, old/new password transition, token replay reject және original password restoration-ды successful көрсетті.
 - [ ] Back #245 request phase unverified staging account үшін email request HTTP 204 береді; confirm phase controlled mailbox token-мен `verified=true`, consumed-token replay HTTP 400 және session cleanup-ты successful көрсетеді.
 - [ ] expired/reused verification token fail-closed.
 - [ ] log-та email body/token/SMTP secret жоқ.
