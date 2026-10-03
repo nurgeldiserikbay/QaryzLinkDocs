@@ -9,6 +9,33 @@ QaryzLink — Қазақстандағы жеке тұлғалар арасын�
 - [QaryzLinkAdmin](https://github.com/nurgeldiserikbay/QaryzLinkAdmin) — moderation, support және compliance;
 - **QaryzLinkDocs** — өнім, архитектура және delivery құжаттары.
 
+## HTML documentation portal
+
+Бұл репозиторий енді VitePress арқылы HTML documentation site ретінде build болады.
+
+Жергілікті іске қосу:
+
+~~~bash
+corepack enable
+corepack prepare pnpm@12.4.2 --activate
+pnpm install --no-frozen-lockfile
+pnpm docs:dev
+~~~
+
+Production/static build:
+
+~~~bash
+pnpm docs:build
+~~~
+
+HTML portal entry points:
+
+- [Start here](docs/00-product/START_HERE.md) — жобаны алғаш түсіну;
+- [Business logic](docs/01-business/BUSINESS_LOGIC.md) — толық lifecycle;
+- [System architecture](docs/02-architecture/SYSTEM_ARCHITECTURE.md) — компоненттер;
+- [Deployment portal](docs/06-operations/DEPLOYMENT_PORTAL.md) — server, integrations және environment variables;
+- [Final release handoff](docs/06-operations/FINAL_RELEASE_HANDOFF.md) — production/pilot acceptance.
+
 ## Құжаттар картасы
 
 | Бөлім | Мақсаты |
