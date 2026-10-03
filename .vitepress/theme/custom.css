@@ -1,0 +1,51 @@
+:root {
+  --vp-c-brand-1: #176b52;
+  --vp-c-brand-2: #0d4d3b;
+  --vp-c-brand-3: #0b3c2f;
+  --vp-c-brand-soft: rgba(23, 107, 82, 0.12);
+  --vp-home-hero-name-color: transparent;
+  --vp-home-hero-name-background: linear-gradient(120deg, #176b52 20%, #c89634 80%);
+  --vp-home-hero-image-background-image: radial-gradient(circle at center, rgba(23,107,82,.2), transparent 65%);
+  --vp-home-hero-image-filter: blur(44px);
+}
+
+.VPHomeHero .name {
+  letter-spacing: -0.055em;
+}
+
+.VPHomeHero .text {
+  max-width: 760px;
+  letter-spacing: -0.045em;
+}
+
+.VPFeature {
+  border-radius: 18px !important;
+}
+
+.vp-doc h1,
+.vp-doc h2,
+.vp-doc h3 {
+  letter-spacing: -0.035em;
+}
+
+.vp-doc table {
+  display: table;
+  width: 100%;
+}
+
+.vp-doc blockquote {
+  border-radius: 0 12px 12px 0;
+  padding: 10px 18px;
+  background: var(--vp-c-brand-soft);
+}
+
+.vp-doc code {
+  font-size: .88em;
+}
+
+@media (max-width: 760px) {
+  .vp-doc table {
+    display: block;
+    overflow-x: auto;
+  }
+}
