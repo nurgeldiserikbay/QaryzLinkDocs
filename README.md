@@ -62,6 +62,7 @@ QaryzLink — Қазақстандағы жеке тұлғалар арасын�
 | [Deployment](docs/06-operations/DEPLOYMENT.md) | Backend staging орнату нұсқаулығы |
 | [Owner checklist](docs/06-operations/OWNER_CHECKLIST.md) | Жоба иесінен қажет баптаулар |
 | [Release checklist](docs/06-operations/RELEASE_CHECKLIST.md) | Staging және public launch шарттары |
+| [Final release handoff](docs/06-operations/FINAL_RELEASE_HANDOFF.md) | Repository-side completion, real-environment evidence және final promotion sequence |
 | [ADRs](adr/README.md) | Архитектуралық шешімдер журналы |
 
 ## Оқу реті
