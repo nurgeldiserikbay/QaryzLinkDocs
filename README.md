@@ -11,6 +11,42 @@ QaryzLink — Қазақстандағы жеке тұлғалар арасын�
 
 ## HTML documentation portal
 
+## Visual bilingual portal
+
+HTML portal енді екі негізгі тілдік entry point береді:
+
+- `/kk/` — қазақша;
+- `/ru/` — русский.
+
+Негізгі визуалды бөлімдер екі тілде де бірдей:
+
+- project overview;
+- end-to-end business flow;
+- site/information architecture;
+- system architecture;
+- database/ERD overview;
+- integrations + environment variables;
+- deployment topology;
+- privacy/security;
+- release/staging acceptance.
+
+Порталды локалды ашу:
+
+~~~bash
+pnpm install --no-frozen-lockfile
+pnpm docs:dev
+~~~
+
+Static HTML build:
+
+~~~bash
+pnpm docs:build
+pnpm docs:preview
+~~~
+
+Generated HTML: `.vitepress/dist/`.
+
+
 Бұл репозиторий енді VitePress арқылы HTML documentation site ретінде build болады.
 
 Жергілікті іске қосу:
