@@ -1,8 +1,8 @@
 # Серверге орнату
 
-Жаңартылған күні: 2026-09-26.
+Жаңартылған күні: 2026-10-03.
 
-Бұл нұсқаулық қазіргі backend-ті жабық staging ортада іске қосуға арналған. Толық өнім әлі дайын емес: [implementation status](../04-delivery/IMPLEMENTATION_STATUS.md). Front/Admin және қарыз workflow-лары толық аяқталмаған.
+Бұл нұсқаулық QaryzLink backend-ті staging/production-like ортада іске қосуға арналған. Repository-side MVP және production-readiness tooling аяқталған; нақты environment/provider acceptance бөлек орындалады: [implementation status](../04-delivery/IMPLEMENTATION_STATUS.md), [final release handoff](FINAL_RELEASE_HANDOFF.md).
 
 ## 1. Қажетті орта
 
