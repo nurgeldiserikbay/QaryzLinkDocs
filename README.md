@@ -34,6 +34,9 @@ HTML portal entry points:
 - [Business logic](docs/01-business/BUSINESS_LOGIC.md) — толық lifecycle;
 - [System architecture](docs/02-architecture/SYSTEM_ARCHITECTURE.md) — компоненттер;
 - [Deployment portal](docs/06-operations/DEPLOYMENT_PORTAL.md) — server, integrations және environment variables;
+- [Environment & integrations](docs/06-operations/ENV_INTEGRATIONS_REFERENCE.md) — variable және provider quick reference;
+- [Front deployment](docs/06-operations/FRONT_DEPLOYMENT.md) — public Next.js application;
+- [Admin deployment](docs/06-operations/ADMIN_DEPLOYMENT.md) — restricted operational console;
 - [Final release handoff](docs/06-operations/FINAL_RELEASE_HANDOFF.md) — production/pilot acceptance.
 
 ## Құжаттар картасы

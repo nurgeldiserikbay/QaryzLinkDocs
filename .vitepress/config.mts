@@ -61,7 +61,10 @@ export default defineConfig({
         text: 'Deployment және интеграциялар',
         items: [
           { text: 'Deployment portal', link: '/docs/06-operations/DEPLOYMENT_PORTAL' },
-          { text: 'Server deployment', link: '/docs/06-operations/DEPLOYMENT' },
+          { text: 'Environment & integrations', link: '/docs/06-operations/ENV_INTEGRATIONS_REFERENCE' },
+          { text: 'Backend deployment', link: '/docs/06-operations/DEPLOYMENT' },
+          { text: 'Front deployment', link: '/docs/06-operations/FRONT_DEPLOYMENT' },
+          { text: 'Admin deployment', link: '/docs/06-operations/ADMIN_DEPLOYMENT' },
           { text: 'Release preflight', link: '/docs/06-operations/RELEASE_PREFLIGHT' },
           { text: 'Evidence storage', link: '/docs/06-operations/EVIDENCE_STORAGE' },
           { text: 'Notification SMTP', link: '/docs/06-operations/NOTIFICATION_SMTP' },

@@ -14,7 +14,7 @@
 | Object storage | S3-compatible | Private bucket |
 | CronJobs/workers | Backend image | Kubernetes / scheduler |
 
-QaryzLinkDocs HTML portal static site ретінде GitHub Pages немесе кез келген static hosting-ке deploy бола алады.
+QaryzLinkDocs HTML portal әдепкіде локалды development/preview үшін қолданылады. Оны public hosting-ке шығару міндетті емес.
 
 ## 2. Minimum infrastructure
 
@@ -242,7 +242,10 @@ Secret ретінде қараңыз:
 
 ## 10. Қайдан жалғастыру керек?
 
-- Exact backend commands: [Server deployment](DEPLOYMENT.md)
+- Environment matrix: [Environment & integrations quick reference](ENV_INTEGRATIONS_REFERENCE.md)
+- Backend: [Server deployment](DEPLOYMENT.md)
+- Front: [Front deployment](FRONT_DEPLOYMENT.md)
+- Admin: [Admin deployment](ADMIN_DEPLOYMENT.md)
 - Release validation: [Release preflight](RELEASE_PREFLIGHT.md)
 - Storage: [Evidence storage](EVIDENCE_STORAGE.md)
 - Email: [Notification SMTP](NOTIFICATION_SMTP.md)
