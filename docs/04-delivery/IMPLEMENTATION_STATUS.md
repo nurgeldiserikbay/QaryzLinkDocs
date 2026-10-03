@@ -1,8 +1,16 @@
 # Implementation status
 
-Жаңартылған күні: 2026-10-01
+Жаңартылған күні: 2026-10-03
 
 Бұл құжат specification мен нақты код арасындағы қысқа бақылау нүктесі. Толық талаптар өзгермейді; мұнда тек орындалу күйі көрсетіледі.
+
+## 2026-10-03 final repository-side readiness update
+
+Backend production-readiness tooling Back #263–#268 арқылы exact release identity → migration/rollback binding → in-cluster preflight → aggregate platform acceptance → external provider evidence binding → final release approval gate тізбегіне дейін аяқталды. MVP implementation complete болып қалады.
+
+Front/Admin final audit кезінде ашық PR немесе айқын TODO/FIXME implementation gap табылған жоқ; екі репозиторийде де CI/build/test және browser/staging E2E foundation бар.
+
+Remaining work repository implementation емес: нақты staging/provider execution, independent reviewer evidence және final approval record. Canonical handoff: [Final release handoff](../06-operations/FINAL_RELEASE_HANDOFF.md).
 
 ## Жалпы күй
 
