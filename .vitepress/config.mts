@@ -30,6 +30,7 @@ const kkSidebar = [
       { text: 'Business logic (canonical)', link: '/docs/01-business/BUSINESS_LOGIC' },
       { text: 'System architecture', link: '/docs/02-architecture/SYSTEM_ARCHITECTURE' },
       { text: 'Data model', link: '/docs/02-architecture/DATA_MODEL' },
+      { text: 'Mobile / Capacitor', link: '/docs/02-architecture/MOBILE_CAPACITOR' },
       { text: 'Privacy & security', link: '/docs/03-security/PRIVACY_SECURITY' },
       { text: 'Operations portal', link: '/docs/06-operations/DEPLOYMENT_PORTAL' },
       { text: 'Final release handoff', link: '/docs/06-operations/FINAL_RELEASE_HANDOFF' }
@@ -65,6 +66,7 @@ const ruSidebar = [
       { text: 'Business logic (canonical)', link: '/docs/01-business/BUSINESS_LOGIC' },
       { text: 'System architecture', link: '/docs/02-architecture/SYSTEM_ARCHITECTURE' },
       { text: 'Data model', link: '/docs/02-architecture/DATA_MODEL' },
+      { text: 'Mobile / Capacitor', link: '/docs/02-architecture/MOBILE_CAPACITOR' },
       { text: 'Privacy & security', link: '/docs/03-security/PRIVACY_SECURITY' },
       { text: 'Operations portal', link: '/docs/06-operations/DEPLOYMENT_PORTAL' },
       { text: 'Final release handoff', link: '/docs/06-operations/FINAL_RELEASE_HANDOFF' }
