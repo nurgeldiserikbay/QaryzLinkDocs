@@ -142,3 +142,31 @@ Then initialize/sync the platform projects and commit `android/` and `ios/` only
 ## Release principle
 
 Capacitor is a delivery shell, not a separate product implementation. Business rules, validation, privacy constraints and lifecycle behavior remain in the shared QaryzLink frontend/backend architecture.
+
+
+## Native navigation bridge
+
+The shared frontend now exposes a dependency-free bridge contract so Android/iOS integration can be added without coupling product code directly to Capacitor plugins.
+
+Native shell -> frontend events:
+
+```text
+qaryzlink:native-url
+qaryzlink:native-back
+```
+
+For `qaryzlink:native-url`, the event detail contains:
+
+```json
+{ "url": "https://<production-origin>/dashboard/contracts/<id>" }
+```
+
+The frontend accepts only HTTPS URLs from the current QaryzLink origin and rejects unknown application paths.
+
+For `qaryzlink:native-back`:
+
+- nested dashboard routes fall back to `/dashboard`;
+- dashboard root/public routes fall back to `/`;
+- if the current route already equals its fallback, the frontend emits `qaryzlink:native-exit-request` for the native shell to decide whether to exit/minimize.
+
+This keeps native navigation policy testable without requiring Capacitor packages in the web build.
