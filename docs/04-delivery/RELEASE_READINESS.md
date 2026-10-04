@@ -24,6 +24,7 @@ Completed:
 
 Remaining before a permanent public launch:
 
+- run the manual `Release Preflight` workflow in strict mode and require the full frontend quality gate to pass;
 - assign final production frontend domain;
 - confirm production backend origin and environment values;
 - run final browser/staging acceptance against the production-like deployment;
