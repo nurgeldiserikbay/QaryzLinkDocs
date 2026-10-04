@@ -92,6 +92,15 @@ The CI/check flow validates the mobile preparation configuration with:
 pnpm mobile:check
 ```
 
+Before a native release, set the production origin explicitly:
+
+```bash
+NATIVE_APP_URL=https://app.qaryzlink.kz pnpm mobile:configure
+pnpm mobile:check
+```
+
+The configurator accepts only a clean HTTPS origin and keeps cleartext traffic disabled.
+
 ## Security requirements
 
 1. Native production URLs must use HTTPS.
