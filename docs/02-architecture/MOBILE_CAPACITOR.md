@@ -170,3 +170,19 @@ For `qaryzlink:native-back`:
 - if the current route already equals its fallback, the frontend emits `qaryzlink:native-exit-request` for the native shell to decide whether to exit/minimize.
 
 This keeps native navigation policy testable without requiring Capacitor packages in the web build.
+
+
+## Authentication storage boundary
+
+The current browser, PWA and prepared native-shell runtimes use ephemeral `sessionStorage` for the client session.
+
+This is intentional:
+
+- credentials are not copied to `localStorage`;
+- malformed session payloads are rejected and removed;
+- the UI tolerates unavailable browser storage without crashing;
+- app/process termination may require the user to sign in again.
+
+Persistent native login must not be implemented by moving tokens into ordinary WebView storage.
+
+If persistent native authentication becomes a product requirement, introduce a dedicated secure-storage adapter backed by an OS-protected credential store (for example Android Keystore / iOS Keychain through an audited Capacitor plugin), together with refresh-token lifecycle, logout/revocation and device-loss threat review.
