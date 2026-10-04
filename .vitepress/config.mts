@@ -34,7 +34,8 @@ const kkSidebar = [
       { text: 'Privacy & security', link: '/docs/03-security/PRIVACY_SECURITY' },
       { text: 'Operations portal', link: '/docs/06-operations/DEPLOYMENT_PORTAL' },
       { text: 'Final release handoff', link: '/docs/06-operations/FINAL_RELEASE_HANDOFF' },
-      { text: 'Mobile release checklist', link: '/docs/04-delivery/MOBILE_RELEASE_CHECKLIST' }
+      { text: 'Mobile release checklist', link: '/docs/04-delivery/MOBILE_RELEASE_CHECKLIST' },
+      { text: 'Release readiness', link: '/docs/04-delivery/RELEASE_READINESS' }
     ]
   }
 ];
