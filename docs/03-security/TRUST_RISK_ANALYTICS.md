@@ -344,3 +344,24 @@ must not exist for lender-facing use.
 When the lending relationship ends, QaryzLink must revoke the risk-access grant.
 
 The former lender retains their own contract/payment/evidence history, but not ongoing access to the borrower's cross-platform risk analytics.
+
+
+## Implementation status
+
+Current implementation includes:
+
+- Prisma models and migration for `risk_access_grants`, `risk_snapshots` and `repayment_metrics`;
+- relationship-scoped lender endpoints for request and contract risk views;
+- borrower-only disclosure history endpoint;
+- automatic request/application/proposal grant lifecycle;
+- request-to-contract access transition;
+- automatic revoke when the contract closes;
+- immutable snapshot creation when a lender opens the risk view;
+- audit event for risk-view access;
+- repayment metrics recomputed from confirmed funding, schedule and confirmed payment history;
+- lender-only risk cards in request and active contract screens;
+- borrower disclosure history in Settings;
+- KZ/RU presentation and mobile layout;
+- API regression tests preventing generic user-risk lookup.
+
+The current implementation remains intentionally explainable. It does not expose a public universal score and does not use an opaque ML repayment probability.
