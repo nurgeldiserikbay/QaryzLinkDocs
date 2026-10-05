@@ -37,7 +37,8 @@ const kkSidebar = [
       { text: 'Final release handoff', link: '/docs/06-operations/FINAL_RELEASE_HANDOFF' },
       { text: 'Mobile release checklist', link: '/docs/04-delivery/MOBILE_RELEASE_CHECKLIST' },
       { text: 'Release readiness', link: '/docs/04-delivery/RELEASE_READINESS' },
-      { text: 'Production env matrix', link: '/docs/04-delivery/PRODUCTION_ENV_MATRIX' }
+      { text: 'Production env matrix', link: '/docs/04-delivery/PRODUCTION_ENV_MATRIX' },
+      { text: 'Render + Neon staging', link: '/docs/04-delivery/RENDER_NEON_STAGING' }
     ]
   }
 ];
@@ -72,8 +73,13 @@ const ruSidebar = [
       { text: 'Data model', link: '/docs/02-architecture/DATA_MODEL' },
       { text: 'Mobile / Capacitor', link: '/docs/02-architecture/MOBILE_CAPACITOR' },
       { text: 'Privacy & security', link: '/docs/03-security/PRIVACY_SECURITY' },
+      { text: 'Trust & risk analytics', link: '/docs/03-security/TRUST_RISK_ANALYTICS' },
       { text: 'Operations portal', link: '/docs/06-operations/DEPLOYMENT_PORTAL' },
-      { text: 'Final release handoff', link: '/docs/06-operations/FINAL_RELEASE_HANDOFF' }
+      { text: 'Final release handoff', link: '/docs/06-operations/FINAL_RELEASE_HANDOFF' },
+      { text: 'Mobile release checklist', link: '/docs/04-delivery/MOBILE_RELEASE_CHECKLIST' },
+      { text: 'Release readiness', link: '/docs/04-delivery/RELEASE_READINESS' },
+      { text: 'Production env matrix', link: '/docs/04-delivery/PRODUCTION_ENV_MATRIX' },
+      { text: 'Render + Neon staging', link: '/docs/04-delivery/RENDER_NEON_STAGING' }
     ]
   }
 ];
