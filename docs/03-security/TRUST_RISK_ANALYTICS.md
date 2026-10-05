@@ -376,3 +376,15 @@ Browser acceptance now verifies the privacy lifecycle in the private-debt journe
 - after both parties complete closure, the lender risk analytics card is no longer available.
 
 This complements backend unit coverage for request grant creation, request-to-contract transition and contract-access revocation.
+
+
+### Account anonymization
+
+When an account is anonymized after the retention rules permit completion:
+
+- all active risk access grants where the party is either borrower or lender are revoked;
+- the live `repayment_metrics` aggregate for that party is deleted;
+- no future lender risk view may be opened for that anonymized account;
+- immutable historical `risk_snapshots` may remain only under the platform's audit/legal-retention policy and are not treated as a live borrower profile.
+
+This keeps transactional/audit evidence separate from a reusable ongoing reputation profile.
