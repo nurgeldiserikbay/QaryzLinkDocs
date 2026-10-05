@@ -167,3 +167,36 @@ Remaining before production enablement:
 - operational monitoring for failed metric recomputation / access-grant inconsistencies.
 
 Predictive ML probability scoring is not part of the current release scope.
+
+
+## Remaining work by ownership
+
+### Repository/code work
+
+At this point the web/PWA repository work is limited to issues discovered by the final CI or deployed staging acceptance. The following foundations are already in place:
+
+- Front, Back and Admin CI/security gates;
+- private risk analytics lifecycle and browser acceptance coverage;
+- Render staging Blueprint and safety invariants;
+- temporary Render/Neon-specific acceptance workflows;
+- production-like encrypted staging workflows retained separately;
+- strict Front/Admin release preflight contracts;
+- release evidence template;
+- immutable migration history with risk backfill in a separate migration.
+
+### Account / deployment work
+
+These steps require access to the external hosting accounts and cannot be completed from repository code alone:
+
+1. Create/update the Render Blueprint service from the exact backend commit.
+2. Enter Neon `DATABASE_URL` into Render.
+3. Enter exact `CORS_ALLOWED_ORIGINS` into Render.
+4. Confirm Render runtime secrets are generated and service readiness is healthy.
+5. Set the GitHub staging Variables/Secrets defined in `STAGING_GITHUB_CONFIG.md`.
+6. Point Vercel Front to the deployed Render origin and redeploy.
+7. Point Admin to the same deployed Render origin and redeploy.
+8. Run Backend, Front and Admin Render staging acceptance workflows.
+9. Record resulting metadata-only evidence.
+10. Complete legal/privacy signoff, backup/recovery confirmation and monitoring acceptance.
+
+A failed deployed acceptance test may create new repository/code work; otherwise no additional feature work should be added before this staging gate is completed.
