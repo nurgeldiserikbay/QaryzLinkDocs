@@ -40,7 +40,8 @@ const kkSidebar = [
       { text: 'Production env matrix', link: '/docs/04-delivery/PRODUCTION_ENV_MATRIX' },
       { text: 'Render + Neon staging', link: '/docs/04-delivery/RENDER_NEON_STAGING' },
       { text: 'Release evidence template', link: '/docs/04-delivery/RELEASE_EVIDENCE_TEMPLATE' },
-      { text: 'Staging GitHub config', link: '/docs/04-delivery/STAGING_GITHUB_CONFIG' }
+      { text: 'Staging GitHub config', link: '/docs/04-delivery/STAGING_GITHUB_CONFIG' },
+      { text: 'Staging operator checklist', link: '/docs/04-delivery/STAGING_OPERATOR_CHECKLIST' }
     ]
   }
 ];
