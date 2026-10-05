@@ -37,10 +37,17 @@ Status: **implemented and deployment-ready, final production acceptance still re
 
 The backend already contains the lending/obligation lifecycle, security controls and deployment work. The latest repository activity includes a build fix for Prisma generation and TypeScript build boundaries.
 
-Remaining:
+Completed deployment preparation:
+- Render staging Blueprint exists with database-aware readiness;
+- Neon connection is injected as a secret, not committed;
+- Redis/Key Value wiring and generated runtime secrets are defined;
+- migration-before-start behavior is covered by a repository safety test;
+- Render + Neon + Vercel staging runbook is documented.
 
-- confirm the production deployment from the exact release commit;
-- run migrations against the production database;
+Remaining:
+- create the actual Render Blueprint deployment from the exact backend commit;
+- provide Neon DATABASE_URL and exact CORS origins;
+- verify migrations on the deployed Neon database;
 - run staging/production smoke and acceptance tests;
 - confirm monitoring, backup/recovery and secrets configuration.
 
@@ -55,11 +62,16 @@ Completed:
 - staging browser acceptance work exists;
 - latest Vercel deployment status is green.
 
-Remaining:
+Completed release preparation:
+- strict Admin release preflight validates exact HTTPS backend origins;
+- public/server backend origins must match in strict mode;
+- server-only metrics/support credentials are checked against public exposure;
+- CI enforces the strict preflight.
 
-- final production API origin;
+Remaining:
+- final deployed Admin API origin;
 - operator access/role acceptance;
-- production smoke test;
+- production/staging smoke test against the deployed backend;
 - operational runbook confirmation.
 
 ## Documentation
@@ -76,7 +88,8 @@ Completed:
 
 Remaining:
 
-- keep production URLs, release SHA/digests and final legal decisions synchronized after launch.
+- keep production URLs, release SHA/digests and final legal decisions synchronized after launch;
+- use the Release evidence template to record exact SHAs, origins, feature state and acceptance results without secrets.
 
 ## Android / iOS
 
