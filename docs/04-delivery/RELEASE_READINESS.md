@@ -125,3 +125,32 @@ QaryzLink can be called fully delivered when all of the following are true:
 - Android release is signed and accepted through the intended Play track;
 - iOS release is archived/TestFlight-tested if iOS is part of launch scope;
 - release commit SHAs and deployment artifacts are documented.
+
+
+## Trust & risk analytics
+
+Status: **release-candidate**
+
+Implemented and covered:
+
+- lender-only, relationship-scoped risk access;
+- no generic public/user-id risk lookup;
+- request-stage grant lifecycle;
+- request-to-contract access transition;
+- automatic revoke after contract closure;
+- immutable lender-view snapshots and audit events;
+- explainable repayment metrics from confirmed history;
+- thin-file / insufficient-history state;
+- borrower disclosure history in Settings;
+- KZ/RU lender-facing UI;
+- browser acceptance checks for request visibility, contract continuity and closure revocation;
+- account anonymization revokes active risk access and deletes live repayment aggregates.
+
+Remaining before production enablement:
+
+- production migration deployment;
+- production-like authenticated browser acceptance against the deployed backend/front SHAs;
+- final privacy/legal review of disclosure wording, retention period and lender-visible metric set;
+- operational monitoring for failed metric recomputation / access-grant inconsistencies.
+
+Predictive ML probability scoring is not part of the current release scope.
