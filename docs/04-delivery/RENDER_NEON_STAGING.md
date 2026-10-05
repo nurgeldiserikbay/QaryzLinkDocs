@@ -201,3 +201,17 @@ After the Render service is healthy:
 6. copy only metadata/status results into the release evidence record.
 
 For a later production-like encrypted staging environment, run Backend `Staging Core Acceptance` in addition to the temporary Render acceptance.
+
+
+## 11. Migration immutability
+
+Treat every migration that may have been applied to Neon/staging/production as immutable.
+
+Rules:
+
+- never edit an existing applied migration to add backfill or patch SQL;
+- add a new timestamped migration for every follow-up data backfill or schema correction;
+- before deployment, run `prisma migrate deploy` against a clean CI database;
+- if Prisma reports a checksum mismatch, stop deployment and reconcile migration history before changing application code or data.
+
+The risk analytics foundation migration is kept at its original checksum. The relationship-grant backfill is delivered as a separate later migration.
