@@ -153,3 +153,51 @@ Before a permanent production launch:
 - complete legal/privacy approval;
 - confirm backups/recovery, monitoring and alerting;
 - record the exact deployment SHAs and image digest.
+
+
+## 9. Backend Render acceptance workflow
+
+For this temporary plaintext staging profile, use the backend workflow:
+
+`Render Neon Staging Acceptance`
+
+Do not use `Staging Core Acceptance` for the first Render demo unless the backend has already been moved to encrypted PII mode. The full core workflow intentionally requires encrypted-mode acceptance.
+
+Configure these Backend repository variables:
+
+```text
+RENDER_STAGING_BASE_URL=https://<render-service>
+RENDER_STAGING_FRONT_ORIGIN=https://qaryz-link-front.vercel.app
+```
+
+Run the workflow from the exact Backend commit deployed to Render and provide:
+
+```text
+deployed_commit_sha=<same 40-character backend SHA>
+non_production_ack=true
+```
+
+The workflow verifies:
+
+- liveness;
+- Neon-backed readiness;
+- allowed Front CORS;
+- rejected untrusted CORS;
+- security headers;
+- unauthenticated private API rejection;
+- unauthenticated risk-disclosure rejection.
+
+It stores metadata-only evidence for 14 days and does not retain target URLs, origins, tokens, response bodies or PII.
+
+## 10. End-to-end staging acceptance order
+
+After the Render service is healthy:
+
+1. run Backend `Render Neon Staging Acceptance`;
+2. point Front Vercel to the Render origin and redeploy;
+3. create/confirm the dedicated staging borrower and lender test accounts;
+4. run Front `Browser E2E (staging authenticated)`;
+5. point Admin to the same backend and run Admin `Browser E2E (staging operations)`;
+6. copy only metadata/status results into the release evidence record.
+
+For a later production-like encrypted staging environment, run Backend `Staging Core Acceptance` in addition to the temporary Render acceptance.
