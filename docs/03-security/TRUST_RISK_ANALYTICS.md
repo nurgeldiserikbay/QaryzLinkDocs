@@ -365,3 +365,14 @@ Current implementation includes:
 - API regression tests preventing generic user-risk lookup.
 
 The current implementation remains intentionally explainable. It does not expose a public universal score and does not use an opaque ML repayment probability.
+
+
+### Acceptance coverage
+
+Browser acceptance now verifies the privacy lifecycle in the private-debt journey:
+
+- lender sees the risk analytics card after borrower invitation/request access is granted;
+- lender still sees the risk analytics card after the relationship becomes a contract;
+- after both parties complete closure, the lender risk analytics card is no longer available.
+
+This complements backend unit coverage for request grant creation, request-to-contract transition and contract-access revocation.
