@@ -272,3 +272,16 @@ Current behavior:
 - native protected persistence is never created automatically for a user who did not opt in.
 
 This keeps the 15-minute access token lifetime usable without weakening refresh-token rotation or explicit logout/session revocation.
+
+
+### Session renewal edge-case guarantees
+
+Automatic session renewal is now covered for concurrency and mutation safety:
+
+- concurrent authenticated `401` responses share one refresh-token rotation;
+- a retried mutation preserves its HTTP method, request body and idempotency key;
+- the retried request is attempted only once;
+- a second `401` from that retry does not recurse into another refresh cycle;
+- rejected refresh still clears local session material and surfaces the authentication failure.
+
+These guards are important because refresh-token rotation is single-use and discovery/payment commands may carry idempotency semantics that must survive an access-token renewal.
