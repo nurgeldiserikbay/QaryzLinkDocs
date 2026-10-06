@@ -28,7 +28,8 @@ QaryzLink should be comfortable to use as a mobile-first web/PWA experience and 
 - privacy-safe push payloads for repayment due / overdue reminders;
 - explicit browser permission and per-device push controls in Settings;
 - PWA service worker push/click handling;
-- mobile dashboard active-contract list with next payment summary.
+- mobile dashboard active-contract list with next payment summary;
+- dashboard action summary with active-contract count, overdue-payment count and nearest payment.
 
 ## Notification rules
 
@@ -103,12 +104,18 @@ Requirements before enabling:
 
 The mobile dashboard now surfaces active contracts and the next unpaid payment directly on the first screen.
 
+It also includes an actionable summary with:
+
+1. active contract count;
+2. overdue payment count;
+3. nearest payment amount/date;
+4. overdue marker when the nearest payment is already late.
+
 Further dashboard improvements should prioritize:
 
-1. overdue amount/state with stronger visual priority;
-2. action waiting for the user;
-3. active contracts count summary;
-4. recent notifications.
+1. action waiting for the user;
+2. recent notifications;
+3. richer overdue amount aggregation when needed.
 
 Secondary analytics should stay below the fold.
 
