@@ -253,3 +253,22 @@ Current Front behavior:
 - stale access tokens from secure storage are never copied directly into the active browser session.
 
 This keeps biometric unlock subordinate to backend session revocation and expiry.
+
+
+### Automatic access-token renewal
+
+The Front now treats the short-lived access token as renewable session state instead of forcing a password login every time it expires.
+
+Current behavior:
+
+- an authenticated API call that receives `401` may trigger one refresh-token rotation;
+- concurrent callers share the same in-flight refresh instead of rotating the refresh token multiple times;
+- after rotation, the original request is retried once with the new access token;
+- a request that raced with an already-completed rotation retries with the current access token without starting another refresh;
+- public/unauthenticated requests do not trigger this mechanism;
+- the refresh endpoint itself is never recursively retried;
+- if refresh is rejected, browser and native protected session material is cleared;
+- when native biometric persistence was already enabled, the rotated token pair replaces the protected native copy;
+- native protected persistence is never created automatically for a user who did not opt in.
+
+This keeps the 15-minute access token lifetime usable without weakening refresh-token rotation or explicit logout/session revocation.
