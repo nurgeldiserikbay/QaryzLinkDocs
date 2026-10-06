@@ -238,3 +238,18 @@ The Front now contains the user-facing biometric flow, but it is capability-gate
 - Web/PWA users never see these controls.
 
 This does **not** mark native biometrics production-ready. Android/iOS host implementation and real-device acceptance are still required.
+
+
+### Biometric restore validation
+
+A restored native session is not trusted merely because the device biometric prompt succeeded.
+
+Current Front behavior:
+
+- the protected refresh token is sent to the normal backend `/auth/refresh` endpoint after native restore;
+- backend session rotation produces a fresh access/refresh pair;
+- the rotated pair replaces the protected native copy before entering the dashboard;
+- if refresh fails because the session is revoked/expired/invalid, the protected native copy is cleared and biometric login is disabled until the user signs in normally again;
+- stale access tokens from secure storage are never copied directly into the active browser session.
+
+This keeps biometric unlock subordinate to backend session revocation and expiry.
