@@ -191,3 +191,21 @@ The mobile product should behave as a private obligation assistant:
 - make proof/confirmation easy;
 - avoid exposing sensitive debt information in public notifications;
 - keep all risk/history access relationship-scoped and private.
+
+
+### Native platform bootstrap
+
+The repository still does not contain generated `android/` or `ios/` projects. This is intentional until the native toolchain is added reproducibly.
+
+Reviewed platform baseline: Capacitor **8.5.2** for `@capacitor/core`, `@capacitor/cli`, `@capacitor/android` and `@capacitor/ios`.
+
+Before generating native projects:
+
+1. install all four packages at exactly 8.5.2;
+2. regenerate `pnpm-lock.yaml`;
+3. commit `package.json` and `pnpm-lock.yaml` together;
+4. run `node scripts/native-bootstrap.mjs`;
+5. generate `android/` and `ios/` with the local Capacitor CLI;
+6. only then implement the secure-session host adapter against Android Keystore / iOS Keychain.
+
+The bootstrap guard deliberately fails instead of silently downloading a different CLI version or allowing a stale frozen lockfile.
