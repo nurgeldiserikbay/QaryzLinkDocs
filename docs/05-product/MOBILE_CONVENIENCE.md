@@ -16,7 +16,14 @@ QaryzLink should be comfortable to use as a mobile-first web/PWA experience and 
 - per-user notification preferences;
 - separate payment / overdue / contract / dispute / marketplace toggles;
 - master automatic payment reminder toggle in Settings;
-- contract-level reminder status showing whether payment, overdue, in-app and email delivery are enabled.
+- contract-level reminder status showing whether payment, overdue, in-app and email delivery are enabled;
+- reminder timing presets for 7 days / 3 days / 1 day / due day;
+- optional quiet hours with party-timezone delivery deferral;
+- push subscription database foundation;
+- authenticated push subscription register/list/revoke API;
+- PII-protected push endpoint/key storage;
+- PWA service worker push/click handling;
+- mobile dashboard active-contract list with next payment summary.
 
 ## Notification rules
 
@@ -29,24 +36,30 @@ Current real channels:
 
 Push and SMS must not be exposed as working toggles until an actual delivery provider, subscription/consent lifecycle and unsubscribe flow exist.
 
-## Next priority: push notifications
+## Next priority: push delivery
 
-Required pieces:
+Completed foundation:
 
-1. Device / browser push subscription model tied to the authenticated user.
-2. Explicit browser permission request initiated by user action.
-3. Subscription registration and revocation API.
-4. `PUSH` notification channel.
-5. Provider adapter with retry and safe failure handling.
-6. Device-level unsubscribe.
-7. Settings toggle only when the current device supports push.
-8. No notification payload may expose sensitive debt details on a locked screen by default.
+1. device/browser push subscription model tied to the authenticated party;
+2. authenticated subscription registration/list/revocation API;
+3. subscription secrets stored under the existing PII protection mode;
+4. PWA service worker can display privacy-safe push messages and open same-origin routes.
+
+Remaining before push can be advertised as enabled:
+
+1. explicit browser permission/subscription UI initiated by user action;
+2. `PUSH` notification channel in the outbox policy;
+3. provider adapter with retry and safe failure handling;
+4. VAPID/provider runtime configuration;
+5. device-level unsubscribe from Settings;
+6. delivery metrics and invalid-subscription retirement;
+7. no notification payload may expose sensitive debt details on a locked screen by default.
 
 Recommended default push copy should be privacy-safe, e.g. “QaryzLink-та жаңа маңызды хабарлама бар”, with details visible after opening the authenticated app.
 
-## Next priority: reminder timing
+## Reminder timing
 
-Add user-controlled reminder timing, initially with safe presets:
+Implemented presets:
 
 - 7 days before;
 - 3 days before;
@@ -54,18 +67,19 @@ Add user-controlled reminder timing, initially with safe presets:
 - due day;
 - overdue reminder.
 
-Avoid unlimited user-defined schedules in the first release. Presets are easier to understand and prevent notification spam.
+Each preset can be controlled independently, while a master payment-reminder control can enable or disable the payment reminder set. Unlimited custom schedules remain intentionally excluded to avoid confusing or spam-prone configurations.
 
 ## Quiet hours
 
-Add optional quiet hours using the party timezone.
+Implemented using the party timezone.
 
-Recommended defaults:
+Current behavior:
 
 - disabled by default;
-- suggested interval 22:00–08:00;
-- due/overdue reminders are delayed until quiet hours end;
-- security-critical notifications are not silently dropped.
+- default interval 22:00–08:00 when enabled;
+- queued notifications are delayed until quiet hours end;
+- reminder delivery is not dropped;
+- security-critical notification policy remains separate from convenience preferences.
 
 ## SMS
 
@@ -89,13 +103,14 @@ Requirements before enabling:
 
 ## Mobile dashboard
 
-The mobile dashboard should prioritize only the most actionable information:
+The mobile dashboard now surfaces active contracts and the next unpaid payment directly on the first screen.
 
-1. next payment amount and date;
-2. overdue amount if any;
-3. action waiting for the user;
-4. active contracts count;
-5. recent notifications.
+Further dashboard improvements should prioritize:
+
+1. overdue amount/state with stronger visual priority;
+2. action waiting for the user;
+3. active contracts count summary;
+4. recent notifications.
 
 Secondary analytics should stay below the fold.
 
