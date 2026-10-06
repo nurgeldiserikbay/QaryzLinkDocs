@@ -215,3 +215,67 @@ Rules:
 - if Prisma reports a checksum mismatch, stop deployment and reconcile migration history before changing application code or data.
 
 The risk analytics foundation migration is kept at its original checksum. The relationship-grant backfill is delivered as a separate later migration.
+
+
+## 12. Optional Web Push
+
+Web Push is implemented but remains disabled by default in the Render Blueprint.
+
+Do not enable it until the backend and frontend are deployed from commits that include the push channel migration and Settings controls.
+
+### Generate one VAPID key pair
+
+From the Backend repository after dependencies are installed:
+
+```text
+pnpm exec web-push generate-vapid-keys
+```
+
+Store the generated values in the deployment secret stores. Do not commit either key.
+
+### Render backend
+
+Add:
+
+```text
+WEB_PUSH_ENABLED=true
+WEB_PUSH_VAPID_SUBJECT=mailto:<operations-contact>
+WEB_PUSH_VAPID_PUBLIC_KEY=<generated-public-key>
+WEB_PUSH_VAPID_PRIVATE_KEY=<generated-private-key>
+```
+
+The private key is backend-only.
+
+If push should remain unavailable, keep:
+
+```text
+WEB_PUSH_ENABLED=false
+```
+
+and omit the VAPID keys.
+
+### Vercel Front
+
+Set only the matching public key:
+
+```text
+NEXT_PUBLIC_WEB_PUSH_PUBLIC_KEY=<same-generated-public-key>
+```
+
+Never expose the private VAPID key through a `NEXT_PUBLIC_*` variable.
+
+Redeploy Front after adding or changing the public key.
+
+### Acceptance
+
+After both services are redeployed:
+
+1. open Settings in a supported browser;
+2. press the explicit push enable button;
+3. grant browser notification permission;
+4. confirm the current device reports push enabled;
+5. verify a repayment due/overdue reminder can create a push delivery;
+6. disable push for the current device and confirm that device subscription is revoked;
+7. confirm notification lock-screen text does not expose debt amount or due date.
+
+The current release intentionally limits push to repayment due and overdue reminders.
