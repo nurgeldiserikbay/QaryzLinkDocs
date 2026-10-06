@@ -31,6 +31,7 @@ const kkSidebar = [
       { text: 'System architecture', link: '/docs/02-architecture/SYSTEM_ARCHITECTURE' },
       { text: 'Data model', link: '/docs/02-architecture/DATA_MODEL' },
       { text: 'Mobile / Capacitor', link: '/docs/02-architecture/MOBILE_CAPACITOR' },
+      { text: 'Mobile convenience & reminders', link: '/docs/05-product/MOBILE_CONVENIENCE' },
       { text: 'Privacy & security', link: '/docs/03-security/PRIVACY_SECURITY' },
       { text: 'Trust & risk analytics', link: '/docs/03-security/TRUST_RISK_ANALYTICS' },
       { text: 'Operations portal', link: '/docs/06-operations/DEPLOYMENT_PORTAL' },
@@ -75,6 +76,7 @@ const ruSidebar = [
       { text: 'System architecture', link: '/docs/02-architecture/SYSTEM_ARCHITECTURE' },
       { text: 'Data model', link: '/docs/02-architecture/DATA_MODEL' },
       { text: 'Mobile / Capacitor', link: '/docs/02-architecture/MOBILE_CAPACITOR' },
+      { text: 'Mobile convenience & reminders', link: '/docs/05-product/MOBILE_CONVENIENCE' },
       { text: 'Privacy & security', link: '/docs/03-security/PRIVACY_SECURITY' },
       { text: 'Trust & risk analytics', link: '/docs/03-security/TRUST_RISK_ANALYTICS' },
       { text: 'Operations portal', link: '/docs/06-operations/DEPLOYMENT_PORTAL' },
@@ -82,7 +84,10 @@ const ruSidebar = [
       { text: 'Mobile release checklist', link: '/docs/04-delivery/MOBILE_RELEASE_CHECKLIST' },
       { text: 'Release readiness', link: '/docs/04-delivery/RELEASE_READINESS' },
       { text: 'Production env matrix', link: '/docs/04-delivery/PRODUCTION_ENV_MATRIX' },
-      { text: 'Render + Neon staging', link: '/docs/04-delivery/RENDER_NEON_STAGING' }
+      { text: 'Render + Neon staging', link: '/docs/04-delivery/RENDER_NEON_STAGING' },
+      { text: 'Release evidence template', link: '/docs/04-delivery/RELEASE_EVIDENCE_TEMPLATE' },
+      { text: 'Staging GitHub config', link: '/docs/04-delivery/STAGING_GITHUB_CONFIG' },
+      { text: 'Staging operator checklist', link: '/docs/04-delivery/STAGING_OPERATOR_CHECKLIST' }
     ]
   }
 ];
