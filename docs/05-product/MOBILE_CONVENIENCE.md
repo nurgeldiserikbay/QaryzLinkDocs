@@ -21,7 +21,12 @@ QaryzLink should be comfortable to use as a mobile-first web/PWA experience and 
 - optional quiet hours with party-timezone delivery deferral;
 - push subscription database foundation;
 - authenticated push subscription register/list/revoke API;
+- current-device push unsubscribe;
 - PII-protected push endpoint/key storage;
+- VAPID Web Push delivery adapter;
+- expired push subscription retirement;
+- privacy-safe push payloads for repayment due / overdue reminders;
+- explicit browser permission and per-device push controls in Settings;
 - PWA service worker push/click handling;
 - mobile dashboard active-contract list with next payment summary.
 
@@ -29,33 +34,26 @@ QaryzLink should be comfortable to use as a mobile-first web/PWA experience and 
 
 Users control optional reminder delivery. Security-critical messages may remain mandatory and must be handled separately from marketing or convenience preferences.
 
-Current real channels:
+Current channels:
 
 - `IN_APP`;
-- `EMAIL`.
+- `EMAIL`;
+- `PUSH` when the environment has Web Push enabled and the user explicitly opts in on a supported device.
 
-Push and SMS must not be exposed as working toggles until an actual delivery provider, subscription/consent lifecycle and unsubscribe flow exist.
+Push remains default-off at deployment level and default-off per user. Both conditions must be enabled before a push event can enter the outbox.
 
-## Next priority: push delivery
+Current push scope is deliberately narrow:
 
-Completed foundation:
+- `REPAYMENT_DUE`;
+- `REPAYMENT_OVERDUE`.
 
-1. device/browser push subscription model tied to the authenticated party;
-2. authenticated subscription registration/list/revocation API;
-3. subscription secrets stored under the existing PII protection mode;
-4. PWA service worker can display privacy-safe push messages and open same-origin routes.
+Marketplace, dispute and other general events are not sent by push yet.
 
-Remaining before push can be advertised as enabled:
+Web Push uses VAPID. The private key remains backend-only; the matching public key may be exposed to the Front as `NEXT_PUBLIC_WEB_PUSH_PUBLIC_KEY`.
 
-1. explicit browser permission/subscription UI initiated by user action;
-2. `PUSH` notification channel in the outbox policy;
-3. provider adapter with retry and safe failure handling;
-4. VAPID/provider runtime configuration;
-5. device-level unsubscribe from Settings;
-6. delivery metrics and invalid-subscription retirement;
-7. no notification payload may expose sensitive debt details on a locked screen by default.
+The lock-screen payload is privacy-safe. It does not contain debt amount, due date or aggregate identifiers. Details are shown only after opening the authenticated app.
 
-Recommended default push copy should be privacy-safe, e.g. “QaryzLink-та жаңа маңызды хабарлама бар”, with details visible after opening the authenticated app.
+SMS remains unavailable until a real provider, verified-phone consent flow and unsubscribe controls exist.
 
 ## Reminder timing
 
