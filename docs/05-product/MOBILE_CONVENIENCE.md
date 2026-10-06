@@ -146,10 +146,12 @@ Still useful as a later refinement:
 
 Useful later:
 
-- lender shows QR;
-- borrower scans QR;
-- app opens a private request/invite flow;
-- no private profile information is exposed by the QR itself.
+- [x] borrower creates a short-lived one-time QR/deep link for the private request;
+- [x] lender scans/opens the link and redeems it while authenticated;
+- [x] QR contains only a random opaque token — no amount, email, phone or publicId;
+- [x] token is stored server-side only as SHA-256, expires after 15 minutes and is single-use;
+- [x] block checks and request state are revalidated at redeem time;
+- [ ] preserve the invite URL through login so a signed-out scanner returns automatically after authentication.
 
 ## Biometric login
 
