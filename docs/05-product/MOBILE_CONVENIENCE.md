@@ -120,7 +120,7 @@ Recent in-app notifications are also previewed on the dashboard while the full n
 
 Further dashboard improvements should prioritize:
 
-1. richer overdue amount aggregation when needed;
+1. [x] aggregate outstanding overdue amount across active contracts;
 2. [x] direct deep links from actionable contract cards to signing, funding confirmation or repayment sections;
 3. [x] camera-first payment proof upload.
 
@@ -296,3 +296,17 @@ Dashboard contract cards now route directly to the relevant action section when 
 - `REPAYMENT_OVERDUE` → repayment section.
 
 The target section uses scroll margin for the sticky/mobile header and a subtle `:target` outline so the user can immediately see why the dashboard sent them there. Contracts without a pending action still open at the normal contract overview.
+
+
+### Overdue amount summary
+
+The mobile dashboard now shows both the count of overdue payments and the aggregate outstanding overdue amount.
+
+Rules:
+
+- only next payments currently marked `OVERDUE` are included;
+- outstanding amount is `totalMinor - paidMinor`;
+- negative values are clamped to zero to avoid misleading totals if upstream data is temporarily inconsistent;
+- calculation is covered by a dedicated unit test.
+
+This gives the borrower a quicker sense of urgency without exposing any counterparty PII.
