@@ -136,11 +136,12 @@ Implemented now:
 - existing evidence validation, hashing and secure upload flow is reused;
 - upload busy state remains visible.
 
-Still useful as a later refinement:
+Completed refinements:
 
-- image preview/confirmation before upload;
-- richer upload progress;
-- explicit retry UI after interrupted object upload.
+- [x] image preview/confirmation before upload;
+- [x] upload progress percentage;
+- [x] bounded automatic retry after transient object-upload failure;
+- [x] explicit manual retry without reselecting the failed file.
 
 ## QR and deep links
 
