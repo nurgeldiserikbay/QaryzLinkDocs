@@ -1,8 +1,18 @@
 # Implementation status
 
-Жаңартылған күні: 2026-10-03
+Жаңартылған күні: 2026-10-06
 
 Бұл құжат specification мен нақты код арасындағы қысқа бақылау нүктесі. Толық талаптар өзгермейді; мұнда тек орындалу күйі көрсетіледі.
+
+## 2026-10-06 repository-side mobile/security hardening update
+
+Front-та mobile convenience және session reliability кеңейді: camera-first proof flow preview/confirm/progress/automatic+manual retry-ға дейін жабылды; dashboard overdue aggregate және exact action deep links алды; short-lived opaque QR invite flow KZ/RU UI-мен қосылды; access-token expiry single-flight refresh rotation + one-time request retry арқылы өңделеді; logout/password/session revoke local және future native protected material cleanup boundary-іне біріктірілді.
+
+Native biometric web boundary fail-closed capability/store/restore/clear contract, explicit opt-in UI, protected-session revalidation және backend refresh rotation-мен дайын. Бұл Android Keystore/iOS Keychain host implementation және real-device acceptance-ті алмастырмайды.
+
+Back-та opaque invite token raw value сақталмайды, SHA-256 hash қолданылады, token 15 минуттық және single-use; replacement link алдыңғы active link-ті жарамсыз етеді, block/request state/self-redeem guards сақталған. Dedicated PostgreSQL integration + HTTP validation coverage қосылды. Redeemer party reference account lifecycle кезінде orphan identifier қалдырмау үшін `ON DELETE SET NULL` FK-мен бекітілді.
+
+Repository-side implementation gap-тар айтарлықтай азайды. Remaining blockers негізінен generated Android/iOS hosts, real staging/provider execution, legal acceptance және independent release evidence болып қалады.
 
 ## 2026-10-03 final repository-side readiness update
 
