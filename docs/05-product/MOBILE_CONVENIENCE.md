@@ -121,8 +121,8 @@ Recent in-app notifications are also previewed on the dashboard while the full n
 Further dashboard improvements should prioritize:
 
 1. richer overdue amount aggregation when needed;
-2. direct deep links to the exact pending action where useful;
-3. camera-first payment proof upload.
+2. [x] direct deep links from actionable contract cards to signing, funding confirmation or repayment sections;
+3. [x] camera-first payment proof upload.
 
 Secondary analytics should stay below the fold.
 
@@ -285,3 +285,14 @@ Automatic session renewal is now covered for concurrency and mutation safety:
 - rejected refresh still clears local session material and surfaces the authentication failure.
 
 These guards are important because refresh-token rotation is single-use and discovery/payment commands may carry idempotency semantics that must survive an access-token renewal.
+
+
+### Action deep links
+
+Dashboard contract cards now route directly to the relevant action section when the backend reports an action requirement:
+
+- `SIGN_CONTRACT` → signing section;
+- `CONFIRM_FUNDING` → funding confirmation section;
+- `REPAYMENT_OVERDUE` → repayment section.
+
+The target section uses scroll margin for the sticky/mobile header and a subtle `:target` outline so the user can immediately see why the dashboard sent them there. Contracts without a pending action still open at the normal contract overview.
