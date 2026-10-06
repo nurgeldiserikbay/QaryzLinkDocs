@@ -170,8 +170,8 @@ Still required in the real Android/iOS host before biometric unlock can be expos
 
 - [ ] Android Keystore / iOS Keychain-backed encrypted session storage;
 - [ ] platform biometric prompt with device enrollment/change handling;
-- [ ] explicit user opt-in and device-level disable/clear;
-- [ ] restore only after successful biometric/device authentication;
+- [x] Front exposes explicit device opt-in/disable only when native capability + biometrics are reported available;
+- [x] Login UI calls restore only through the native biometric bridge and only when a protected session is reported available;
 - [x] logout/current-session revoke/logout-all/password-change web flows call a unified local + native protected-session cleanup boundary;
 - [ ] native threat review and release acceptance on real devices.
 
@@ -224,3 +224,17 @@ Current Front behavior:
 - browser/PWA cleanup remains immediate even if the optional native bridge is unavailable.
 
 The native host must independently guarantee protected-storage deletion on logout/revoke so a host-side failure cannot leave a reusable refresh token behind.
+
+
+### Biometric UX gating
+
+The Front now contains the user-facing biometric flow, but it is capability-gated:
+
+- Settings shows biometric enable/disable only in native runtime and only when the host reports secure storage + biometrics available.
+- Enabling stores the current server-issued session only through the native secure-session bridge.
+- Login shows biometric unlock only when the host reports that a protected session already exists.
+- Restore output is validated before it is copied into temporary browser session storage.
+- A failed biometric restore falls back to normal password login.
+- Web/PWA users never see these controls.
+
+This does **not** mark native biometrics production-ready. Android/iOS host implementation and real-device acceptance are still required.
