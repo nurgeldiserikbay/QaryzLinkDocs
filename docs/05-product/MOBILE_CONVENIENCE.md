@@ -172,7 +172,7 @@ Still required in the real Android/iOS host before biometric unlock can be expos
 - [ ] platform biometric prompt with device enrollment/change handling;
 - [ ] explicit user opt-in and device-level disable/clear;
 - [ ] restore only after successful biometric/device authentication;
-- [ ] logout/session-revoke integration must clear local protected material;
+- [x] logout/current-session revoke/logout-all/password-change web flows call a unified local + native protected-session cleanup boundary;
 - [ ] native threat review and release acceptance on real devices.
 
 Biometrics unlock a locally protected server-issued session. They never replace backend authorization, token expiry, session revocation or account security rules.
@@ -209,3 +209,18 @@ Before generating native projects:
 6. only then implement the secure-session host adapter against Android Keystore / iOS Keychain.
 
 The bootstrap guard deliberately fails instead of silently downloading a different CLI version or allowing a stale frozen lockfile.
+
+
+### Session cleanup rule
+
+Any action that invalidates the current server session must also remove local session material.
+
+Current Front behavior:
+
+- normal logout calls the backend current-session revoke endpoint before local cleanup;
+- current-session revoke from Settings clears browser and native protected material;
+- logout-all clears browser and native protected material after the server revokes all sessions;
+- password change clears browser and native protected material after the backend revokes active sessions;
+- browser/PWA cleanup remains immediate even if the optional native bridge is unavailable.
+
+The native host must independently guarantee protected-storage deletion on logout/revoke so a host-side failure cannot leave a reusable refresh token behind.
