@@ -4,6 +4,20 @@
 
 Бұл құжат specification мен нақты код арасындағы қысқа бақылау нүктесі. Толық талаптар өзгермейді; мұнда тек орындалу күйі көрсетіледі.
 
+## 2026-10-06 repository-side green checkpoint
+
+Current-main verification after the mobile/security hardening cycle:
+
+- **QaryzLinkFront**: CI + Supply Chain Security green on `96419367`;
+- **QaryzLinkBack**: CI + Supply Chain Security green on `f261e1f6`;
+- **QaryzLinkAdmin**: CI + Supply Chain Security green on current main `ea8f7667`;
+- **QaryzLinkDocs**: Docs HTML green on current documentation checkpoint;
+- all four repositories currently have **0 open pull requests** and **0 open issues**.
+
+This cycle also repaired the Front frozen lockfile after local QR generation was added, removed the one-shot repair workflow after use, restored API header/retry test compatibility, added a non-browser evidence-upload fallback for Node tests, and split the Back invite-link HTTP controller to preserve the repository file-size rule.
+
+Repository-side code/audit work is therefore at a clean checkpoint. Remaining gates are predominantly environment/external acceptance: real staging/provider runs, Android/iOS host generation + Keystore/Keychain biometric implementation, real-device acceptance, production secret/provider configuration, legal review and independent release approval evidence.
+
 ## 2026-10-06 repository-side mobile/security hardening update
 
 Front-та mobile convenience және session reliability кеңейді: camera-first proof flow preview/confirm/progress/automatic+manual retry-ға дейін жабылды; dashboard overdue aggregate және exact action deep links алды; short-lived opaque QR invite flow KZ/RU UI-мен қосылды; access-token expiry single-flight refresh rotation + one-time request retry арқылы өңделеді; logout/password/session revoke local және future native protected material cleanup boundary-іне біріктірілді.
