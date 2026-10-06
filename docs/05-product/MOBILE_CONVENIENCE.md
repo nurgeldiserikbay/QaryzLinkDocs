@@ -31,7 +31,8 @@ QaryzLink should be comfortable to use as a mobile-first web/PWA experience and 
 - mobile dashboard active-contract list with next payment summary;
 - dashboard action summary with active-contract count, overdue-payment count and nearest payment;
 - relationship-scoped action-required summary for signing, funding confirmation and overdue borrower repayment;
-- recent in-app notifications preview on the dashboard with a link to the full inbox.
+- recent in-app notifications preview on the dashboard with a link to the full inbox;
+- camera-first funding and repayment proof picker on supported mobile browsers, while retaining PDF/file upload.
 
 ## Notification rules
 
@@ -127,14 +128,19 @@ Secondary analytics should stay below the fold.
 
 ## Payment proof on phone
 
-High-priority mobile flow:
+Implemented now:
 
-- choose camera or file;
-- capture receipt / transfer confirmation;
-- preview before upload;
-- clear upload progress;
-- lender confirmation state;
-- safe retry after network interruption.
+- separate camera-first capture action for funding evidence;
+- separate camera-first capture action for repayment evidence;
+- existing gallery/file/PDF picker remains available;
+- existing evidence validation, hashing and secure upload flow is reused;
+- upload busy state remains visible.
+
+Still useful as a later refinement:
+
+- image preview/confirmation before upload;
+- richer upload progress;
+- explicit retry UI after interrupted object upload.
 
 ## QR and deep links
 
