@@ -30,7 +30,8 @@ QaryzLink should be comfortable to use as a mobile-first web/PWA experience and 
 - PWA service worker push/click handling;
 - mobile dashboard active-contract list with next payment summary;
 - dashboard action summary with active-contract count, overdue-payment count and nearest payment;
-- relationship-scoped action-required summary for signing, funding confirmation and overdue borrower repayment.
+- relationship-scoped action-required summary for signing, funding confirmation and overdue borrower repayment;
+- recent in-app notifications preview on the dashboard with a link to the full inbox.
 
 ## Notification rules
 
@@ -114,11 +115,13 @@ It also includes an actionable summary with:
 
 The backend also derives whether the authenticated participant currently needs to sign the agreement, confirm funding, or address an overdue borrower payment. This is shown without exposing counterparty PII.
 
+Recent in-app notifications are also previewed on the dashboard while the full notification inbox remains a separate page.
+
 Further dashboard improvements should prioritize:
 
-1. recent notifications;
-2. richer overdue amount aggregation when needed;
-3. direct deep links to the exact pending action where useful.
+1. richer overdue amount aggregation when needed;
+2. direct deep links to the exact pending action where useful;
+3. camera-first payment proof upload.
 
 Secondary analytics should stay below the fold.
 
