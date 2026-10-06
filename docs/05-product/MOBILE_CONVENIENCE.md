@@ -155,7 +155,27 @@ Useful later:
 
 ## Biometric login
 
-For Capacitor/native builds, add Face ID / fingerprint using platform secure storage for session material. Biometrics should unlock a locally protected session and must not replace server-side authorization.
+Native biometric/session foundation is now defined without pretending browser JavaScript can provide device-grade secure storage by itself.
+
+Implemented web/native boundary:
+
+- [x] native-only secure-session bridge contract with explicit capability/store/restore/clear actions;
+- [x] bounded timeout and fail-closed behavior when the native host is unavailable or returns malformed data;
+- [x] strict restored-session shape validation before any session is accepted;
+- [x] no automatic persistent token storage from browser/PWA flows;
+- [x] private `/invite/...` routes allowed through the same-origin native deep-link allowlist;
+- [x] `mobile:check` verifies that the bridge contract remains present.
+
+Still required in the real Android/iOS host before biometric unlock can be exposed as working UI:
+
+- [ ] Android Keystore / iOS Keychain-backed encrypted session storage;
+- [ ] platform biometric prompt with device enrollment/change handling;
+- [ ] explicit user opt-in and device-level disable/clear;
+- [ ] restore only after successful biometric/device authentication;
+- [ ] logout/session-revoke integration must clear local protected material;
+- [ ] native threat review and release acceptance on real devices.
+
+Biometrics unlock a locally protected server-issued session. They never replace backend authorization, token expiry, session revocation or account security rules.
 
 ## Calendar integration
 
