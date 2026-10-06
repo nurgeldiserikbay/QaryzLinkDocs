@@ -151,7 +151,7 @@ Useful later:
 - [x] QR contains only a random opaque token — no amount, email, phone or publicId;
 - [x] token is stored server-side only as SHA-256, expires after 15 minutes and is single-use;
 - [x] block checks and request state are revalidated at redeem time;
-- [ ] preserve the invite URL through login so a signed-out scanner returns automatically after authentication.
+- [x] preserve the invite URL through login with a validated internal return path.
 
 ## Biometric login
 
