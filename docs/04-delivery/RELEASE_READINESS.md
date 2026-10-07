@@ -1,6 +1,6 @@
 # QaryzLink release readiness
 
-_Last updated: 2026-10-04_
+_Last updated: 2026-10-07_
 
 This page is a delivery status snapshot, not a product promise. It separates web/PWA readiness from native-store readiness.
 
@@ -20,11 +20,16 @@ Completed:
 - mobile dashboard navigation and safe-area behavior are implemented;
 - request, contract, marketplace, notifications and settings mobile UX has been polished;
 - web/PWA runtime is separated from prepared native runtime;
-- latest frontend Vercel deployments are green.
+- latest frontend CI and supply-chain checks are green;
+- private contract chat is implemented with unread counts, grouped read sync, bounded history pagination and privacy-safe notification deep-links;
+- account-data export v2 includes only the current user's authored contract-chat messages and excludes counterparty-authored chat text.
+
+Current frozen staging application candidate: `STAGING_CANDIDATE_2026-10-07_V2.md`.
 
 Remaining before a permanent public launch:
 
-- run the manual `Release Preflight` workflow in strict mode and require the full frontend quality gate to pass;
+- deploy and accept the exact frozen staging candidate across Render + Neon + Vercel;
+- run the manual `Release Preflight` workflow in strict mode against that environment and require the full frontend quality gate to pass;
 - assign final production frontend domain;
 - confirm production backend origin and environment values;
 - run final browser/staging acceptance against the production-like deployment;
