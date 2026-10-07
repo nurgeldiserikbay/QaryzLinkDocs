@@ -34,6 +34,10 @@ The repository-side MVP boundary remains complete. Since the original handoff, t
 
 These additions do not replace any real-environment/provider/legal gate below. Staging acceptance must be run against the exact candidate commit selected after all repository CI/security checks are green.
 
+Current frozen staging application candidate: [STAGING_CANDIDATE_2026-10-07_V2.md](../04-delivery/STAGING_CANDIDATE_2026-10-07_V2.md).
+
+The earlier 2026-10-07 candidate is superseded and must not be used for new acceptance evidence.
+
 ## Release candidate freeze
 
 Production/pilot acceptance басталғанда бір Backend release candidate freeze жасалады:
