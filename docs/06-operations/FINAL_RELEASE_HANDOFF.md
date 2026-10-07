@@ -1,6 +1,6 @@
 # Final release handoff
 
-Жаңартылған күні: 2026-10-03
+Жаңартылған күні: 2026-10-07
 
 Бұл құжат QaryzLink repository-side production-readiness жұмыстары аяқталғаннан кейінгі handoff нүктесін бекітеді. Мұнда код репозиторийлерінде дайын болған tooling пен нақты staging/provider ортада әлі жиналуы тиіс evidence бөлек көрсетіледі.
 
@@ -18,6 +18,21 @@
 Front және Admin main branch-терінде typecheck/lint/unit/build, browser E2E және staging browser E2E workflow foundation бар. Final audit кезінде ашық PR немесе айқын TODO/FIXME implementation gap табылған жоқ.
 
 Docs осы құжат арқылы соңғы operator handoff contract-ты бекітеді.
+
+## 2026-10-07 repository extension checkpoint
+
+The repository-side MVP boundary remains complete. Since the original handoff, the web/PWA product received a bounded contract-chat extension without changing the financial/legal mutation model:
+
+- private borrower/lender contract-scoped messages;
+- immutable chat persistence and privacy-safe role projection;
+- rate-limited writes and in-app notification delivery;
+- per-contract unread counts and grouped read handling;
+- bounded cursor history pagination;
+- visible-tab polling optimization;
+- chat text remains non-authoritative for contract terms, funding, payment or amendments;
+- organization/company accounts remain architecture-only and are not part of this release candidate.
+
+These additions do not replace any real-environment/provider/legal gate below. Staging acceptance must be run against the exact candidate commit selected after all repository CI/security checks are green.
 
 ## Release candidate freeze
 
