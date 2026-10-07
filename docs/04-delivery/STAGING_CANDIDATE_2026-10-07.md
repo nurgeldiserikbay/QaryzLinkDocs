@@ -1,6 +1,6 @@
 # Staging candidate — 2026-10-07
 
-Status: frozen candidate for temporary Render + Neon + Vercel acceptance.
+Status: **superseded**. This candidate was invalidated by subsequent Front/Backend application changes. Superseded by `STAGING_CANDIDATE_2026-10-07_V2.md`.
 
 This record is not production approval. It pins the exact application revisions that must be deployed together for the next staging acceptance cycle.
 
