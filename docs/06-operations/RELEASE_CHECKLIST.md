@@ -2,6 +2,25 @@
 
 2026-09-18: толық өнім public launch-қа дайын емес.
 
+## User-data storage security blockers
+
+- [x] Production startup rejects non-encrypted contact PII mode.
+- [x] Production PostgreSQL configuration requires TLS.
+- [x] Production startup requires `PERSONAL_DATA_STORAGE_COUNTRY=KZ`.
+- [x] Production startup requires `PERSONAL_DATA_PROCESSING_COUNTRY=KZ`.
+- [x] Production startup requires versioned `PERSONAL_DATA_RESIDENCY_POLICY_ID`.
+- [x] Production startup requires versioned `PERSONAL_DATA_STORAGE_ENCRYPTION_POLICY_ID`.
+- [ ] Actual Kazakhstan-hosted database provider accepted.
+- [ ] Actual Kazakhstan-hosted Backend processing provider accepted.
+- [ ] Evidence/object storage KZ residency + encryption/IAM accepted or evidence storage remains disabled.
+- [ ] Backup/PITR KZ residency + encryption accepted.
+- [ ] PII key custody/KMS/secrets-management production review accepted.
+- [ ] Contract/chat/dispute/evidence/audit retention matrix approved.
+- [ ] Cross-border/subprocessor inventory + consent/legal basis approved.
+- [ ] Security-hardened Backend CI + supply-chain checks green and a new staging candidate frozen.
+
+Temporary Render/Neon/Vercel infrastructure is **synthetic staging only** until the residency/provider gates above are satisfied.
+
 ## Backend staging
 
 - [ ] Нақты deploy commit-тің CI-ы жасыл.
