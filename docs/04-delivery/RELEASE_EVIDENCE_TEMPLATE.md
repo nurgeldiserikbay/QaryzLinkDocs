@@ -79,6 +79,10 @@ risk_contract_visibility=pass|fail
 risk_closure_revocation=pass|fail
 borrower_disclosure_history=pass|fail
 admin_readonly_foundation=pass|fail
+contract_chat_private_boundary=pass|fail
+contract_chat_two_party_flow=pass|fail
+contract_chat_unread_read_sync=pass|fail
+contract_chat_history_pagination=pass|fail
 ```
 
 ## Privacy / legal acceptance
