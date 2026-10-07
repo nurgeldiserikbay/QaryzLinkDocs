@@ -133,7 +133,9 @@ Record only metadata:
 - CI/security status;
 - Front browser acceptance result;
 - Admin browser acceptance result;
-- risk request/contract/closure acceptance result.
+- risk request/contract/closure acceptance result;
+- contract chat private/two-party/unread/history/privacy acceptance results;
+- account-data export v2 self-authored/counterparty-exclusion results when that feature is enabled for the acceptance slice.
 
 Never store:
 
@@ -157,6 +159,11 @@ front_browser_acceptance=pass
 admin_ci=pass
 admin_supply_chain=pass
 admin_browser_acceptance=pass
+contract_chat_private_boundary=pass
+contract_chat_two_party_flow=pass
+contract_chat_unread_read_sync=pass
+contract_chat_history_pagination=pass
+contract_chat_notification_payload_privacy=pass
 docs_build=pass
 ```
 
