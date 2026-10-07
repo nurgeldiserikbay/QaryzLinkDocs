@@ -34,11 +34,9 @@ The repository-side MVP boundary remains complete. Since the original handoff, t
 
 These additions do not replace any real-environment/provider/legal gate below. Staging acceptance must be run against the exact candidate commit selected after all repository CI/security checks are green.
 
-Current frozen staging application candidate: [STAGING_CANDIDATE_2026-10-07_V2.md](../04-delivery/STAGING_CANDIDATE_2026-10-07_V2.md).
+Staging candidate v2 and its execution sheet are **invalidated** by the 2026-10-07 user-data storage security hardening. They remain historical records only. Do not create new acceptance evidence from them.
 
-The earlier 2026-10-07 candidate is superseded and must not be used for new acceptance evidence.
-
-Operator run sequence and exact workflow inputs: [Staging execution sheet v2](../04-delivery/STAGING_EXECUTION_SHEET_2026-10-07_V2.md).
+A replacement candidate/execution sheet must be frozen only after the updated Backend CI and supply-chain checks are green.
 
 ## Release candidate freeze
 
