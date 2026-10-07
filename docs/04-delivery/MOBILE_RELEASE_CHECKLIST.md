@@ -2,6 +2,22 @@
 
 This checklist covers the Android/iOS delivery shell for QaryzLink.
 
+## Repository-side foundation already completed
+
+- [x] Native runtime detection is isolated from business rules.
+- [x] Same-origin HTTPS native deep-link allowlist exists.
+- [x] Native Back/exit bridge contract exists.
+- [x] Service worker registration is disabled in native runtime.
+- [x] Generic native fallback shell contains no private financial payload.
+- [x] Browser/PWA session material is not moved to localStorage.
+- [x] Capability-gated native secure-session bridge defines store/restore/clear.
+- [x] Biometric restore revalidates through backend refresh-token rotation.
+- [x] Logout, current-session revoke, logout-all, password change and account-deletion request use unified local/native cleanup.
+- [x] Automatic access-token renewal is single-flight and bounded to one retry.
+- [x] `mobile:check` validates the prepared native bridge/config contract.
+
+These checks do **not** mean Android/iOS production readiness. Generated native projects, OS-protected storage implementation, signing, verified links and real-device acceptance remain pending below.
+
 ## Before generating native projects
 
 - [ ] Web/PWA production build is green.
