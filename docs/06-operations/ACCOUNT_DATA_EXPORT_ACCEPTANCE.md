@@ -2,7 +2,7 @@
 
 Жаңартылған күні: 2026-09-30.
 
-Бұл record authenticated own-data export-тың full legal/statutory scope, third-party redaction және deletion-ordering behavior-ын approve етуге арналған. Current v1 foundation толық statutory DSAR package деп саналмайды.
+Бұл record authenticated own-data export-тың full legal/statutory scope, third-party redaction және deletion-ordering behavior-ын approve етуге арналған. Current v2 foundation толық statutory DSAR package деп саналмайды.
 
 Technical boundary: [Account own-data export](../03-security/ACCOUNT_DATA_EXPORT.md).
 
@@ -21,6 +21,7 @@ For every category record INCLUDE / EXCLUDE / REDACT / SEPARATE-PROCESS plus bas
 | Audit/security events | **PENDING** | **PENDING** |
 | Identity verification metadata | **PENDING** | **PENDING** |
 | Notifications | **PENDING** | **PENDING** |
+| Contract chat authored messages | **PENDING** | Technical self-service v2 includes only user-authored message bodies; counterparty-authored text remains excluded pending legal review |
 
 ## 2. Third-party privacy rules
 
@@ -67,4 +68,4 @@ Production enablement requires:
 
 ## 6. Final gate
 
-Only after this record is approved may production enable `ACCOUNT_DATA_EXPORT_ENABLED=true`. Current self-service v1 must not be described as full statutory compliance until the approved matrix says so.
+Only after this record is approved may production enable `ACCOUNT_DATA_EXPORT_ENABLED=true`. Current self-service v2 must not be described as full statutory compliance until the approved matrix says so.
