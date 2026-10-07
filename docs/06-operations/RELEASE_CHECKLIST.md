@@ -179,7 +179,7 @@
 - [x] Application-level contract evidence legal hold: scoped support control, audit, one-active-hold invariant және cleanup exclusion.
 - [x] Versioned retention/storage-lifecycle acceptance record template with data-category/account-deletion/provider lifecycle fields (`RETENTION_LIFECYCLE_ACCEPTANCE.md`).
 - [ ] Legal retention completion: Kazakhstan retention periods, consumed-evidence deletion policy, account-deletion interaction және external bucket lifecycle acceptance.
-- [x] Participant own-data export foundation: default-off, canonical dataHash, own contact decrypt, role-scoped contract/payment summaries және secret/counterparty-PII exclusions.
+- [x] Participant own-data export v2 foundation: default-off, canonical dataHash, own contact decrypt, role-scoped contract/payment summaries, current user's authored contract-chat messages only және secret/counterparty-PII/counterparty-chat exclusions.
 - [x] Production config/preflight requires versioned `ACCOUNT_DATA_EXPORT_POLICY_ID` when own-data export is enabled.
 - [x] Own-data export dedicated authenticated-user throttling: 1/minute + 5/hour, HMAC-hashed bucket key, bounded 429 + Retry-After және Front explicit KZ/RU state.
 - [x] Versioned own-data export legal/privacy acceptance record template with scope/redaction/deletion-ordering/staging fields (`ACCOUNT_DATA_EXPORT_ACCEPTANCE.md`).
