@@ -18,7 +18,7 @@ Current behavior:
 - the notification respects the existing contract/in-app notification preferences;
 - in-app chat notifications deep-link directly to the contract chat section;
 - contract lists expose an unread chat count derived from unread chat notification rows;
-- opening the chat marks only that contract's unread chat notifications as read;
+- opening the chat marks only that contract's unread chat notifications as read, including still-pending in-app rows so a delayed scheduler dispatch cannot resurrect a stale unread badge;
 - dashboard contract cards show the unread count and, when no higher-priority financial action exists, open directly at the chat section;
 - older history loads in bounded 50-message pages using a contract-scoped `beforeId` cursor without disabling lightweight polling;
 - KZ/RU UI and session/rate-limit error states are included.
