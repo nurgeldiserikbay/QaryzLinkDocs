@@ -25,11 +25,27 @@
 | HOST / PORT | Listen address | Жоқ |
 | TRUST_PROXY_HOPS | Reverse proxy trust | Жоқ |
 | CORS_ALLOWED_ORIGINS | Exact browser origins | Жоқ |
-| DATABASE_URL | PostgreSQL connection | Иә |
+| DATABASE_URL | PostgreSQL connection; production TLS sslmode required | Иә |
+| PERSONAL_DATA_STORAGE_COUNTRY | Production primary personal-data storage country; must be KZ | Жоқ |
+| PERSONAL_DATA_PROCESSING_COUNTRY | Production personal-data processing country; must be KZ | Жоқ |
+| PERSONAL_DATA_RESIDENCY_POLICY_ID | Reviewed/versioned residency policy reference | Жоқ |
+| PERSONAL_DATA_STORAGE_ENCRYPTION_POLICY_ID | Reviewed/versioned storage encryption policy reference | Жоқ |
 | REDIS_URL | Redis connection | Иә/credentialed |
 | JWT_ACCESS_SECRET | Access-token signing | Иә |
 | METRICS_ACCESS_TOKEN | Protected metrics | Иә |
 | EXPOSE_API_DOCS | Non-production API docs gate | Жоқ |
+
+## Production personal-data baseline
+
+```text
+PII_CONTACT_STORAGE_MODE=encrypted
+PERSONAL_DATA_STORAGE_COUNTRY=KZ
+PERSONAL_DATA_PROCESSING_COUNTRY=KZ
+PERSONAL_DATA_RESIDENCY_POLICY_ID=<reviewed-versioned-id>
+PERSONAL_DATA_STORAGE_ENCRYPTION_POLICY_ID=<reviewed-versioned-id>
+```
+
+Temporary foreign-hosted Render/Neon/Vercel infrastructure is synthetic staging only and must not be treated as production personal-data residency evidence.
 
 ## Email
 
