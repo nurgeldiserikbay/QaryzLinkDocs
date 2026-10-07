@@ -83,6 +83,7 @@ contract_chat_private_boundary=pass|fail
 contract_chat_two_party_flow=pass|fail
 contract_chat_unread_read_sync=pass|fail
 contract_chat_history_pagination=pass|fail
+contract_chat_notification_payload_privacy=pass|fail
 ```
 
 ## Privacy / legal acceptance
@@ -92,6 +93,10 @@ privacy_copy_review=accepted|pending
 risk_metric_set_review=accepted|pending
 risk_snapshot_retention_review=accepted|pending
 pilot_scope_approval_id=<id-or-pending>
+account_data_export_schema=v2|n/a
+account_data_export_self_authored_chat_only=pass|fail|n/a
+account_data_export_counterparty_chat_excluded=pass|fail|n/a
+account_data_export_policy_review=accepted|pending|n/a
 ```
 
 ## Operational acceptance
