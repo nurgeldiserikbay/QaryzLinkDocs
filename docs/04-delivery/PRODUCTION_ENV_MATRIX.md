@@ -36,7 +36,11 @@ Required for a normal production deployment:
 | `NODE_ENV` | `production` |
 | `HOST` | Deployment-specific bind address |
 | `PORT` | Deployment port |
-| `DATABASE_URL` | Production PostgreSQL/Neon connection string from secret store |
+| `DATABASE_URL` | Production PostgreSQL connection string from secret store; TLS sslmode required |
+| `PERSONAL_DATA_STORAGE_COUNTRY` | Must be `KZ` in production |
+| `PERSONAL_DATA_PROCESSING_COUNTRY` | Must be `KZ` in production |
+| `PERSONAL_DATA_RESIDENCY_POLICY_ID` | Versioned reviewed KZ residency policy reference |
+| `PERSONAL_DATA_STORAGE_ENCRYPTION_POLICY_ID` | Versioned reviewed at-rest encryption policy reference |
 | `REDIS_URL` | Production Redis connection string |
 | `JWT_ACCESS_SECRET` | Strong random secret, minimum policy enforced by backend |
 | `CORS_ALLOWED_ORIGINS` | Exact frontend/admin origins that require browser access |
@@ -69,13 +73,15 @@ The following capabilities should stay disabled unless their corresponding legal
 
 ### PII rollout
 
-Default production rollout should remain conservative until the migration is accepted:
+Production is now fail-closed:
 
-- `PII_CONTACT_STORAGE_MODE=plaintext` until additive migration/backfill is verified;
+- `PII_CONTACT_STORAGE_MODE=encrypted` is mandatory;
+- `plaintext` and `dual` are rejected in production;
 - encryption keyring/HMAC keys live only in the deployment secret store;
-- `PII_PLAINTEXT_SCRUB_ENABLED=false` until encrypted-mode staging acceptance completes.
+- plaintext backfill/dual-mode work is a migration/staging activity only;
+- `PII_PLAINTEXT_SCRUB_ENABLED` remains a controlled maintenance gate.
 
-Moving to encrypted/dual mode requires a controlled migration plan and rollback evidence.
+Before switching a real production environment to encrypted mode, finish backfill, encrypted-mode acceptance, plaintext-retirement checks and rollback evidence in non-production first.
 
 ### Email
 
@@ -121,16 +127,17 @@ Store secrets in the deployment platform secret manager, not in Git:
 
 ## Launch sequence
 
-1. Configure production database and Redis.
-2. Configure backend core runtime secrets.
-3. Deploy backend and run migrations.
-4. Verify backend health/metrics.
-5. Configure final frontend/admin origins and backend CORS.
-6. Deploy Front and Admin.
-7. Run strict Front release preflight.
-8. Run staging/production smoke/acceptance.
-9. Enable only explicitly approved feature gates.
-10. Record deployed commit SHAs, image digest and final environment profile in release evidence.
+1. Select and accept Kazakhstan-hosted storage/processing providers and encryption-at-rest policy.
+2. Configure production database and Redis.
+3. Configure backend core runtime secrets.
+4. Deploy backend and run migrations.
+5. Verify backend health/metrics.
+6. Configure final frontend/admin origins and backend CORS.
+7. Deploy Front and Admin.
+8. Run strict Front release preflight.
+9. Run staging/production smoke/acceptance.
+10. Enable only explicitly approved feature gates.
+11. Record deployed commit SHAs, image digest and final environment profile in release evidence.
 
 ## Environment evidence rule
 
