@@ -14,6 +14,8 @@ Current behavior:
 - clients receive sender identity only as `BORROWER` or `LENDER`, not raw party identifiers;
 - Front polls every 5 seconds for lightweight near-real-time updates;
 - message sending is rate-limited to 30 messages per minute per authenticated user;
+- the other party receives a privacy-safe in-app notification event with no message body in the payload;
+- the notification respects the existing contract/in-app notification preferences;
 - KZ/RU UI and session/rate-limit error states are included.
 
 ## Legal boundary
@@ -40,7 +42,7 @@ The chat therefore must never:
 
 Not required for the first chat release:
 
-- unread counters and chat notifications;
+- chat-specific unread badge and direct notification deep-link;
 - cursor pagination for older messages;
 - WebSocket/SSE transport instead of polling;
 - evidence/document attachment references;
