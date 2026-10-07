@@ -70,6 +70,23 @@ front_strict_preflight=pass|fail
 admin_strict_preflight=pass|fail
 ```
 
+## Staging workflow evidence
+
+Record workflow metadata only. Do not copy logs, URLs containing credentials, secrets or raw response bodies.
+
+```text
+render_neon_acceptance_run_id=<github-run-id-or-n/a>
+render_neon_acceptance_result=pass|fail|n/a
+staging_core_acceptance_run_id=<github-run-id-or-n/a>
+staging_core_acceptance_result=pass|fail|n/a
+front_render_browser_run_id=<github-run-id-or-n/a>
+front_render_browser_result=pass|fail|n/a
+admin_render_browser_run_id=<github-run-id-or-n/a>
+admin_render_browser_result=pass|fail|n/a
+notification_scheduler_run_id=<github-run-id-or-n/a>
+notification_scheduler_result=pass|fail|n/a
+```
+
 ## Browser acceptance
 
 ```text
