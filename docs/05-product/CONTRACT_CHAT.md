@@ -16,6 +16,7 @@ Current behavior:
 - message sending is rate-limited to 30 messages per minute per authenticated user;
 - the other party receives a privacy-safe in-app notification event with no message body in the payload;
 - the notification respects the existing contract/in-app notification preferences;
+- in-app chat notifications deep-link directly to the contract chat section;
 - KZ/RU UI and session/rate-limit error states are included.
 
 ## Legal boundary
@@ -42,7 +43,7 @@ The chat therefore must never:
 
 Not required for the first chat release:
 
-- chat-specific unread badge and direct notification deep-link;
+- chat-specific unread badge;
 - cursor pagination for older messages;
 - WebSocket/SSE transport instead of polling;
 - evidence/document attachment references;
