@@ -212,6 +212,8 @@ erDiagram
     CONTRACTS ||--o{ AMENDMENTS : changed_by
     AMENDMENTS ||--|| CONTRACT_VERSIONS : activates
     CONTRACTS ||--|| OBLIGATIONS : governs
+    CONTRACTS ||--o{ CONTRACT_MESSAGES : contains
+    PARTIES ||--o{ CONTRACT_MESSAGES : sends
     CONTRACT_VERSIONS ||--o{ DOCUMENT_LINKS : renders
 ~~~
 
@@ -242,6 +244,16 @@ erDiagram
 - document_hash;
 - effective_at;
 - created_by.
+
+#### contract_messages — current implementation
+
+- id;
+- contract_id;
+- sender_party_id;
+- body — max 2000 chars;
+- created_at.
+
+Current messages are immutable, contract-scoped and role-projected to clients as BORROWER/LENDER. They do not alter contract terms.
 
 #### contract_parties
 
