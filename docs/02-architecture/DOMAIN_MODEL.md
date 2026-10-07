@@ -100,7 +100,8 @@ Aggregates:
 - Contract;
 - ContractVersion;
 - SignatureGroup;
-- Amendment.
+- Amendment;
+- ContractMessage.
 
 Инварианттар:
 
@@ -108,7 +109,9 @@ Aggregates:
 - әр signer бір document hash-қа қол қояды;
 - signed version өзгермейді;
 - amendment жаңа version;
-- signed state funded state емес.
+- signed state funded state емес;
+- contract chat messages immutable and visible only to the two contract parties;
+- chat text never mutates legal terms: any terms change must go through formal amendment/versioning.
 
 ### Funding
 
@@ -306,4 +309,4 @@ Personal Party және Organization Party бір Party abstraction пайдал
 - beneficial owners;
 - organization-level limits
 
-қосады. Personal MVP осы кестелерді UI-да міндетті етпейді.
+қосады. Personal MVP осы кестелерді UI-да міндетті етпейді. Detailed membership/acting-party design: [ORGANIZATION_ACCOUNTS.md](./ORGANIZATION_ACCOUNTS.md).
