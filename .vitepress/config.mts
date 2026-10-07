@@ -40,6 +40,7 @@ const kkSidebar = [
       { text: 'Final release handoff', link: '/docs/06-operations/FINAL_RELEASE_HANDOFF' },
       { text: 'Mobile release checklist', link: '/docs/04-delivery/MOBILE_RELEASE_CHECKLIST' },
       { text: 'Release readiness', link: '/docs/04-delivery/RELEASE_READINESS' },
+      { text: 'Staging candidate v2', link: '/docs/04-delivery/STAGING_CANDIDATE_2026-10-07_V2' },
       { text: 'Production env matrix', link: '/docs/04-delivery/PRODUCTION_ENV_MATRIX' },
       { text: 'Render + Neon staging', link: '/docs/04-delivery/RENDER_NEON_STAGING' },
       { text: 'Release evidence template', link: '/docs/04-delivery/RELEASE_EVIDENCE_TEMPLATE' },
