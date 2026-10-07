@@ -1,6 +1,6 @@
 # Render + Neon + Vercel staging deployment
 
-This runbook is for a temporary QaryzLink web/PWA environment. It is not the final production profile.
+This runbook is for a temporary QaryzLink web/PWA environment using **synthetic staging data only**. It is not the final production profile and is not evidence of Kazakhstan production data residency.
 
 ## Target topology
 
@@ -142,12 +142,30 @@ After all services point to the same environment:
 6. verify Admin liveness/operator paths that are in current scope;
 7. record Front/Back/Admin commit SHAs in release evidence.
 
+## Personal-data restriction for this staging topology
+
+Do not use real customer personal data in this temporary Render/Neon/Vercel environment.
+
+The production profile now fails closed unless it declares:
+
+```text
+PERSONAL_DATA_STORAGE_COUNTRY=KZ
+PERSONAL_DATA_PROCESSING_COUNTRY=KZ
+PERSONAL_DATA_RESIDENCY_POLICY_ID=<reviewed-versioned-id>
+PERSONAL_DATA_STORAGE_ENCRYPTION_POLICY_ID=<reviewed-versioned-id>
+PII_CONTACT_STORAGE_MODE=encrypted
+```
+
+Those declarations still require independent provider/location/encryption evidence. They are not satisfied merely by setting environment variables.
+
 ## Production differences
 
 Before a permanent production launch:
 
 - use a final custom domain instead of temporary `vercel.app` / `onrender.com` origins;
 - use `NODE_ENV=production`;
+- use accepted Kazakhstan-hosted storage and processing infrastructure;
+- require encrypted contact PII mode and accepted storage encryption-at-rest;
 - provide `PILOT_SCOPE_APPROVAL_ID`;
 - move migrations to a dedicated pre-deploy step;
 - complete legal/privacy approval;
