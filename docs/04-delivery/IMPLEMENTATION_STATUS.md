@@ -1,8 +1,22 @@
 # Implementation status
 
-Жаңартылған күні: 2026-10-06
+Жаңартылған күні: 2026-10-07
 
 Бұл құжат specification мен нақты код арасындағы қысқа бақылау нүктесі. Толық талаптар өзгермейді; мұнда тек орындалу күйі көрсетіледі.
+
+## 2026-10-07 contract chat and organization architecture update
+
+Contract-scoped private chat foundation implemented across Back + Front:
+
+- immutable `contract_messages` persistence with borrower/lender-only access;
+- client projection exposes sender role only, not raw counterparty identifiers;
+- latest 50 messages available on the contract page with lightweight polling;
+- message body capped at 2000 characters;
+- send path rate-limited per authenticated user;
+- KZ/RU UI, auth/error/rate-limit states and dedicated API/service tests;
+- chat text is explicitly non-authoritative for legal terms: any terms change still requires formal amendment/version/signing.
+
+Organization accounts remain architecture-only for now. Existing `PartyType.ORGANIZATION` will be extended later through individual user accounts + organization membership/role/permission/acting-party authorization. Shared company passwords are explicitly out of scope. Detailed design: [Organization accounts](../02-architecture/ORGANIZATION_ACCOUNTS.md).
 
 ## 2026-10-06 repository-side green checkpoint
 
