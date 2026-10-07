@@ -12,15 +12,15 @@ Current behavior:
 - messages are immutable after creation;
 - message body is limited to 2000 characters;
 - clients receive sender identity only as `BORROWER` or `LENDER`, not raw party identifiers;
-- Front polls every 5 seconds for lightweight near-real-time updates;
+- Front polls every 5 seconds for lightweight near-real-time updates while the tab is visible; hidden tabs skip network polling and refresh immediately when visible again;
 - message sending is rate-limited to 30 messages per minute per authenticated user;
 - the other party receives a privacy-safe in-app notification event with no message body in the payload;
 - the notification respects the existing contract/in-app notification preferences;
 - in-app chat notifications deep-link directly to the contract chat section;
 - contract lists expose an unread chat count derived from unread chat notification rows;
-- opening the chat marks only that contract's unread chat notifications as read, including still-pending in-app rows so a delayed scheduler dispatch cannot resurrect a stale unread badge;
+- opening the chat marks only that contract's unread chat notifications as read, including still-pending in-app rows so a delayed scheduler dispatch cannot resurrect a stale unread badge; read sync is not repeated on every polling tick;
 - dashboard contract cards show the unread count and, when no higher-priority financial action exists, open directly at the chat section;
-- older history loads in bounded 50-message pages using a contract-scoped `beforeId` cursor without disabling lightweight polling;
+- older history loads in bounded 50-message pages using a contract-scoped `beforeId` cursor without disabling lightweight polling, and sending a new message does not discard already-loaded older history;
 - KZ/RU UI and session/rate-limit error states are included.
 
 ## Legal boundary
