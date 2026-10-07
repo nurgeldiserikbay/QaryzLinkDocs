@@ -187,6 +187,8 @@ Exported email/phone немесе full response audit payload-қа көшірі�
 
 Current deletion request flow request accepted болған сәтте active sessions-ды revoke етеді.
 
+Account anonymization current implementation-де Party row-ды delete етпейді: direct identity fields anonymized/cleared, ал contract/evidence integrity сақталуы мүмкін. Contract-chat message body retention немесе later redaction policy автоматты түрде өзгертілмейді; бұл legal/privacy retention decision ретінде pending. Self-service v2 export deletion-ге дейін тек user's own authored chat messages-ті береді.
+
 Сондықтан current UX contract бойынша user own-data export-ты deletion request жібермей тұрып алуы тиіс. Deletion-request-after-export ordering Front/settings UI acceptance кезінде анық көрсетілуі керек.
 
 Бұл technical foundation statutory timing/right-to-access interpretation емес; legal/privacy owner production procedure-ны бөлек бекітеді.
