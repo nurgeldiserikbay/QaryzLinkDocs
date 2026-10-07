@@ -133,7 +133,7 @@ Then initialize/sync the platform projects and commit `android/` and `ios/` only
 3. Add Capacitor dependencies with lockfile update.
 4. Generate Android project.
 5. Validate Android deep links, keyboard, safe areas and back navigation.
-6. Add secure storage only if token architecture requires it.
+6. Implement the existing secure-session bridge in Android Keystore / iOS Keychain and complete real-device biometric acceptance.
 7. Add push notifications only after notification privacy rules are fixed.
 8. Generate and validate iOS project.
 9. Add store assets, privacy declarations and signing configuration.
@@ -185,4 +185,4 @@ This is intentional:
 
 Persistent native login must not be implemented by moving tokens into ordinary WebView storage.
 
-If persistent native authentication becomes a product requirement, introduce a dedicated secure-storage adapter backed by an OS-protected credential store (for example Android Keystore / iOS Keychain through an audited Capacitor plugin), together with refresh-token lifecycle, logout/revocation and device-loss threat review.
+The shared Front now already contains a native secure-session bridge contract plus capability-gated biometric UX, backend refresh revalidation, single-flight rotation and unified cleanup semantics. This is only the web/native boundary. Real persistence still requires an Android Keystore / iOS Keychain host implementation through an audited native layer, plus device-loss and real-device release acceptance.
