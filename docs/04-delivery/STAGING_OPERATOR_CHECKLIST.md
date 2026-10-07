@@ -164,6 +164,10 @@ contract_chat_two_party_flow=pass
 contract_chat_unread_read_sync=pass
 contract_chat_history_pagination=pass
 contract_chat_notification_payload_privacy=pass
+account_data_export_schema=v2|n/a
+account_data_export_self_authored_chat_only=pass|n/a
+account_data_export_counterparty_chat_excluded=pass|n/a
+account_data_export_policy_review=accepted|pending|n/a
 docs_build=pass
 ```
 
