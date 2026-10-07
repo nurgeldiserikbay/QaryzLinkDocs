@@ -4,6 +4,20 @@
 
 Бұл құжат specification мен нақты код арасындағы қысқа бақылау нүктесі. Толық талаптар өзгермейді; мұнда тек орындалу күйі көрсетіледі.
 
+## 2026-10-07 frozen staging candidate
+
+A temporary Render + Neon + Vercel staging candidate is now pinned:
+
+- Front: `bebe6089766dd693d6467830ac45d0b55a080cd6`;
+- Back: `a356c1377c132b9b317122ec09cde8e038a651dc`;
+- Admin: `ea8f76674b72b6d0910ba69f967746d826da0cad`.
+
+All three application repositories were green on their current CI/security gates at freeze time, with zero open pull requests and zero open issues. The candidate includes the contract-chat unread/history/polling hardening and the Backend Render staging chat-boundary smoke.
+
+This is a **staging acceptance candidate**, not production approval. Any application-code change invalidates the freeze and requires selecting new SHAs and rerunning acceptance.
+
+See [STAGING_CANDIDATE_2026-10-07.md](./STAGING_CANDIDATE_2026-10-07.md).
+
 ## 2026-10-07 chat unread/history green checkpoint
 
 Verified current-main state after unread/history hardening:
