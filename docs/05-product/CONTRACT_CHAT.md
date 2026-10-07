@@ -16,7 +16,7 @@ Current behavior:
 - message sending is rate-limited to 30 messages per minute per authenticated user;
 - the other party receives a privacy-safe in-app notification event with no message body in the payload;
 - the notification respects the existing contract/in-app notification preferences;
-- in-app chat notifications deep-link directly to the contract chat section;
+- in-app chat notifications deep-link directly to the contract chat section from both the notification inbox and dashboard recent-notification cards;
 - contract lists expose an unread chat count derived from unread chat notification rows;
 - opening the chat marks only that contract's unread chat notifications as read, including still-pending in-app rows so a delayed scheduler dispatch cannot resurrect a stale unread badge; read sync is not repeated on every polling tick;
 - dashboard contract cards show the unread count and, when no higher-priority financial action exists, open directly at the chat section;
