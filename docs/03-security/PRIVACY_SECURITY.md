@@ -68,14 +68,25 @@ Revocation бұрын қол қойылған contract snapshot-ын немес�
 
 ## 6. Authentication
 
-- email/phone verification;
-- passkey/TOTP MFA preferred;
-- SMS fallback тәуекелі белгіленеді;
-- device/session list;
-- remote logout;
-- sensitive action step-up;
-- brute-force/rate limiting;
-- compromised credential monitoring мүмкіндігі.
+Current implemented foundation:
+
+- email verification;
+- password + scrypt storage;
+- active session inventory;
+- selective session revoke / logout-all;
+- refresh-token rotation;
+- brute-force/rate limiting boundaries;
+- password reset/change session revocation;
+- prepared native biometric secure-session boundary.
+
+Target hardening, **not yet production-complete**:
+
+- passkey/TOTP MFA;
+- sensitive-action step-up;
+- compromised credential monitoring;
+- real Android/iOS biometric host acceptance.
+
+SMS authentication is not enabled.
 
 ## 7. Authorization
 
@@ -95,15 +106,24 @@ Admin UI-да көрінуі admin-ге барлық PII оқу құқығын �
 
 ## 8. Encryption
 
-- TLS in transit;
-- storage/database encryption at rest;
-- restricted PII envelope encryption;
-- KMS-managed keys;
-- key rotation/version;
-- signed short-lived document URLs;
+Implemented repository controls:
+
+- Backend/API HTTPS expectations and production PostgreSQL TLS validation;
+- restricted contact PII envelope encryption;
+- key version/rotation tooling;
+- signed short-lived evidence URLs;
+- production secrets are not committed to repositories;
+- production startup now requires KZ storage/processing residency declarations and versioned storage-encryption governance.
+
+External/provider controls that still require acceptance:
+
+- actual database/storage encryption at rest;
 - backup encryption;
-- secrets manager;
-- production secrets repository-де жоқ.
+- KZ provider/replica residency;
+- KMS/HSM/vault custody for PII keys;
+- evidence bucket encryption/IAM/lifecycle.
+
+See [User data storage security audit — 2026-10-07](./USER_DATA_STORAGE_SECURITY_AUDIT_2026-10-07.md).
 
 ## 9. Audit
 
