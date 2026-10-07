@@ -4,6 +4,18 @@
 
 Бұл құжат specification мен нақты код арасындағы қысқа бақылау нүктесі. Толық талаптар өзгермейді; мұнда тек орындалу күйі көрсетіледі.
 
+## 2026-10-07 chat/company architecture green checkpoint
+
+Verified current-main repository state after the contract-chat slice:
+
+- **QaryzLinkFront**: CI + Supply Chain Security green on `322d370f`;
+- **QaryzLinkBack**: CI + Supply Chain Security green on `5dc7eef7`;
+- **QaryzLinkDocs**: Docs HTML green on `b4e64e3d` before this status-only update.
+
+Contract chat now includes private borrower/lender persistence and API, KZ/RU contract-page UI, 5-second polling, latest-message scroll, bounded send rate, privacy-safe in-app notification to the other party and notification deep-link to `#contract-chat`. Notification payloads do not contain message text.
+
+Organization/company support remains intentionally architecture-only: existing `PartyType.ORGANIZATION` will later use individual user accounts, memberships, explicit permissions and dual `actorUserId` + `actingPartyId` attribution. No shared company credentials or premature legal-entity lending UI were added.
+
 ## 2026-10-07 contract chat and organization architecture update
 
 Contract-scoped private chat foundation implemented across Back + Front:
