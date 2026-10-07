@@ -38,6 +38,8 @@ Current frozen staging application candidate: [STAGING_CANDIDATE_2026-10-07_V2.m
 
 The earlier 2026-10-07 candidate is superseded and must not be used for new acceptance evidence.
 
+Operator run sequence and exact workflow inputs: [Staging execution sheet v2](../04-delivery/STAGING_EXECUTION_SHEET_2026-10-07_V2.md).
+
 ## Release candidate freeze
 
 Production/pilot acceptance басталғанда бір Backend release candidate freeze жасалады:
