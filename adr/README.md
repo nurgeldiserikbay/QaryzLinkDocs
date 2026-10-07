@@ -52,3 +52,6 @@ ADR маңызды және кейін өзгеруі қымбат шешімд�
 - [ADR-0026: PII contact encryption and blind indexes](ADR-0026-pii-contact-encryption.md)
 
 - [ADR-0027: Post-payment amendment cutover remains a preview](ADR-0027-post-payment-amendment-cutover-preview.md)
+
+- [ADR-0028: Post-payment ledger adjustment plan remains preview-only](ADR-0028-post-payment-ledger-adjustment-plan.md)
+- [ADR-0029: Organization access uses individual users plus acting-party authorization](ADR-0029-organization-acting-party.md)
