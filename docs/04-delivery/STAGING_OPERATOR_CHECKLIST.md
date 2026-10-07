@@ -8,10 +8,14 @@ Use this checklist when creating the temporary Render + Neon + Vercel staging en
 - [ ] Confirm deployed Backend commit SHA.
 - [ ] Confirm `qaryzlink-back` uses the free plan.
 - [ ] Confirm `qaryzlink-cache` uses the free plan.
+- [ ] Confirm Blueprint sets `NODE_ENV=staging`, `HOST=0.0.0.0` and reviewed `TRUST_PROXY_HOPS=0`.
+- [ ] Confirm `REDIS_URL` is bound from `qaryzlink-cache` by Blueprint, not copied into docs or chat.
 - [ ] Enter Neon `DATABASE_URL`.
 - [ ] Enter exact `CORS_ALLOWED_ORIGINS`.
 - [ ] Confirm Render generated `JWT_ACCESS_SECRET`.
 - [ ] Confirm Render generated `METRICS_ACCESS_TOKEN`.
+- [ ] Confirm Render generated `SCHEDULER_TRIGGER_TOKEN`.
+- [ ] Confirm high-risk feature flags remain default-off (`IDENTITY_VERIFICATION_ENABLED`, `CONTRACT_SIGNING_ENABLED`, `CONTRACT_AMENDMENTS_ENABLED`, `CONTRACT_PDF_ENABLED`, `EVIDENCE_STORAGE_ENABLED`, `WEB_PUSH_ENABLED`, support mutation flags) unless a dedicated acceptance run explicitly enables one.
 - [ ] Wait for `/api/v1/health/ready` to become healthy.
 - [ ] Confirm migrations completed without checksum errors.
 
