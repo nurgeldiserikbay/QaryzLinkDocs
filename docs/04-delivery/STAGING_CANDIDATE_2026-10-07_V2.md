@@ -58,6 +58,8 @@ This candidate includes the complete current personal-account private-debt flow 
 
 Organization/company accounts remain architecture-only and are not enabled in this staging candidate.
 
+Operator execution steps: [Staging execution sheet v2](./STAGING_EXECUTION_SHEET_2026-10-07_V2.md).
+
 ## Deployment order
 
 1. Deploy the exact Backend SHA to Render through the existing Blueprint.
