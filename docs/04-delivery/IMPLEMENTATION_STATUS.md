@@ -53,6 +53,22 @@ Completed in this slice:
 - older-history UI with preserved scroll position while lightweight polling continues;
 - staging operator checklist aligned with the Render Blueprint runtime/secrets/default-off gates.
 
+## 2026-10-07 staging candidate v2 checkpoint
+
+A new exact staging candidate was frozen after the chat unread/history hardening and account-data export v2 changes invalidated the earlier candidate.
+
+Pinned application revisions:
+
+- Front: `de4d220e52f36a67ef047137a1596156e814955c`;
+- Back: `07a742e759513e2eecd443c03c4c7c69f44180e1`;
+- Admin: `ea8f76674b72b6d0910ba69f967746d826da0cad`.
+
+At freeze time all application CI and supply-chain checks were green, with zero open pull requests and zero open issues.
+
+The candidate includes account-data export v2 with self-authored contract-chat messages only; counterparty-authored chat text remains excluded. Legal/privacy retention approval remains external and is not implied by the technical implementation.
+
+See [Staging candidate v2](./STAGING_CANDIDATE_2026-10-07_V2.md).
+
 ## 2026-10-07 chat/company architecture green checkpoint
 
 Verified current-main repository state after the contract-chat slice:
