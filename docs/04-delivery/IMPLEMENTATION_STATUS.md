@@ -4,6 +4,24 @@
 
 Бұл құжат specification мен нақты код арасындағы қысқа бақылау нүктесі. Толық талаптар өзгермейді; мұнда тек орындалу күйі көрсетіледі.
 
+## 2026-10-07 chat unread/history green checkpoint
+
+Verified current-main state after unread/history hardening:
+
+- **QaryzLinkFront**: CI + Supply Chain Security green on `3d76d32e`;
+- **QaryzLinkBack**: CI + Supply Chain Security green on `b8f3e43e`;
+- **QaryzLinkDocs**: Docs HTML green on `8035ae45`.
+
+Completed in this slice:
+
+- per-contract unread chat counts on contract lists/dashboard;
+- contract-scoped grouped read endpoint;
+- pending + sent notification race handling so delayed dispatch does not resurrect stale unread state;
+- indexed unread notification lookup;
+- bounded 50-message cursor pagination with contract-isolated `beforeId`;
+- older-history UI with preserved scroll position while lightweight polling continues;
+- staging operator checklist aligned with the Render Blueprint runtime/secrets/default-off gates.
+
 ## 2026-10-07 chat/company architecture green checkpoint
 
 Verified current-main repository state after the contract-chat slice:
