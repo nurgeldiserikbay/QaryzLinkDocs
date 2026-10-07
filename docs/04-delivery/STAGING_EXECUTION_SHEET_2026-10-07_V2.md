@@ -277,6 +277,22 @@ The scheduled run is hourly at minute 17 UTC.
 
 Expected: maintenance response validates as non-negative counters and `failed=0`.
 
+## 11.1 Capture workflow run IDs
+
+After each manual/scheduled acceptance run, record the GitHub Actions run ID before moving to the next gate.
+
+Use these fields later in `RELEASE_EVIDENCE_TEMPLATE.md`:
+
+```text
+render_neon_acceptance_run_id=<run-id>
+staging_core_acceptance_run_id=<run-id-or-n/a>
+front_render_browser_run_id=<run-id>
+admin_render_browser_run_id=<run-id>
+notification_scheduler_run_id=<run-id-or-n/a>
+```
+
+A run ID is metadata and may be retained. Do not copy secret values, request payloads or credential-bearing URLs from the run logs.
+
 ## 12. Evidence record
 
 Fill `RELEASE_EVIDENCE_TEMPLATE.md` with metadata only.
