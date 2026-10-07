@@ -44,7 +44,9 @@ const kkSidebar = [
       { text: 'Render + Neon staging', link: '/docs/04-delivery/RENDER_NEON_STAGING' },
       { text: 'Release evidence template', link: '/docs/04-delivery/RELEASE_EVIDENCE_TEMPLATE' },
       { text: 'Staging GitHub config', link: '/docs/04-delivery/STAGING_GITHUB_CONFIG' },
-      { text: 'Staging operator checklist', link: '/docs/04-delivery/STAGING_OPERATOR_CHECKLIST' }
+      { text: 'Staging operator checklist', link: '/docs/04-delivery/STAGING_OPERATOR_CHECKLIST' },
+      { text: 'Staging candidate 2026-10-07', link: '/docs/04-delivery/STAGING_CANDIDATE_2026-10-07' },
+      { text: 'Staging candidate 2026-10-07', link: '/docs/04-delivery/STAGING_CANDIDATE_2026-10-07' }
     ]
   }
 ];
