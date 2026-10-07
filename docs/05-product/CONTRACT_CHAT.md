@@ -20,6 +20,7 @@ Current behavior:
 - contract lists expose an unread chat count derived from unread chat notification rows;
 - opening the chat marks only that contract's unread chat notifications as read;
 - dashboard contract cards show the unread count and, when no higher-priority financial action exists, open directly at the chat section;
+- older history loads in bounded 50-message pages using a contract-scoped `beforeId` cursor without disabling lightweight polling;
 - KZ/RU UI and session/rate-limit error states are included.
 
 ## Legal boundary
@@ -46,7 +47,7 @@ The chat therefore must never:
 
 Not required for the first chat release:
 
-- cursor pagination for older messages;
+- [x] cursor pagination for older messages;
 - WebSocket/SSE transport instead of polling;
 - evidence/document attachment references;
 - system messages for contract lifecycle events;
