@@ -35,8 +35,8 @@ Response:
 
 ```json
 {
-  "schemaVersion": 1,
-  "format": "QARYZLINK_ACCOUNT_DATA_EXPORT_V1",
+  "schemaVersion": 2,
+  "format": "QARYZLINK_ACCOUNT_DATA_EXPORT_V2",
   "generatedAt": "2026-09-30T00:00:00.000Z",
   "dataHash": "<sha256>",
   "data": {}
@@ -45,7 +45,7 @@ Response:
 
 `dataHash` canonical `data` object-ке ғана есептеледі. `generatedAt` hash-ке кірмейді, сондықтан бірдей selected state бірдей dataHash береді.
 
-## Current export scope
+## Current export scope (v2)
 
 ### Account
 
@@ -111,9 +111,20 @@ User payer немесе payee болып қатысатын payment-тер:
 
 Counterparty party ID export payload-қа кірмейді.
 
+### Authored contract-chat messages
+
+Тек current user's personal party өзі жазған contract-chat хабарламалары:
+
+- message ID;
+- contract ID;
+- body;
+- createdAt.
+
+Counterparty-authored message body export-қа кірмейді. Query backend-та `senderPartyId = current user's party` арқылы шектеледі.
+
 ## Explicit exclusions
 
-Current v1 export response intentionally does NOT contain:
+Current v2 export response intentionally does NOT contain:
 
 - internal userId немесе partyId;
 - passwordHash;
@@ -165,7 +176,8 @@ Audit payload тек:
 - schemaVersion;
 - dataHash;
 - contractCount;
-- paymentCount
+- paymentCount;
+- authoredMessageCount
 
 сақтайды.
 
@@ -183,7 +195,7 @@ Production privacy/legal scope review [Account data export privacy acceptance re
 
 ## Still pending
 
-V1 әдейі толық data-subject archive емес. Келесі legal/product review қажет:
+V2 әдейі толық data-subject archive емес. Келесі legal/product review қажет:
 
 - discovery requests/offers/applications/proposal history scope;
 - notifications scope;
