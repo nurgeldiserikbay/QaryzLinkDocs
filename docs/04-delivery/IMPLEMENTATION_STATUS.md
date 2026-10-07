@@ -4,19 +4,36 @@
 
 Бұл құжат specification мен нақты код арасындағы қысқа бақылау нүктесі. Толық талаптар өзгермейді; мұнда тек орындалу күйі көрсетіледі.
 
-## 2026-10-07 frozen staging candidate
+## 2026-10-07 frozen staging candidate #2
 
-A temporary Render + Neon + Vercel staging candidate is now pinned:
+The first 2026-10-07 staging candidate was superseded after further Front/Backend application changes.
 
-- Front: `bebe6089766dd693d6467830ac45d0b55a080cd6`;
-- Back: `a356c1377c132b9b317122ec09cde8e038a651dc`;
+Current frozen Render + Neon + Vercel candidate:
+
+- Front: `de4d220e52f36a67ef047137a1596156e814955c`;
+- Back: `07a742e759513e2eecd443c03c4c7c69f44180e1`;
 - Admin: `ea8f76674b72b6d0910ba69f967746d826da0cad`.
 
-All three application repositories were green on their current CI/security gates at freeze time, with zero open pull requests and zero open issues. The candidate includes the contract-chat unread/history/polling hardening and the Backend Render staging chat-boundary smoke.
+At freeze time all three application repositories had green CI/security gates and all four repositories had zero open pull requests/issues.
 
-This is a **staging acceptance candidate**, not production approval. Any application-code change invalidates the freeze and requires selecting new SHAs and rerunning acceptance.
+This candidate includes contract-chat unread/history/polling hardening, Render private-chat acceptance coverage and account own-data export v2 with authored-only chat content. Account data export remains default-off until privacy/legal acceptance.
 
-See [STAGING_CANDIDATE_2026-10-07.md](./STAGING_CANDIDATE_2026-10-07.md).
+This is a **staging acceptance candidate**, not production approval. Any further Front/Backend/Admin application change invalidates the freeze and requires a new exact candidate.
+
+See [STAGING_CANDIDATE_2026-10-07-02.md](./STAGING_CANDIDATE_2026-10-07-02.md).
+
+The earlier [STAGING_CANDIDATE_2026-10-07.md](./STAGING_CANDIDATE_2026-10-07.md) is retained as historical evidence only and must not be deployed as the current candidate.
+
+## 2026-10-07 privacy export v2 checkpoint
+
+Account own-data export advanced to schema v2:
+
+- deterministic JSON format is now `QARYZLINK_ACCOUNT_DATA_EXPORT_V2`;
+- export includes only contract-chat messages authored by the current user's own personal party;
+- counterparty-authored message text and counterparty PII remain excluded;
+- audit payload contains only schema/hash/count metadata, including authoredMessageCount;
+- Front Settings shows authored-message count and KZ/RU scope text;
+- chat body retention after account anonymization remains an explicit legal/privacy policy decision rather than an automatic destructive action.
 
 ## 2026-10-07 chat unread/history green checkpoint
 
