@@ -8,7 +8,7 @@ This page is a delivery status snapshot, not a product promise. It separates web
 
 ### Web / PWA
 
-Status: **release-candidate level**
+Status: **candidate rebuild required after security audit**
 
 Completed:
 
@@ -24,9 +24,13 @@ Completed:
 - private contract chat is implemented with unread counts, grouped read sync, bounded history pagination and privacy-safe notification deep-links;
 - account-data export v2 includes only the current user's authored contract-chat messages and excludes counterparty-authored chat text.
 
-Current frozen staging application candidate: `STAGING_CANDIDATE_2026-10-07_V2.md`.
+Previous staging candidate v2 is invalidated by the 2026-10-07 user-data storage security hardening. No new frozen candidate exists until the updated Backend CI + supply-chain checks are green.
 
 Remaining before a permanent public launch:
+
+- select/accept Kazakhstan-hosted personal-data storage and Backend processing infrastructure;
+- accept encryption-at-rest, backups and key-management policies;
+- freeze a replacement staging candidate only after the security-hardened Backend checks are green;
 
 - deploy and accept the exact frozen staging candidate across Render + Neon + Vercel;
 - run the manual `Release Preflight` workflow in strict mode against that environment and require the full frontend quality gate to pass;
@@ -38,7 +42,7 @@ Remaining before a permanent public launch:
 
 ## Backend
 
-Status: **implemented and deployment-ready, final production acceptance still required**
+Status: **security-hardened repository changes pending CI revalidation; production provider/residency acceptance required**
 
 The backend already contains the lending/obligation lifecycle, security controls and deployment work. The latest repository activity includes a build fix for Prisma generation and TypeScript build boundaries.
 
