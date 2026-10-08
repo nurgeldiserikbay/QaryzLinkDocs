@@ -123,7 +123,7 @@ External/provider controls that still require acceptance:
 - KMS/HSM/vault custody for PII keys;
 - evidence bucket encryption/IAM/lifecycle.
 
-See [User data storage security audit — 2026-10-07](./USER_DATA_STORAGE_SECURITY_AUDIT_2026-10-07.md).
+See [User data storage security audit — 2026-10-08](./USER_DATA_STORAGE_SECURITY_AUDIT_2026-10-08.md).
 
 ## 9. Audit
 
