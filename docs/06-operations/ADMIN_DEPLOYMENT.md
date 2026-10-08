@@ -35,14 +35,15 @@ Scoped support actions қосылса:
 SUPPORT_STAFF_TOKEN=<secret>
 ```
 
-Production Admin authentication:
+Production Admin authentication and mutation origin:
 
 ```text
 ADMIN_BASIC_AUTH_USER=<dedicated-admin-user>
 ADMIN_BASIC_AUTH_PASSWORD=<random-secret-at-least-32-bytes>
+ADMIN_SITE_ORIGIN=https://admin.qaryzlink.kz
 ```
 
-Production-та бұл credential жоқ немесе password 32 байттан қысқа болса, Admin proxy fail-closed күйінде console-ды ашпайды.
+Production-та бұл credential жоқ немесе password 32 байттан қысқа болса, Admin proxy fail-closed күйінде console-ды ашпайды. `ADMIN_SITE_ORIGIN` exact HTTPS origin болуы тиіс; server-action mutation cross-origin болса fail-closed тоқтайды.
 
 ## Critical boundary
 
@@ -58,6 +59,7 @@ Admin authentication credential-дары да server-only. Successful authentica
 corepack enable
 corepack prepare pnpm@12.4.2 --activate
 pnpm install --no-frozen-lockfile
+pnpm release:preflight:strict
 pnpm check
 pnpm build
 pnpm start
@@ -94,6 +96,8 @@ Marketplace/support mutation feature gate ашылғанда ғана scoped sta
 
 Production/pilot алдында:
 - production Basic Auth fail-closed behavior және 32-byte password requirement тексеру;
+- `ADMIN_SITE_ORIGIN` deployed Admin origin-мен дәл сәйкес екенін тексеру;
+- cross-origin server-action mutation reject болатынын тексеру;
 - authenticated response-та `Cache-Control: no-store` барын тексеру;
 - protected metrics server-side fetch тексеру;
 - browser bundle-де token жоқ екенін тексеру;
