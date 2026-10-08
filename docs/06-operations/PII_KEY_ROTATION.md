@@ -1,6 +1,6 @@
 # PII contact encryption key rotation
 
-Жаңартылған күні: 2026-09-26.
+Жаңартылған күні: 2026-10-08.
 
 Бұл runbook ADR-0026 бойынша user email/phone және active email-verification ciphertext үшін encryption key rotation процесін сипаттайды. Lookup HMAC key rotation бұл runbook scope-ына кірмейді, өйткені ол blind-index backfill талап етеді.
 
@@ -66,10 +66,12 @@ Old key-ді keyring-нен алып тастау үшін барлығы оры
 
 - re-encryption backlog `0/0`;
 - latest app version old key-ге жаңа writes жасамайды;
-- staging smoke login/profile/email notification/email verification paths өтеді;
+- new-key-only keyring арқылы migrated ciphertext decrypt болатыны regression/acceptance арқылы дәлелденген;
+- old ciphertext old key removed болғанда decrypt болмайтыны күтілетін fail-closed behavior ретінде тексерілген;
+- staging encrypted-mode smoke login/profile/session paths өтеді;
 - backup/restore rehearsal old key retention requirement-пен салыстырылған;
 - old-key decrypt usage жоқ екені расталған;
-- rollback window өткен.
+- rollback window және backup-retention window өткен.
 
 Backup retention ішінде old-key ciphertext болуы мүмкін болса, old key-ді backup expiry өткенге дейін сақтау қажет. Әйтпесе restore жасалған backup decrypt болмай қалуы мүмкін.
 
@@ -92,6 +94,6 @@ Plaintext compatibility mode-де metrics `enabled=false` қайтарады; б
 
 ## 8. Verification status
 
-Backend PR #137 manual bounded re-encryption command-ты, PR #138 aggregate rotation metrics-ті, PR #139 explicit enabled/disabled state-ті қосты. Admin PR #25 read-only backlog card қосты.
+Current implementation includes bounded re-encryption, aggregate key-rotation metrics, encrypted-mode staging acceptance and a new-key-only retirement invariant test. The retirement invariant proves that migrated ciphertext remains readable after the old key is removed and that old-key ciphertext fails closed without the retired key.
 
-GitHub Actions account free-quota/billing gate салдарынан осы өзгерістер automated CI арқылы әлі қайта тексерілген жоқ. Quota ашылғанда quality + compiled metrics smoke міндетті түрде орындалады.
+Production acceptance still requires a real staging rotation drill with the deployment secret store, backlog `0/0`, encrypted-mode auth smoke, backup/restore compatibility review, and an approved rollback/backup-retention window.
