@@ -4,6 +4,8 @@ Status: **invalidated / superseded pending security candidate v3**. User-data st
 
 This record supersedes the earlier 2026-10-07 staging candidate because Front and Backend application code changed after that freeze.
 
+It is itself superseded for future staging acceptance by the 2026-10-08 security-hardening work. A new candidate must be frozen only after the updated Backend CI/security checks can execute successfully.
+
 Do not use this candidate for new acceptance evidence. Security audit changes now require production encrypted PII mode, PostgreSQL TLS, KZ storage/processing residency governance, storage-encryption governance, sensitive notification-payload rejection, stronger password hashing and additional anonymization cleanup. A new candidate must be frozen only after the updated Backend CI/security checks are green.
 
 This is not production approval. It pins the exact application revisions that must be deployed together for the next staging acceptance cycle.
