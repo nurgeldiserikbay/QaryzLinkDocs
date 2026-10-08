@@ -1,6 +1,6 @@
 # Backup және restore runbook
 
-Жаңартылған күні: 2026-09-21.
+Жаңартылған күні: 2026-10-08.
 
 Бұл runbook PostgreSQL, object storage және application release деректерін жоғалтудан қорғау тәртібін сипаттайды. Нақты provider, retention, RPO және RTO адам review арқылы бекітілмейінше бұл құжат production backup орындалды дегенді білдірмейді.
 
@@ -67,7 +67,7 @@
 | Data discrepancy | PII-сыз сипаттама |
 | Reviewer | owner/reviewer |
 
-RPO және RTO нақты бизнес талабымен бекітілмейінше бос күйде қалады. Backup бар деген белгі restore drill-сыз жеткілікті acceptance болып саналмайды.
+RPO және RTO нақты бизнес талабымен бекітілмейінше бос күйде қалады. Олардың бекітілген мәндері, retention, backup custody және restore ownership versioned policy ішінде сақталады; production Backend сол policy-дің opaque reference-ін `BACKUP_RECOVERY_POLICY_ID` арқылы талап етеді. Backup бар деген белгі restore drill-сыз жеткілікті acceptance болып саналмайды.
 
 
 ## Encrypted contact restore rehearsal
