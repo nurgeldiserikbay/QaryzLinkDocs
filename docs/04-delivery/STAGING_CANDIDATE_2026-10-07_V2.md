@@ -2,7 +2,9 @@
 
 Status: **invalidated / superseded pending security candidate v3**. User-data storage security hardening changed Backend application code after this freeze.
 
-This record supersedes the earlier 2026-10-07 staging candidate because Front and Backend application code changed after that freeze.
+This record superseded the earlier 2026-10-07 staging candidate because Front and Backend application code changed after that freeze.
+
+It is now itself invalidated because subsequent security hardening changed Front/Backend application code. See [User data storage security audit — 2026-10-08](../03-security/USER_DATA_STORAGE_SECURITY_AUDIT_2026-10-08.md).
 
 It is itself superseded for future staging acceptance by the 2026-10-08 security-hardening work. A new candidate must be frozen only after the updated Backend CI/security checks can execute successfully.
 
