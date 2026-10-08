@@ -1,21 +1,26 @@
 # Final release handoff
 
-Жаңартылған күні: 2026-10-07
+Жаңартылған күні: 2026-10-08
 
 Бұл құжат QaryzLink repository-side production-readiness жұмыстары аяқталғаннан кейінгі handoff нүктесін бекітеді. Мұнда код репозиторийлерінде дайын болған tooling пен нақты staging/provider ортада әлі жиналуы тиіс evidence бөлек көрсетіледі.
 
 ## Repository-side status
 
-2026-10-03 жағдайы бойынша MVP implementation complete. Backend-та production-readiness tooling тізбегі Back #263–#268 арқылы аяқталды:
+2026-10-08 жағдайы бойынша MVP implementation және repository-side security/production hardening complete. Төрт repo-да open PR жоқ және TODO/FIXME/placeholder implementation gap табылған жоқ.
+
+Backend production-readiness tooling тізбегі release identity, migration/rollback, audit DB guards, backup/recovery governance, PII encryption/key retirement, supply-chain pinning және final approval schema v2-ге дейін hardening жасалды:
 
 - exact release commit + immutable image digest binding;
 - release-bound migration және rollback evidence;
 - in-cluster release preflight execution evidence;
 - aggregate staging platform acceptance;
 - release-bound external provider evidence validation;
-- final fail-closed release approval gate.
+- final fail-closed release approval gate;
+- final approval schema v2 recovery governance, incident readiness және secret-rotation evidence-ті explicit міндеттейді;
+- GitHub Actions external dependencies immutable commit SHA-ларға pin жасалған;
+- Kubernetes release command migration success болмай API rollout бастамайды.
 
-Front және Admin main branch-терінде typecheck/lint/unit/build, browser E2E және staging browser E2E workflow foundation бар. Final audit кезінде ашық PR немесе айқын TODO/FIXME implementation gap табылған жоқ.
+Front және Admin main branch-терінде Next.js 16.3.8 security release, strict nonce CSP/HSTS, strict release preflight, browser E2E және immutable GitHub Actions pins бар. Docs workflow да immutable action pins-пен қорғалған.
 
 Docs осы құжат арқылы соңғы operator handoff contract-ты бекітеді.
 
@@ -36,7 +41,7 @@ These additions do not replace any real-environment/provider/legal gate below. S
 
 Staging candidate v2 and its execution sheet are **invalidated** by the 2026-10-07 user-data storage security hardening. They remain historical records only. Do not create new acceptance evidence from them.
 
-A replacement candidate/execution sheet must be frozen only after the updated Backend CI and supply-chain checks are green.
+A replacement candidate/execution sheet must be frozen only after the updated Back/Front/Admin/Docs CI and supply-chain checks are green. Current GitHub Actions account quota/billing gate reruns-ды blocked күйде ұстап тұр; бұл code defect evidence емес, бірақ жаңа candidate freeze-ге дейін rerun міндетті.
 
 ## Release candidate freeze
 
