@@ -103,11 +103,16 @@ Required production values:
 | `QARYZLINK_API_BASE_URL` | Exact HTTPS backend origin, server-only |
 | `METRICS_ACCESS_TOKEN` | Server-only protected metrics credential |
 | `SUPPORT_STAFF_TOKEN` | Server-only scoped staff credential |
+| `ADMIN_BASIC_AUTH_USER` | Required production admin username |
+| `ADMIN_BASIC_AUTH_PASSWORD` | Required production admin password; at least 32 bytes |
 
 Rules:
 
 - never expose server credentials under `NEXT_PUBLIC_*`;
 - operator credentials must be scoped and revocable;
+- Admin proxy fails closed in production if Basic Auth credentials are missing or the password is shorter than 32 bytes;
+- authenticated admin responses are `Cache-Control: no-store`;
+- Basic Auth is an interim gate; a managed staff identity/SSO boundary is preferred for broader operational use;
 - production admin origin must be included in backend CORS only if browser-origin access is actually required.
 
 ## Secret ownership
@@ -131,7 +136,7 @@ Store secrets in the deployment platform secret manager, not in Git:
 2. Configure production database and Redis.
 3. Configure backend core runtime secrets.
 4. Deploy backend and run migrations.
-5. Verify backend health/metrics.
+5. Verify backend health/metrics and confirm the production API returns HSTS.
 6. Configure final frontend/admin origins and backend CORS.
 7. Deploy Front and Admin.
 8. Run strict Front release preflight.
