@@ -40,6 +40,7 @@ Required for a normal production deployment:
 | `PERSONAL_DATA_STORAGE_COUNTRY` | Must be `KZ` in production |
 | `PERSONAL_DATA_PROCESSING_COUNTRY` | Must be `KZ` in production |
 | `PERSONAL_DATA_RESIDENCY_POLICY_ID` | Versioned reviewed KZ residency policy reference |
+| `BACKUP_RECOVERY_POLICY_ID` | Versioned approved backup/recovery policy reference containing RPO/RTO, retention, custody and restore ownership |
 | `PERSONAL_DATA_STORAGE_ENCRYPTION_POLICY_ID` | Versioned reviewed at-rest encryption policy reference |
 | `REDIS_URL` | Production Redis connection string |
 | `JWT_ACCESS_SECRET` | Strong random secret, minimum policy enforced by backend |
