@@ -26,6 +26,10 @@ Completed:
 
 Previous staging candidate v2 is invalidated by the 2026-10-07 user-data storage security hardening. No new frozen candidate exists until the updated Backend CI + supply-chain checks are green.
 
+Current private QaryzLinkBack/QaryzLinkFront GitHub Actions runs are setup-level blocked by the private-repository Actions quota/billing condition; rerun CI and supply-chain checks after quota is restored.
+
+See [User data storage security audit — 2026-10-08](../03-security/USER_DATA_STORAGE_SECURITY_AUDIT_2026-10-08.md).
+
 Remaining before a permanent public launch:
 
 - select/accept Kazakhstan-hosted personal-data storage and Backend processing infrastructure;
