@@ -1,16 +1,21 @@
 # Release evidence template
 
-Use this record for staging/production acceptance. Store metadata only; never copy raw secret values.
+Use this record for staging acceptance and production-promotion approval. Store metadata only; never copy raw secret values.
+
+Final Backend approval uses artifact schema version **2**.
 
 ## Release identity
 
 ```text
-environment=staging|production
+environment=staging
 accepted_at=<ISO-8601>
 front_commit_sha=<sha>
 admin_commit_sha=<sha>
 backend_commit_sha=<sha>
 backend_image_digest=sha256:<digest-or-n/a>
+backup_recovery_policy_id=<opaque-versioned-id>
+incident_response_owner_ref=<opaque-owner-or-roster-ref>
+secret_rotation_acceptance_ref=<opaque-evidence-ref-or-pending>
 ```
 
 ## Origins
@@ -121,9 +126,26 @@ account_data_export_policy_review=accepted|pending|n/a
 ```text
 monitoring=accepted|pending
 backup_restore=accepted|pending
+backup_recovery_policy=accepted|pending
 incident_runbook=accepted|pending
+incident_owner_escalation=accepted|pending
+secret_rotation_drill=accepted|pending
 rollback_plan=accepted|pending
 ```
+
+Final approval schema v2 maps these to mandatory gates/evidence references:
+
+```text
+gate.recoveryGovernance=true
+gate.incidentReadiness=true
+gate.secretRotation=true
+
+evidenceRef.recoveryGovernance=<metadata-only-ref>
+evidenceRef.incidentReadiness=<metadata-only-ref>
+evidenceRef.secretRotation=<metadata-only-ref>
+```
+
+For the final production-promotion approval, this record represents the frozen **staging release candidate** and must use `environment=staging`. Production promotion is the decision made from that release-bound staging evidence; it is not a second copy of the same approval record with `environment=production`.
 
 ## Notes
 
