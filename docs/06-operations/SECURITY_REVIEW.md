@@ -12,6 +12,8 @@
 - [ ] repo, image, logs және browser bundle ішінде secret жоқ;
 - [ ] departed/unused access revoked;
 - [ ] admin console production auth fail-closed және password кемінде 32 байт;
+- [ ] `ADMIN_SITE_ORIGIN` exact HTTPS және mutation-origin guard acceptance жасалған;
+- [ ] strict Admin release preflight passed;
 - [ ] authenticated Admin responses no-store;
 - [ ] admin console identity-level feed және mutation әдепкіде өшірулі.
 
@@ -24,7 +26,8 @@
 - [ ] Swagger production-та жабық;
 - [ ] exact CORS allowlist және trusted-proxy topology review жасалған;
 - [ ] production API HSTS тексерілген;
-- [ ] Front strict nonce CSP browser/E2E арқылы тексерілген.
+- [ ] Front/Admin HSTS тексерілген;
+- [ ] Front/Admin strict nonce CSP browser/E2E арқылы тексерілген.
 
 ## Data
 
@@ -35,10 +38,12 @@
 - [ ] evidence storage private және malware-gated;
 - [ ] logs/support tickets data-minimized;
 - [ ] audit_events UPDATE/DELETE DB деңгейінде бұғатталған;
+- [ ] audit payload sensitive-key INSERT guard migration applied;
 - [ ] audit payload privacy review жаңа writer-лер үшін орындалған.
 
 ## Supply chain
 
+- [ ] Front/Admin Next.js 16.3.8 security release deployed;
 - [ ] dependency high/critical audit green;
 - [ ] secret scan green;
 - [ ] container HIGH/CRITICAL scan green;

@@ -39,7 +39,11 @@ Important repository fixes confirmed or added during this review:
 12. API responses are globally no-store and production API responses use HSTS;
 13. Front production CSP uses per-request nonces and strict-dynamic instead of script unsafe-inline;
 14. audit_events is append-only at the PostgreSQL boundary;
-15. Admin is protected by a fail-closed authentication gate; production admin passwords must be at least 32 bytes and authenticated responses are no-store.
+15. Admin is protected by a fail-closed authentication gate; production admin passwords must be at least 32 bytes and authenticated responses are no-store;
+16. audit payload INSERTs are rejected at the database boundary when common sensitive keys are present, including nested JSON;
+17. legacy scrypt hashes from the exact historical profile are transparently rehashed to the current profile after successful login;
+18. account deletion now closes active discovery/invite/notification surfaces while preserving contractual retention holds;
+19. Front and Admin are pinned to Next.js 16.3.8, the current stable security release.
 
 ## Release status
 
@@ -73,8 +77,8 @@ Do not interpret the setup-level workflow failures as proof that application tes
 | HIGH | Domain content such as chat/dispute/display name/financial details remains logical plaintext in PostgreSQL | Requires accepted provider encryption/IAM or separate field-encryption design |
 | MEDIUM/HIGH | Browser refresh token is JavaScript-readable in sessionStorage; successful XSS could steal it | Residual architecture risk; strict nonce CSP now reduces exposure |
 | MEDIUM | Raw PII encryption keys are supplied to application runtime | KMS/HSM/vault custody pending |
-| MEDIUM | AuditEvent.payload is generic JSON without the same centralized privacy guard as notifications | Central audit privacy helper pending |
-| MEDIUM | Stored password hashes that do not match the approved scrypt profile are rejected | Operational reset/migration plan required if legacy hashes exist |
+| MEDIUM | AuditEvent.payload is generic JSON and can still contain allowed operational metadata | Database sensitive-key guard fixed; writer review remains required |
+| MEDIUM | Historical password hashes used a lower scrypt work factor | Fixed: exact legacy profile accepted only for verification, then transparently rehashed |
 | MEDIUM | Exact legal retention periods remain unresolved | Legal/privacy review pending |
 | EXTERNAL | Backup/PITR and object-storage encryption/residency evidence | Provider acceptance pending |
 | EXTERNAL | Independent penetration test | Pending before broad public launch |
@@ -178,7 +182,7 @@ Current password storage:
 
 Passwords are never stored plaintext or reversibly encrypted.
 
-Verifier now accepts only the approved scrypt parameter profile and valid salt/hash lengths. If any legacy hashes exist from an older profile, migrate them or force a bounded password reset before production rollout rather than weakening verification.
+Verifier accepts the current approved scrypt profile plus the single known historical profile (N=16384, r=8, p=1). Arbitrary or oversized stored parameters are rejected. A successful login using the historical profile immediately rehashes the password to the current N=32768, r=8, p=3 profile.
 
 ## 5. Session/token storage
 
@@ -308,10 +312,15 @@ Current anonymization removes or disables:
 - email verification;
 - password-reset challenge;
 - discovery/idempotency commands;
-- push subscriptions;
+- push subscriptions and all notification preferences;
 - risk access;
 - repayment metrics;
-- public/search/analytics notification settings.
+- public/search/analytics notification settings;
+- active/private discovery requests and offers;
+- unredeemed invite access;
+- pending proposals, counters and offer applications.
+
+Deletion remains on retention hold while an active contract exists or an accepted proposal has not yet been materialized into a contract.
 
 Retained structures such as contracts/payments/audit/chat/disputes/evidence require legal retention decisions.
 
@@ -330,11 +339,9 @@ Reviewed support audit payloads retain metadata (status/reason/actor IDs) rather
 
 Database integrity hardening now makes `audit_events` append-only by rejecting UPDATE and DELETE through a PostgreSQL trigger.
 
-Residual design gap:
+AuditEvent payload inserts are additionally guarded at the PostgreSQL boundary. Common sensitive keys such as contact data, token material, signed URLs, message/body content, ciphertext and private-key material are rejected recursively, including nested arrays/objects.
 
-`AuditEvent.payload` is generic JSON and does not currently share the notification payload's centralized sensitive-key/value guard.
-
-Recommendation: put new audit writers behind a privacy-safe audit service/helper. For stronger tamper evidence against privileged database operators, add an external append-only archive or cryptographic chaining.
+The payload remains generic JSON for privacy-safe operational metadata, so new audit writers still require review. For stronger tamper evidence against privileged database operators, add an external append-only archive or cryptographic chaining.
 
 ## 13. Logging
 
@@ -422,11 +429,10 @@ independent_security_review=pass
 Additional strongly recommended hardening before broader public launch:
 
 - MFA/passkeys/TOTP;
-- strict CSP migration;
-- audit-payload privacy guard;
-- legacy password rehash;
 - penetration test;
-- KMS/HSM key custody.
+- external tamper-evident audit archive or cryptographic chaining;
+- KMS/HSM key custody;
+- server-managed HttpOnly refresh-session architecture if the threat model requires stronger XSS resistance.
 
 ## 18. CI verification note
 

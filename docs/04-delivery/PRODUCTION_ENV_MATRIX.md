@@ -105,12 +105,15 @@ Required production values:
 | `SUPPORT_STAFF_TOKEN` | Server-only scoped staff credential |
 | `ADMIN_BASIC_AUTH_USER` | Required production admin username |
 | `ADMIN_BASIC_AUTH_PASSWORD` | Required production admin password; at least 32 bytes |
+| `ADMIN_SITE_ORIGIN` | Exact production Admin HTTPS origin; required for server-action mutation origin checks |
 
 Rules:
 
 - never expose server credentials under `NEXT_PUBLIC_*`;
 - operator credentials must be scoped and revocable;
 - Admin proxy fails closed in production if Basic Auth credentials are missing or the password is shorter than 32 bytes;
+- `ADMIN_SITE_ORIGIN` must be an exact HTTPS origin and must match the deployed Admin site;
+- production server-action mutations reject cross-origin requests before using server-held support credentials;
 - authenticated admin responses are `Cache-Control: no-store`;
 - Basic Auth is an interim gate; a managed staff identity/SSO boundary is preferred for broader operational use;
 - production admin origin must be included in backend CORS only if browser-origin access is actually required.
@@ -140,9 +143,10 @@ Store secrets in the deployment platform secret manager, not in Git:
 6. Configure final frontend/admin origins and backend CORS.
 7. Deploy Front and Admin.
 8. Run strict Front release preflight.
-9. Run staging/production smoke/acceptance.
-10. Enable only explicitly approved feature gates.
-11. Record deployed commit SHAs, image digest and final environment profile in release evidence.
+9. Run strict Admin release preflight.
+10. Run staging/production smoke/acceptance.
+11. Enable only explicitly approved feature gates.
+12. Record deployed commit SHAs, image digest and final environment profile in release evidence.
 
 ## Environment evidence rule
 
