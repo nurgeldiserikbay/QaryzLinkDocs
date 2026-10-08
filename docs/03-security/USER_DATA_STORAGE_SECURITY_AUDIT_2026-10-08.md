@@ -34,9 +34,12 @@ Important repository fixes confirmed or added during this review:
 7. log privacy scanning detects phone PII with context-aware matching;
 8. account anonymization removes ephemeral reset/idempotency/push data;
 9. expired sessions are cleaned by retention maintenance;
-10. new password hashes use stronger scrypt parameters;
+10. login timing is equalized for missing/inactive accounts and stored scrypt parameters are strictly validated;
 11. account export v2 keeps only self-authored contract-chat text;
-12. API responses are globally no-store and authenticated dashboard pages are noindex/nocache.
+12. API responses are globally no-store and production API responses use HSTS;
+13. Front production CSP uses per-request nonces and strict-dynamic instead of script unsafe-inline;
+14. audit_events is append-only at the PostgreSQL boundary;
+15. Admin is protected by a fail-closed authentication gate; production admin passwords must be at least 32 bytes and authenticated responses are no-store.
 
 ## Release status
 
@@ -68,11 +71,10 @@ Do not interpret the setup-level workflow failures as proof that application tes
 | HIGH | Render staging previously defaulted PII storage to plaintext | Fixed; encrypted mode now requires explicit key material |
 | HIGH | Production DB transport could previously be configured without explicit TLS | Fixed fail-closed |
 | HIGH | Domain content such as chat/dispute/display name/financial details remains logical plaintext in PostgreSQL | Requires accepted provider encryption/IAM or separate field-encryption design |
-| MEDIUM/HIGH | Browser refresh token is JavaScript-readable in sessionStorage; XSS could steal it | Residual architecture risk |
-| MEDIUM | Front production CSP still allows inline scripts | Strict nonce/hash CSP design pending |
+| MEDIUM/HIGH | Browser refresh token is JavaScript-readable in sessionStorage; successful XSS could steal it | Residual architecture risk; strict nonce CSP now reduces exposure |
 | MEDIUM | Raw PII encryption keys are supplied to application runtime | KMS/HSM/vault custody pending |
 | MEDIUM | AuditEvent.payload is generic JSON without the same centralized privacy guard as notifications | Central audit privacy helper pending |
-| MEDIUM | Legacy scrypt hashes require transparent rehash/reset strategy | Pending |
+| MEDIUM | Stored password hashes that do not match the approved scrypt profile are rejected | Operational reset/migration plan required if legacy hashes exist |
 | MEDIUM | Exact legal retention periods remain unresolved | Legal/privacy review pending |
 | EXTERNAL | Backup/PITR and object-storage encryption/residency evidence | Provider acceptance pending |
 | EXTERNAL | Independent penetration test | Pending before broad public launch |
@@ -176,7 +178,7 @@ Current password storage:
 
 Passwords are never stored plaintext or reversibly encrypted.
 
-Older hashes may retain lower legacy work factors. Add transparent rehash after successful login or a bounded reset policy.
+Verifier now accepts only the approved scrypt parameter profile and valid salt/hash lengths. If any legacy hashes exist from an older profile, migrate them or force a bounded password reset before production rollout rather than weakening verification.
 
 ## 5. Session/token storage
 
@@ -213,17 +215,14 @@ Current response protections include:
 - DENY framing;
 - restrictive permissions policy;
 - Cross-Origin-Opener-Policy;
-- poweredByHeader disabled.
+- poweredByHeader disabled;
+- a per-request CSP nonce;
+- `script-src 'self' 'nonce-…' 'strict-dynamic'` in production;
+- `unsafe-eval` only in development.
 
-Residual production CSP contains:
+Production no longer relies on `script-src 'unsafe-inline'`.
 
-```text
-script-src 'self' 'unsafe-inline'
-```
-
-Do not remove blindly because Next.js runtime may require nonce integration.
-
-Design a nonce/hash based strict CSP and validate hydration/build/browser E2E before public release.
+Residual risk remains because access/refresh tokens are JavaScript-readable in sessionStorage. Keep browser E2E/CSP regression coverage and evaluate a future server-managed refresh-session design if the threat model requires stronger XSS resistance.
 
 ## 7. Browser/PWA cache behavior
 
@@ -329,11 +328,13 @@ Support credential registry uses:
 
 Reviewed support audit payloads retain metadata (status/reason/actor IDs) rather than raw contact/chat/document content.
 
+Database integrity hardening now makes `audit_events` append-only by rejecting UPDATE and DELETE through a PostgreSQL trigger.
+
 Residual design gap:
 
 `AuditEvent.payload` is generic JSON and does not currently share the notification payload's centralized sensitive-key/value guard.
 
-Recommendation: put new audit writers behind a privacy-safe audit service/helper.
+Recommendation: put new audit writers behind a privacy-safe audit service/helper. For stronger tamper evidence against privileged database operators, add an external append-only archive or cryptographic chaining.
 
 ## 13. Logging
 
