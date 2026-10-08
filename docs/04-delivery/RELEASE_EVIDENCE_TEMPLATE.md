@@ -1,6 +1,8 @@
 # Release evidence template
 
-Use this record for staging/production acceptance. Store metadata only; never copy raw secret values.
+Use this record for staging acceptance and production-promotion approval. Store metadata only; never copy raw secret values.
+
+Final Backend approval uses artifact schema version **2**.
 
 ## Release identity
 
@@ -129,6 +131,18 @@ incident_runbook=accepted|pending
 incident_owner_escalation=accepted|pending
 secret_rotation_drill=accepted|pending
 rollback_plan=accepted|pending
+```
+
+Final approval schema v2 maps these to mandatory gates/evidence references:
+
+```text
+gate.recoveryGovernance=true
+gate.incidentReadiness=true
+gate.secretRotation=true
+
+evidenceRef.recoveryGovernance=<metadata-only-ref>
+evidenceRef.incidentReadiness=<metadata-only-ref>
+evidenceRef.secretRotation=<metadata-only-ref>
 ```
 
 For the final production-promotion approval, this record represents the frozen **staging release candidate** and must use `environment=staging`. Production promotion is the decision made from that release-bound staging evidence; it is not a second copy of the same approval record with `environment=production`.
