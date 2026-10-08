@@ -1,5 +1,7 @@
 # Staging execution sheet — candidate v2
 
+Status: **invalidated** by the 2026-10-08 user-data storage security hardening cycle. Keep for history only; do not execute against current main.
+
 Status: **invalidated / historical only**. Do not execute this sheet for new acceptance. Backend security hardening after candidate v2 requires a new candidate and execution sheet after CI/security checks are green.
 
 Use this sheet only for the frozen staging candidate:
