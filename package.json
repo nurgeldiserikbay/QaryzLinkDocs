@@ -10,7 +10,7 @@
     "docs:dev": "vitepress dev",
     "docs:build": "vitepress build",
     "docs:preview": "vitepress preview",
-    "check": "pnpm docs:build"
+    "check": "node scripts/check-workflow-pins.mjs && pnpm docs:build"
   },
   "devDependencies": {
     "vitepress": "1.6.4"
