@@ -1,6 +1,6 @@
 # Operational security review
 
-Жаңартылған күні: 2026-09-26.
+Жаңартылған күні: 2026-10-08.
 
 Бұл checklist release алдындағы human security review үшін. Ол automated CI gate-терді толықтырады.
 
@@ -11,6 +11,8 @@
 - [ ] metrics/scanner/SMTP credentials secret store ішінде;
 - [ ] repo, image, logs және browser bundle ішінде secret жоқ;
 - [ ] departed/unused access revoked;
+- [ ] admin console production auth fail-closed және password кемінде 32 байт;
+- [ ] authenticated Admin responses no-store;
 - [ ] admin console identity-level feed және mutation әдепкіде өшірулі.
 
 ## Application boundary
@@ -20,7 +22,9 @@
 - [ ] rate limits shared backend state қолданады;
 - [ ] request body limit bounded;
 - [ ] Swagger production-та жабық;
-- [ ] exact CORS allowlist және trusted-proxy topology review жасалған.
+- [ ] exact CORS allowlist және trusted-proxy topology review жасалған;
+- [ ] production API HSTS тексерілген;
+- [ ] Front strict nonce CSP browser/E2E арқылы тексерілген.
 
 ## Data
 
@@ -29,7 +33,9 @@
 - [ ] account deletion anonymization expected fields-ті ғана сақтайды;
 - [ ] backups encrypted және restore access шектелген;
 - [ ] evidence storage private және malware-gated;
-- [ ] logs/support tickets data-minimized.
+- [ ] logs/support tickets data-minimized;
+- [ ] audit_events UPDATE/DELETE DB деңгейінде бұғатталған;
+- [ ] audit payload privacy review жаңа writer-лер үшін орындалған.
 
 ## Supply chain
 

@@ -35,11 +35,22 @@ Scoped support actions қосылса:
 SUPPORT_STAFF_TOKEN=<secret>
 ```
 
+Production Admin authentication:
+
+```text
+ADMIN_BASIC_AUTH_USER=<dedicated-admin-user>
+ADMIN_BASIC_AUTH_PASSWORD=<random-secret-at-least-32-bytes>
+```
+
+Production-та бұл credential жоқ немесе password 32 байттан қысқа болса, Admin proxy fail-closed күйінде console-ды ашпайды.
+
 ## Critical boundary
 
 `METRICS_ACCESS_TOKEN` және `SUPPORT_STAFF_TOKEN` ешқашан `NEXT_PUBLIC_` prefix-пен берілмейді.
 
 Олар server-only environment ішінде қалады.
+
+Admin authentication credential-дары да server-only. Successful authenticated Admin response-тар `Cache-Control: no-store` арқылы browser/CDN cache-ке түспеуі тиіс.
 
 ## Build
 
@@ -57,7 +68,7 @@ pnpm start
 Admin үшін ұсынылатын модель:
 
 - бөлек subdomain;
-- VPN/SSO/IP allowlist немесе trusted access proxy;
+- қазіргі Basic Auth gate-тің үстіне VPN/SSO/IP allowlist немесе trusted access proxy;
 - Backend internal/protected endpoints public browser ingress-тен бөлек;
 - metrics/support routes restricted;
 - public indexing өшірулі.
@@ -82,6 +93,8 @@ Marketplace/support mutation feature gate ашылғанда ғана scoped sta
 ## Acceptance
 
 Production/pilot алдында:
+- production Basic Auth fail-closed behavior және 32-byte password requirement тексеру;
+- authenticated response-та `Cache-Control: no-store` барын тексеру;
 - protected metrics server-side fetch тексеру;
 - browser bundle-де token жоқ екенін тексеру;
 - restricted-origin access;
