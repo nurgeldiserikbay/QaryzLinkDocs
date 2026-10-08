@@ -1,6 +1,6 @@
 # Incident response runbook
 
-Жаңартылған күні: 2026-09-26.
+Жаңартылған күні: 2026-10-08.
 
 Бұл runbook QaryzLink staging/public pilot кезеңіндегі техникалық және security incident-терге арналған. Ол нақты on-call провайдерін немесе заңдық міндеттемені алмастырмайды; жауапты адам мен байланыс арналары owner тарапынан release алдында бекітіледі.
 
@@ -44,6 +44,20 @@ Recovery алдында:
 - affected integration smoke test орындалған.
 
 Traffic бірден толық ашылмайды; алдымен staging/canary acceptance жасалады.
+
+## 4.1 Personal-data breach notification clock
+
+Персоналдық деректердің қауіпсіздігін бұзу күдігі SEV-1 ретінде қаралады.
+
+Қазақстандағы current regulatory baseline бойынша уәкілетті органға breach анықталған сәттен бастап **бір жұмыс күні ішінде** хабарлау міндеті қолданылуы мүмкін. Сондықтан incident owner:
+
+1. detection timestamp-ты UTC және local time-мен бекітеді;
+2. affected data categories мен approximate subject count-ты metadata-only түрде бағалайды;
+3. legal/privacy owner-ға дереу escalation жасайды;
+4. бір жұмыс күнілік notification clock-ты өткізіп алмау үшін regulator-notification decision-ды incident timeline-ға енгізеді;
+5. хабарламаға password/token/raw evidence/full contact list қоспайды.
+
+Бұл runbook заңгердің қорытындысын алмастырмайды; нақты notification content/recipient qualified Kazakhstan privacy/legal review арқылы бекітіледі.
 
 ## 5. Communication
 
