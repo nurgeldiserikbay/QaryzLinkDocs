@@ -35,6 +35,7 @@ const kkSidebar = [
       { text: 'Contract chat', link: '/docs/05-product/CONTRACT_CHAT' },
       { text: 'Mobile convenience & reminders', link: '/docs/05-product/MOBILE_CONVENIENCE' },
       { text: 'Privacy & security', link: '/docs/03-security/PRIVACY_SECURITY' },
+      { text: 'User data storage audit 2026-10-08', link: '/docs/03-security/USER_DATA_STORAGE_SECURITY_AUDIT_2026-10-08' },
       { text: 'Trust & risk analytics', link: '/docs/03-security/TRUST_RISK_ANALYTICS' },
       { text: 'Operations portal', link: '/docs/06-operations/DEPLOYMENT_PORTAL' },
       { text: 'Final release handoff', link: '/docs/06-operations/FINAL_RELEASE_HANDOFF' },
