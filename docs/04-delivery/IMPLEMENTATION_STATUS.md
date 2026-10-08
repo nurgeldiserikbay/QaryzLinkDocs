@@ -53,6 +53,18 @@ Completed in this slice:
 - older-history UI with preserved scroll position while lightweight polling continues;
 - staging operator checklist aligned with the Render Blueprint runtime/secrets/default-off gates.
 
+## 2026-10-08 user-data storage security audit
+
+A full repository review of user-data storage/security was performed across Backend, Front/PWA, evidence storage, notifications, export/deletion, logs, backups, residency and release controls.
+
+Repository hardening includes production encrypted contact-PII enforcement, production PostgreSQL TLS, KZ storage/processing governance gates, context-aware phone PII log detection, sensitive notification payload rejection, stronger scrypt hashes, expanded anonymization cleanup and encrypted Render staging contact storage.
+
+The prior staging candidate v2 is invalid because these changes modified application code after the freeze.
+
+Current private Front/Back GitHub Actions runs stop at setup level without job steps; project operations history already records a private Actions quota/billing gate. Security-hardened revisions are therefore repository-reviewed but must be treated as CI/supply-chain **unverified** until the private runner quota is restored and checks are rerun.
+
+See [User data storage security audit — 2026-10-08](../03-security/USER_DATA_STORAGE_SECURITY_AUDIT_2026-10-08.md).
+
 ## 2026-10-07 staging candidate v2 checkpoint
 
 A new exact staging candidate was frozen after the chat unread/history hardening and account-data export v2 changes invalidated the earlier candidate.
