@@ -10,6 +10,9 @@ Use this checklist when creating the temporary Render + Neon + Vercel staging en
 - [ ] Confirm `qaryzlink-cache` uses the free plan.
 - [ ] Confirm Blueprint sets `NODE_ENV=staging`, `HOST=0.0.0.0` and reviewed `TRUST_PROXY_HOPS=0`.
 - [ ] Confirm `REDIS_URL` is bound from `qaryzlink-cache` by Blueprint, not copied into docs or chat.
+- [ ] Confirm `PII_CONTACT_STORAGE_MODE=encrypted` for any staging environment that stores user contact data.
+- [ ] Configure `PII_ACTIVE_KEY_ID`, `PII_ENCRYPTION_KEYRING_JSON` and `PII_LOOKUP_KEY_BASE64` through the secret manager/Render environment; never place key material in Docs, issues, chat or release evidence.
+- [ ] Do not use plaintext/dual contact PII mode for a production candidate.
 - [ ] Enter Neon `DATABASE_URL`.
 - [ ] Enter exact `CORS_ALLOWED_ORIGINS`.
 - [ ] Confirm Render generated `JWT_ACCESS_SECRET`.
