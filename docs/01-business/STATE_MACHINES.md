@@ -21,19 +21,35 @@ stateDiagram-v2
 
 ## 2. BorrowerRequest
 
+### Current private pilot lifecycle
+
+~~~mermaid
+stateDiagram-v2
+    [*] --> ACTIVE: create private request
+    ACTIVE --> MATCHED: one proposal accepted
+    ACTIVE --> EXPIRED: expiry reached
+    ACTIVE --> CANCELLED: owner closes/deletion lifecycle
+    MATCHED --> CANCELLED: superseded/closed lifecycle where applicable
+~~~
+
+Current private request is created as `ACTIVE + INVITE_ONLY`; there is no separate publish/review step. `MATCHED` only means one concrete Proposal was accepted. Contract drafting, signing and funding remain separate stages.
+
+### Future public-request lifecycle
+
+A richer public borrower-request product may later use a publication lifecycle such as:
+
 ~~~mermaid
 stateDiagram-v2
     [*] --> DRAFT
-    DRAFT --> PUBLISHED
-    PUBLISHED --> PAUSED
-    PAUSED --> PUBLISHED
-    PUBLISHED --> MATCHED
-    PUBLISHED --> EXPIRED
-    PUBLISHED --> CLOSED
-    MATCHED --> CLOSED: contract selected
+    DRAFT --> ACTIVE: publish after legal/product gate
+    ACTIVE --> PAUSED
+    PAUSED --> ACTIVE
+    ACTIVE --> MATCHED
+    ACTIVE --> EXPIRED
+    ACTIVE --> CANCELLED
 ~~~
 
-MATCHED тек proposal барын білдіреді, қарыз берілгенін білдірмейді.
+This future public flow is not the canonical pilot behavior until its API/UI/legal gates are implemented.
 
 ## 3. Application / Proposal
 
