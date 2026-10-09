@@ -20,11 +20,20 @@ flowchart TD
 
 ## 3. Табу арналары
 
-- Public User ID;
-- жеке invitation link/QR/email/phone;
-- LenderOffer жарияланымы;
-- BorrowerRequest жарияланымы;
-- бұрыннан бар Relationship.
+### Current pilot
+
+- exact Public ID арқылы private invite;
+- one-time private invitation link / QR;
+- existing invite-only request relationship.
+
+Current pilot UI email/phone contact lookup жасамайды. `searchableByContact` data/privacy capability future contact discovery үшін ғана reserved және user-facing contact search ретінде қарастырылмауы тиіс.
+
+### Future gated channels
+
+- public LenderOffer marketplace;
+- richer/public BorrowerRequest publication;
+- contact-based discovery;
+- broader relationship graph.
 
 Ашық іздеу мен matching production-да тек Қазақстан бойынша legal gate өткеннен кейін қосылады.
 
