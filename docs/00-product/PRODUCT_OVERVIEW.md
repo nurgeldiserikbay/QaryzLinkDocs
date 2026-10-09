@@ -20,13 +20,20 @@ flowchart TD
 
 ## 3. Табу арналары
 
-- Public User ID;
-- жеке invitation link/QR/email/phone;
-- LenderOffer жарияланымы;
-- BorrowerRequest жарияланымы;
-- бұрыннан бар Relationship.
+### Current pilot
 
-Ашық іздеу мен matching production-да тек Қазақстан бойынша legal gate өткеннен кейін қосылады.
+- exact Public User ID арқылы private invite;
+- бір реттік private invitation link/QR;
+- existing private request → lender proposal flow.
+
+### Feature-gated / future
+
+- public LenderOffer marketplace;
+- public BorrowerRequest publication;
+- email/phone contact discovery;
+- persistent Relationship graph.
+
+Ашық іздеу, contact discovery және matching production-да тек Қазақстан бойынша legal/privacy gate өткеннен кейін қосылады.
 
 ## 4. Пайдаланушы рөлдері
 
