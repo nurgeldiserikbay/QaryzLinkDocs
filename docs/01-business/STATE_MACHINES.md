@@ -21,19 +21,24 @@ stateDiagram-v2
 
 ## 2. BorrowerRequest
 
+### Current pilot private request
+
 ~~~mermaid
 stateDiagram-v2
-    [*] --> DRAFT
-    DRAFT --> PUBLISHED
-    PUBLISHED --> PAUSED
-    PAUSED --> PUBLISHED
-    PUBLISHED --> MATCHED
-    PUBLISHED --> EXPIRED
-    PUBLISHED --> CLOSED
-    MATCHED --> CLOSED: contract selected
+    [*] --> ACTIVE: create private request
+    ACTIVE --> MATCHED: borrower accepts concrete proposal
+    ACTIVE --> EXPIRED: expiry reached
+    ACTIVE --> CANCELLED: borrower cancels
+    MATCHED --> [*]
+    EXPIRED --> [*]
+    CANCELLED --> [*]
 ~~~
 
-MATCHED тек proposal барын білдіреді, қарыз берілгенін білдірмейді.
+Current implementation request-ті `ACTIVE + INVITE_ONLY` күйінде жасайды. `MATCHED` тек accepted proposal барын білдіреді; қарыз берілгенін білдірмейді.
+
+### Future public borrower publication
+
+Public borrower marketplace қосылғанда DRAFT/PUBLISH/PAUSE сияқты publication lifecycle бөлек state machine ретінде енгізіледі. Оны current private pilot state-термен араластыруға болмайды.
 
 ## 3. Application / Proposal
 
