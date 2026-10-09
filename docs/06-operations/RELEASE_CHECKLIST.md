@@ -1,6 +1,8 @@
 # Release checklist
 
-2026-09-18: толық өнім public launch-қа дайын емес.
+Жаңартылған күні: 2026-10-08.
+
+Repository-side MVP және production-readiness hardening implementation complete. Public launch әлі нақты staging/provider/legal acceptance-ке тәуелді.
 
 ## User-data storage security blockers
 
@@ -17,7 +19,7 @@
 - [ ] PII key custody/KMS/secrets-management production review accepted.
 - [ ] Contract/chat/dispute/evidence/audit retention matrix approved.
 - [ ] Cross-border/subprocessor inventory + consent/legal basis approved.
-- [ ] Security-hardened Backend CI + supply-chain checks green and a new staging candidate frozen.
+- [ ] Security-hardened Back/Front/Admin/Docs CI + supply-chain checks green and a new staging candidate frozen after GitHub Actions quota is restored.
 
 Temporary Render/Neon/Vercel infrastructure is **synthetic staging only** until the residency/provider gates above are satisfied.
 
@@ -96,7 +98,7 @@ Temporary Render/Neon/Vercel infrastructure is **synthetic staging only** until 
 - [x] Admin read-only real-staging browser acceptance harness implementation: exact HTTPS Admin origin, Admin/Backend commit + immutable Backend image digest binding, explicit non-production acknowledgement, liveness/readiness/aggregate-card/mobile-overflow scenarios, no support mutation, trace-off және metadata-only 14-day evidence (Admin #40).
 - [ ] KZ authenticated borrower/lender full browser journey successful staging run.
 - [ ] RU authenticated borrower/lender full browser journey successful staging run.
-- [ ] Front/Admin actual authenticated browser E2E run және толық UI acceptance — Actions runner қайта қолжетімді, бірақ real staging URL/credentials-пен manual execution әлі pending.
+- [ ] Front/Admin actual authenticated browser E2E run және толық UI acceptance — GitHub Actions quota/billing gate салдарынан automated rerun blocked; real staging URL/credentials-пен manual/provider execution әлі pending.
 - [x] Privacy/consent defaults және ephemeral auth/evidence retention baseline.
 - [x] Provider-neutral PII encrypted-mode staging acceptance harness implementation: migration backlog 0/0, key-rotation backlog 0/0, plaintext-retirement readiness, exact aggregate metrics privacy shape, no-store headers және encrypted email lookup auth smoke unified release-bound gate-ке қосылған (Back #247).
 - [ ] PII encrypted-mode staging acceptance.
@@ -142,6 +144,7 @@ Temporary Render/Neon/Vercel infrastructure is **synthetic staging only** until 
 - [x] Privacy-safe active session inventory + selective owned-session revoke backend/Front controls.
 - [ ] Password reset нақты SMTP inbox delivery және browser acceptance.
 - [x] Production dependency high/critical audit gate Back/Front/Admin CI ішінде.
+- [x] Back/Front/Admin/Docs GitHub Actions external actions immutable commit SHA-ларға pin жасалған және regression checks бар.
 - [x] Full-history secret scanning және CycloneDX SBOM generation Back/Front/Admin CI ішінде.
 - [x] SBOM artifact retention/access policy documented in `SBOM_POLICY.md`; current Back/Front/Admin main supply-chain runs successful және commit-bound CycloneDX artifacts 14 күнге retained (Back `37035066642`, Front `36856766952`, Admin `36856384256`).
 - [x] Container image HIGH/CRITICAL vulnerability scanning CI gate.

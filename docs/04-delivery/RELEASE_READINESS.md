@@ -1,6 +1,6 @@
 # QaryzLink release readiness
 
-_Last updated: 2026-10-07_
+_Last updated: 2026-10-08_
 
 This page is a delivery status snapshot, not a product promise. It separates web/PWA readiness from native-store readiness.
 
@@ -8,7 +8,7 @@ This page is a delivery status snapshot, not a product promise. It separates web
 
 ### Web / PWA
 
-Status: **candidate rebuild required after security audit**
+Status: **repository-ready; replacement staging candidate requires CI rerun + environment acceptance**
 
 Completed:
 
@@ -20,13 +20,13 @@ Completed:
 - mobile dashboard navigation and safe-area behavior are implemented;
 - request, contract, marketplace, notifications and settings mobile UX has been polished;
 - web/PWA runtime is separated from prepared native runtime;
-- latest frontend CI and supply-chain checks are green;
+- frontend security hardening is merged, Next.js is pinned to 16.3.8, and workflow actions are immutable-SHA pinned;
 - private contract chat is implemented with unread counts, grouped read sync, bounded history pagination and privacy-safe notification deep-links;
 - account-data export v2 includes only the current user's authored contract-chat messages and excludes counterparty-authored chat text.
 
 Previous staging candidate v2 is invalidated by the 2026-10-07 user-data storage security hardening. No new frozen candidate exists until the updated Backend CI + supply-chain checks are green.
 
-Current private QaryzLinkBack/QaryzLinkFront GitHub Actions runs are setup-level blocked by the private-repository Actions quota/billing condition; rerun CI and supply-chain checks after quota is restored.
+Current private QaryzLink Back/Front/Admin/Docs GitHub Actions reruns are blocked by the account Actions quota/billing condition. Rerun the complete quality + supply-chain gates after quota is restored before freezing the replacement candidate.
 
 See [User data storage security audit — 2026-10-08](../03-security/USER_DATA_STORAGE_SECURITY_AUDIT_2026-10-08.md).
 
@@ -46,9 +46,9 @@ Remaining before a permanent public launch:
 
 ## Backend
 
-Status: **security-hardened repository changes pending CI revalidation; production provider/residency acceptance required**
+Status: **repository-side implementation complete; CI revalidation and production provider/residency acceptance required**
 
-The backend already contains the lending/obligation lifecycle, security controls and deployment work. The latest repository activity includes a build fix for Prisma generation and TypeScript build boundaries.
+The backend contains the lending/obligation lifecycle plus the current security/production hardening: encrypted PII production gate, legacy password rehash, audit DB immutability/privacy triggers, scoped mutation locks, deletion lifecycle shutdown, migration-before-API deployment order, backup/recovery governance, final approval schema v2 and immutable workflow action pins.
 
 Completed deployment preparation:
 - Render staging Blueprint exists with database-aware readiness;
@@ -66,7 +66,7 @@ Remaining:
 
 ## Admin
 
-Status: **release-candidate level**
+Status: **repository-ready; deployed acceptance pending**
 
 Completed:
 
@@ -89,7 +89,7 @@ Remaining:
 
 ## Documentation
 
-Status: **substantially complete and maintained**
+Status: **repository-ready and synchronized; launch evidence remains environment-owned**
 
 Completed:
 
