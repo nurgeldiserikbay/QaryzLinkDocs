@@ -1,6 +1,6 @@
 # Runtime secret rotation runbook
 
-Жаңартылған күні: 2026-10-08.
+Жаңартылған күні: 2026-10-10.
 
 Бұл runbook QaryzLink runtime credentials-ін production/staging ортада қауіпсіз ауыстыру тәртібін сипаттайды. Ешбір raw secret repository, issue, chat, screenshot немесе retained release evidence ішіне жазылмайды.
 
@@ -8,6 +8,7 @@
 
 - `JWT_ACCESS_SECRET`
 - `METRICS_ACCESS_TOKEN`
+- `OPERATIONS_ACCESS_TOKEN`
 - `SCHEDULER_TRIGGER_TOKEN`
 - `SUPPORT_STAFF_CREDENTIALS_JSON`
 - provider bearer credentials:
@@ -49,17 +50,18 @@ Sequence:
 7. Auth error/refresh failure rate-ін бақылайсыз.
 8. Rollback қажет болса previous deployment secret version-ін тек approved incident window ішінде қалпына келтіріңіз.
 
-## Metrics және scheduler credentials
+## Metrics, operations және scheduler credentials
 
-`METRICS_ACCESS_TOKEN` және `SCHEDULER_TRIGGER_TOKEN` single active token ретінде қолданылады.
+`METRICS_ACCESS_TOKEN`, `OPERATIONS_ACCESS_TOKEN` және `SCHEDULER_TRIGGER_TOKEN` бөлек single-active credentials ретінде қолданылады. `OPERATIONS_ACCESS_TOKEN` metrics token-мен қайта қолданылмауы тиіс.
 
 Coordinated cutover:
 
 1. New token secret store-да жасалады.
 2. Receiver configuration және caller secret бір release/change ticket-пен жаңартылады.
 3. Staging endpoint new token-мен success береді.
-4. Old token reject болатыны тексеріледі.
-5. Scheduler trigger немесе metrics smoke қалыпты өткеннен кейін old secret version retire болады.
+4. Operations rotation кезінде Backend және Admin server-side secret coordinated түрде ауыстырылады; new `x-operations-token` success, old operations token reject және metrics token row-level endpoint-те reject екені тексеріледі.
+5. Old token reject болатыны тексеріледі.
+6. Scheduler trigger, metrics smoke немесе operations smoke қалыпты өткеннен кейін old secret version retire болады.
 
 Token stdout/log/command line history-ге шығарылмайды.
 
@@ -98,7 +100,7 @@ Retained evidence тек metadata:
 | Field | Required |
 |---|---|
 | Environment | staging / production |
-| Credential class | JWT / metrics / scheduler / support / provider |
+| Credential class | JWT / metrics / operations / scheduler / support / provider |
 | Secret version/reference | opaque ID only |
 | Rotation reason | planned / compromise / provider expiry |
 | Changed at | UTC |
@@ -113,7 +115,8 @@ Retained evidence тек metadata:
 - [ ] staging rotation drill орындалған;
 - [ ] raw secret logs/evidence ішінде жоқ;
 - [ ] JWT refresh-after-rotation сценарийі тексерілген;
-- [ ] metrics/scheduler caller+receiver coordinated cutover тексерілген;
+- [ ] metrics/operations/scheduler caller+receiver coordinated cutover тексерілген;
+- [ ] operations token metrics token-нан бөлек және row-level old-token rejection drill орындалған;
 - [ ] support per-staff credential rotation тексерілген;
 - [ ] provider credential revoke тәртібі documented;
 - [ ] rollback және incident owner анықталған.
