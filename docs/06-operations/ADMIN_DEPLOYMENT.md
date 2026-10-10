@@ -66,7 +66,7 @@ Admin authentication credential-дары да server-only. Successful authentica
 ```bash
 corepack enable
 corepack prepare pnpm@12.4.2 --activate
-pnpm install --no-frozen-lockfile
+pnpm install --frozen-lockfile
 pnpm release:preflight:strict
 pnpm check
 pnpm build
@@ -96,7 +96,7 @@ Admin:
 - privacy-safe Users / Contracts / Requests / Disputes / Audit workspaces береді;
 - System workspace health/readiness/evidence/notifications/auth-retention сигналдарын бөлек жинайды;
 - Privacy workspace account deletion және PII migration/key-rotation/plaintext-retirement aggregate status-ын бөлек көрсетеді;
-- Moderation workspace marketplace report metrics пен support-gated human review queue-ды бөлек ұстайды;
+- Moderation workspace marketplace report metrics пен cursor-paginated support-gated human review queue-ды бөлек ұстайды;
 - row-level operations тек `OPERATIONS_ACCESS_TOKEN` арқылы server-side оқылады;
 - email/phone/password/identity payload/dispute description/evidence body әдепкіде қайтарылмайды;
 - evidence/storage/notification/account-deletion counters оқиды;
