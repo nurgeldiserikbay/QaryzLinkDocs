@@ -33,6 +33,7 @@ Command:
 
 - NODE_ENV staging/production екенін;
 - PostgreSQL readiness;
+- privacy-safe row-level Admin operations үшін dedicated `OPERATIONS_ACCESS_TOKEN` configured екенін, token value-ды output-қа шығармай;
 - CORS exact origin configuration бар-жоғын;
 - public marketplace өшірулі екенін;
 - penalty өшірулі екенін;
@@ -61,6 +62,7 @@ Command:
 
 - development/test environment;
 - database unavailable;
+- `OPERATIONS_ACCESS_TOKEN` configured емес;
 - PUBLIC_MARKETPLACE_ENABLED=true;
 - PENALTY_ENABLED=true;
 - AMOUNT_BASED_COMMISSION_ENABLED=true;
@@ -72,7 +74,7 @@ Command:
 - identity verification enabled, бірақ provider adapter `remote-signed-l2` емес.
 - account data export enabled, бірақ `ACCOUNT_DATA_EXPORT_POLICY_ID` жоқ.
 
-Staging-та бұл жағдайлар command-тың structured `fail` snapshot-ында көрінеді. Production-та storage enabled болса retention/lifecycle references, sealing enabled болса signer operations references, timestamping enabled болса timestamp governance references, identity verification enabled болса identity provider governance references жоқ конфигурация application startup кезінде fail-fast тоқтайды.
+Staging-та бұл жағдайлар command-тың structured `fail` snapshot-ында көрінеді. `OPERATIONS_ACCESS_TOKEN` application startup үшін optional болып қалады, сондықтан missing credential API-ды crash етпейді; protected row-level endpoint fail-closed deny жасайды, ал release preflight deployment-ты fail күйінде тоқтатады. Production-та storage enabled болса retention/lifecycle references, sealing enabled болса signer operations references, timestamping enabled болса timestamp governance references, identity verification enabled болса identity provider governance references жоқ конфигурация application startup кезінде fail-fast тоқтайды.
 
 ## Manual checks
 
@@ -128,6 +130,7 @@ CI:
 - result JSON parse болуын;
 - database check pass болуын;
 - restricted financial features pass болуын;
+- `operations_access` machine check pass болуын;
 - output-та `password`, `secret`, `token`, `access key`, `DATABASE_URL` тәрізді secret-like атаулар болмауын
 
 тексереді.
