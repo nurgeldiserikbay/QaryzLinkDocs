@@ -19,14 +19,19 @@ flowchart TD
     OB --> CL["Closure"]
 ~~~
 
-## 2. User ID арқылы табу
+## 2. Pilot private discovery
 
-1. Пайдаланушы public немесе shareable ID енгізеді.
-2. Жүйе privacy setting және block list тексереді.
-3. Іздеу enumeration-ға жол бермейді.
-4. Нәтижеде тек public profile және verification badges көрсетіледі.
-5. Іздеуші Relationship request немесе нақты offer жібереді.
-6. Қабылдаушы consent бермейінше құпия өрістер ашылмайды.
+Current pilot-та canonical discovery path:
+
+1. Borrower private request жасайды.
+2. Request бірден `ACTIVE + INVITE_ONLY` болады.
+3. Borrower exact QaryzLink Public ID арқылы lender шақырады немесе бір реттік private link/QR жасайды.
+4. Public-ID invite кезінде `searchableByPublicId`, block list және active/verified account guards тексеріледі.
+5. Lender concrete Proposal береді.
+6. Borrower Proposal-ды explicit қабылдайды немесе immutable counter negotiation бастайды.
+7. Accepted Proposal ғана MATCHED request және кейінгі Contract draft-қа негіз болады.
+
+Email/phone contact discovery, persistent Relationship graph және public borrower publication current pilot capability емес. Олар бөлек legal/privacy review және explicit product gate өткеннен кейін ғана қосылады. Құпия contact/identity өрістері бұл discovery flow арқылы ашылмайды.
 
 ## 3. LenderOffer
 
