@@ -24,7 +24,7 @@ flowchart TD
 
 - exact Public ID арқылы private invite;
 - one-time private invitation link / QR;
-- existing invite-only request relationship.
+- existing private request → lender proposal flow.
 
 Current pilot UI email/phone contact lookup жасамайды. `searchableByContact` data/privacy capability future contact discovery үшін ғана reserved және user-facing contact search ретінде қарастырылмауы тиіс.
 
@@ -35,7 +35,7 @@ Current pilot UI email/phone contact lookup жасамайды. `searchableByCon
 - contact-based discovery;
 - broader relationship graph.
 
-Ашық іздеу мен matching production-да тек Қазақстан бойынша legal gate өткеннен кейін қосылады.
+Ашық іздеу, contact discovery және matching production-да тек Қазақстан бойынша legal/privacy gate өткеннен кейін қосылады.
 
 ## 4. Пайдаланушы рөлдері
 
