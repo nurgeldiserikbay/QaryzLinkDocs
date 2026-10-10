@@ -25,7 +25,9 @@ API prefix `/api/v1/discovery`, Bearer required:
 | POST | `/requests/:id/cancel` | borrower cancels an ACTIVE or PAUSED request and closes request-scoped access |
 | POST | `/requests/:id/invitations` | exact Public ID lender invitation |
 | POST | `/requests/:id/invitations/:invitationId/revoke` | borrower revokes one invitation |
-| POST | `/blocks` | block exact Public ID and remove active invitations in both directions |
+| POST | `/blocks` | block exact Public ID and close pending discovery state in both directions |
+| GET | `/blocks` | own blocked Public IDs only; cursor is a Public ID |
+| POST | `/blocks/unblock` | remove one own block by exact Public ID; does not restore stale state |
 | POST | `/requests/:id/proposals` | lender terms |
 | POST | `/proposals/:id/decision` | borrower ACCEPT/REJECT, lender WITHDRAW |
 | GET | `/requests` | own/invited requests |
@@ -92,6 +94,17 @@ Cancel бір discovery transaction ішінде:
 
 Lender немесе бөтен user pause/resume/cancel жасай алмайды. `MATCHED`, expired немесе already-cancelled request қайта ашылмайды. Front-та borrower үшін ACTIVE күйінде Pause + Cancel, PAUSED күйінде Resume + Cancel көрсетіледі. PAUSED кезінде жаңа invite/proposal/decision controls жасырылып, request read-only context ретінде қалады.
 
+
+## Block management
+
+Settings-та user exact Public ID арқылы block/unblock жасай алады. Blocked list тек user-дың өзі қойған block жазбаларын көрсетеді және response-та:
+
+- blocked Public ID;
+- block createdAt;
+
+ғана болады. Internal party ID, email, phone, display profile немесе қарсы тараптың басқа PII-і шығарылмайды.
+
+Unblock тек `PartyBlock` жазбасын алып тастайды. Бұрынғы invitation, proposal, application немесе risk grant автоматты түрде қалпына келмейді. Қайта байланысу үшін жаңа explicit invite/application әрекеті қажет.
 
 ## Match and block privacy closure
 
