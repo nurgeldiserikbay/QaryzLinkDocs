@@ -94,6 +94,7 @@ https://admin.qaryzlink.kz
 Admin:
 - қысқа Overview live counters + attention signals көрсетеді;
 - privacy-safe Users / Contracts / Requests / Disputes / Audit workspaces береді;
+- offset-based operations directory navigation 400 page-мен bounded; үлкен dataset-та deep scan орнына Public ID/name/UUID search қолданылады;
 - System workspace health/readiness/evidence/notifications/auth-retention сигналдарын бөлек жинайды;
 - Privacy workspace account deletion және PII migration/key-rotation/plaintext-retirement aggregate status-ын бөлек көрсетеді;
 - Moderation workspace marketplace report metrics пен cursor-paginated support-gated human review queue-ды бөлек ұстайды;
