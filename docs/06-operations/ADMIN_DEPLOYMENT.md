@@ -29,6 +29,14 @@ Server-only protected metrics token:
 METRICS_ACCESS_TOKEN=<secret>
 ```
 
+Privacy-safe row-level operations үшін metrics token-нан бөлек credential:
+
+```text
+OPERATIONS_ACCESS_TOKEN=<different-secret>
+```
+
+Бұл token Backend және Admin server environment-терінде бірдей болуы тиіс, бірақ `METRICS_ACCESS_TOKEN`-мен бірдей болмауы керек.
+
 Scoped support actions қосылса:
 
 ```text
@@ -47,7 +55,7 @@ Production-та бұл credential жоқ немесе password 32 байттан
 
 ## Critical boundary
 
-`METRICS_ACCESS_TOKEN` және `SUPPORT_STAFF_TOKEN` ешқашан `NEXT_PUBLIC_` prefix-пен берілмейді.
+`METRICS_ACCESS_TOKEN`, `OPERATIONS_ACCESS_TOKEN` және `SUPPORT_STAFF_TOKEN` ешқашан `NEXT_PUBLIC_` prefix-пен берілмейді.
 
 Олар server-only environment ішінде қалады.
 
@@ -85,9 +93,10 @@ https://admin.qaryzlink.kz
 
 Admin:
 - aggregate operational metrics көрсетеді;
-- privacy-safe audit visibility береді;
+- privacy-safe Users / Contracts / Requests / Disputes / Audit workspaces береді;
+- row-level operations тек `OPERATIONS_ACCESS_TOKEN` арқылы server-side оқылады;
+- email/phone/password/identity payload/dispute description/evidence body әдепкіде қайтарылмайды;
 - evidence/storage/notification/account-deletion counters оқиды;
-- identity-level user feed әдепкіде көрсетпейді;
 - high-risk mutations default-off.
 
 Marketplace/support mutation feature gate ашылғанда ғана scoped staff credential қолданылады.
@@ -100,6 +109,8 @@ Production/pilot алдында:
 - cross-origin server-action mutation reject болатынын тексеру;
 - authenticated response-та `Cache-Control: no-store` барын тексеру;
 - protected metrics server-side fetch тексеру;
+- separate `OPERATIONS_ACCESS_TOKEN` арқылы row-level operations server-side fetch тексеру;
+- metrics token row-level operations endpoint-ке рұқсат бермейтінін тексеру;
 - browser bundle-де token жоқ екенін тексеру;
 - restricted-origin access;
 - admin E2E;
