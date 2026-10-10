@@ -65,14 +65,29 @@ Published ұсынысты өзгерту жаңа version жасайды. Бұ�
 
 BorrowerRequest — шарт емес, matching preference.
 
-- requested amount;
-- preferred term;
+### Current private pilot request
+
+Current invite-only pilot implementation intentionally keeps the request minimal:
+
+- exact requested amount;
+- exact term in days;
+- KZT currency;
+- `INVITE_ONLY` visibility;
+- bounded expiry.
+
+The request is created directly in `ACTIVE` state. It is a private intent used to invite a lender and receive concrete proposals; it is not a public marketplace publication and is not a contract.
+
+### Future richer/public request model
+
+The data model already reserves richer preference fields for later legal/product-gated rollout:
+
+- amount range;
+- term range;
 - preferred maximum rate;
-- expected payment frequency;
-- funds-needed date;
-- available verification;
-- collateral/guarantor availability;
-- visibility және expiry.
+- purpose category;
+- future payment-frequency / funds-needed / verification / collateral preferences.
+
+These future fields must not be presented as current pilot functionality until API + UI + legal acceptance exist.
 
 Қарыз алушы preference өзгерткенде бұрын алынған нақты lender proposal өзгермейді.
 
