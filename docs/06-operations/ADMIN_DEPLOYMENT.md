@@ -35,7 +35,7 @@ Privacy-safe row-level operations үшін metrics token-нан бөлек crede
 OPERATIONS_ACCESS_TOKEN=<different-secret>
 ```
 
-Бұл token Backend және Admin server environment-терінде бірдей болуы тиіс, бірақ `METRICS_ACCESS_TOKEN`-мен бірдей болмауы керек.
+Бұл token Backend және Admin server environment-терінде бірдей болуы тиіс, бірақ `METRICS_ACCESS_TOKEN`-мен бірдей болмауы керек. Backend environment validation және Admin strict release preflight екі credential мәні бірдей болса fail-closed тоқтайды.
 
 Scoped support actions қосылса:
 
