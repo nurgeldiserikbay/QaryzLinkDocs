@@ -91,7 +91,7 @@ Temporary Render/Neon/Vercel infrastructure is **synthetic staging only** until 
 - [x] Admin production server-only Backend origin fail-closed: `QARYZLINK_API_BASE_URL` exact HTTPS origin, credentials/path/query/fragment/HTTP rejected; readiness/metrics/support server calls бір validator қолданады (Admin #41).
 - [x] Admin console production access fail-closed Basic Auth gate-пен қорғалған; password minimum 32 UTF-8 bytes runtime және strict preflight деңгейінде enforce етіледі, authenticated responses no-store/noindex.
 - [x] Admin privacy-safe Users/Contracts/Requests/Disputes/Audit workspaces read-only; server-side search/pagination бар, dispute description/audit payload/email/phone/password/identity payload/evidence body шығарылмайды.
-- [x] Aggregate metrics credential мен row-level operations credential бөлінген: `x-metrics-token` және `x-operations-token` бір authority емес.
+- [x] Aggregate metrics credential мен row-level operations credential бөлінген: `x-metrics-token` және `x-operations-token` бір authority емес; Backend env validation және Admin strict preflight екі secret мәні бірдей болса reject етеді.
 - [x] Front/Admin manual-only Chromium E2E harness дайын.
 - [x] Front KZ/RU presentation coverage critical Phase 2 routes және account lifecycle бойынша implementation-да бар (Front #41/#42/#43).
 - [x] Front participant core mutation UI: privacy-safe viewerRole, dual contract signing, funding signed upload/decision, schedule generation және repayment signed upload/decision (Back #213, Front #67/#68).
