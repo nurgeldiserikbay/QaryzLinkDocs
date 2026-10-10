@@ -63,18 +63,35 @@ Published ұсынысты өзгерту жаңа version жасайды. Бұ�
 
 ## 4. BorrowerRequest
 
-BorrowerRequest — шарт емес, matching preference.
+BorrowerRequest — шарт емес.
 
-- requested amount;
-- preferred term;
+### Current private pilot
+
+Current private flow intentionally uses a minimal exact request:
+
+- exact requested amount;
+- exact term;
+- KZT;
+- invitation-only visibility;
+- expiry.
+
+This is the canonical user-facing pilot flow.
+
+### Broader discovery model
+
+Future/public matching may expand the request into a richer preference object:
+
+- amount range;
+- term range;
 - preferred maximum rate;
 - expected payment frequency;
 - funds-needed date;
+- purpose;
 - available verification;
 - collateral/guarantor availability;
-- visibility және expiry.
+- visibility and expiry.
 
-Қарыз алушы preference өзгерткенде бұрын алынған нақты lender proposal өзгермейді.
+The Prisma model already leaves room for part of this broader shape, but current UI/API must not be described as collecting fields it does not actually collect. Қарыз алушы preference өзгерткенде бұрын алынған нақты lender proposal өзгермейді.
 
 ## 5. Matching
 
