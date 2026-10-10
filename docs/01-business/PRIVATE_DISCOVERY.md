@@ -20,7 +20,9 @@ API prefix `/api/v1/discovery`, Bearer required:
 | Method | Route | Purpose |
 |---|---|---|
 | POST | `/requests` | amountMinor string, termDays |
-| POST | `/requests/:id/invitations` | exact publicId lender invitation |
+| POST | `/requests/:id/invitations` | exact Public ID lender invitation |
+| POST | `/requests/:id/invitations/:invitationId/revoke` | borrower revokes one invitation |
+| POST | `/blocks` | block exact Public ID and remove active invitations in both directions |
 | POST | `/requests/:id/proposals` | lender terms |
 | POST | `/proposals/:id/decision` | borrower ACCEPT/REJECT, lender WITHDRAW |
 | GET | `/requests` | own/invited requests |
@@ -52,8 +54,17 @@ GET /api/v1/discovery/requests/:id returns:
       "termsSnapshot": "object",
       "expiresAt": "ISO-8601"
     }
+  ],
+  "invitations": [
+    {
+      "id": "uuid",
+      "lenderPublicId": "public-id | null",
+      "createdAt": "ISO-8601"
+    }
   ]
 }
 ~~~
 
-viewerRole is the authenticated viewer's role for this request. Borrowers can see visible proposals for the request; lenders see only their own proposal records. Clients must not expose raw personal data or blindly render the opaque termsSnapshot; render only validated fields required by the UI.
+viewerRole is the authenticated viewer's role for this request. Borrowers can see visible proposals plus their own invitation references; lenders see only their own proposal records and receive an empty invitations array. Invitation projection is deliberately limited to invitation id, the exact Public ID the borrower used when inviting, and creation time. Email, phone, legal identity, profile payload and contact fields are not returned. Clients must not expose raw personal data or blindly render the opaque termsSnapshot; render only validated fields required by the UI.
+
+Front borrower request detail shows active invitation references and uses the existing idempotent revoke endpoint. Revoking removes the invitation and its request-scoped risk access. Blocking remains a separate stronger action; it is not coupled to a revoke button.
