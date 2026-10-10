@@ -1,6 +1,6 @@
 # Release checklist
 
-Жаңартылған күні: 2026-10-08.
+Жаңартылған күні: 2026-10-10.
 
 Repository-side MVP және production-readiness hardening implementation complete. Public launch әлі нақты staging/provider/legal acceptance-ке тәуелді.
 
@@ -27,6 +27,8 @@ Temporary Render/Neon/Vercel infrastructure is **synthetic staging only** until 
 
 - [ ] Нақты deploy commit-тің CI-ы жасыл.
 - [x] Privacy-safe `pnpm release:preflight` command implementation + CI smoke contract бар.
+- [x] Release preflight dedicated `OPERATIONS_ACCESS_TOKEN` configuration жоқ болса `operations_access` machine gate арқылы fail етеді; secret value output-қа шықпайды.
+- [ ] Actual staging Backend + Admin environments бірдей dedicated `OPERATIONS_ACCESS_TOKEN` қолданатыны және `METRICS_ACCESS_TOKEN` row-level operations endpoint-терге жарамсыз екені тексерілді.
 - [x] Canonical in-cluster release-preflight Kubernetes Job same immutable release digest + `qaryzlink-back` ConfigMap/Secret contract-пен release bundle-ға кіреді (Back #227).
 - [ ] Нақты staging image/config ішінде release preflight орындалып, `fail` емес result acceptance evidence-ке жазылды.
 - [ ] Жеке staging database және credentials.
@@ -87,6 +89,9 @@ Temporary Render/Neon/Vercel infrastructure is **synthetic staging only** until 
 - [x] Front/Admin production server HTTP security-header/CSP runtime smoke.
 - [x] Front production public API origin fail-closed: `NEXT_PUBLIC_API_BASE_URL` міндетті exact HTTPS origin, CSP және browser API client бір validator қолданады; localhost fallback тек development/test (Front #84).
 - [x] Admin production server-only Backend origin fail-closed: `QARYZLINK_API_BASE_URL` exact HTTPS origin, credentials/path/query/fragment/HTTP rejected; readiness/metrics/support server calls бір validator қолданады (Admin #41).
+- [x] Admin console production access fail-closed Basic Auth gate-пен қорғалған; password minimum 32 UTF-8 bytes runtime және strict preflight деңгейінде enforce етіледі, authenticated responses no-store/noindex.
+- [x] Admin privacy-safe Users/Contracts/Requests/Disputes/Audit workspaces read-only; server-side search/pagination бар, dispute description/audit payload/email/phone/password/identity payload/evidence body шығарылмайды.
+- [x] Aggregate metrics credential мен row-level operations credential бөлінген: `x-metrics-token` және `x-operations-token` бір authority емес.
 - [x] Front/Admin manual-only Chromium E2E harness дайын.
 - [x] Front KZ/RU presentation coverage critical Phase 2 routes және account lifecycle бойынша implementation-да бар (Front #41/#42/#43).
 - [x] Front participant core mutation UI: privacy-safe viewerRole, dual contract signing, funding signed upload/decision, schedule generation және repayment signed upload/decision (Back #213, Front #67/#68).
