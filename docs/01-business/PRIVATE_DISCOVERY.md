@@ -1,6 +1,6 @@
 # Жеке шақыру арқылы ұсыныс
 
-Backend-та іске асқан restricted staging сценарийі.
+Backend-та іске асқан current private-pilot сценарийі. Бұл public marketplace request емес.
 
 ~~~mermaid
 flowchart TD
@@ -13,7 +13,7 @@ flowchart TD
     M --> C["Next: contract draft"]
 ~~~
 
-Request — borrower preference. Proposal — lender-дің нақты terms-і. ACCEPT қол қоюды, funding-ті немесе interest accrual-ды бастамайды.
+Request — borrower-дың narrow private intent-і: exact amount + exact term. Runtime request бірден `ACTIVE + INVITE_ONLY` болып жасалады және 30 күндік expiry алады. Proposal — lender-дің нақты terms-і. ACCEPT қол қоюды, funding-ті немесе interest accrual-ды бастамайды.
 
 API prefix `/api/v1/discovery`, Bearer required:
 
@@ -57,3 +57,15 @@ GET /api/v1/discovery/requests/:id returns:
 ~~~
 
 viewerRole is the authenticated viewer's role for this request. Borrowers can see visible proposals for the request; lenders see only their own proposal records. Clients must not expose raw personal data or blindly render the opaque termsSnapshot; render only validated fields required by the UI.
+
+
+## Product wording
+
+Pilot UI бұл объектіні **Жеке сұрау / Личный запрос** деп көрсетеді. Оны толық public BorrowerRequest preference model-імен шатастырмау керек.
+
+Current pilot form intentionally collects only:
+
+- amount;
+- term.
+
+Broader fields such as rate preference, purpose, amount/term ranges, collateral or public visibility belong to a later discovery phase and must not silently appear as if they are already part of the current private flow.
