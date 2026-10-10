@@ -91,3 +91,22 @@ Cancel бір discovery transaction ішінде:
 - request source-тан берілген active risk-access grant-тарды revoke етеді.
 
 Lender немесе бөтен user pause/resume/cancel жасай алмайды. `MATCHED`, expired немесе already-cancelled request қайта ашылмайды. Front-та borrower үшін ACTIVE күйінде Pause + Cancel, PAUSED күйінде Resume + Cancel көрсетіледі. PAUSED кезінде жаңа invite/proposal/decision controls жасырылып, request read-only context ретінде қалады.
+
+
+## Match and block privacy closure
+
+Proposal `ACCEPT` болғанда request `MATCHED` күйіне өтеді және discovery access winner lender-ге ғана қалады:
+
+- competing pending proposals/counters/applications supersede болады;
+- losing lender invitation-дары жойылады;
+- losing lender request-scoped risk grants revoke болады;
+- пайдаланылмаған invite links бірден expire болады;
+- reader defense-in-depth ретінде `MATCHED` request-ті тек accepted proposal lender-ге көрсетеді.
+
+`Block` exact екі party арасындағы discovery relationship-ты екі бағытта жабады:
+
+- екі бағыттағы request invitation-дар жойылады;
+- екі бағыттағы active `REQUEST` risk grants revoke болады;
+- кейінгі exact Public ID invite әрекеттері unavailable болады.
+
+Block қолданыстағы `CONTRACT` risk access-ті автоматты түрде жоймайды. Белсенді келісім — discovery-ден бөлек міндеттеме lifecycle-ы; contract access оның closure/cancellation rules арқылы аяқталады.
