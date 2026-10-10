@@ -20,6 +20,7 @@ API prefix `/api/v1/discovery`, Bearer required:
 | Method | Route | Purpose |
 |---|---|---|
 | POST | `/requests` | amountMinor string, termDays |
+| POST | `/requests/:id/cancel` | borrower cancels an ACTIVE request and closes request-scoped access |
 | POST | `/requests/:id/invitations` | exact Public ID lender invitation |
 | POST | `/requests/:id/invitations/:invitationId/revoke` | borrower revokes one invitation |
 | POST | `/blocks` | block exact Public ID and remove active invitations in both directions |
@@ -68,3 +69,17 @@ GET /api/v1/discovery/requests/:id returns:
 viewerRole is the authenticated viewer's role for this request. Borrowers can see visible proposals plus their own invitation references; lenders see only their own proposal records and receive an empty invitations array. Invitation projection is deliberately limited to invitation id, the exact Public ID the borrower used when inviting, and creation time. Email, phone, legal identity, profile payload and contact fields are not returned. Clients must not expose raw personal data or blindly render the opaque termsSnapshot; render only validated fields required by the UI.
 
 Front borrower request detail shows active invitation references and uses the existing idempotent revoke endpoint. Revoking removes the invitation and its request-scoped risk access. Blocking remains a separate stronger action; it is not coupled to a revoke button.
+
+
+## Request cancellation
+
+Borrower өзінің тек `ACTIVE` request-ін cancel ете алады. Cancel бір discovery transaction ішінде:
+
+- request status-ты `CANCELLED` қылады;
+- pending proposals және proposal counters-ты `SUPERSEDED` қылады;
+- pending/accepted marketplace applications-ты `SUPERSEDED` қылады;
+- пайдаланылмаған invite links-ті бірден expire етеді;
+- active request invitations-ды жояды;
+- request source-тан берілген active risk-access grant-тарды revoke етеді.
+
+Lender немесе бөтен user request-ті cancel ете алмайды. `MATCHED`, expired немесе already-cancelled request қайта cancel болмайды. Front-та action тек borrower view + `ACTIVE` status кезінде көрінеді және irreversible confirmation талап етеді.
