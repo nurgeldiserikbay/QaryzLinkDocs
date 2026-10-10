@@ -31,6 +31,7 @@ QaryzLink should be comfortable to use as a mobile-first web/PWA experience and 
 - shared authenticated dashboard shell with one sticky mobile header and one fixed bottom navigation;
 - five mobile dashboard destinations kept on one row with safe-area spacing;
 - `/dashboard/new` associated with the Requests navigation state;
+- cursor-paginated Contracts and Requests workspaces with explicit «load more» controls;
 - mobile dashboard active-contract list with next payment summary;
 - dashboard action summary with active-contract count, overdue-payment count and nearest payment;
 - relationship-scoped action-required summary for signing, funding confirmation and overdue borrower repayment;
