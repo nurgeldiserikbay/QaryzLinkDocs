@@ -110,3 +110,16 @@ Proposal `ACCEPT` болғанда request `MATCHED` күйіне өтеді ж�
 - кейінгі exact Public ID invite әрекеттері unavailable болады.
 
 Block қолданыстағы `CONTRACT` risk access-ті автоматты түрде жоймайды. Белсенді келісім — discovery-ден бөлек міндеттеме lifecycle-ы; contract access оның closure/cancellation rules арқылы аяқталады.
+
+
+## Risk access terminal states
+
+Risk disclosure relationship source lifecycle-мен бірге жабылады:
+
+- request match кезінде losing lender request grant-тары revoke болады;
+- block exact pair-дің active REQUEST grant-тарын екі бағытта revoke етеді;
+- contract draft жасалғанда winner request grant contract-scoped grant-қа ауысады;
+- contract `COMPLETED` болғанда contract grant revoke болады;
+- funding deadline немесе borrower confirmation deadline өтіп, contract `EXPIRED_UNFUNDED` болғанда contract grant та transaction ішінде revoke болады.
+
+Осылай UI status filter ғана емес, persisted grant state өзі де terminal relationship аяқталғанын көрсетеді.
