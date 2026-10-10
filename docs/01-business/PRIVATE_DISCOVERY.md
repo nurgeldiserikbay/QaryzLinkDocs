@@ -20,7 +20,9 @@ API prefix `/api/v1/discovery`, Bearer required:
 | Method | Route | Purpose |
 |---|---|---|
 | POST | `/requests` | amountMinor string, termDays |
-| POST | `/requests/:id/cancel` | borrower cancels an ACTIVE request and closes request-scoped access |
+| POST | `/requests/:id/pause` | borrower temporarily pauses an ACTIVE request |
+| POST | `/requests/:id/resume` | borrower resumes a non-expired PAUSED request |
+| POST | `/requests/:id/cancel` | borrower cancels an ACTIVE or PAUSED request and closes request-scoped access |
 | POST | `/requests/:id/invitations` | exact Public ID lender invitation |
 | POST | `/requests/:id/invitations/:invitationId/revoke` | borrower revokes one invitation |
 | POST | `/blocks` | block exact Public ID and remove active invitations in both directions |
@@ -73,7 +75,13 @@ Front borrower request detail shows active invitation references and uses the ex
 
 ## Request cancellation
 
-Borrower өзінің тек `ACTIVE` request-ін cancel ете алады. Cancel бір discovery transaction ішінде:
+Borrower request lifecycle:
+
+- `ACTIVE -> PAUSED`: уақытша freeze; invitations/proposals/history сақталады, бірақ жаңа invite/proposal/decision әрекеттері `DISCOVERY_CONFLICT` арқылы жабылады;
+- `PAUSED -> ACTIVE`: request expiry өтпесе ғана resume болады;
+- `ACTIVE | PAUSED -> CANCELLED`: irreversible close.
+
+Cancel бір discovery transaction ішінде:
 
 - request status-ты `CANCELLED` қылады;
 - pending proposals және proposal counters-ты `SUPERSEDED` қылады;
@@ -82,4 +90,4 @@ Borrower өзінің тек `ACTIVE` request-ін cancel ете алады. Can
 - active request invitations-ды жояды;
 - request source-тан берілген active risk-access grant-тарды revoke етеді.
 
-Lender немесе бөтен user request-ті cancel ете алмайды. `MATCHED`, expired немесе already-cancelled request қайта cancel болмайды. Front-та action тек borrower view + `ACTIVE` status кезінде көрінеді және irreversible confirmation талап етеді.
+Lender немесе бөтен user pause/resume/cancel жасай алмайды. `MATCHED`, expired немесе already-cancelled request қайта ашылмайды. Front-та borrower үшін ACTIVE күйінде Pause + Cancel, PAUSED күйінде Resume + Cancel көрсетіледі. PAUSED кезінде жаңа invite/proposal/decision controls жасырылып, request read-only context ретінде қалады.
