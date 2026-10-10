@@ -80,7 +80,8 @@ Command HTTP server ашпайды. Алдымен grace/retention hold қайт
 | MAIL_ENABLED | Алғашқы іске қосуда false |
 | PASSWORD_RESET_URL | MAIL_ENABLED=true кезінде HTTPS Front `/reset-password` URL |
 | NOTIFICATION_BATCH_SIZE | 1–100, әдепкісі 50 |
-| METRICS_ACCESS_TOKEN | Staging/production-та кемінде 32 таңба; metrics endpoint header token |
+| METRICS_ACCESS_TOKEN | Staging/production-та кемінде 32 таңба; aggregate metrics endpoint header token |
+| OPERATIONS_ACCESS_TOKEN | Admin row-level operations үшін server-only кемінде 32 таңба; METRICS_ACCESS_TOKEN-нан бөлек |
 | CONTRACT_PDF_ENABLED / CONTRACT_PDF_PROVIDER | Pinned-template PDF renderer gate/provider; legal template + staging acceptance дейін false/unavailable |
 | CONTRACT_PDF_REMOTE_URL / TOKEN | HTTPS-only signed renderer endpoint және server-side bearer credential |
 | CONTRACT_PDF_EXPECTED_RENDERER_ID / KEY_FINGERPRINT | Pinned renderer identity және Ed25519 SPKI SHA-256 |
@@ -100,7 +101,7 @@ Command HTTP server ашпайды. Алдымен grace/retention hold қайт
 | MAX_OUTGOING_APPLICATIONS_PER_DAY | Public-offer application daily quota; engineering default 10 |
 | MAX_MARKETPLACE_REPORTS_PER_DAY | Бір account үшін marketplace offer report daily quota; default 5, validated max 50 |
 | SUPPORT_MARKETPLACE_REPORT_TRANSITIONS_ENABLED | false; row-level Resolve/Dismiss support workflow-ды explicit қосады |
-| SUPPORT_ACCESS_TOKEN | Support mutations қосылса server-only ≥32 таңбалық secret; browser-ге шықпайды |
+| SUPPORT_STAFF_CREDENTIALS_JSON | Scoped/expiring support staff credential registry; raw token емес, SHA-256 tokenHash сақталады |
 | MAX_OFFER_VERSIONS | Бір public offer үшін immutable financial-term history limit; default 20, validated max 100 |
 | ACCOUNT_DELETION_GRACE_DAYS | Engineering default 30; production мәні legal retention review-дан кейін бекітіледі |
 
@@ -133,6 +134,7 @@ API: [backend README](https://github.com/nurgeldiserikbay/QaryzLinkBack#email-р
 - `TRUST_PROXY_HOPS=0` әдепкіде forwarded client identity-ді толық елемейді. Ingress proxy chain және header sanitization staging-та тексерілгеннен кейін ғана нақты hop санын 1–3 етіп қойыңыз. Hop саны topology-мен дәл сәйкес келуі тиіс; direct API ingress restricted болуы керек.
 - DB/Redis порттарын интернетке ашпаңыз; HTTPS-тен басқа ingress тек әкімшілік рұқсатпен.
 - Metrics endpoint тек internal ingress арқылы қолжетімді болсын және x-metrics-token header талап етсін.
+- Admin row-level operations endpoint-тері restricted ingress арқылы ғана қолжетімді болсын және бөлек x-operations-token header талап етсін; x-metrics-token бұл endpoint-терге жарамсыз болуы тиіс.
 - Internal support endpoints public ingress-тен бөлек restricted болуы тиіс. Marketplace review enable болса x-support-token server-side ғана жіберіледі; Front/browser бұл token-ды ешқашан алмайды.
 - Login, refresh, logout, metrics authorization және email workflow-ларын staging-де тексеріңіз.
 
