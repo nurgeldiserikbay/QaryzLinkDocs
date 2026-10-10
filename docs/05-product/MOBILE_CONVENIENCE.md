@@ -28,10 +28,14 @@ QaryzLink should be comfortable to use as a mobile-first web/PWA experience and 
 - privacy-safe push payloads for repayment due / overdue reminders;
 - explicit browser permission and per-device push controls in Settings;
 - PWA service worker push/click handling;
+- shared authenticated dashboard shell with one sticky mobile header and one fixed bottom navigation;
+- five mobile dashboard destinations kept on one row with safe-area spacing;
+- `/dashboard/new` associated with the Requests navigation state;
 - mobile dashboard active-contract list with next payment summary;
 - dashboard action summary with active-contract count, overdue-payment count and nearest payment;
 - relationship-scoped action-required summary for signing, funding confirmation and overdue borrower repayment;
 - recent in-app notifications preview on the dashboard with a link to the full inbox;
+- dashboard core Contracts/Requests remain usable during a secondary Notifications outage, while notification 401/403 authorization failures remain visible;
 - camera-first funding and repayment proof picker on supported mobile browsers, while retaining PDF/file upload.
 
 ## Notification rules
@@ -105,7 +109,7 @@ Requirements before enabling:
 
 ## Mobile dashboard
 
-The mobile dashboard now surfaces active contracts and the next unpaid payment directly on the first screen.
+The mobile dashboard uses one shared authenticated shell and surfaces active contracts and the next unpaid payment directly on the first screen.
 
 It also includes an actionable summary with:
 
@@ -116,7 +120,7 @@ It also includes an actionable summary with:
 
 The backend also derives whether the authenticated participant currently needs to sign the agreement, confirm funding, or address an overdue borrower payment. This is shown without exposing counterparty PII.
 
-Recent in-app notifications are also previewed on the dashboard while the full notification inbox remains a separate page.
+Recent in-app notifications are also previewed on the dashboard while the full notification inbox remains a separate page. A temporary notification-service outage does not blank the core dashboard; authentication/permission failures are still propagated instead of being silently ignored.
 
 Further dashboard improvements should prioritize:
 
