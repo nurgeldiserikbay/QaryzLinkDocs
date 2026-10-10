@@ -61,7 +61,8 @@ Authenticated `/dashboard/**` routes shared layout қолданады:
 - desktop және mobile navigation бір route registry-ге сүйенеді;
 - mobile bottom navigation 5 негізгі destination-ды бір қатарда көрсетеді;
 - `/dashboard/new` Requests workflow ретінде active күйде белгіленеді;
-- child routes duplicate shell render етпеуі architecture test-пен қорғалған.
+- child routes duplicate shell render етпеуі architecture test-пен қорғалған;
+- Contracts және Requests full workspaces cursor pagination қолданады; dashboard summary lightweight first slice қолданады.
 
 Dashboard core Contracts/Requests жүктеуін secondary Notifications outage-тан бөлек ұстайды. Notifications 5xx/network failure кезінде core dashboard жұмысын жалғастырады; 401/403 auth/permission errors fail-soft арқылы жасырылмайды.
 
