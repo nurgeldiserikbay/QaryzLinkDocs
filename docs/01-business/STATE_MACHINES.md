@@ -21,6 +21,25 @@ stateDiagram-v2
 
 ## 2. BorrowerRequest
 
+### 2.1 Current private-pilot request
+
+Current production/pilot private request is intentionally narrow and invitation-only:
+
+~~~mermaid
+stateDiagram-v2
+    [*] --> ACTIVE
+    ACTIVE --> MATCHED: borrower accepts one concrete lender proposal
+    ACTIVE --> EXPIRED: expiresAt reached
+    ACTIVE --> CLOSED: user/lifecycle closes request
+    MATCHED --> CLOSED: contract lifecycle takes over
+~~~
+
+The request is created directly as `ACTIVE + INVITE_ONLY`. It is **not** a public listing and is not a loan contract. `MATCHED` means one lender proposal was accepted; it does not mean signing, funding, or repayment started.
+
+### 2.2 Future/public borrower request
+
+The broader discovery model may later use a publication lifecycle:
+
 ~~~mermaid
 stateDiagram-v2
     [*] --> DRAFT
@@ -33,7 +52,7 @@ stateDiagram-v2
     MATCHED --> CLOSED: contract selected
 ~~~
 
-MATCHED тек proposal барын білдіреді, қарыз берілгенін білдірмейді.
+This public lifecycle must not be used to infer the current private-pilot runtime state.
 
 ## 3. Application / Proposal
 
