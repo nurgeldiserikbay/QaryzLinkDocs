@@ -14,8 +14,12 @@
 |---|---|---:|
 | NEXT_PUBLIC_API_BASE_URL | Browser liveness API origin | Жоқ |
 | QARYZLINK_API_BASE_URL | Server-side Backend origin | Жоқ |
-| METRICS_ACCESS_TOKEN | Protected metrics | Иә |
+| METRICS_ACCESS_TOKEN | Aggregate protected metrics | Иә |
+| OPERATIONS_ACCESS_TOKEN | Privacy-safe row-level Admin operations; metrics token-нан бөлек | Иә |
 | SUPPORT_STAFF_TOKEN | Scoped support actions | Иә |
+| ADMIN_BASIC_AUTH_USER | Admin access gate user | Иә |
+| ADMIN_BASIC_AUTH_PASSWORD | Admin access gate password, production 32+ bytes | Иә |
+| ADMIN_SITE_ORIGIN | Exact Admin HTTPS origin for mutation origin checks | Жоқ |
 
 ## Backend core
 
@@ -32,7 +36,8 @@
 | PERSONAL_DATA_STORAGE_ENCRYPTION_POLICY_ID | Reviewed/versioned storage encryption policy reference | Жоқ |
 | REDIS_URL | Redis connection | Иә/credentialed |
 | JWT_ACCESS_SECRET | Access-token signing | Иә |
-| METRICS_ACCESS_TOKEN | Protected metrics | Иә |
+| METRICS_ACCESS_TOKEN | Aggregate protected metrics | Иә |
+| OPERATIONS_ACCESS_TOKEN | Privacy-safe row-level Admin operations; separate from metrics | Иә |
 | EXPOSE_API_DOCS | Non-production API docs gate | Жоқ |
 
 ## Production personal-data baseline
@@ -128,7 +133,8 @@ Feature code бар болуы оның production-да қосылуы кере�
 - renderer token;
 - signer/timestamp token;
 - PII encryption keys;
-- metrics/support staff tokens.
+- metrics/operations/support staff tokens;
+- Admin Basic Auth password.
 
 ## Related guides
 
