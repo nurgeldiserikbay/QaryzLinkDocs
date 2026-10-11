@@ -31,7 +31,8 @@ QaryzLink should be comfortable to use as a mobile-first web/PWA experience and 
 - shared authenticated dashboard shell with one sticky mobile header and one fixed bottom navigation;
 - five mobile dashboard destinations kept on one row with safe-area spacing;
 - `/dashboard/new` associated with the Requests navigation state;
-- cursor-paginated Contracts, Requests және Notifications workspaces with explicit «load more» controls;
+- cursor-paginated Contracts, Requests, Notifications және Marketplace offer/application workspaces with explicit «load more» controls;
+- Marketplace request selector request summaries-ді page-by-page оқиды және әр request үшін бөлек detail N+1 сұрауын жасамайды;
 - financial amounts contract/request currency-мен көрсетіледі; dashboard mixed-currency overdue totals-ды бір санға қоспайды;
 - mobile dashboard active-contract list with next payment summary;
 - dashboard action summary with active-contract count, overdue-payment count and nearest payment;
