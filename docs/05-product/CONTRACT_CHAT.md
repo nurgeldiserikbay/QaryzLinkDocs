@@ -20,7 +20,7 @@ Current behavior:
 - contract lists expose an unread chat count derived from unread chat notification rows;
 - opening the chat marks only that contract's unread chat notifications as read, including still-pending in-app rows so a delayed scheduler dispatch cannot resurrect a stale unread badge; read sync is not repeated on every polling tick;
 - dashboard contract cards show the unread count and, when no higher-priority financial action exists, open directly at the chat section;
-- older history loads in bounded 50-message pages using a contract-scoped `beforeId` cursor without disabling lightweight polling, and sending a new message does not discard already-loaded older history;
+- older history loads in bounded 50-message pages using a contract-scoped `beforeId` cursor; the API returns `{ items, nextCursor }`, so the Front does not guess history availability from `items.length`; polling remains active and sending a new message does not discard already-loaded older history;
 - KZ/RU UI and session/rate-limit error states are included.
 
 ## Legal boundary
