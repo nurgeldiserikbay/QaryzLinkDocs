@@ -244,6 +244,7 @@ Only the minimum decision-relevant borrower metrics approved by disclosure polic
 - no raw provider payloads;
 - all access is audited;
 - borrower can see that risk information was disclosed and under which relationship/policy;
+- Disclosure-history rows never expose lender identity/contact/profile fields; they contain only relationship source metadata, access lifecycle timestamps/status and policy version;
 - disputed data must be flagged or excluded according to policy;
 - correction/appeal mechanism is required.
 
@@ -352,7 +353,7 @@ Current implementation includes:
 
 - Prisma models and migration for `risk_access_grants`, `risk_snapshots` and `repayment_metrics`;
 - relationship-scoped lender endpoints for request and contract risk views;
-- borrower-only disclosure history endpoint;
+- borrower-only cursor-paginated disclosure history endpoint (50 rows per page);
 - automatic request/application/proposal grant lifecycle;
 - request-to-contract access transition;
 - automatic revoke when the contract closes;
@@ -360,7 +361,7 @@ Current implementation includes:
 - audit event for risk-view access;
 - repayment metrics recomputed from confirmed funding, schedule and confirmed payment history;
 - lender-only risk cards in request and active contract screens;
-- borrower disclosure history in Settings;
+- borrower disclosure history in Settings with explicit «load more» pagination and localized access statuses;
 - KZ/RU presentation and mobile layout;
 - API regression tests preventing generic user-risk lookup.
 
