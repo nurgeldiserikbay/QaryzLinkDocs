@@ -124,3 +124,18 @@ Risk disclosure relationship source lifecycle-мен бірге жабылады
 - funding deadline немесе borrower confirmation deadline өтіп, contract `EXPIRED_UNFUNDED` болғанда contract grant та transaction ішінде revoke болады.
 
 Осылай UI status filter ғана емес, persisted grant state өзі де terminal relationship аяқталғанын көрсетеді.
+
+
+## Borrower risk disclosure history
+
+Borrower өзінің тәуекел ақпаратына берілген қолжетімділік тарихын
+`GET /api/v1/risk/disclosures?cursor=...` арқылы көреді.
+
+- endpoint тек authenticated borrower-дың өз grant history-сін қайтарады;
+- әр бетте 50 жазбаға дейін және `nextCursor` бар;
+- cursor actor-ға тиесілі емес болса generic 404 қайтарылады;
+- response lender identity, email, phone немесе басқа counterparty PII шығармайды;
+- Settings UI барлық тарихты «Тағы жүктеу» арқылы кезең-кезеңімен ашады;
+- `ACTIVE / REVOKED / EXPIRED` күйлері KZ/RU user-facing мәтінмен көрсетіледі.
+
+Бұл тарих privacy transparency үшін арналған: user қандай request/contract source бойынша тәуекел ақпаратына қолжетімділік ашылғанын, соңғы рет қашан қаралғанын және қашан жабылғанын көре алады.
