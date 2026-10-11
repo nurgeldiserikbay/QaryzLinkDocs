@@ -53,15 +53,7 @@ GET /api/v1/discovery/requests/:id returns:
   "currency": "KZT",
   "amountMinor": "string",
   "termDays": 30,
-  "expiresAt": "ISO-8601",
-  "proposals": [
-    {
-      "id": "uuid",
-      "status": "PENDING | ACCEPTED | REJECTED | WITHDRAWN | SUPERSEDED",
-      "termsSnapshot": "object",
-      "expiresAt": "ISO-8601"
-    }
-  ]
+  "expiresAt": "ISO-8601"
 }
 ~~~
 
