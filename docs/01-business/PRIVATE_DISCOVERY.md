@@ -32,7 +32,8 @@ API prefix `/api/v1/discovery`, Bearer required:
 | POST | `/requests/:id/proposals` | lender terms |
 | POST | `/proposals/:id/decision` | borrower ACCEPT/REJECT, lender WITHDRAW |
 | GET | `/requests` | own/invited requests |
-| GET | `/requests/:id` | visible proposals |
+| GET | `/requests/:id` | lightweight private request summary |
+| GET | `/requests/:id/proposals` | participant-only cursor-paginated proposal history |
 
 POST requests require UUID `Idempotency-Key`. `amountMinor` JSON string; KZT minor units, example `10000000` = 100,000 KZT. `annualRateBps=0` interest-free, positive value SIMPLE technical terms; this is not legal approval.
 
@@ -64,7 +65,7 @@ GET /api/v1/discovery/requests/:id returns:
 }
 ~~~
 
-viewerRole is the authenticated viewer's role for this request. Borrowers can see visible proposals; lenders see only their own proposal records. Invitation management is deliberately separated from the request-detail payload and uses `GET /requests/:id/invitations`. That endpoint is borrower-only for ACTIVE/PAUSED requests, cursor-paginated, and returns only invitation id, the exact Public ID used when inviting, and creation time. Email, phone, legal identity, profile payload and contact fields are not returned. Clients must not expose raw personal data or blindly render the opaque termsSnapshot; render only validated fields required by the UI.
+viewerRole is the authenticated viewer's role for this request. Proposal history is deliberately separated from the request-detail payload and uses `GET /requests/:id/proposals`: borrowers see proposal history for the request, lenders see only their own proposal records. Invitation management is also separated and uses `GET /requests/:id/invitations`. That endpoint is borrower-only for ACTIVE/PAUSED requests, cursor-paginated, and returns only invitation id, the exact Public ID used when inviting, and creation time. Email, phone, legal identity, profile payload and contact fields are not returned. Clients must not expose raw personal data or blindly render the opaque termsSnapshot; render only validated fields required by the UI.
 
 Front borrower request detail shows active invitation references and uses the existing idempotent revoke endpoint. Revoking removes the invitation and its request-scoped risk access. Blocking remains a separate stronger action; it is not coupled to a revoke button.
 
