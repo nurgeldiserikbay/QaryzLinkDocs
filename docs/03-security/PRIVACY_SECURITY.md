@@ -72,7 +72,7 @@ Current implemented foundation:
 
 - email verification;
 - password + scrypt storage;
-- active session inventory;
+- cursor-paginated active session inventory with ownership-scoped selective revoke;
 - selective session revoke / logout-all;
 - refresh-token rotation;
 - brute-force/rate limiting boundaries;
