@@ -31,6 +31,7 @@ API prefix `/api/v1/discovery`, Bearer required:
 | POST | `/blocks/unblock` | remove one own block by exact Public ID; does not restore stale state |
 | POST | `/requests/:id/proposals` | lender terms |
 | POST | `/proposals/:id/decision` | borrower ACCEPT/REJECT, lender WITHDRAW |
+| GET | `/proposals/:id/counters` | participant-only cursor-paginated counter history |
 | GET | `/requests` | own/invited requests |
 | GET | `/requests/:id` | lightweight private request summary |
 | GET | `/requests/:id/proposals` | participant-only cursor-paginated proposal history |
