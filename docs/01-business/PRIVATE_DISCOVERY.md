@@ -23,6 +23,7 @@ API prefix `/api/v1/discovery`, Bearer required:
 | POST | `/requests/:id/pause` | borrower temporarily pauses an ACTIVE request |
 | POST | `/requests/:id/resume` | borrower resumes a non-expired PAUSED request |
 | POST | `/requests/:id/cancel` | borrower cancels an ACTIVE or PAUSED request and closes request-scoped access |
+| GET | `/requests/:id/invitations` | borrower-only cursor-paginated invitation references |
 | POST | `/requests/:id/invitations` | exact Public ID lender invitation |
 | POST | `/requests/:id/invitations/:invitationId/revoke` | borrower revokes one invitation |
 | POST | `/blocks` | block exact Public ID and close pending discovery state in both directions |
@@ -59,18 +60,11 @@ GET /api/v1/discovery/requests/:id returns:
       "termsSnapshot": "object",
       "expiresAt": "ISO-8601"
     }
-  ],
-  "invitations": [
-    {
-      "id": "uuid",
-      "lenderPublicId": "public-id | null",
-      "createdAt": "ISO-8601"
-    }
   ]
 }
 ~~~
 
-viewerRole is the authenticated viewer's role for this request. Borrowers can see visible proposals plus their own invitation references; lenders see only their own proposal records and receive an empty invitations array. Invitation projection is deliberately limited to invitation id, the exact Public ID the borrower used when inviting, and creation time. Email, phone, legal identity, profile payload and contact fields are not returned. Clients must not expose raw personal data or blindly render the opaque termsSnapshot; render only validated fields required by the UI.
+viewerRole is the authenticated viewer's role for this request. Borrowers can see visible proposals; lenders see only their own proposal records. Invitation management is deliberately separated from the request-detail payload and uses `GET /requests/:id/invitations`. That endpoint is borrower-only for ACTIVE/PAUSED requests, cursor-paginated, and returns only invitation id, the exact Public ID used when inviting, and creation time. Email, phone, legal identity, profile payload and contact fields are not returned. Clients must not expose raw personal data or blindly render the opaque termsSnapshot; render only validated fields required by the UI.
 
 Front borrower request detail shows active invitation references and uses the existing idempotent revoke endpoint. Revoking removes the invitation and its request-scoped risk access. Blocking remains a separate stronger action; it is not coupled to a revoke button.
 
