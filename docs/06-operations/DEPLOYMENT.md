@@ -41,7 +41,7 @@ Outbox хабарламаларын бір рет өңдеу үшін applicatio
 pnpm notifications:run
 ~~~
 
-Бұл command HTTP server ашпайды: `AppModule` application context іске қосылады, `NotificationSchedulerService.runOnce()` бір рет орындалады және context жабылады. API-мен бірдей `DATABASE_URL`, `REDIS_URL`, JWT және notification/SMTP settings керек. Dispatch нәтижесі counters ретінде логталады; bootstrap қатесі non-zero exit code қайтарады. Kubernetes CronJob немесе queue trigger осы command-ті қайталайды. Canonical deployable template QaryzLinkBack `ops/kubernetes/notification-scheduler-cronjob.yaml` ішінде; operational contract: [Notification CronJob](NOTIFICATION_CRONJOB.md). CronJob overlap, Secret және image policy deployment деңгейінде қалады.
+Бұл command HTTP server ашпайды: `AppModule` application context іске қосылады, `NotificationMaintenanceService.run()` бір рет орындалады және context жабылады. Бір цикл funding confirmation expiry, repayment due/overdue materialization, repayment reminders, closure-ready notifications және outbox delivery кезеңдерін орындайды. API-мен бірдей `DATABASE_URL`, `REDIS_URL`, JWT және notification/SMTP settings керек. Dispatch нәтижесі counters ретінде логталады; bootstrap қатесі non-zero exit code қайтарады. Kubernetes CronJob немесе queue trigger осы command-ті қайталайды. Canonical deployable template QaryzLinkBack `ops/kubernetes/notification-scheduler-cronjob.yaml` ішінде; operational contract: [Notification CronJob](NOTIFICATION_CRONJOB.md). CronJob overlap, Secret және image policy deployment деңгейінде қалады.
 
 ### 2.2 Evidence cleanup job
 
@@ -82,6 +82,7 @@ Command HTTP server ашпайды. Алдымен grace/retention hold қайт
 | NOTIFICATION_BATCH_SIZE | 1–100, әдепкісі 50 |
 | METRICS_ACCESS_TOKEN | Staging/production-та кемінде 32 таңба; aggregate metrics endpoint header token |
 | OPERATIONS_ACCESS_TOKEN | Admin row-level operations үшін server-only кемінде 32 таңба; METRICS_ACCESS_TOKEN-нан бөлек |
+| SCHEDULER_TRIGGER_TOKEN | Protected HTTP maintenance trigger қолданылса кемінде 32 таңбалық dedicated secret |
 | CONTRACT_PDF_ENABLED / CONTRACT_PDF_PROVIDER | Pinned-template PDF renderer gate/provider; legal template + staging acceptance дейін false/unavailable |
 | CONTRACT_PDF_REMOTE_URL / TOKEN | HTTPS-only signed renderer endpoint және server-side bearer credential |
 | CONTRACT_PDF_EXPECTED_RENDERER_ID / KEY_FINGERPRINT | Pinned renderer identity және Ed25519 SPKI SHA-256 |
@@ -100,6 +101,7 @@ Command HTTP server ашпайды. Алдымен grace/retention hold қайт
 | AMOUNT_BASED_COMMISSION_ENABLED | false |
 | MAX_OUTGOING_APPLICATIONS_PER_DAY | Public-offer application daily quota; engineering default 10 |
 | MAX_MARKETPLACE_REPORTS_PER_DAY | Бір account үшін marketplace offer report daily quota; default 5, validated max 50 |
+| SUPPORT_DISPUTE_TRANSITIONS_ENABLED | false; audited dispute status transition workflow-ды explicit қосады |
 | SUPPORT_MARKETPLACE_REPORT_TRANSITIONS_ENABLED | false; row-level Resolve/Dismiss support workflow-ды explicit қосады |
 | SUPPORT_STAFF_CREDENTIALS_JSON | Scoped/expiring support staff credential registry; raw token емес, SHA-256 tokenHash сақталады |
 | MAX_OFFER_VERSIONS | Бір public offer үшін immutable financial-term history limit; default 20, validated max 100 |
