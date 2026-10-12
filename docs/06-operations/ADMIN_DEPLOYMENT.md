@@ -97,13 +97,14 @@ Admin:
 - offset-based operations directory navigation 400 page-мен bounded; үлкен dataset-та deep scan орнына Public ID/name/UUID search қолданылады;
 - System workspace health/readiness/evidence/notifications/auth-retention сигналдарын бөлек жинайды;
 - Privacy workspace account deletion және PII migration/key-rotation/plaintext-retirement aggregate status-ын бөлек көрсетеді;
+- Disputes workspace privacy-safe case directory және support-gated audited status transitions береді;
 - Moderation workspace marketplace report metrics пен cursor-paginated support-gated human review queue-ды бөлек ұстайды;
 - row-level operations тек `OPERATIONS_ACCESS_TOKEN` арқылы server-side оқылады;
 - email/phone/password/identity payload/dispute description/evidence body әдепкіде қайтарылмайды;
 - evidence/storage/notification/account-deletion counters оқиды;
 - high-risk mutations default-off.
 
-Marketplace/support mutation feature gate ашылғанда ғана scoped staff credential қолданылады.
+Dispute/marketplace/evidence support mutation feature gate ашылғанда ғана scoped staff credential қолданылады.
 
 ## Acceptance
 
