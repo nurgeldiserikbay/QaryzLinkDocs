@@ -46,6 +46,8 @@ Required for a normal production deployment:
 | `JWT_ACCESS_SECRET` | Strong random secret, minimum policy enforced by backend |
 | `CORS_ALLOWED_ORIGINS` | Exact frontend/admin origins that require browser access |
 | `METRICS_ACCESS_TOKEN` | Required when protected metrics are consumed in production |
+| `OPERATIONS_ACCESS_TOKEN` | Dedicated server-only row-level operations credential; must differ from metrics token |
+| `SCHEDULER_TRIGGER_TOKEN` | Required when protected HTTP notification-maintenance trigger is used |
 
 `TRUST_PROXY_HOPS` must stay `0` unless the exact ingress/proxy topology is known and forwarding headers are sanitized by the trusted proxy.
 
@@ -103,6 +105,7 @@ Required production values:
 | `NEXT_PUBLIC_API_BASE_URL` | Public liveness/backend origin only, no secrets |
 | `QARYZLINK_API_BASE_URL` | Exact HTTPS backend origin, server-only |
 | `METRICS_ACCESS_TOKEN` | Server-only protected metrics credential |
+| `OPERATIONS_ACCESS_TOKEN` | Server-only row-level operations credential; must match Backend and differ from metrics token |
 | `SUPPORT_STAFF_TOKEN` | Server-only scoped staff credential |
 | `ADMIN_BASIC_AUTH_USER` | Required production admin username |
 | `ADMIN_BASIC_AUTH_PASSWORD` | Required production admin password; at least 32 bytes |
@@ -127,6 +130,8 @@ Store secrets in the deployment platform secret manager, not in Git:
 - JWT secrets;
 - SMTP credentials;
 - metrics token;
+- operations access token;
+- scheduler trigger token;
 - support staff token;
 - identity provider tokens;
 - evidence storage credentials;
