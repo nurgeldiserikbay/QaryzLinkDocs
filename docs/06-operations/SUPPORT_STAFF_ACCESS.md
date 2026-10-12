@@ -17,7 +17,9 @@ QaryzLink support/moderation mutation-дары shared static backend token-на�
 
 - `disputes:write`;
 - `marketplace-reports:read`;
-- `marketplace-reports:write`.
+- `marketplace-reports:write`;
+- `evidence-holds:read`;
+- `evidence-holds:write`.
 
 Raw support token backend registry ішінде сақталмайды. Caller token-ды existing `x-support-token` header арқылы береді; backend SHA-256 hash бойынша matching жасайды, expiry және scope-ты тексереді.
 
@@ -25,7 +27,7 @@ Raw support token backend registry ішінде сақталмайды. Caller t
 
 Successful support mutation audit payload-қа тек opaque `supportActorId` қосылады. Staff name, email, raw token, token hash немесе credential expiry audit payload-қа кірмейді.
 
-Dispute status transition және marketplace moderation Resolve/Dismiss әрекеттері осы actor attribution-ды қолданады.
+Dispute status transition, marketplace moderation Resolve/Dismiss және evidence legal-hold support әрекеттері осы actor attribution-ды қолданады.
 
 ## Admin
 
