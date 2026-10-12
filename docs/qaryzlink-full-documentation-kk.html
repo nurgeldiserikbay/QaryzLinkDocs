@@ -39,8 +39,11 @@ details{background:#fff;border:1px solid var(--line);border-radius:11px;padding:
 <a href="#integrations">11. Интеграциялар</a>
 <a href="#deployment">12. Deployment</a>
 <a href="#pages">13. Сайт құрылымы</a>
-<a href="#release">14. Release readiness</a>
-<a href="#faq">15. FAQ</a>
+<a href="#mobile">14. PWA / Android / iOS</a>
+<a href="#analytics">15. Analytics</a>
+<a href="#enterprise">16. Enterprise readiness</a>
+<a href="#release">17. Release readiness</a>
+<a href="#faq">18. FAQ</a>
 </nav>
 </aside>
 <main>
@@ -272,6 +275,53 @@ EXPOSE_API_DOCS=false</pre>
 </div>
 </section>
 
+
+<section id="mobile">
+<h2>PWA, Android және iOS</h2>
+<p class="lead">QaryzLinkFront бір responsive UI codebase-ты web, PWA және кейін Capacitor арқылы Android/iOS-та қолдануға дайындалады.</p>
+<div class="grid">
+<div class="card"><h3>PWA</h3><p><strong>Бар:</strong> manifest, service worker, offline shell, install UI, standalone mode, mobile bottom navigation, safe-area және Web Push foundation.</p></div>
+<div class="card"><h3>Android</h3><p>PWA ретінде орнатуға болады. Native store build үшін Capacitor dependency, generated <code>android/</code>, secure storage, biometric bridge, FCM, App Links және signing қажет.</p></div>
+<div class="card"><h3>iOS</h3><p>Safari арқылы Home Screen web app ретінде қолдануға болады. Native App Store build үшін generated <code>ios/</code>, Keychain/Face ID, APNs, Universal Links, entitlements және signing қажет.</p></div>
+</div>
+<table>
+<tr><th>Қабат</th><th>Қазіргі күй</th><th>Release шарты</th></tr>
+<tr><td>Responsive web</td><td>Дайын baseline</td><td>Real-device accessibility/mobile acceptance</td></tr>
+<tr><td>PWA</td><td>Installable baseline</td><td>Manifest/assets/device smoke</td></tr>
+<tr><td>Android native</td><td>Architecture/preflight бар, generated project жоқ</td><td>Capacitor packages + android project + secure storage + push + signing</td></tr>
+<tr><td>iOS native</td><td>Architecture/preflight бар, generated project жоқ</td><td>Capacitor packages + ios project + Keychain/biometric + APNs + signing</td></tr>
+</table>
+<div class="note"><strong>Security:</strong> native token/session material WebView local storage-ға тәуелді болмауы тиіс; production native implementation OS secure storage арқылы жасалуы керек.</div>
+</section>
+
+<section id="analytics">
+<h2>User және Admin analytics</h2>
+<div class="grid2">
+<div class="card"><h3>User portfolio</h3><p>Dashboard active/overdue/action state-пен бірге borrower/lender principal totals, completed contracts және unread messages aggregate көрсетеді. Aggregate endpoint participant-only және identity-free.</p></div>
+<div class="card"><h3>Admin operations</h3><p>Users, contracts, requests, disputes, funding, evidence, notification, retention, audit және discovery-expiry backlog aggregate metrics бар.</p></div>
+<div class="card"><h3>Product funnel</h3><p>Request → Proposal → Accepted → Funded → Completed aggregate funnel Admin operations view-ға шығарылған.</p></div>
+<div class="card"><h3>Кейінгі BI</h3><p>DAU/WAU/MAU, D7/D30 retention, conversion by locale/platform, DPD aging, notification open rate және consent-aware event warehouse әлі бөлек phase.</p></div>
+</div>
+<div class="ok"><strong>Privacy:</strong> analytics endpoint-тер PII, message body, evidence content немесе contract text шығармайды.</div>
+</section>
+
+<section id="enterprise">
+<h2>Enterprise readiness</h2>
+<p class="lead">Қазіргі production scope — KZ жеке тұлғалар. Толық B2B/enterprise үшін organization domain жеке кезең ретінде қажет.</p>
+<table>
+<tr><th>Capability</th><th>Қазір</th><th>Enterprise үшін</th></tr>
+<tr><td>Organization / Company</td><td>Canonical architecture/ADR бар</td><td>Organization entity + organization party implementation</td></tr>
+<tr><td>Membership</td><td>Жоқ</td><td>Employee invitation/join/offboarding</td></tr>
+<tr><td>RBAC</td><td>Support scopes бар, company RBAC жоқ</td><td>OWNER/ADMIN/FINANCE/LEGAL/VIEWER + granular permissions</td></tr>
+<tr><td>Approval workflow</td><td>Personal dual-party confirmation</td><td>Maker-checker / four-eyes / approval thresholds</td></tr>
+<tr><td>KYB / UBO</td><td>Жоқ</td><td>Company verification provider + legal representative authority</td></tr>
+<tr><td>SSO / SCIM</td><td>Жоқ</td><td>OIDC/SAML + lifecycle provisioning</td></tr>
+<tr><td>Integration API</td><td>Internal/product API</td><td>API credentials, signed webhooks, retry, sandbox, IP policy</td></tr>
+<tr><td>Reporting</td><td>User views + operational metrics</td><td>CSV/XLSX registers, scheduled reports, organization audit export</td></tr>
+</table>
+<div class="note"><strong>Scope rule:</strong> company/enterprise capability current KZ personal pilot release-ін блоктамауы керек. Ол Phase 2 ретінде backward-compatible domain extension болуы тиіс.</div>
+</section>
+
 <section id="release">
 <h2>Release readiness</h2>
 <div class="grid">
@@ -279,7 +329,7 @@ EXPOSE_API_DOCS=false</pre>
 <div class="card"><h3>Environment acceptance</h3><p>Staging, providers, mailbox, storage, scanner, alert, backup/restore және network policy.</p></div>
 <div class="card"><h3>Promotion</h3><p>Final approval record өткеннен кейін ғана pilot/production шешімі.</p></div>
 </div>
-<div class="note"><strong>Ескерту:</strong> repository-side дайындық production environment acceptance өтті дегенді білдірмейді.</div>
+<div class="note"><strong>Ескерту:</strong> repository-side дайындық production environment acceptance өтті дегенді білдірмейді. Қазіргі негізгі сыртқы gate-тер: CI толық green, staging migration/runtime acceptance, SMTP/storage/scanner/provider checks, backup/restore, monitoring alert delivery және final legal/governance approval.</div>
 </section>
 
 <section id="faq">
