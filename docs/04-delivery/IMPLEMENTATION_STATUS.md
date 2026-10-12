@@ -1,8 +1,23 @@
 # Implementation status
 
-Жаңартылған күні: 2026-10-07
+Жаңартылған күні: 2026-10-13
 
 Бұл құжат specification мен нақты код арасындағы қысқа бақылау нүктесі. Толық талаптар өзгермейді; мұнда тек орындалу күйі көрсетіледі.
+
+## 2026-10-13 repository checkpoint
+
+- Discovery expiry lifecycle, metrics and PostgreSQL integration coverage added.
+- Closure-ready maintenance uses persistent cursor rotation.
+- Deletion retention covers disputes and evidence legal holds; pending deletion blocks login, refresh and active sessions.
+- Repayment reminders now include bounded recurring overdue cadence.
+- Prisma migrations support DIRECT_DATABASE_URL and pooled-DB release gating.
+- User dashboard has participant-only portfolio aggregates.
+- Admin shows business funnel and discovery-expiry backlog.
+- PWA shortcuts and strict native readiness preflight were added.
+- Android/iOS generated projects remain a separate native-release gate.
+- Organization/company support remains architecture-only for the current personal KZ scope.
+
+A new staging candidate must be frozen only after CI/build/integration/migration checks and environment acceptance are rerun.
 
 ## 2026-10-07 frozen staging candidate #2
 
