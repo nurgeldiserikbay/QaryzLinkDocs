@@ -8,7 +8,7 @@
 node dist/src/notification-scheduler.main.js
 ~~~
 
-Application image ішінде command HTTP server ашпайды. Ол AppModule context іске қосып, outbox claim/retry және delivery lifecycle-ін бір рет орындайды.
+Application image ішінде command HTTP server ашпайды. Ол AppModule context іске қосып, бір maintenance циклін орындайды: мерзімі өткен funding confirmation-дарды `EXPIRED_UNFUNDED` күйіне материализациялайды, repayment due/overdue status-тарын жаңартады, reminder және closure-ready notification intent-терін дайындайды, содан кейін outbox claim/retry/delivery lifecycle-ін бір рет орындайды.
 
 Canonical release-bundle manifest QaryzLinkBack-та:
 
@@ -55,9 +55,10 @@ Notification CronJob migration job емес. Schema migration traffic ашылғ
 3. Manifest-тегі image және namespace мәндерін staging үшін толтыру.
 4. CronJob-ті қолдану.
 5. Job бір рет сәтті аяқталғанын және жаңа Job overlap болмайтынын тексеру.
-6. GET /api/v1/metrics/notifications endpoint-ін x-metrics-token header арқылы оқу.
-7. Failed/pending counters және job logs ішінде PII жоқ екенін тексеру.
-8. SMTP нақты staging mailbox-қа тек бақылаудағы test account арқылы тексеру.
+6. Job output-та `fundingExpired`, `dueStatusChanged`, reminder/closure және delivery counters барын тексеру; нақты identifier/payload логталмауы тиіс.
+7. GET /api/v1/metrics/notifications endpoint-ін x-metrics-token header арқылы оқу.
+8. Failed/pending counters және job logs ішінде PII жоқ екенін тексеру.
+9. SMTP нақты staging mailbox-қа тек бақылаудағы test account арқылы тексеру.
 
 ### HTTP smoke checks
 
