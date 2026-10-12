@@ -15,6 +15,8 @@ This checklist covers the Android/iOS delivery shell for QaryzLink.
 - [x] Logout, current-session revoke, logout-all, password change and account-deletion request use unified local/native cleanup.
 - [x] Automatic access-token renewal is single-flight and bounded to one retry.
 - [x] `mobile:check` validates the prepared native bridge/config contract.
+- [x] `native:preflight` fails closed until Capacitor packages, generated Android/iOS projects and permanent production origins are ready.
+- [x] PWA manifest exposes core shortcuts for request, contracts and notifications.
 
 These checks do **not** mean Android/iOS production readiness. Generated native projects, OS-protected storage implementation, signing, verified links and real-device acceptance remain pending below.
 
@@ -26,6 +28,7 @@ These checks do **not** mean Android/iOS production readiness. Generated native 
 - [ ] `NATIVE_APP_URL` points to the permanent frontend origin.
 - [ ] `pnpm mobile:configure` succeeds.
 - [ ] `pnpm mobile:check` succeeds.
+- [ ] `pnpm native:preflight` succeeds before any Play/App Store release candidate is promoted.
 - [ ] Capacitor core/cli/android/ios versions are pinned to the same stable release.
 - [ ] `package.json` and `pnpm-lock.yaml` are updated together.
 
