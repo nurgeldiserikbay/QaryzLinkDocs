@@ -332,6 +332,57 @@ EXPOSE_API_DOCS=false</pre>
 <div class="note"><strong>Ескерту:</strong> repository-side дайындық production environment acceptance өтті дегенді білдірмейді. Қазіргі негізгі сыртқы gate-тер: CI толық green, staging migration/runtime acceptance, SMTP/storage/scanner/provider checks, backup/restore, monitoring alert delivery және final legal/governance approval.</div>
 </section>
 
+<section id="mobile">
+<h2>PWA / Android / iOS readiness</h2>
+<div class="grid">
+<div class="card"><h3>PWA</h3><p>Manifest, service worker, offline shell, install UI, standalone mode, Web Push және mobile bottom navigation бар. Android және iOS Home Screen installation current release scope-қа кіреді.</p></div>
+<div class="card"><h3>Android / iOS native</h3><p>Capacitor architecture, runtime adapters және biometric/secure-session contract бар. Бірақ generated <code>android/</code> және <code>ios/</code> projects, store signing, FCM/APNs, Universal/App Links және native secure storage implementation әлі бөлек native release phase.</p></div>
+<div class="card"><h3>Бір UI</h3><p>Web, PWA және native shell бір Next.js UI codebase қолданады. Native айырмашылық тек secure storage, biometric, push, deep links, share/camera сияқты adapter қабатында болуы тиіс.</p></div>
+</div>
+<table>
+<tr><th>Capability</th><th>Қазіргі күй</th></tr>
+<tr><td>Responsive web</td><td>Дайынға жақын; mobile navigation, safe-area, touch targets, focus-visible және reduced-motion бар.</td></tr>
+<tr><td>PWA install</td><td>Бар; manifest shortcut-тар request/contracts/notifications үшін қосылған.</td></tr>
+<tr><td>Native store preflight</td><td><code>pnpm native:preflight</code> Capacitor packages, generated platforms және permanent HTTPS origins дайын болмаса fail-closed.</td></tr>
+<tr><td>Native biometric</td><td>Bridge/API contract бар, Android Keystore / iOS Keychain implementation pending.</td></tr>
+</table>
+</section>
+
+<section id="analytics">
+<h2>User және Admin analytics</h2>
+<div class="grid2">
+<div class="card"><h3>User portfolio analytics</h3><p>Authenticated participant үшін aggregate endpoint borrower/lender portfolio-ны identity leakage-сіз береді: active/completed/disputed contract counts, borrower/lender counts, unread messages және currency-separated borrowed/lent principal totals.</p></div>
+<div class="card"><h3>Admin business funnel</h3><p>Operations summary енді requests → proposals → accepted → funded → completed funnel counters-ын көрсетеді. Discovery expiry backlog metrics stale lifecycle rows мен oldest stale age-ті көрсетеді.</p></div>
+</div>
+<div class="note"><strong>Privacy boundary:</strong> analytics response-тарда message body, evidence content, contact PII немесе counterparty private fields болмауы тиіс. Product event analytics consent-aware бөлек phase ретінде қалады.</div>
+</section>
+
+<section id="enterprise">
+<h2>Enterprise / organization roadmap</h2>
+<p class="lead">Current production scope — verified KZ personal parties. Толық enterprise B2B үшін organization acting-party architecture қажет.</p>
+<table>
+<tr><th>Enterprise capability</th><th>Күй</th></tr>
+<tr><td>Organization / company entity</td><td>ADR/design бар, implementation толық емес.</td></tr>
+<tr><td>Membership және employee invitation</td><td>Pending.</td></tr>
+<tr><td>RBAC / permissions</td><td>Pending: owner/admin/finance/legal/operator/viewer/auditor және fine-grained permissions керек.</td></tr>
+<tr><td>Maker-checker approvals</td><td>Pending: draft → finance approval → legal approval → authorized signer.</td></tr>
+<tr><td>KYB / UBO / legal representative</td><td>External/legal acceptance-пен pending.</td></tr>
+<tr><td>SSO / OIDC / SAML / SCIM</td><td>Enterprise phase.</td></tr>
+<tr><td>Organization analytics / exposure</td><td>Enterprise phase.</td></tr>
+<tr><td>API credentials / webhooks / ERP integration</td><td>Enterprise integrations phase.</td></tr>
+</table>
+</section>
+
+<section id="limitations">
+<h2>Production-да әлі сыртқы acceptance қажет бөліктер</h2>
+<div class="grid2">
+<div class="card"><h3>Environment</h3><ul><li>GitHub Actions толық green;</li><li>real staging E2E;</li><li>Render/Neon/Vercel env acceptance;</li><li>backup/restore rehearsal;</li><li>alert delivery.</li></ul></div>
+<div class="card"><h3>Providers</h3><ul><li>SMTP sender ownership;</li><li>private evidence storage/scanner;</li><li>identity provider;</li><li>PDF renderer;</li><li>remote signer/TSA;</li><li>KMS/HSM.</li></ul></div>
+<div class="card"><h3>Database migration</h3><p>Runtime <code>DATABASE_URL</code> pooled болуы мүмкін. Prisma CLI <code>DIRECT_DATABASE_URL</code> бар кезде соны қолданады; pooled runtime DB direct migration URL-сыз болса release preflight fail болады.</p></div>
+<div class="card"><h3>Legal/governance</h3><p>Public marketplace, penalties, commission model, signing authority, retention/legal templates және enterprise KYB нақты approval-сыз production feature ретінде ашылмайды.</p></div>
+</div>
+</section>
+
 <section id="faq">
 <h2>FAQ</h2>
 <details open><summary>Бір адам “қарыз бар” деп жазса, ол бірден растала ма?</summary><p>Жоқ. Біржақты claim shared confirmed fact емес.</p></details>
