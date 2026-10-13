@@ -12,15 +12,16 @@ The user experience should stay consistent while platform-specific behavior is i
 
 ## Current approach
 
-The frontend remains a Next.js application hosted over HTTPS. The native Capacitor shell opens the production frontend URL instead of trying to statically export the whole application.
+The frontend remains a Next.js application hosted over HTTPS. The current Capacitor preparation keeps a configurable HTTPS application origin because the frontend uses dynamic authenticated routes and server-rendered Next.js behavior.
 
-This is intentional because the current frontend uses dynamic authenticated routes and server-rendered Next.js behavior. Forcing a static export at this stage would create unnecessary architectural constraints.
+The committed `server.url` is a preparation-time value, not proof of store readiness. Native promotion is blocked until the permanent production origin is configured, Capacitor dependencies are pinned in the lockfile and generated Android/iOS projects pass `pnpm native:preflight`.
 
 Native application identity:
 
 - app name: QaryzLink
 - application id: `kz.qaryzlink.app`
-- production web origin: `https://qaryz-link-front.vercel.app` until a permanent custom domain is assigned.
+- temporary web origin: `https://qaryz-link-front.vercel.app`;
+- store release requires a permanent custom production origin.
 
 ## Runtime modes
 
@@ -92,6 +93,12 @@ The CI/check flow validates the mobile preparation configuration with:
 pnpm mobile:check
 ```
 
+Store readiness additionally requires:
+
+```bash
+pnpm native:preflight
+```
+
 Before a native release, set the production origin explicitly:
 
 ```bash
@@ -124,7 +131,7 @@ When native builds are enabled, install matching versions of:
 @capacitor/ios
 ```
 
-Then initialize/sync the platform projects and commit `android/` and `ios/` only after the build environment and signing strategy are decided.
+Then initialize/sync the platform projects and commit `android/` and `ios/` only after the build environment and signing strategy are decided. `native:preflight` intentionally fails while either generated platform is missing.
 
 ## Planned sequence
 
