@@ -4,6 +4,19 @@
 
 Бұл құжат specification мен нақты код арасындағы қысқа бақылау нүктесі. Толық талаптар өзгермейді; мұнда тек орындалу күйі көрсетіледі.
 
+## 2026-10-13 analytics/mobile hardening checkpoint
+
+- Backend now exposes participant-only portfolio analytics at `/api/v1/contracts/analytics/summary`.
+- The aggregate response includes active/completed/disputed contract counts, borrower/lender counts, unread contract-message count and currency-separated borrowed/lent principal totals.
+- Front dashboard prefers the server aggregate and falls back to existing list-derived analytics if that endpoint is temporarily unavailable.
+- Admin operations summary now includes a privacy-safe request → proposal → accepted → funded → completed funnel.
+- Admin System workspace surfaces discovery-expiry backlog and oldest stale age.
+- PWA manifest exposes request/contracts/notifications shortcuts and mobile checks pin the install contract.
+- `pnpm native:preflight` now fails closed until exact Capacitor dependencies, generated Android/iOS projects and permanent production origins are ready.
+- Standalone HTML documentation now records PWA/native readiness, enterprise gaps, analytics and production limitations.
+
+These repository changes do not replace CI, staging, provider or app-store acceptance evidence.
+
 ## 2026-10-13 repository checkpoint
 
 - Discovery expiry lifecycle, metrics and PostgreSQL integration coverage added.
