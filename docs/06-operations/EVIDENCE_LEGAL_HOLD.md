@@ -6,23 +6,26 @@ QaryzLink evidence legal hold — contract-level destructive-retention override.
 
 ## Scope
 
-Current v1:
+Current behavior:
 
 - contract-level hold;
 - enum-only reason;
 - immutable hold history row;
-- one active hold per contract;
+- multiple active holds per contract when reasons differ;
+- one active hold per contract + reason;
 - explicit release by hold ID;
 - scoped support read/write credentials;
 - placement/release audit;
-- expired unconsumed upload cleanup exclusion.
+- expired unconsumed upload cleanup exclusion;
+- system-managed malware incident hold lifecycle.
 
 Reasons:
 
 - `DISPUTE`;
 - `LEGAL_REQUEST`;
 - `REGULATORY_REQUEST`;
-- `FRAUD_REVIEW`.
+- `FRAUD_REVIEW`;
+- `MALWARE_INCIDENT` — scanner-managed only.
 
 Free-text legal notes application DB-да сақталмайды.
 
@@ -40,6 +43,9 @@ Enabled болса staff credential-де екі scope болуы тиіс:
 Endpoints:
 
 - `GET /api/v1/internal/support/contracts/:contractId/evidence-holds/active`;
+- `GET /api/v1/internal/support/contracts/:contractId/evidence-holds/active-all`;
+- `GET /api/v1/internal/support/contracts/:contractId/evidence-holds/malware-incidents/active`;
+- `POST /api/v1/internal/support/contracts/:contractId/evidence-holds/malware-incidents/:incidentId/remediate`;
 - `POST /api/v1/internal/support/contracts/:contractId/evidence-holds`;
 - `DELETE /api/v1/internal/support/contracts/:contractId/evidence-holds/:holdId`.
 
@@ -53,11 +59,11 @@ Cleanup әр selected intent үшін дәл сол contract row-ды `FOR UPDAT
 
 Database partial unique index:
 
-`UNIQUE(contractId) WHERE releasedAt IS NULL`
+`UNIQUE(contractId, reason) WHERE releasedAt IS NULL`
 
-бір contract үшін бір ғана active hold болуын DB деңгейінде enforce етеді.
+бір contract-та әртүрлі hold reason-дарды қатар ұстауға мүмкіндік береді, бірақ бір reason duplicate болмайды.
 
-Repeat placement existing active hold-ты қайтарады және duplicate audit жасамайды.
+Repeat placement дәл сол reason үшін existing active hold-ты қайтарады және duplicate audit жасамайды.
 
 Release нақты hold ID-ге байланған. Already-released hold-ты қайта release ету current released state-ті қайтарады және duplicate audit жасамайды. Осылайша кеш келген old release request кейін қойылған жаңа hold-ты босата алмайды.
 
@@ -128,3 +134,14 @@ Object storage provider lifecycle rule application DB-ды айналып өті
 QaryzLinkBack PR #187 merged at `b5c7f11`: contract-level legal hold schema/migration, scoped support API, one-active-hold invariant, idempotent release-by-hold-id, audit және race-safe cleanup serialization.
 
 Back CI run `36464196233` quality job құрды, бірақ runner step орындалмады. Automated Prisma/typecheck/lint/test/build verification pending; application code бұл run-да орындалмаған.
+
+
+## Malware incident specialization
+
+`MALWARE_INCIDENT` support арқылы қолмен place етілмейді. Оны consumed infected evidence анықталған кезде scanner workflow жасайды.
+
+Release барлық linked malware incident `remediatedAt` алғаннан кейін ғана мүмкін.
+
+Толық workflow:
+
+[EVIDENCE_MALWARE_INCIDENT_RESPONSE.md](./EVIDENCE_MALWARE_INCIDENT_RESPONSE.md)
