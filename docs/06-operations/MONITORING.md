@@ -25,6 +25,10 @@ Monitoring жүйесі availability және operational failure-ді бақы�
 | CronJob | missed/overlap/non-zero exit | scheduler review |
 | Backup | stale немесе restore failure | backup incident |
 | Storage | upload/read/signing failure | storage review |
+| Evidence malware hold | active hold > 0 | security/support review |
+| Malware incident | unresolved incident > 0 | remediation workflow |
+| Malware object deletion | pending deletion > 0 | storage/scanner incident |
+| Binary evidence loss | affected contract > 0 | permanent evidence limitation visibility |
 
 Threshold-тер provider және traffic baseline бекітілгеннен кейін ғана санмен белгіленеді; ойдан шығарылған сан production alert ретінде қолданылмайды.
 
@@ -78,3 +82,21 @@ Small cohort немесе жеке пайдаланушы бойынша analyti
 9. Root cause және follow-up task жазу.
 
 Production monitoring толық іске қосылды деп есептелмейді, егер alert destination, on-call owner, retention және test alert нәтижелері бекітілмесе.
+
+
+## Evidence malware signals
+
+Evidence-specific counters:
+
+- `activeMalwareIncidentHolds`;
+- `activeMalwareIncidents`;
+- `pendingObjectDeletionIncidents`;
+- `contractsWithUnavailableBinaryEvidence` in Operations summary.
+
+`pendingObjectDeletionIncidents > 0` storage deletion retry немесе scanner callback path stuck болуы мүмкін екенін білдіреді.
+
+`contractsWithUnavailableBinaryEvidence` active incident емес: бұл infected binary жойылғаннан кейін сақталатын permanent operational limitation.
+
+Runbook:
+
+[EVIDENCE_MALWARE_INCIDENT_RESPONSE.md](./EVIDENCE_MALWARE_INCIDENT_RESPONSE.md)
