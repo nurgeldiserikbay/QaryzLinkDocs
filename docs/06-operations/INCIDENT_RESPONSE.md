@@ -86,6 +86,14 @@ Incident жабылғаннан кейін:
 
 Blameless analysis қолданылады, бірақ қауіпсіздік boundary бұзылған болса corrective action міндетті.
 
+## Evidence malware incidents
+
+Consumed evidence object malware scanner арқылы `INFECTED` деп анықталса, жалпы incident response-пен қатар evidence-specific remediation workflow қолданылады:
+
+[EVIDENCE_MALWARE_INCIDENT_RESPONSE.md](./EVIDENCE_MALWARE_INCIDENT_RESPONSE.md)
+
+Бұл workflow contract state-ті автоматты rollback жасамайды; malware legal hold, object deletion confirmation, support remediation және permanent binary-evidence limitation-ды бөлек басқарады.
+
 ## 7. Release gate
 
 Public pilot алдында нақты incident owner, escalation channel, credential rotation қолжетімділігі, backup restore access, hosting/storage/SMTP provider contacts және user communication owner бекітілуі тиіс.
