@@ -12,16 +12,17 @@ The user experience should stay consistent while platform-specific behavior is i
 
 ## Current approach
 
-The frontend remains a Next.js application hosted over HTTPS. The current Capacitor preparation keeps a configurable HTTPS application origin because the frontend uses dynamic authenticated routes and server-rendered Next.js behavior.
+The browser/PWA frontend remains a Next.js application hosted over HTTPS. The current Capacitor configuration still contains a remote HTTPS `server.url`, but this is explicitly a preview/development bridge only.
 
-The committed `server.url` is a preparation-time value, not proof of store readiness. Native promotion is blocked until the permanent production origin is configured, Capacitor dependencies are pinned in the lockfile and generated Android/iOS projects pass `pnpm native:preflight`.
+A production Android/iOS store binary must not depend on that remote `server.url`. Store promotion is blocked until reviewed web assets are packaged into the native bundle, Capacitor dependencies are pinned in the lockfile, generated Android/iOS projects exist, the remote server override is removed, and `pnpm native:preflight` passes.
 
 Native application identity:
 
 - app name: QaryzLink
 - application id: `kz.qaryzlink.app`
-- temporary web origin: `https://qaryz-link-front.vercel.app`;
-- store release requires a permanent custom production origin.
+- current remote preview origin: `https://qaryz-link-front.vercel.app`;
+- browser/PWA production requires the permanent custom production origin;
+- Android/iOS store release requires bundled reviewed web assets rather than a runtime remote `server.url`.
 
 ## Runtime modes
 
@@ -99,24 +100,25 @@ Store readiness additionally requires:
 pnpm native:preflight
 ```
 
-Before a native release, set the production origin explicitly:
+For remote native preview/testing only, configure an HTTPS origin explicitly:
 
 ```bash
 NATIVE_APP_URL=https://app.qaryzlink.kz pnpm mobile:configure
 pnpm mobile:check
 ```
 
-The configurator accepts only a clean HTTPS origin and keeps cleartext traffic disabled.
+The configurator accepts only a clean HTTPS origin and keeps cleartext traffic disabled. This command does not make the native binary store-ready. Strict release preflight intentionally fails while `capacitor.server.url` remains configured.
 
 ## Security requirements
 
-1. Native production URLs must use HTTPS.
-2. Cleartext traffic stays disabled.
-3. PWA service-worker caching must not become a substitute for native secure storage.
-4. Access/refresh tokens must never be copied into static native assets.
-5. Native plugins must be introduced individually and reviewed for required permissions.
-6. Camera, biometrics, push notifications, file access and secure storage require explicit feature-level decisions.
-7. A custom production domain should replace the temporary Vercel domain before store release.
+1. Browser/PWA production URLs must use HTTPS.
+2. Remote Capacitor `server.url` is preview-only and must be absent from an accepted store release.
+3. Cleartext traffic stays disabled.
+4. PWA service-worker caching must not become a substitute for native secure storage.
+5. Access/refresh tokens must never be copied into static native assets.
+6. Native plugins must be introduced individually and reviewed for required permissions.
+7. Camera, biometrics, push notifications, file access and secure storage require explicit feature-level decisions.
+8. A custom production domain should replace the temporary Vercel domain for browser/PWA production.
 
 ## Native package installation stage
 
@@ -135,16 +137,17 @@ Then initialize/sync the platform projects and commit `android/` and `ios/` only
 
 ## Planned sequence
 
-1. Keep web/PWA CI green.
-2. Assign the final production frontend domain.
+1. Keep web/PWA CI green and validate installability with 192/512 PNG plus maskable icons.
+2. Assign the final production frontend/API domains.
 3. Add Capacitor dependencies with lockfile update.
-4. Generate Android project.
-5. Validate Android deep links, keyboard, safe areas and back navigation.
-6. Implement the existing secure-session bridge in Android Keystore / iOS Keychain and complete real-device biometric acceptance.
-7. Add push notifications only after notification privacy rules are fixed.
-8. Generate and validate iOS project.
-9. Add store assets, privacy declarations and signing configuration.
-10. Run end-to-end acceptance against the same backend used by production/staging.
+4. Create a reviewed bundled web-asset build path for the native shell and remove the runtime `server.url` override.
+5. Generate Android project and verify the bundled application starts without a remote web-origin dependency.
+6. Validate Android deep links, keyboard, safe areas and back navigation.
+7. Implement the existing secure-session bridge in Android Keystore / iOS Keychain and complete real-device biometric acceptance.
+8. Add push notifications only after notification privacy rules are fixed.
+9. Generate and validate iOS project using the same bundled asset contract.
+10. Add store assets, privacy declarations and signing configuration.
+11. Run strict native preflight and end-to-end acceptance against production/staging backend APIs.
 
 ## Release principle
 
