@@ -97,3 +97,26 @@ External lifecycle rule persisted/consumed evidence немесе active legal ho
 ## 9. Production acceptance record
 
 Jurisdiction periods, account-deletion interaction және provider-side bucket lifecycle нақты бекіту үшін [Retention and storage lifecycle acceptance record](RETENTION_LIFECYCLE_ACCEPTANCE.md) толтырылады. Template-тің болуы approval емес; policy IDs мен reviewer fields approved болғанша production gate ашық қалады.
+
+
+## 10. Audit/security retention governance gate — 2026-10-17
+
+Production Backend енді audit/security event retention мерзімін application code ішінде hardcode етпейді. Оның орнына production environment versioned governance reference талап етеді:
+
+`AUDIT_SECURITY_RETENTION_POLICY_ID`
+
+Бұл мән retention duration емес және legal conclusion емес. Ол approved policy/document version-ға opaque reference ретінде ғана қолданылады.
+
+Production startup:
+- reference жоқ болса fail-fast;
+- reference бар болса runtime configured күйі ғана белгілі болады;
+- нақты retention period, legal/forensic hold exceptions, deletion authority және approval owner policy құжатында қалады.
+
+Release preflight:
+- `audit_security_retention` check policy reference жоқ болса `fail / audit_retention_policy_missing`;
+- configured болса `manual / audit_retention_acceptance_required`;
+- application policy-дің legal approval-ын автоматты түрде pass деп есептемейді.
+
+Admin System workspace protected governance snapshot арқылы тек `configured/missing` күйін көреді. Policy ID value, duration немесе confidential legal metadata UI/API output-қа шығарылмайды.
+
+Evidence download abuse үшін `EVIDENCE_DOWNLOAD_VOLUME_ALERT` және operational-risk lifecycle history forensic/support evidence ретінде audit history құрамында сақталады. Автоматты destructive audit cleanup explicit approved retention policy және legal/forensic hold semantics іске қосылмайынша енгізілмейді.
