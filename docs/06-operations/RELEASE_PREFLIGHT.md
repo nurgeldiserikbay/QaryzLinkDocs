@@ -34,6 +34,7 @@ Command:
 - NODE_ENV staging/production екенін;
 - PostgreSQL readiness;
 - privacy-safe row-level Admin operations үшін dedicated `OPERATIONS_ACCESS_TOKEN` configured екенін, token value-ды output-қа шығармай;
+- production audit/security event retention governance үшін versioned `AUDIT_SECURITY_RETENTION_POLICY_ID` configured екенін, policy value-ды output-қа шығармай;
 - CORS exact origin configuration бар-жоғын;
 - public marketplace өшірулі екенін;
 - penalty өшірулі екенін;
@@ -63,6 +64,7 @@ Command:
 - development/test environment;
 - database unavailable;
 - `OPERATIONS_ACCESS_TOKEN` configured емес;
+- production environment-та `AUDIT_SECURITY_RETENTION_POLICY_ID` configured емес;
 - PUBLIC_MARKETPLACE_ENABLED=true;
 - PENALTY_ENABLED=true;
 - AMOUNT_BASED_COMMISSION_ENABLED=true;
@@ -91,6 +93,7 @@ Command әдейі келесілерді автоматты pass деп бел�
 - enabled full binary archive max-size/concurrency/memory/latency acceptance;
 - TLS certificate;
 - backup/restore;
+- configured audit/security retention policy reference нақты approved retention/legal/forensic policy version-ға сәйкестігі;
 - alert owner/escalation;
 - browser KZ/RU authenticated journey;
 - KYC provider contract, callback authentication/session correlation, sensitive-data minimization, residency/processor controls және Kazakhstan legal classification;
@@ -131,6 +134,7 @@ CI:
 - database check pass болуын;
 - restricted financial features pass болуын;
 - `operations_access` machine check pass болуын;
+- production audit/security retention reference жоқ болса `audit_security_retention` gate fail болуын, configured reference болса manual acceptance күйінде қалуын;
 - output-та `password`, `secret`, `token`, `access key`, `DATABASE_URL` тәрізді secret-like атаулар болмауын
 
 тексереді.
