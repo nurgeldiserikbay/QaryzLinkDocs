@@ -63,15 +63,24 @@ Admin authentication credential-дары да server-only. Successful authentica
 
 ## Build
 
+Repository root-та committed `pnpm-lock.yaml` болуы міндетті. Vercel үшін repo-level `vercel.json` install/build contract-ты бекітеді:
+
+```text
+installCommand = pnpm install --frozen-lockfile
+buildCommand = pnpm build
+```
+
+Local/CI:
+
 ```bash
-corepack enable
-corepack prepare pnpm@12.4.2 --activate
 pnpm install --frozen-lockfile
 pnpm release:preflight:strict
 pnpm check
 pnpm build
 pnpm start
 ```
+
+Vercel Project Settings ішінде custom Install Command repo config-ті override етпеуі тиіс. Егер build log әлі `npm install --global pnpm@12.4.2 && pnpm install --frozen-lockfile` деп көрсетсе, dashboard-level Install Command override-ты алып тастау керек. `ERR_PNPM_NO_LOCKFILE` кезінде алдымен deploy Root Directory/context пен committed root `pnpm-lock.yaml` сәйкестігі тексеріледі.
 
 ## Network policy
 
@@ -95,7 +104,8 @@ Admin:
 - қысқа Overview live counters + attention signals көрсетеді;
 - privacy-safe Users / Contracts / Requests / Disputes / Audit workspaces береді;
 - offset-based operations directory navigation 400 page-мен bounded; үлкен dataset-та deep scan орнына Public ID/name/UUID search қолданылады;
-- System workspace health/readiness/evidence/notifications/auth-retention сигналдарын бөлек жинайды;
+- System workspace health/readiness/governance/evidence/notifications/auth-retention сигналдарын бөлек жинайды;
+- Governance readiness operations-token қорғалған snapshot арқылы backup/recovery, audit/security retention және internal access credential configured/missing күйін ғана көрсетеді; policy IDs мен secret values UI-ға шықпайды;
 - Privacy workspace account deletion және PII migration/key-rotation/plaintext-retirement aggregate status-ын бөлек көрсетеді;
 - Disputes workspace privacy-safe case directory және support-gated audited status transitions береді;
 - Moderation workspace marketplace report metrics пен cursor-paginated support-gated human review queue-ды бөлек ұстайды;
