@@ -18,6 +18,8 @@ Repository-side MVP және production-readiness hardening implementation compl
 - [ ] Backup/PITR KZ residency + encryption accepted.
 - [ ] PII key custody/KMS/secrets-management production review accepted.
 - [ ] Contract/chat/dispute/evidence/audit retention matrix approved.
+- [x] Production Backend requires versioned `AUDIT_SECURITY_RETENTION_POLICY_ID`; release preflight exposes a dedicated audit/security retention governance gate without outputting the policy identifier.
+- [ ] Approved audit/security retention policy version, legal/forensic hold exceptions, deletion authority және owner sign-off production environment-ке нақты байланыстырылды.
 - [ ] Cross-border/subprocessor inventory + consent/legal basis approved.
 - [ ] Security-hardened Back/Front/Admin/Docs CI + supply-chain checks green and a new staging candidate frozen after GitHub Actions quota is restored.
 
@@ -27,6 +29,7 @@ Temporary Render/Neon/Vercel infrastructure is **synthetic staging only** until 
 
 - [ ] Нақты deploy commit-тің CI-ы жасыл.
 - [x] Privacy-safe `pnpm release:preflight` command implementation + CI smoke contract бар.
+- [x] Production release preflight audit/security retention governance reference жоқ болса fail етеді; configured reference manual acceptance күйінде қалады.
 - [x] Release preflight dedicated `OPERATIONS_ACCESS_TOKEN` configuration жоқ болса `operations_access` machine gate арқылы fail етеді; secret value output-қа шықпайды.
 - [ ] Actual staging Backend + Admin environments бірдей dedicated `OPERATIONS_ACCESS_TOKEN` қолданатыны және `METRICS_ACCESS_TOKEN` row-level operations endpoint-терге жарамсыз екені тексерілді.
 - [x] Canonical in-cluster release-preflight Kubernetes Job same immutable release digest + `qaryzlink-back` ConfigMap/Secret contract-пен release bundle-ға кіреді (Back #227).
@@ -90,6 +93,8 @@ Temporary Render/Neon/Vercel infrastructure is **synthetic staging only** until 
 - [x] Front production public API origin fail-closed: `NEXT_PUBLIC_API_BASE_URL` міндетті exact HTTPS origin, CSP және browser API client бір validator қолданады; localhost fallback тек development/test (Front #84).
 - [x] Admin production server-only Backend origin fail-closed: `QARYZLINK_API_BASE_URL` exact HTTPS origin, credentials/path/query/fragment/HTTP rejected; readiness/metrics/support server calls бір validator қолданады (Admin #41).
 - [x] Admin console production access fail-closed Basic Auth gate-пен қорғалған; password minimum 32 UTF-8 bytes runtime және strict preflight деңгейінде enforce етіледі, authenticated responses no-store/noindex.
+- [x] Admin System workspace operations-token қорғалған governance readiness snapshot көрсетеді: backup/recovery, audit/security retention және internal access credentials тек configured/missing күйінде; secret/policy values көрсетілмейді.
+- [x] Evidence high-volume download abuse active workload operations summary/User filter/user detail/risk workspace арқылы privacy-safe түрде көрінеді.
 - [x] Admin privacy-safe Users/Contracts/Requests/Disputes/Audit workspaces read-only; server-side search/pagination бар, dispute description/audit payload/email/phone/password/identity payload/evidence body шығарылмайды.
 - [x] Aggregate metrics credential мен row-level operations credential бөлінген: `x-metrics-token` және `x-operations-token` бір authority емес; Backend env validation және Admin strict preflight екі secret мәні бірдей болса reject етеді.
 - [x] Front/Admin manual-only Chromium E2E harness дайын.
