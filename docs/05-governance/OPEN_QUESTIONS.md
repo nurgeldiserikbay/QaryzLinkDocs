@@ -73,3 +73,23 @@ flowchart TD
 4. acceptance criteria қосылады;
 5. roadmap gate жабылады;
 6. implementation issue ашылады.
+
+## 6. Provider арқылы ақша қозғалысы (ADR-0031)
+
+Толық контекст: [ADR-0031](../../adr/ADR-0031-provider-mediated-money-movement.md). Phase A (verified transfer) және Phase B (conditional hold) төмендегі сұрақтарға жазбаша жауапсыз production-да қосылмайды.
+
+| ID | Сұрақ | Кімге | Күйі |
+|---|---|---|---|
+| P-001 | Provider card-to-card transfer-ді app ішінде бастау QaryzLink-ті төлем қызметін көрсетуші ете ме? | Заңгер | Open |
+| P-002 | Hold → capture → payout схемасында қаражат provider nominee/transit шотында тұрса, бізге НБРК тіркеуі керек пе? | Заңгер, provider | Open |
+| P-003 | «Escrow / безопасная сделка» үшін арнайы режим немесе НБРК түсіндірмесі бар ма? | Заңгер | Open |
+| P-004 | Provider-confirmed evidence + шарт тармағы funding-ті автоматты растауға жеткілікті ме? | Заңгер | Open |
+| P-005 | Платформа арқылы жүйелі пайыздық қарыз АРРФР микроқаржы режиміне қашан әкеледі? | Заңгер | Open |
+| P-006 | QaryzLink AML/CFT субъектісі ме, әлде міндеттер provider-де ме? | Заңгер, provider | Open |
+| P-007 | 2026 Салық кодексі: пайыздық кіріс мөлшерлемесі және платформаның ақпарат беру міндеті | Заңгер | Open |
+| P-008 | Card-to-card transfer, card/IBAN payout және two-stage payment KZ-та қолжетімді ме; hold-тың max мерзімі? | Freedom Pay, TipTopPay, Halyk ePay | Open |
+| P-009 | Payout-тан кейінгі chargeback жауапкершілігі кімде; chargeback webhook/reason code бар ма? | Provider | Open |
+| P-010 | Payout алушының KYC-і, card holder name/ЖСН match API, лимиттер | Provider | Open |
+| P-011 | Fee құрылымы (transfer, payout, refund, chargeback) және оны payer-ге аудару | Provider | Open |
+| P-012 | Webhook signature, retry, event id, status API, reconciliation report форматы, sandbox | Provider | Open |
+| P-013 | Phase C: AIFC loan crowdfunding лицензиясы мен PO тіркеуінің талаптары, мерзімі, капиталы | Заңгер | Deferred |

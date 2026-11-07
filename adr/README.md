@@ -55,3 +55,5 @@ ADR маңызды және кейін өзгеруі қымбат шешімд�
 
 - [ADR-0028: Post-payment ledger adjustment plan remains preview-only](ADR-0028-post-payment-ledger-adjustment-plan.md)
 - [ADR-0029: Organization access uses individual users plus acting-party authorization](ADR-0029-organization-acting-party.md)
+- [ADR-0030: Tamper-evident contract event chain with signed receipts and external anchors](ADR-0030-tamper-evident-contract-event-chain.md)
+- [ADR-0031: Provider-mediated money movement (no custody, phased)](ADR-0031-provider-mediated-money-movement.md)
