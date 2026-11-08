@@ -57,3 +57,4 @@ ADR маңызды және кейін өзгеруі қымбат шешімд�
 - [ADR-0029: Organization access uses individual users plus acting-party authorization](ADR-0029-organization-acting-party.md)
 - [ADR-0030: Tamper-evident contract event chain with signed receipts and external anchors](ADR-0030-tamper-evident-contract-event-chain.md)
 - [ADR-0031: Provider-mediated money movement (no custody, phased)](ADR-0031-provider-mediated-money-movement.md)
+- [ADR-0032: Per-person back-office staff accounts with opaque sessions](ADR-0032-staff-accounts.md)

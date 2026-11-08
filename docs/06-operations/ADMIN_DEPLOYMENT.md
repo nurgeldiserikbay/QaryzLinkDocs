@@ -131,3 +131,39 @@ Production/pilot алдында:
 - admin E2E;
 - privacy/log checks;
 - staff credential expiry/scope acceptance.
+
+## Internal analytics, reports and exports API
+
+Admin redesign үшін Backend `src/modules/analytics` модулі (барлығы `GET`, `/api/v1/...`, `Cache-Control: no-store`, auth — operations credential: `x-operations-token` немесе staff session `x-staff-session`). Уақыт белдеуі — `Asia/Almaty`; күндер `YYYY-MM-DD` (inclusive); сомалар minor-unit string; аналитикада тек aggregates.
+
+Қате кодтары: аналитика/отчеттар — `400 { code: "ANALYTICS_INVALID" }`; тізімдер/экспорт — `400 { code: "OPERATIONS_QUERY_INVALID" }` (белгісіз `sort`, `pageSize` 10..200 сыртында, қате күн, `from > to`, рұқсат етілмеген `mode`, белгісіз enum фильтр); `401` — credential жоқ/қате; `404` — contract табылмады.
+
+### Analytics
+
+- `internal/analytics/metrics` → `{ timezone, items: [{ key, unit, label_ru, modeAware }], overviewKpis, breakdownDimensions }`.
+- `internal/analytics/timeseries?metric=&from=&to=&bucket=day|week|month&mode=ALL|STANDARD|FAMILY` → `{ metric, bucket, from, to, mode, timezone, unit: count|minor, points: [{ bucketStart, value }] }`. Bucket-тер `generate_series` арқылы нөлмен толтырылады; `bucketStart` — күн / ISO-апта дүйсенбісі / айдың 1-і. Default — соңғы 30 күн, max 731 күн. Метрикалар: `users_registered`, `user_logins` (жаңа sessions), `contracts_created`, `contracts_activated`, `contracts_completed`, `family_debts_recorded`, `family_debts_confirmed`, `family_debts_rejected`, `principal_issued_minor` (CONFIRMED funding, `effectiveAt`), `repayments_confirmed_minor` (CONFIRMED payments, forgiveness-сіз, `confirmedAt`), `debts_forgiven_minor`, `payments_reported`, `payments_disputed`, `items_overdue` (`ITEM_OVERDUE` events), `disputes_opened`, `disputes_resolved`, `notifications_sent`, `notifications_failed`. `mode` users/logins/notifications үшін ескерілмейді; family-only метрикалар `mode=STANDARD` кезінде 0.
+- `internal/analytics/overview?from&to&mode` → `{ from, to, previousFrom, previousTo, mode, timezone, kpis: [{ key, unit, value, previousValue }] }`; KPI: `users_registered`, `contracts_activated`, `principal_issued_minor`, `repayments_confirmed_minor`, `outstanding_minor`, `overdue_outstanding_minor`, `overdue_contracts` (`to` соңындағы snapshot), `disputes_open` (`to` күйі), `family_share_pct` (кезеңдегі активациялардағы FAMILY үлесі, `unit: pct`).
+- `internal/analytics/breakdown?dimension=&from&to&mode` → `{ dimension, from, to, mode, timezone, items: [{ key, count, amountMinor? }] }`; dimensions: `contract_status`, `contract_mode`, `principal_bucket` (`lt_50k`, `50k_200k`, `200k_1m`, `gt_1m` теңге), `term_bucket` (`le_30d`, `31_90d`, `91_365d`, `gt_365d`, `on_demand`), `interest` (`interest_free`, `with_interest`) — кезеңде құрылған contracts; `payment_status`, `payment_source` — кезеңде құрылған payments; `dispute_status` (amount жоқ); `overdue_aging` (`0-30`, `31-60`, `61-90`, `90+`, ең ескі overdue item бойынша, `to` күйі).
+
+Outstanding есебі: CONFIRMED funding бар contracts, cut-off алдындағы соңғы schedule version; item paid = `paidMinor − cut-off кейінгі allocations`; төлем ретімен charge → interest → principal; overdue = `dueDate < asOf` және қалдық > 0.
+
+### Reports
+
+- `internal/reports/portfolio?asOf&mode` → `{ asOf, mode, timezone, totals: { contractsActive, principalOutstandingMinor, interestOutstandingMinor, overdueMinor }, aging: [{ key: current|0-30|31-60|61-90|90+, contracts, outstandingMinor, overdueMinor }], byMode: [{ mode, ...totals }] }` (`interestOutstandingMinor` charges/penalties қоса).
+- `internal/reports/repayments?from&to&bucket&mode` → `{ ..., totals, points: [{ bucketStart, dueMinor, collectedMinor, forgivenMinor, collectionRatePct }] }` (`due` — соңғы schedule version item-дерінің `dueDate` бойынша сомасы; `collectionRatePct = collected / due`, due = 0 болса `null`).
+- `internal/reports/funnel?from&to` → `{ family: { recorded, outcomes: [{ key: CONFIRMED|REJECTED|EXPIRED|CANCELLED|AWAITING_COUNTERPARTY, count, conversionPct }] }, standard: { proposals, stages: [{ key: requests|requests_with_proposals|contracts|signed|active, count, conversionFromPreviousPct, conversionFromStartPct }] } }` (кезеңде құрылған STANDARD request-тер когортасы).
+
+### Operations lists
+
+Бар тізімдер (`users`, `contracts`, `disputes`, `requests`, `organizations`, `audit-events`) backward-compatible қосымша параметрлер алады: `pageSize` (10..200; default бұрынғыдай 25, audit 50), `sort`, `order=asc|desc` (default `desc`), `from`/`to` (`createdAt`, audit үшін `occurredAt`, Asia/Almaty), contracts үшін `mode`. Response: `{ items, page, pageSize, total, hasMore }`; contracts item-ына `mode` қосылды. Sort keys: users — `createdAt, updatedAt, status, publicId`; contracts — `createdAt, updatedAt, principalMinor, status, activatedAt, completedAt, fundingDeadline`; disputes — `createdAt, updatedAt, status`; requests — `createdAt, updatedAt, status, expiresAt, amountMaxMinor`; organizations — `createdAt, updatedAt, displayName`; audit-events — `occurredAt, action, entityType`; payments — `createdAt, paidAt, confirmedAt, amountMinor, status`; family-debts — `createdAt, givenOn, dueOn, amountMinor, status, expiresAt`.
+
+Жаңа:
+- `internal/operations/payments?q&status&source&mode&from&to&amountMin&amountMax&page&pageSize&sort&order` → items `{ id, contractId, status, source, amountMinor, currency, paidAt, confirmedAt, createdAt, contractMode }` (`q` — payment/contract UUID; legacy `source = NULL` repository-дегідей шығарылады).
+- `internal/operations/family-debts?q&status&from&to&page&pageSize&sort&order` → items `{ id, status, direction, amountMinor, currency, givenOn, dueOn, createdAt, expiresAt, contractId }` (counterpartyLabel/note/rejectionReason қайтарылмайды).
+- `internal/operations/contracts/:id/events` → `{ contractId, valid, headHash, length, failure, events: [{ seq, type, occurredAt, actorRole, eventHash, hasReceipt }] }` (integrity domain verify; payload қайтарылмайды).
+
+### CSV exports
+
+`internal/exports/<dataset>.csv`, dataset: `users`, `contracts`, `payments`, `disputes`, `requests`, `organizations`, `audit-events`, `family-debts`. Фильтрлер тиісті тізіммен бірдей; жолдар — сол privacy-safe list projection. Streamed `text/csv; charset=utf-8`, UTF-8 BOM, comma separator, CRLF, `Content-Disposition: attachment; filename="qaryzlink-<dataset>-<YYYY-MM-DD>.csv"`, max 50 000 жол (`X-Export-Truncated: true` кесілсе, `X-Export-Row-Count`). `= + - @ tab CR` басталатын string ұяшықтарға `'` prefix (formula injection). Әр экспорт `AuditEvent INTERNAL_EXPORT_CREATED` (`entityType INTERNAL_EXPORT`, `entityId <dataset>`, payload `{ dataset, filters, rowCount, truncated }`; free-text `q` орнына тек `hasQuery: true`) жазады.
+
+Индекстер: migration `20261108130000_analytics_indexes` (users/sessions/contracts/payments/fundings/dispute_cases/family_debt_drafts/notification_outbox/loan_requests/audit_events/parties date columns).
